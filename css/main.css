@@ -1,0 +1,86 @@
+<style type="text/css">
+
+/* Need two a:link entries to handle mailto in ssi's: */
+
+a:link {
+  color: #FFCC00;
+  text-decoration: none;
+}
+
+a:link {
+  color: #FFCC00;
+  text-decoration: none;
+}
+
+a:visited {
+  color: #FFCC00;
+  text-decoration: none;
+}
+
+a:hover {
+  color: OLIVE;
+  text-decoration: none;
+}
+
+a:active {
+  color: OLIVE;
+  text-decoration: none;
+}
+
+body {
+  background-color: #0F1B28;
+  color: #FFFFFF;
+}
+
+h2, h3 {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+input { 	
+  font-family: Verdana, Arial, Helvetica, sans-serif;
+  font-size: 83%;
+  color: #333333;
+  font-weight: normal;
+  padding: 0px 0px 0px 4px;
+}
+
+.googleMapMarkerText {
+  font-family: Verdana, Arial, Helvetica, sans-serif;
+  font-size: 85%;
+  font-weight: bold;
+  color: #003366;
+}
+
+.SmallTextGray {
+  font-family: Verdana, Arial, Helvetica, sans-serif;
+  font-size:70%;
+  color: #333333;
+}
+
+.SmallTextGrayLight {
+  font-family: Verdana, Arial, Helvetica, sans-serif;
+  font-size:70%;
+  color: #666666;
+}
+
+.googleMapMarker a:link {
+  color: blue;
+  text-decoration: underline;
+}
+
+.googleMapMarker a:visited {
+  color: blue;
+  text-decoration: underline;
+}
+
+.googleMapMarker a:hover {
+  color: blue; 
+  text-decoration: underline;
+}
+
+.googleMapMarker a:active {
+  color: blue;
+  text-decoration: underline;
+}
+
+</style>

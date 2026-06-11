@@ -1,0 +1,434 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<link rel="shortcut icon" href="../favicon.ico" />
+<title>Spaceborne scatterometry remote sensing of the cryosphere: a review</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link href="../css/subpages.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<blockquote>
+  <p><strong><font face="Arial, Helvetica, sans-serif">3. WHAT IS SCATTEROMETRY?</font></strong></p>
+  <p>Spaceborne remote sensing has the advantage of providing global coverage 
+    on a continuous basis at relatively low cost, which cannot be achieved through 
+    airborne or ground measurements. Scatterometry is a form of <strong>radar</strong> 
+    remote sensing that can measure various geophysical properties of surfaces 
+    and volumes based on the amplitude of microwave electromagnetic pulses that 
+    are transmitted from and scattered back to an antenna aboard the spacecraft 
+    (Figure 4). Because it is measuring these backscattered pulses, it is thus 
+    called a &#8220;scatterometer.&#8221; </p>
+  <p>Scatterometers were originally designed and are still used extensively to 
+    map wind speed and wind direction over the oceans (Figure 5). The returned 
+    radar pulses from small wind-driven ripples, or capillary waves, on the surface 
+    of the ocean interfere with, or &#8220;modulate,&#8221; each other in a way 
+    that allows the wind speed and direction to be derived. The same principle 
+    allows wind directions to be derived from Antarctic surface features and will 
+    be described in further detail in a <a href="scatterometry_cryos_apps.html#Antarctica">later 
+    section</a>. Foam generated at the ocean surface caused by large breaking 
+    waves, furthermore, has an electromagnetic response that is distinct from 
+    water at microwave frequencies that allows larger wind speeds to be deduced 
+    from scatterometry as well. Note that a scatterometer does not, therefore, 
+    directly measure wind; rather, wind properties are derived from backscatter 
+    responses. The SeaWinds instrument aboard the QuikSCAT satellite has been 
+    measuring winds in this manner over approximately 90% of the ice-free ocean 
+    on a daily basis since 19 July 1999 at 2 m/s and 20&deg; accuracy, available 
+    via ftp from NASA&#8217;s Physical Oceanography Distributed Active Archive 
+    Center (NASA JPL, 2003b).</p>
+  <table width="50%" border="0" align="center" cellpadding="10">
+    <tr> 
+      <td><img src="QuikSCAT_satellite2.jpg" width="250" height="319"><br> <font size="-1"><strong>Fig. 
+        4. </strong>&nbsp;QuikSCAT satellite; note black/grey antenna dish at 
+        bottom (NASA Earth Observatory, 2003). </font></td>
+      <td><img src="QSCAT_ocean_winds.png" width="343" height="336"><br> <font size="-1"><strong>Fig. 
+        5.</strong> &nbsp;Wind directions and velocities over the ocean as derived 
+        from QuikSCAT (NASA JPL, 2003b). </font></td>
+    </tr>
+  </table>
+  <p>Radar, originally an acronym for &#8220;<strong>radio detection and ranging</strong>&#8221; 
+    based on investigations of the reflection of radio waves in the late 1800s 
+    and early 1900s but now a word in its own right, was developed in earnest 
+    during World War II for navigation and target location. The first spaceborne 
+    radar missions took place in the 1950s and were used primarily for collecting 
+    reconnaissance images over politically unfriendly regions (Sabins, 1997). 
+    Radars employ their own power sources to send and receive return pulses in 
+    order to measure their duration, frequency, and/or amplitude in order to deduce 
+    various properties of the surfaces or volumes which reflect or scatter the 
+    pulse back to the radar antenna. As a result, the life of the radar instrument 
+    is physically limited by the amount of power that the radar satellite can 
+    store and generate. The radar pulse is usually in the microwave region of 
+    the electromagnetic spectrum, which broadly ranges in wavelength from 1 mm 
+    to 1 m. </p>
+  <p>Radars that measure the duration it takes for the transmitted pulse to return 
+    to the antenna can be used to deduce the distance of objects from the sensor 
+    in order to measure its elevation, or altimetry. These types or radars are 
+    known as &#8220;<strong>altimeters</strong>&#8221; and can also be used to 
+    create topographic images, or digital elevation models (DEMs). Radars which 
+    measure the frequency of the return pulse, on the other hand, can be used 
+    to deduce frequency shifts which allow the speed of objects to be estimated 
+    using Doppler theory; these types or radars are thus known as &#8220;<strong>Doppler 
+    radars</strong>&#8221; and are commonly employed from the ground looking up 
+    into the sky to measure precipitation. Lastly, radars which measure the power, 
+    or amplitude, of the return pulse scattered back to the antenna can be used 
+    to derive geophysical parameters of or to identify the illuminated surface 
+    or volume based on scattering principles of microwave electromagnetic radiation 
+    that will be explained shortly. These last types of radars are known as &#8220;<strong>scatterometers</strong>,&#8221; 
+    which are the focus of this paper. </p>
+  <p>Because it employs its own power source to generate pulses that are transmitted 
+    from the sensor, radar is considered an &#8220;<strong>active</strong>&#8221; 
+    form of remote sensing. In contrast, other forms of remote sensing are termed 
+    &#8220;<strong>passive</strong>&#8221; and only sense radiation that is naturally 
+    reflected and/or emitted from the Earth&#8217;s surface and atmosphere. Having 
+    its own illumination source gives radar distinct advantages over passive forms 
+    of remote sensing. For one, it allows the radar to operate regardless of the 
+    presence of sunlight so that it can obtain useful measurements at day and 
+    night. In contrast, passive remote sensors that operate in the visible end 
+    of the spectrum must rely on reflected sunlight for obtaining imagery. Another 
+    advantage of radar is that it controls the angle at which pulses are transmitted, 
+    while passive sensors must rely upon a single illumination angle: that of 
+    the sun. It follows, as well, that radars can transmit multiple pulses simultaneously 
+    at a variety of incident and azimuth angles, allowing a greater amount of 
+    information to be collected about a surface at once. </p>
+  <p>Passive sensors that sense microwave radiation are commonly referred to as 
+    &#8220;<strong>radiometers</strong>.&#8221; Both radars and radiometers have 
+    the capability of &#8220;seeing&#8221; through clouds: cloud particles are 
+    small enough compared to most microwave wavelengths that the waves pass freely 
+    through them without considerable scattering or absorption, which occurs at 
+    shorter wavelengths. For the same reason, both radars and radiometers have 
+    the capability to penetrate into surfaces, depending on the material, to detect 
+    subsurface features. Because of the relatively small amount of microwave radiation 
+    received at and emitted from the Earth&#8217;s surface (less than 0.0005 % 
+    of the total energy received from the sun), however, passive microwave remote 
+    sensing has considerably coarser resolution (50-100 km) compared to most radars 
+    and other forms of passive remote sensing. In comparison, <strong>synthetic 
+    aperture radars (SARs) </strong>can achieve 1-10 km resolution. Scatterometers 
+    have resolutions comparable to passive microwave radiometers, however, since 
+    they must average pulses received over a wide area in order to accurately 
+    measure the return amplitude. While this does not allow detailed analyses 
+    of surfaces, it does have the advantage of covering a larger portion of the 
+    globe on a more frequent basis than SAR, which is desirable for monitoring 
+    synoptic scale phenomena such as global ocean winds and snow cover, continental 
+    ice sheets, and polar sea ice extent. </p>
+  <p>The physics underlying scatterometry remote sensing is expressed succinctly 
+    by what is referred to as the &#8220;<strong>radar equation</strong>&#8221;: 
+  </p>
+  <p align="center"><img src="radar_equation.png" width="302" height="50"></p>
+  <table width="59%" border="0" align="center" cellpadding="0">
+    <tr> 
+      <td width="11%" valign="top"> <p>where: &nbsp;<br>
+        </p></td>
+      <td width="89%"><img src="symbol_Pr_small.png" width="17" height="18" align="absmiddle">= 
+        received power,<br> <img src="symbol_Pt_small.png" width="17" height="18" align="absmiddle">= 
+        transmitted power,<br> <img src="symbol_Gt_small.png" width="18" height="18" align="absmiddle">= 
+        gain of the transmitting antenna in the direction of the target,<br> <img src="symbol_R_small.png" width="16" height="16" align="absmiddle">= 
+        distance between the target and the antenna,<br> <img src="symbol_sigmart_small.png" width="19" height="15" align="absmiddle">= 
+        radar cross-section: the area of the target intercepting the transmitted 
+        pulse that produces a return pulse equal to the received power,<br> <img src="symbol_Ar_small.png" width="18" height="17" align="absmiddle">= 
+        effective receiving area of the receiving antenna aperture.</td>
+    </tr>
+  </table>
+  <p align="left">The terms combined in the first set of parentheses define the 
+    total amount of transmitted power reaching a given target. When this amount 
+    of energy is multiplied by the radar cross-section, <img src="symbol_sigmart_small.png" width="19" height="15" align="absmiddle">, 
+    this determines the amount of energy that the target scatters back to the 
+    antenna. Lastly, the terms combined in the second set of parentheses define 
+    the total amount of backscattered energy that is received at the radar antenna. 
+  </p>
+  <p align="left">Of these parameters, <img src="symbol_Pt_small.png" width="17" height="18" align="top">, 
+    G, and A are all known quantities associated with the radar system, while 
+    R is related to the location of the target and can be determined from the 
+    duration it takes for the transmitted pulse to return to the antenna. Of greatest 
+    interest to scatterometry, then, is the quantity, <img src="symbol_sigmart_small.png" width="19" height="15" align="absmiddle">, 
+    which is a function of the way the transmitted electromagnetic energy interacts 
+    with the surface. When this quantity is integrated over a number of pulses, 
+    it is referred to as the &#8220;scattering coefficient,&#8221; or &#8220;<strong>backscattering 
+    coefficient</strong>,&#8221; and is commonly denoted as <img src="symbol_sigmanaught_small.png" width="16" height="16" align="absmiddle">. 
+    The quantity <img src="symbol_sigmanaught_small.png" width="16" height="16" align="absmiddle">, 
+    then, which is expressed in <strong>decibels (dB)</strong>, is used to derive 
+    geophysical parameters and is the primary variable that scientists work with 
+    when using scatterometry data. </p>
+  <p align="left">There are two physical properties of surfaces and surface volumes 
+    that determine the value of <img src="symbol_sigmanaught_small.png" width="16" height="16" align="absmiddle">: 
+    its <strong>roughness</strong> and its <strong>dielectric properties</strong>. 
+    A perfectly smooth surface will reflect an incident radar pulse like a mirror&#8212;90&deg; 
+    in the opposite direction from which it arrived&#8212;so that no energy is 
+    scattered back into the direction that the pulse came from. A surface must 
+    therefore be rough enough that some amount of energy is backscattered to the 
+    radar antenna. As a result, rougher surfaces have higher values of <img src="symbol_sigmanaught_small.png" width="16" height="16" align="absmiddle">. 
+    A surface is &#8220;rough&#8221; from the perspective of a radar pulse depending 
+    on the height of the roughness features on the surface relative to the radar&#8217;s 
+    wavelength. This is expressed in the <strong>Rayleigh roughness criterion</strong>, 
+    which considers a surface to be rough if:</p>
+  <p align="center"><img src="roughness_equation.png" width="177" height="36"> 
+  </p>
+  <table width="41%" border="0" align="center" cellpadding="0">
+    <tr> 
+      <td width="11%" valign="top"> <p>where: &nbsp;<br>
+        </p></td>
+      <td width="89%"><img src="symbol_h_small.png" width="11" height="14">= vertical 
+        relief of the surface roughness features,<br> <img src="symbol_lambda_small.png" width="11" height="14"> 
+        = radar wavelength,<br> <img src="symbol_gamma_small.png" width="11" height="14"> 
+        = depression angle of the radar pulse.</td>
+    </tr>
+  </table>
+  <p align="left">Based on this criterion, a radar of 2-cm wavelength (or 15 GHz 
+    frequency) at a 50&deg; depression angle would only be backscattered if the 
+    surface had features with a minimum vertical relief of about 3 mm. The response 
+    of radar backscatter to different surface roughnesses is illustrated in Figure 
+    6.</p>
+  <p align="left">Another result of surface roughness is the impact it has on 
+    <img src="symbol_sigmanaught_small.png" width="16" height="16" align="absmiddle"> 
+    over a range of illumination angles, or &#8220;<strong>incident angles</strong>.&#8221; 
+    Because smooth surfaces have a mirror-like, or &#8220;<strong>specular</strong>,&#8221; 
+    reflection, a radar satellite will only measure a return signal at nadir, 
+    when it is directly above the target (an incident angle of 0&deg;). At the 
+    other extreme, an extremely rough surface scatters the signal so much that 
+    the antenna receives a relatively equal amount of power regardless of incident 
+    angle. This kind of surface is referred to as &#8220;<strong>isotropic</strong>,&#8221; 
+    and the return signal is considered &#8220;noncoherent&#8221; as opposed to 
+    specular, or coherent. Intermediate rough surfaces vary in their angular response 
+    of <img src="symbol_sigmanaught_small.png" width="16" height="16" align="absmiddle"> 
+    between the specular and isotropic examples, as illustrated in Figure 7. This 
+    change in angular backscatter response is important in identifying snow vs. 
+    ice surfaces and old, rough sea ice surfaces vs. new, smooth sea ice surfaces. 
+    Radar pulses penetrate snow surfaces and scatter multiple times within a volume 
+    of snow so that the return response is strongly noncoherent. In contrast, 
+    smooth ice is strongly specular while rough ice is less specular.</p>
+  <table width="50%" border="0" align="center" cellpadding="10">
+    <tr> 
+      <td valign="bottom"><img src="roughness_criterion.png" width="384" height="701"><br> 
+        <font size="-1"><strong>Fig. 6. </strong>&nbsp;Response of radar backscatter 
+        to different surface roughness criteria: (a) smooth, (b) intermediate, 
+        and (c) rough (Sabins, 1997).</font></td>
+      <td valign="bottom"><img src="backscaterb_vs_roughness.png" width="384" height="378"><br> 
+        <font size="-1"><strong>Fig. 7.</strong> &nbsp;Angular variation of backscatter 
+        for different roughness conditions (Ulaby et al., 1982b).</font></td>
+    </tr>
+  </table>
+  <p align="left">In addition to roughness effects, the dielectric properties 
+    of surface materials also strongly impact <img src="symbol_sigmanaught_small.png" width="16" height="16" align="absmiddle">. 
+    The <strong>dielectric constant</strong> is an electrical property that influences 
+    the interaction between matter and electromagnetic energy and is a function 
+    of temperature and wavelength. This quantity is expressed in real and imaginary 
+    components, with the former representing the amount of energy that the medium 
+    scatters while the latter represents the amount of energy absorbed. The presence 
+    of liquid water strongly increases the dielectric constant in the microwave 
+    region, making <img src="symbol_sigmanaught_small.png" width="16" height="16" align="absmiddle"> 
+    very sensitive to moisture. This property of radar remote sensing makes scatterometry 
+    an especially useful tool for detecting melting of snow and ice, as well as 
+    for measuring soil moisture and vegetation water content. </p>
+  <p align="left">As previously mentioned, the quantity of <img src="symbol_sigmanaught_small.png" width="16" height="16" align="absmiddle"> 
+    is an integrated value, averaging together the result of several return pulses. 
+    Averaging is necessary in order to achieve accurate measurements of <img src="symbol_sigmanaught_small.png" width="16" height="16" align="absmiddle"> 
+    because of the high level of noise present in any single return pulse. Because 
+    pulses from multiple ground targets interfere with one another, the return 
+    signal is distorted: a process referred to as &#8220;<strong>fading</strong>.&#8221; 
+    A simplified example of fading resulting from two targets at a certain distance 
+    from each other is illustrated in Figure 8. Note that the return signal from 
+    this simplified example oscillates between peaks and troughs, resulting from 
+    constructive and deconstructive interference. A more realistic scenario is 
+    illustrated in Figure 9, which shows the kind of complex series of pulses 
+    that results as the number of targets causing interference multiplies. </p>
+  <table width="79%" border="0" align="center" cellpadding="10">
+    <tr> 
+      <td valign="top"><img src="fading_pattern.png" width="443" height="505"><br> 
+        <font size="-1"><strong>Fig. 8. </strong>&nbsp;Simplified target fading 
+        (Moore, 1983).</font></td>
+      <td valign="bottom"><img src="fading_pulses.png" width="160" height="668"><br> 
+        <font size="-1"><strong>Fig. 9.</strong> &nbsp;Sequence of pulses returned 
+        to the receiver showing the fading (variability of signal levels) on a 
+        pulse-to-pulse basis (Moore, 1983).</font></td>
+    </tr>
+  </table>
+  <p align="left">Averaging together a sufficient number of return pulses has 
+    the effect of canceling out these variations, or noise, caused by fading so 
+    that an accurate measurement of <img src="symbol_sigmanaught_small.png" width="16" height="16" align="absmiddle"> 
+    can be made. Scatterometers can achieve &plusmn; 0.10 &#8211; 0.15 dB accuracy 
+    using this method. The downside to averaging together multiple return pulses, 
+    however, is a significant reduction in <strong>spatial resolution</strong>. 
+    This explains why SARs can achieve 1-10 km resolution while scatterometers 
+    typically have 25-50 km resolution. Because SAR instruments are used primarily 
+    for topographic imaging and altimetry, they are concerned with measuring the 
+    duration it takes for a pulse to return from a target and not with measuring 
+    its amplitude. Noise is not a concern, then, for SAR remote sensing and the 
+    fine spatial resolution achieved with single pulses can be exploited.</p>
+  <p align="left">One last characteristic to consider of scatterometer systems 
+    is the techniques they employ for collecting measurements at multiple <strong>incident 
+    and azimuth angles</strong>. An incident angle measures the vertical angle 
+    between the direction directly below the satellite platform (0&deg;) and parallel 
+    to it (90&deg;). An azimuth angle measures the horizontal angle between the 
+    forward direction (0&deg;) of the satellite and the direction to its rear 
+    (180&deg;), with 90&deg; to its right and 270&deg; to its left. Some scatterometers 
+    use a &#8220;<strong>fan-beam</strong>&#8221; approach to collecting data 
+    from multiple angles, which means that it fans out, or points, several fixed-angle 
+    &#8220;beams&#8221; of radar pulses at the ground simultaneously (Figure 10). 
+    Another approach is to rotate a single beam of pulses at multiple angles, 
+    which is referred to as a &#8220;<strong>pencil-beam</strong>&#8221; approach. 
+  </p>
+  <p align="center"><img src="fanbeam_design.png" width="634" height="285"><br>
+    <strong><font size="-1">Fig. 10. &nbsp;</font></strong><font size="-1">Example 
+    of a fan-beam scatterometer (Ulaby et al., 1982).</font> </p>
+  <p align="left">Of the four different kinds of spaceborne scatterometers that 
+    have been deployed, three have been fan-beam scatterometers and one is a conically 
+    scanning pencil-beam scatterometer. These four scatterometers are, listed 
+    in chronological order:</p>
+  <ol>
+    <li><strong><font color="#CC0000">SASS</font>: </strong>the Seasat-A Satellite 
+      Scatterometer, which was flown on NASA&#8217;s <strong>Seasat</strong> satellite 
+      and operated between June and October, 1978 before power failure terminated 
+      the mission. <br>
+    </li>
+    <li><strong><font color="#CC0000">ESCAT</font>:</strong> the European Space 
+      Agency&#8217;s (ESA) Earth Remote Sensing <strong>(ERS)-1 &amp; -2</strong> 
+      Active Microwave Instrument (AMI) scatterometer, the first of which operated 
+      between 1992-1996 and the second of which has been operating since 1996.<br>
+    </li>
+    <li><strong><font color="#CC0000">NSCAT</font>:</strong> the NASA Scatterometer 
+      (NSCAT), which was flown aboard the Japanese Aerospace Exploration Agency&#8217;s 
+      (JAXA; then known as NASDA) Advanced Earth Observing Satellite <strong>(ADEOS)-I</strong> 
+      (also sometimes referred to as <strong>Midori-I</strong>) between August, 
+      1996 and June, 1997 before a power failure prematurely terminated this mission 
+      as well.<br>
+    </li>
+    <li><strong><font color="#CC0000">QSCAT</font>: </strong>NASA Quick Scatterometer 
+      (QuikSCAT) <strong>SeaWinds</strong> instrument, flown aboard <strong>QuikSCAT</strong> 
+      from 1999 to the present as well as on the JAXA <strong>ADEOS-II</strong> 
+      satellite (also referred to as <strong>Midori-II</strong>) as <strong>SeaWinds-II</strong> 
+      from 2002 until late September 2003 when a power failure also terminated 
+      this mission.</li>
+  </ol>
+  <p align="left">These instruments will be referred to heretofore by the abbreviations 
+    SASS, ESCAT, NSCAT, and QSCAT. Each of their characteristics are compared 
+    in Figure 11, including their frequencies, azimuthal configurations, spatial 
+    resolutions, swath patterns (the shape and total areas that they illuminate 
+    as they orbit the Earth), and range of incidence angles. Only QSCAT employs 
+    a pencil-beam approach. For a more detailed illustration of the fan-beam and 
+    pencil-beam azimuthal patterns that these four scatterometers employ, see 
+    Figure 12. </p>
+  <p align="center"><img src="compare_scatterometers.gif" width="567" height="400"><br>
+    <strong><font size="-1">Fig. 11. &nbsp;</font></strong><font size="-1">Comparison 
+    of different scatterometer characteristics (Long et al., 2001). </font></p>
+  <p align="left">Note in Figure 11 that ESCAT has a lower frequency than the 
+    other three instruments: it operates at <strong>&#8220;C&#8221;-band </strong>while 
+    the other three operate at <strong>&#8220;Ku&#8221;-band</strong> frequencies, 
+    which is significant since different frequency ranges have different penetration 
+    depths and roughness criterion, as previously explained. Most importantly, 
+    it can be seen that scatterometers have covered the period of 1978 to the 
+    present, with a large gap between SASS in 1978 and the first ESCAT in 1992. 
+    This limits the use of scatterometry for studying long-term climate change 
+    thus far due to the short time series, though this will obviously improve 
+    as scatterometers continue to be flown.</p>
+  <table width="81%" border="0" align="center">
+    <tr> 
+      <td width="45%"><div align="center"><a href="SASS_geometry.png"><img src="SASS_geometry.png" width="374" height="317" border="0"></a><br>
+          <font size="-1"><strong>(a)</strong>&nbsp; SASS viewing geometry (Long 
+          et al., 1993). </font></div></td>
+      <td width="55%"><div align="center"><img src="NSCAT_geometry.png" width="349" height="267"><br>
+          <font size="-1"><strong>(c)</strong> &nbsp;NSCAT viewing geometry (Long 
+          and Drinkwater, 2000). </font></div></td>
+    </tr>
+    <tr> 
+      <td><div align="center"><img src="ESCAT_geometry.png" width="209" height="258"><br>
+          <font size="-1"><strong>(b)</strong> &nbsp;ESCAT viewing geometry (Long 
+          and Drinkwater, 2000).</font> </div></td>
+      <td><div align="center"><img src="QSCAT_geometry.png" width="444" height="302"><br>
+          <font size="-1"><strong>(d)</strong> &nbsp;QSCAT viewing geometry (Spencer 
+          et al., 2000). </font></div></td>
+    </tr>
+    <tr> 
+      <td colspan="2"><div align="center"><img src="QSCAT_sanning_pattern.png" width="452" height="359"><br>
+          <font size="-1"><strong>(e)</strong> &nbsp;QSCAT scanning pattern showing 
+          helixes traced by the inner beam (light shade) and outer beam (dark 
+          shade) as spacecraft orbits (Spencer et al., 1997). </font></div></td>
+    </tr>
+    <tr> 
+      <td colspan="2"><div align="center"></div>
+        <div align="center"><font size="-1"><strong>Fig. 12. &nbsp;</strong>(a-d) 
+          Comparison of different scatterometer viewing geometries and (e) illustration 
+          of QSCAT scanning pattern. </font></div></td>
+    </tr>
+  </table>
+  <div align="center"> </div>
+  <p align="left">Because of the multiple incidence angles at which scatterometers 
+    measure <img src="symbol_sigmanaught_small.png" width="16" height="16" align="absmiddle">, 
+    data are normally treated in two ways: by normalizing <img src="symbol_sigmanaught_small.png" width="16" height="16" align="absmiddle">to 
+    a single incidence angle and by providing the slope of <img src="symbol_sigmanaught_small.png" width="16" height="16" align="absmiddle"> 
+    versus incidence angle, which are respectively referred to in the literature 
+    simply as <em><strong>A</strong></em> and <em><strong>B</strong></em> (Long 
+    et al., 1993). Data are normalized to a common incidence angle (<em>A</em>) 
+    so that backscatter measurements between different areas, times, or instruments 
+    can be more readily compared. In this process, data are usually limited to 
+    incidence angles between about 20&deg; and 50&deg; because measurements at 
+    more extreme incidence angles are more noisy. <em>A</em> data are commonly 
+    normalized to an incidence angle of 40&deg; because this is roughly mid-swath 
+    for most instruments. Because important information can also be gained from 
+    the variation between <img src="symbol_sigmanaught_small.png" width="16" height="16" align="absmiddle"> 
+    and incidence angle (recall that specular surfaces are dominated by nadir 
+    return pulses while rougher, more isotropic surfaces have a flatter response 
+    across all incidence angles), the slope of <img src="symbol_sigmanaught_small.png" width="16" height="16" align="absmiddle"> 
+    versus incidence angle (<em>B</em>) is also important in scatterometry data. 
+    A more negative <em>B</em> value (i.e. more straight up and down) is specular 
+    while a less negative <em>B</em> value (i.e. one that approaches zero) is 
+    rougher and more isotropic.</p>
+  <p align="left">Another topic regarding scatterometry data is <strong>resolution 
+    enhancement</strong>. Though the 25-50 km resolution of past and current scatterometers 
+    is sufficient for mapping winds over the ocean at large scales (scatterometry&#8217;s 
+    primary objective), finer resolution is often desired for many land and cryospheric 
+    applications. One method that has been used to accomplish this has been achieved 
+    primarily by averaging together data at the same location on the Earth from 
+    multiple orbital passes of the scatterometer (Figure 13). Because more independent 
+    measurements are combined, the signal-to-noise (SNR) ratio is further improved, 
+    diminishing the effect of fading, as previously described. David Long and 
+    others developed this technique in 1993 and have labeled it &#8220;<strong>Scatterometer 
+    Image Reconstruction</strong>,&#8221; or <strong>SIR</strong>, which is now 
+    a common format for distributing scatterometer data (Long et al., 1993). Using 
+    this technique, spatial resolution can be improved by up to 8-10 times, depending 
+    on the number of multiple passes combined to generate <em>A</em> and <em>B</em>. 
+    Most commonly, data are averaged over a period of six days, which results 
+    in 8-10 km resolution SASS, NSCAT, and QSCAT data and 20-25 km ESCAT data 
+    (ESCAT data is more coarse as a result of only measuring data from only one 
+    side of the satellite, as illustrated in Figure 11). Of course, the tradeoff 
+    to this using this technique is degraded temporal resolution, which may be 
+    a problem for certain applications. </p>
+  <table width="49%" border="0" align="center">
+    <tr> 
+      <td><div align="center"><img src="SIR_overlapping_scans.png" width="274" height="612"><br>
+          <br>
+          <font size="-1"><strong>Fig. 13.</strong> &nbsp;Swath coverage spanning 
+          several days showing the crossing patterns of ascending (top) and descending 
+          (middle) orbit passes over northern South America, along with the combination 
+          of both (bottom) (Long et al., 1993). </font> </div></td>
+    </tr>
+  </table>
+  <p align="left">The SIR resolution enhancement technique makes two assumptions 
+    that can introduce errors into the data: it assumes that the radar characteristics 
+    of the surface do not change significantly over the time period for averaging, 
+    and it assumes that <em>A</em> and <em>B</em> do not have any azimuthal dependence 
+    since it combines measurements from overlapping orbital passes with different 
+    azimuthal orientations to the surface. </p>
+  <p align="left">A collaborative effort between NASA, Brigham Young University, 
+    the Jet Propulsion Laboratory, the European Space Agency, and the U.S. National 
+    Ice Center has resulted in the recently established <strong>Scatterometer 
+    Climate Record Pathfinder </strong>(<a href="http://www.scp.byu.edu">SCP</a>) 
+    project (BYU, 2003). This project provides a single archive for collecting, 
+    producing, and distributing SIR-enhanced scatterometer data in a common format 
+    for land and cryospheric applications. Both <em>A</em> and <em>B</em> data 
+    are available for SASS, ESCAT, NSCAT, and QSCAT with the goal of encouraging 
+    and facilitating climate studies involving these data. </p>
+  <p align="left"><strong><font face="Arial, Helvetica, sans-serif">NEXT</font></strong> 
+    <img src="next.png" width="34" height="24" align="absmiddle"> <a href="scatterometry_cryos_apps.html">Cryospheric 
+    applications of scatterometry</a></p>
+  <hr>
+  <div align="center"> 
+    <p><a href="index.html">Introduction</a> 
+      &nbsp;&bull;&nbsp;&nbsp;<a href="cryosphere_importance.html">Importance 
+      of the cryosphere</a> &nbsp;&bull; &nbsp;What 
+      is scatterometry?<a href="scatterometry_cryos_apps.html"><br>
+      Cryospheric applications of scatterometry</a>&nbsp;&nbsp;&bull; <a href="scatterometry_end.html">&nbsp;Problems, 
+      issues, and future directions</a> &nbsp;&bull; &nbsp;<a href="scatterometry_end.html#conclusion">Conclusion</a> 
+      &nbsp;&bull; &nbsp;<a href="scatterometry_end.html#references">References</a></p>
+    <p>&copy; 2004, <!--#include virtual="../ssi/footer.ssi" --></p>
+  </div>
+</blockquote>
+<!--#include virtual="../ssi/google_analytics.ssi" -->
+</body>
+</html>

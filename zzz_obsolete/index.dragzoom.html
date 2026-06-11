@@ -1,0 +1,623 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<!--
+John Maurer's Professional Homepage
+
+John A. Maurer, IV
+HiOOS Data System Administrator
+Hawaii Ocean Observing System (HiOOS)
+School of Ocean and Earth Science and Technology (SOEST)
+University of Hawaii at Manoa
+Honolulu, Hawaii (HI)
+United States of America (USA)
+-->
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" >
+
+<head>
+
+<title>John Maurer: HiOOS Data System Administrator</title>
+
+<link rel="shortcut icon" href="favicon.ico" />
+<link href="css/main.css" rel="stylesheet" type="text/css">
+
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta name="keyword" content="John Maurer, John A. Maurer IV, Professional Homepage, HiOOS Data System Administrator, Hawaii Ocean Observing System (HiOOS), School of Ocean and Earth Science and Technology (SOEST), University of Hawaii at Manoa, Honolulu, Scientific Programmer, WebGIS">
+<meta name="description" content ="This is the professional homepage for John Maurer, Data System Administrator at the Hawaii Ocean Observing System (HiOOS), School of Ocean and Earth Science and Technology (SOEST), University of Hawaii at Manoa. E-mail: jmaurer@hawaii.edu."> 
+
+<!-- 
+This supplies the Google Maps API Key for John Maurer's homepage:
+-->
+
+<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;key=ABQIAAAAKfKzHtniMnzunHIMxSVkPxQaLZwQxbrHWeSEzQ5oyC7vtQh23xSu92Qem5E5uIg-Elfocps16Em-8A" type="text/javascript"></script>
+
+<!--
+Add JavaScript code for DragZoomControl Google Map utility library.
+NOTE: Requires specific DOCTYPE and <html> settings as well as IE VML style.
+Source: http://code.google.com/p/gmaps-utility-library-dev/
+DragZoomControl Class v1.2 
+ Copyright (c) 2005-2007, Andre Lewis, andre@earthcode.com
+Back Button functionality
+ Copyright (c)  2007, Richard Garland, papabear.newyork@gmail.com
+-->
+
+<script src="scripts/dragzoom.js" type="text/javascript"></script>
+
+<!--
+For Internet Explorer: enable VML behavior, for above DragZoomControl utility to work:
+-->
+
+<style>v\:* { behavior: url(#default#VML); }</style >
+
+<!--
+User-defined JavaScript functions:
+-->
+
+<script type="text/javascript">
+
+/* Global variables: */
+
+// For storing Google Map:
+
+var map;
+
+// For storing Google Map address geocoder:
+
+var geocoder;
+
+/*
+This JavaScript function controls the Google Map that is displayed.
+Author: John Maurer
+*/
+
+function loadGoogleMap() {
+
+  // Only create a Google Map if Google determines the browser is compatible:
+
+  if ( GBrowserIsCompatible() ) {
+
+    // Define various locations:
+
+    //var hawaiiLatLng = new GLatLng( 20.7766, -157.6428 ); // w/o postcard frame
+    var hawaiiLatLng = new GLatLng( 20.0352, -156.6870 ); // w/ postcard frame
+
+    // Start a new Google Map and Geocoder:
+
+    map      = new GMap2( document.getElementById( 'map' ) );
+    geocoder = new GClientGeocoder();
+
+    // Set starting map center and zoom level:
+
+    map.setCenter( hawaiiLatLng, 6 );
+
+    // Set various features of the map:
+
+    map.setMapType( G_HYBRID_MAP );
+    //map.setMapType( G_SATELLITE_MAP );
+
+    map.addMapType( G_PHYSICAL_MAP );
+    map.addMapType( G_SATELLITE_3D_MAP );
+
+    map.addControl( new GLargeMapControl(), new GControlPosition( G_ANCHOR_TOP_LEFT, new GSize( 7, 30 ) ) );
+    map.addControl( new GMapTypeControl() );
+    //map.addControl( new GScaleControl() );
+    //map.addControl( new GNavLabelControl() );
+
+    // Add draggable zoom box from dragZoom.js:
+
+    var zoomBoxOpts = {
+      border: '2px solid yellow',
+      opacity: 0.35
+    }
+
+    var otherOpts = { 
+      buttonStartingStyle: { border: '0px' },
+      buttonHTML: '<img title="Drag Zoom In" src="icons/dragZoom.gif">',
+      buttonStyle: { width: '17px', height: '17px' },
+      //buttonZoomingHTML: 'Drag a region on the map (click here to reset)',
+      //buttonZoomingStyle: { background: 'yellow', width: '75px', height: '100%' },
+      buttonZoomingHTML: '<img title="Click here to reset button" src="icons/dragZoomHighlight.gif">',
+      buttonZoomingStyle: { width: '17px', height: '17px' },
+      //backButtonHTML: '<img title="Zoom Back Out" src="icons/zoomout.gif">',  
+      //backButtonStyle: { display: 'none', marginTop: '5px', width: '25px', height: '23px' },
+      //backButtonEnabled: false, 
+      overlayRemoveTime: 1000
+    } 
+
+    map.addControl( new DragZoomControl( zoomBoxOpts, otherOpts, {} ), new GControlPosition( G_ANCHOR_TOP_LEFT, new GSize( 27, 10 ) ) );
+
+    map.enableDoubleClickZoom();
+    map.enableContinuousZoom();
+    map.enableScrollWheelZoom();
+
+    // Create a screen overlay of Hawaii postcard:
+
+    var screenOverlay = new GScreenOverlay(
+        'hawaii_frame.gif',
+        new GScreenPoint( 0, 0 ),
+        new GScreenPoint( 0, 0 ),
+        new GScreenSize( 530, 398)
+    );
+    map.addOverlay( screenOverlay );
+
+    // Add an overview map that is hidden by default:
+    // Broken in v2.149--won't hide by default... wait until a later API release?
+    /*
+    var overviewMap = new GOverviewMapControl()
+
+    map.addControl( overviewMap );
+
+    overviewMap.hide(); 
+    */
+
+    // Display address box:
+
+    var addressInputHtml;
+
+    addressInputHtml  = '<input type="text" size="37" name="address" maxlength="255" value= "Enter an address or coordinates here..." class="SmallTextGray" onFocus="this.value = ';
+    addressInputHtml += "''";
+    addressInputHtml += '"/>';
+    addressInputHtml += ' <input type="submit" value="Go!" onClick="document.submitAddress.jump_to.selectedIndex = 0"/>'; 
+
+    document.getElementById( "address_input" ).innerHTML = addressInputHtml;	
+
+    // Display "jump to" pull-down menu:
+
+    var jumpInputHtml;
+
+    jumpInputHtml  = '<font color="#FFCC00"><b><a onClick="this.blur(); jumpPrev();" title="Previous location in this list..." style="cursor: pointer; cursor: hand;">&lt;</a></b></font> &nbsp;<select name="jump_to" class="SmallTextGray" onChange="document.submitAddress.address.value = ';
+    jumpInputHtml += "'Enter an address or coordinates here...'";
+    jumpInputHtml += '; this.blur(); jumpTo( this.value );"><option value="">Jump to...</option><option value="Hawai\'i">Hawai&#699;i (State)</option><option value="" disabled>Hawai&#699;ian islands:</option><option value="Hawai\'i (Big Island)">Hawai&#699;i (Big Island)</option><option value="Kaho\'olawe">Kaho&#699;olawe</option><option value="Kaua\'i">Kaua&#699;i</option><option value="Lana\'i">L&#257;na&#699;i</option><option value="Maui">Maui</option><option value="Moloka\'i">Moloka&#699;i</option><option value="Ni\'ihau">Ni&#699;ihau</option><option value="O\'ahu">O&#699;ahu</option></select> &nbsp;<font color="GOLD"><b><a onClick="this.blur(); jumpNext();" title="Next location in this list..." style="cursor: pointer; cursor: hand;">&gt;</a></b></font>';
+    jumpInputHtml += '<p style="margin: 5px 0px 0px 0px;"><font class="SmallTextGrayLight"><font color="GOLD"><a onClick="this.blur(); showMapDimensions();" title="Prints a pop-up window with location information for the currently displayed map..." style="cursor: pointer; cursor: hand;">Show map dimensions</a></font> &middot; Postcard frame: <font color="GOLD"><a onClick="this.blur(); map.clearOverlays();" title="Remove the Hawaiian postcard frame in order to see more of the underlying map..." style="cursor: pointer; cursor: hand;">off</a> <a onClick="';
+    jumpInputHtml += "this.blur(); map.addOverlay( new GScreenOverlay( 'hawaii_frame.gif', new GScreenPoint( 0, 0 ), new GScreenPoint( 0, 0 ), new GScreenSize( 530, 398) )";
+    jumpInputHtml += ' );" title="Restore the Hawaiian postcard frame over the current map..." style="cursor: pointer; cursor: hand;">on</a></font></p>';
+
+    document.getElementById( "jump_to" ).innerHTML = jumpInputHtml;
+
+    // Display the lat/long of the current cursor location when the
+    // mouse is over the map image:
+
+    GEvent.addListener( map, "mousemove", function( point ) {
+
+        // First, strip the latitude and longitude of the cursor location
+        // down to a reasonable number of decimals (Google supplies many by default!):
+
+        var numDecimals = 4;
+
+        // Get latitude and longitude and convert to strings:
+
+        var cursorLat    = point.lat();
+        var cursorLatStr = cursorLat.toString();
+        var cursorLng    = point.lng();
+        var cursorLngStr = cursorLng.toString();
+
+        // Get the string index of the decimal point for each:
+
+        var decimalPointIndexLat = cursorLatStr.indexOf( '.' );
+        var decimalPointIndexLng = cursorLngStr.indexOf( '.' );
+
+        // Get the substring that goes up to the number of decimals specified
+        // in numDecimals:
+
+        var cursorLatSubstr = cursorLatStr.substr( 0, decimalPointIndexLat + 1 + numDecimals );
+        var cursorLngSubstr = cursorLngStr.substr( 0, decimalPointIndexLng + 1 + numDecimals );
+
+        // Define and display the string that will be displayed using these two
+        // n-digit numbers:
+
+        var pointNumDecimals = '(' + cursorLatSubstr + ', ' + cursorLngSubstr + ')';
+
+        document.getElementById( "message" ).innerHTML = '(latitude, longitude) = ' + pointNumDecimals;
+      } 
+    );
+
+    // When the mouse is not over the map image, display nothing (but a space):
+
+    GEvent.addListener( map, "mouseout", function() {
+        document.getElementById( "message" ).innerHTML = '&nbsp;';
+      }  
+    );
+
+  } // if browser compatible
+
+  // If the browser is not compatible, display a static image instead:
+
+  else {
+    document.getElementById( 'map' ).innerHTML = "<img src='nasa_earth.jpg' width='323' height='325'>";
+  }
+
+} // end function loadGoogleMap()
+
+/*
+This JavaScript function prints an alert message with the current map dimensions,
+including the map center, zoom level, and map bounding box. Note that this is
+for the full map beneath the postcard frame, not just the portion that shows
+through the postcard frame.
+NOTE: map needs to be predefined (see loadGoogleMap() above).
+Author: John Maurer
+*/
+
+function showMapDimensions() {
+
+  // First, strip latitudes and longitudes down to a reasonable 
+  // number of decimals (Google supplies many by default!):
+
+  var numDecimals = 4;
+
+  // Get map center:
+
+  var centerStr = map.getCenter().toString();
+
+  // Split map center into latitude and longitude:
+
+  centerStr.match( /^\((.+), (.+)\)$/ );
+
+  var centerLat = RegExp.$1;
+  var centerLon = RegExp.$2;
+
+  // Reduce number of digits in map center lat/long:
+
+  var centerLatSubstr = centerLat.substr( 0, centerLat.indexOf( '.' ) + 1 + numDecimals );
+  var centerLonSubstr = centerLon.substr( 0, centerLon.indexOf( '.' ) + 1 + numDecimals );
+
+  // Get map zoom level:
+
+  var zoomLevel = map.getZoom().toString();
+
+  // Get map bounding box:
+
+  var bboxStr = map.getBounds().toString();
+
+  // Split bounding box into minlat, minlon, maxlat, and maxlon:
+
+  bboxStr.match( /^\(\((.+), (.+)\), \((.+), (.+)\)\)$/ );
+
+  var minLat = RegExp.$1;
+  var minLon = RegExp.$2;
+  var maxLat = RegExp.$3;
+  var maxLon = RegExp.$4;
+
+  // Reduce the number of digits in each of the above:
+
+  var minLatSubstr = minLat.substr( 0, minLat.indexOf( '.' ) + 1 + numDecimals );
+  var minLonSubstr = minLon.substr( 0, minLon.indexOf( '.' ) + 1 + numDecimals );
+  var maxLatSubstr = maxLat.substr( 0, maxLat.indexOf( '.' ) + 1 + numDecimals );
+  var maxLonSubstr = maxLon.substr( 0, maxLon.indexOf( '.' ) + 1 + numDecimals );
+
+  // Get map size (in number of pixels):
+
+  var sizeStr = map.getSize().toString();
+
+  // Split map size into width and height:
+
+  sizeStr.match( /^\((.+), (.+)\)$/ );
+
+  var width  = RegExp.$1;
+  var height = RegExp.$2;
+
+  // Alert the above dimensions:
+
+  alert(  'NOTE: These dimensions are for the entire map, including those portions hidden beneath the postcard frame when it is turned on.'
+        + "\n\n"
+        + 'Center (Lat, Long): ' + centerLatSubstr + ', ' + centerLonSubstr
+        + "\n\n"
+        + 'Zoom Level: ' + zoomLevel
+        + "\n\n"
+        + 'Bounds (Min Lat, Min Long, Max Lat, Max Long): ' + minLatSubstr + ', ' + minLonSubstr + ', ' + maxLatSubstr + ', ' + maxLonSubstr
+        + "\n\n"
+        + 'Size (Width, Height): ' + width + ' px, ' + height + ' px'
+        + "\n\n"
+        + 'Map Projection: Spherical Mercator' );
+
+} // function showMapDimensions()
+
+/*
+This JavaScript function puts a marker and info window at the submitted address. 
+NOTE: map and geocoder need to be predefined (see loadGoogleMap() above).
+Author: Google Maps API Documentation 
+*/
+
+function showAddress( address ) {
+
+  if ( geocoder ) {
+
+    geocoder.getLatLng(
+      address,
+      function( point ) {
+
+        // If the address is not found, display an alert message:
+
+        if ( !point ) {
+          alert( address + " not found" );
+        } 
+
+        // Otherwise, display a marker and info window at the address:
+
+        else {
+
+          map.setCenter( point );
+          var markerOptions = { title:address };
+          var marker = new GMarker( point, markerOptions );
+          var markerHtml = "<p class='googleMapAddressText'>" + address + "</p>";
+          map.addOverlay( marker );
+          marker.openInfoWindowHtml( markerHtml );
+
+          // Make the info window appear when the marker is clicked:
+
+          GEvent.addListener( marker, "click", function() {
+              map.openInfoWindowHtml( point, markerHtml );
+            }
+          );
+        } 
+      } // function()
+
+    ); // geocoder()
+
+  } // if geocoder
+
+} // function showAddress()
+
+/*
+This JavaScript function jumps to a particular location from a list of options.
+It chooses an appopriate zoom level for each location.
+NOTE: map needs to be predefined (see loadGoogleMap() above).
+Author: John Maurer 
+*/
+
+function jumpTo( location ) {
+
+  var point;
+  var zoomLevel;
+  var mapType;
+
+  // Flag to indicate map type (default is hybrid):
+
+  var satelliteMap = 1;
+
+  if ( location == "Hawai'i" ) {
+    //point = new GLatLng( 20.7766, -157.6428 );
+    point = new GLatLng( 20.0352, -156.6870 );
+    zoomLevel = 6;
+  }
+  else if ( location == "Ni'ihau" ) {
+    //point = new GLatLng( 21.8959, -160.1600 );
+    point = new GLatLng( 21.8665, -160.1010 );
+    zoomLevel = 10;
+  }
+  else if ( location == "Kaua'i" ) {
+    //point = new GLatLng( 22.0652, -159.5379 );
+    point = new GLatLng( 21.9965, -159.4500 );
+    zoomLevel = 9;
+  }
+  else if ( location == "O'ahu" ) {
+    //point = new GLatLng( 21.4735, -157.9971 );
+    point = new GLatLng( 21.4019, -157.8735 );
+    zoomLevel = 9;
+  }
+  else if ( location == "Moloka'i" ) { 
+    //point = new GLatLng( 21.1587, -157.0330 );
+    point = new GLatLng( 21.0742, -156.9506 );
+    zoomLevel = 9;
+  }
+  else if ( location == "Lana'i" ) {
+    //point = new GLatLng( 20.8408, -156.9479 );
+    point = new GLatLng( 20.7997, -156.9053 );
+    zoomLevel = 10;
+  }
+  else if ( location == "Maui" ) {
+    //point = new GLatLng( 20.8254, -156.3711 );
+    point = new GLatLng( 20.7278, -156.2585 );
+    zoomLevel = 9;
+  }
+  else if ( location == "Kaho'olawe" ) {
+    //point = new GLatLng( 20.5524, -156.6272 );
+    point = new GLatLng( 20.5280, -156.5977 );
+    zoomLevel = 11;
+  }
+  else if ( location == "Hawai'i (Big Island)" ) {
+    //point = new GLatLng( 19.6322, -155.5554 );
+    point = new GLatLng( 19.4510, -155.3466 );
+    zoomLevel = 8;
+  }
+
+  // Set map to specified center point and zoom level:
+
+  map.setCenter( point, zoomLevel );
+}
+
+/*
+Jump to the next location in the pull-down menu.
+Author: John Maurer
+*/
+
+function jumpNext () {
+
+  var jump_to      = document.submitAddress.jump_to;
+  var currentIndex = jump_to.selectedIndex;
+  var length       = jump_to.length;
+
+  // Determine next index in array to jump to:
+
+  var nextIndex; 
+
+  if ( currentIndex == 0 ) {
+    nextIndex = 3;
+  }
+  else {
+    nextIndex = currentIndex + 1;
+  }
+
+  // If the next index is beyond array length, wrap back to 
+  // second index (1):
+    
+  if ( nextIndex > ( length - 1 ) ) {
+    nextIndex = 1;
+  }
+
+  // Get the value associated with the next index:
+
+  var nextValue = jump_to[ nextIndex ].value;
+
+  // If the value is null, skip to next index:
+
+  if ( !nextValue ) {
+    do {
+      nextIndex++;
+      if ( nextIndex > ( length - 1 ) ) {
+        nextIndex = 1;
+      } 
+      nextValue = jump_to[ nextIndex ].value;
+    }
+    while ( !nextValue );
+  }
+
+  // Set and jump to the next location value: 
+
+  jump_to.value = nextValue;
+  jumpTo( nextValue );
+}
+
+/*
+Jump to the previous location in the pull-down menu.
+Author: John Maurer
+*/
+
+function jumpPrev () {
+
+  var jump_to = document.submitAddress.jump_to;
+  var currentIndex = jump_to.selectedIndex;
+  var length = jump_to.length;
+
+  // Determine previous index in array to jump to:
+
+  var prevIndex;
+
+  if ( currentIndex == 0 || currentIndex == 1 ) {
+    prevIndex = length - 1;
+  }
+  else {
+    prevIndex = currentIndex - 1;
+  }
+
+  // If the previous index is too small, wrap back to
+  // last index:
+
+  if ( prevIndex == 0 ) {
+    prevIndex = length - 1;
+  }
+
+  // Get the value associated with the previous index:
+
+  var prevValue = jump_to[ prevIndex ].value;
+
+  // If the value is null, skip to previous index:
+
+  if ( !prevValue ) {
+    do {
+      prevIndex--;
+      if ( prevIndex == 0 ) {
+        prevIndex = length - 1;
+      }
+      prevValue = jump_to[ prevIndex ].value;
+    }
+    while ( !prevValue );
+  }
+
+  // Set and jump to the previous location value:
+
+  jump_to.value = prevValue;
+  jumpTo( prevValue );
+}
+
+</script>
+
+</head>
+
+<!-- 
+When loading the page, load Google Map and put default text in address box:
+-->
+
+<body onLoad="loadGoogleMap(); document.submitAddress.address.value='Enter an address or coordinates here...';" onUnload="GUnload()">
+
+<form name="submitAddress" onSubmit="showAddress( this.address.value ); return false">
+
+<br>
+
+<table align="center" cellpadding="10">
+  <tr valign="top"> 
+
+    <!-- Map column: -->
+
+    <td width="324" height="338">
+      <div align="left">
+        <p align="center" style="margin: 0; padding: 6px 0px 0px 10px;">
+          <!-- Add Google Map here: -->
+          <div id="map" style="width: 530px; height: 398px;"></div>
+          <!-- Area to display current cursor lat/lon location: -->
+          <div id="message" class="SmallTextGrayLight" style="margin: 5px 0px 0px 0px;" align="center">&nbsp;</div>
+        </p> 
+      </div>
+      <div align="center">
+        <p style="margin: 0px; padding: 1px 0px 0px 0px;">
+          <!-- Put address input text box here: -->
+          <div id="address_input"></div>
+          <!-- Put jump-to pull-down here: -->
+          <div id="jump_to" style="margin: 5px;"></div>
+          <i>&#147;Without geography, you're nowhere.&#148;<br>&#151;</i><a href="http://en.wikipedia.org/wiki/Jimmy_Buffet">Jimmy Buffet</a> <img src='icons/external_link.jpg' width='12' height='11' title='This link is to an external site.'>
+        </p>
+      </div>
+    </td>
+
+    <!-- Text column: -->
+
+    <td width="571" height="338" style="padding: 10px 0px 0px 15px;">
+      <h2 style="margin: 0; padding: 0;"><font face="Georgia, Times New Roman, Times, serif">John Maurer</font></h2>
+      <p>
+        <a href="jobs/hioos_data_sysadm.html">HiOOS Data System Administrator</a><br/>
+        Hawai&#699;i Ocean Observing System (<a href="http://hioos.org">HiOOS </a><img src="icons/external_link.jpg" width="12" height="11" title="This link is to an external site.">)<br/>
+        School of Ocean and Earth Science and Technology (<a href="http://www.soest.hawaii.edu">SOEST </a><img src="icons/external_link.jpg" width="12" height="11" title="This link is to an external site.">)<br/>
+        <a href="http://manoa.hawaii.edu">University of Hawai&#699;i at M&#257;noa</a> 
+        <img src="icons/external_link.jpg" width="12" height="11" title="This link is to an external site."><br/>
+        Email: <!--#include file="ssi/email.ssi" -->
+      </p>
+      <p>
+        <hr align="left"/>
+        <h3><a href="resume.html">r&eacute;sum&eacute;</a> &nbsp;<strong>&middot;</strong>&nbsp; <a href="bio.html">bio</a></h3>
+        <h3>research &amp; projects:</h3>
+        <ul>
+          <li><a href="gpr/">Greenland snow accumulation and ground-penetrating radar (GPR)</a></li>
+          <li><a href="gcm/">climate modeling of ice sheets</a></li>
+          <li><a href="scatterometry/">scatterometry of the cryosphere</a></li>
+          <li><a href="clouds/">cloud detection over snow and ice surfaces</a></li>
+          <li><a href="albedo/">retrieval of surface albedo from space</a></li>
+          <li><a href="conifers/">mapping ponderosa and Douglas-fir using AVIRIS</a></li>
+          <li><a href="terra/">overview of NASA's Terra satellite</a></li>
+          <li><a href="sst/">remote sensing of sea surface temperature (SST)</a></li>
+          <li><a href="uav/">polar applications of an unpiloted aerial vehicle (UAV)</a></li>
+          <li><a href="http://nsidc.org/data/atlas">Atlas of the Cryosphere</a> <img src="icons/external_link.jpg" width="12" height="11" title="This link is to an external site."></li>
+          <li><a href="http://nsidc.org/agdc/acap/">A-CAP: The Antarctic Cryosphere Access Portal</a> <img src="icons/external_link.jpg" width="12" height="11" title="This link is to an external site."></li>
+          <li><a href="http://cires.colorado.edu/science/groups/steffen/greenland/journal/">Greenland: a photo journal</a> <img src="icons/external_link.jpg" width="12" height="11" title="This link is to an external site."></li>
+        </ul>
+      </p>
+    </td>
+
+  </tr>
+
+  <!-- Footer row: -->
+
+  <tr valign="top">
+    <td height="54" colspan="2" align="center">
+      <hr>
+      <p class="SmallTextGrayLight">1000 Pope Road, Marine Sciences Building, Room M6, Honolulu, HI, 96822 &#8226; (808) 956-0227 &#8226; <a href="http://www.oceanconservancy.org">&quot;Start a sea change!&quot;</a> <img src="icons/external_link.jpg" width="12" height="11" title="This link is to an external site."></p>
+    </td>
+  </tr>
+
+</table>
+
+</form>
+
+<!--#include file="ssi/google_analytics.ssi" -->
+
+</body>
+
+</html>

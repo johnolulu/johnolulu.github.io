@@ -1,0 +1,1073 @@
+<html>
+
+<head>
+
+<title>World Soccer 411</title>
+
+<link rel="icon" type="img/ico" href="favicon.ico">
+
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/hot-sneaks/jquery-ui.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Lobster|Roboto:900|Roboto:400&effect=outline">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+
+<style>
+body {
+  font-family: 'Roboto', sans-serif;
+  /*background-image: url( 'images/soccer_bg_dreamstime_s_31595734.jpg' );*/
+  background-color: #f1f9f7;
+}
+h2 {
+  font-family: 'Lobster', cursive;
+  font-weight: bolder;
+  text-shadow: 2px 2px 2px lightgray;
+  font-size: 48px;
+}
+h3 {
+  font-family: 'Lobster', cursive;
+  text-shadow: 1px 1px 1px lightgray;
+  font-size: 42px;
+  letter-spacing: 3px;
+}
+h4 {
+  font-family: 'Roboto', sans-serif;
+  font-size: 20px;
+  font-weight: 900;
+}
+p {
+  font-size: 14px;
+  margin: 2px;
+  padding: 2px;
+}
+.flag {
+  border: 1px solid lightgray;
+}
+.elements {
+  overflow-y: auto;
+  margin-top: 105px;
+  background-color: #f1f9f7;
+}
+.element {
+  border: 1px solid lightgray;
+  box-shadow: 5px 5px 10px lightgray;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  margin-bottom: 20px;
+  cursor: pointer;
+  background-color: white;
+}
+.element:hover {
+  border: 1px solid gray;
+  box-shadow: 5px 5px 10px gray;
+}
+.element h4 {
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+}
+.element table {
+  border-spacing: 14px;
+  border-collapse: separate;
+}
+.element td {
+  padding: 4px 14px 14px 14px;
+}
+.team_logo {
+  padding: 14px 14px 24px 14px;
+}
+.map_button a {
+  color: lightgray;
+}
+.map_button a:hover {
+  color: gray;
+}
+.highlightedOption {
+  color: black;
+  background-color: #F9F99F;
+  font-style: italic;
+  font-weight: bold;
+}
+</style>
+
+<script type="text/javascript">
+$( document ).ready(
+  function () {
+    $( document ).tooltip(
+      {
+        show: {
+          effect: 'none',
+          delay: 0 
+        },
+        hide: {
+          effect: 'none', 
+          delay: 0 
+        }
+      }
+    );
+  }
+);
+</script>
+
+<script type="text/javascript">
+
+// Base URL for loading Google Static Maps of team cities:
+
+//var static_map_baseurl = 'http://maps.googleapis.com/maps/api/staticmap?key=AIzaSyCxH09ucYT3ydq4OhL3RlcOm_0WiiDpbNs&zoom=12&scale=2&maptype=roadmap&style=feature:landscape|saturation:-100|lightness:65|visibility:on&style=feature:poi|saturation:-100|lightness:51|visibility:simplified&style=feature:road.highway|saturation:-100|visibility:simplified&style=feature:road.arterial|saturation:-100|lightness:30|visibility:on&style=feature:road.local|saturation:-100|visibility:simplified|lightness:40&style=feature:transit|saturation:-100|visibility:simplified&style=feature:water|element:labels|visibility:on|saturation:-100|lightness:-25&style=feature:water|element:geometry|hue:0xffff00|lightness:-25|saturation:-97&center='
+var static_map_baseurl = 'http://maps.googleapis.com/maps/api/staticmap?key=AIzaSyCxH09ucYT3ydq4OhL3RlcOm_0WiiDpbNs&zoom=12&scale=2&maptype=terrain&center=';
+
+// Load Google GeoChart API and initialize world map:
+
+google.load( 'visualization', '1', { packages: [ 'geochart' ] } );
+google.setOnLoadCallback( drawWorld );
+
+// Global variables:
+
+var geochart;
+var data;
+var options;
+var leagues;
+var teams;
+var geochart_listener;
+var image_cache = {}; 
+
+// Define unique colors for each country's soccer league on homepage:
+
+var country_colors = [ '#a6cee3', '#fdbf6f', '#b2df8a', '#1f78b4', '#fb9a99', '#ff7f00', '#e31a1c', '#33a02c', '#cab2d6' ];
+
+// Define GeoChart map options for displaying world soccer leagues:
+
+var options_leagues = {
+  height: '100%',
+  width: '100%',
+  legend: 'none',
+  tooltip: {
+    isHtml: true,
+    showTitle: false
+    //trigger: 'selection'
+  },
+  dataMode: 'regions',
+  resolution: 'countries',
+  displayMode: 'regions',
+  colorAxis: {
+    colors: country_colors
+  }
+};
+
+// Define GeoChart map options for displaying soccer teams within a league:
+
+var options_teams = {
+  height: '100%',
+  width: '100%',
+  legend: 'none',
+  tooltip: {
+    isHtml: true,
+    showTitle: false
+    //trigger: 'selection'
+  },
+  dataMode: 'regions',
+  resolution: 'provinces',
+  displayMode: 'markers',
+  colorAxis: {
+    colors: [ 'red', 'red' ]
+  }
+};
+
+/*
+drawWorld()
+Draws the world map of soccer with each country assigned a unique color and
+whose pop-up indicates that country's professional soccer league. Leagues
+are also listed in a scroll-down list along the side of the page. FIFA
+tops the list of world soccer leagues.
+*/
+
+function drawWorld () {
+
+  // Initialize GeoChart map?:
+
+  if ( !geochart ) {
+    var container = document.getElementById( 'map' );
+    geochart = new google.visualization.GeoChart( container );
+  }
+ 
+  // Always make sure that the list of soccer leagues is scrolled to page top:
+
+  scrollToPageTop( 'elements' );
+
+  // Read in the JSON data of world soccer leagues asynchronously and display:
+
+  if ( !leagues ) {
+    $.ajax(
+      {
+        async: true,
+        url: 'leagues.json?v=1',
+        dataType: 'json',
+        success: function ( response ) {
+          leagues = response; // set global var
+          drawLeagues();
+          listLeagues();
+        }
+      }
+    );
+  }
+  else {
+    drawLeagues();
+    listLeagues();
+  }
+
+} // drawWorld()
+
+
+/*
+drawLeagues()
+Having received the JSON of data related to world soccer leagues, this function
+draws the map highlighting the polygon of each league's country. 
+*/
+
+function drawLeagues () {
+
+  // Define GeoChart data array containing each country's league.
+  // NOTE: "Ranking" is useless here. GeoChart requires a numeric data entity
+  // in the 2nd column, which we are not using. The 3rd column defines the
+  // pop-up content in GeoChart when hovering over markers:
+ 
+  var all_leagues_data = [
+    [ 'Country', 'Ranking', { 'role': 'tooltip', 'p': { 'html': true } } ]
+  ]; 
+
+  // Compile the data and display properties for each league:
+
+  var i = 0;
+
+  for ( var country in leagues ) {
+
+    var flag = leagues[ country ][ 'flag' ];
+    var league = leagues[ country ][ 'league' ];
+    var logo = leagues[ country ][ 'logo' ];
+    var founded = leagues[ country ][ 'founded' ];
+    var season = leagues[ country ][ 'season' ];
+    var champ = leagues[ country ][ 'champ' ];
+    var champ_year = leagues[ country ][ 'champ_year' ];  
+
+    // Some logos specify their width in pixels if they cannot be dynamically
+    // resized like SVG PNG's from Wikimedia can:
+  
+    var logo_width = 0;
+
+    if ( typeof( leagues[ country ][ 'logo_width' ] ) != 'undefined' ) {
+      logo_width = leagues[ country ][ 'logo_width' ];
+    }
+
+    // Some leagues give their season a name and/or have multiple seasons:
+
+    var season_name = null;
+    var season2 = null;
+    var season2_name = null;
+
+    if ( typeof( leagues[ country ][ 'season_name' ] ) != 'undefined' ) {
+      season_name = leagues[ country ][ 'season_name' ]; 
+    }
+ 
+    if ( typeof( leagues[ country ][ 'season2' ] ) != 'undefined' ) {
+      season2 = leagues[ country ][ 'season2' ];
+    }
+
+    if ( typeof ( leagues[ country ][ 'season2_name' ] ) != 'undefined' ) {
+      season2_name = leagues[ country ][ 'season2_name' ];
+    }
+
+    // Some leagues have multiple categories of champions:
+
+    var champ_name = null;
+    var champ2 = null;
+    var champ2_name = null;
+
+    if ( typeof( leagues[ country ][ 'champ_name' ] ) != 'undefined' ) {
+      champ_name = leagues[ country ][ 'champ_name' ]; 
+    }
+ 
+    if ( typeof( leagues[ country ][ 'champ2' ] ) != 'undefined' ) {
+      champ2 = leagues[ country ][ 'champ2' ];
+    }
+
+    if ( typeof ( leagues[ country ][ 'champ2_name' ] ) != 'undefined' ) {
+      champ2_name = leagues[ country ][ 'champ2_name' ];
+    }
+   
+    if ( typeof ( leagues[ country ][ 'champ2_year' ] ) != 'undefined' ) {
+      champ2_year = leagues[ country ][ 'champ2_year' ];
+    } 
+
+    // Need small league logo when hovering over marker icons on map:
+
+    var small_logo = getSmallLogo( logo, 0.75, logo_width );
+
+    // Define the pop-up content for this league when the user hovers over its
+    // marker on the world map:
+
+    var popup = '<table><tr style="white-space: nowrap;"><td><p><font size="+1"><b>' + league + '</b></font></p><p>' + country + '</p><p>Founded: ' + founded + '</p><p>'
+
+    if ( season_name ) {
+      popup += season_name + ': ';
+    }
+    else {
+      popup += 'Season: ';
+    }
+
+    popup += season + '</p>';
+
+    if ( season2 ) {
+      popup += '<p>'; 
+      if ( season2_name ) {
+        popup += season2_name + ': ';
+      }
+      else {
+        popup += 'Season: ';
+      }
+      popup += season2 + '</p>';
+    }
+
+    popup += '<p>' + champ_year + ' ';
+
+    if ( champ_name ) {
+      popup += champ_name + ': ';
+    }
+    else {
+      popup += 'champ: ';
+    }
+
+    popup += '<i>' + champ + '</i></p>';
+
+    if ( champ2 ) {
+      popup += '<p>' + champ2_year + ' ';
+      if ( champ2_name ) {
+        popup += champ2_name + ': ';
+      }
+      else {
+        popup += 'champ: '; 
+      }
+      popup += '<i>' + champ2 + '</i></p>';
+    }
+ 
+    popup += '</td><td>' + small_logo + '</td></tr></table>';
+
+    // Define the GeoChart data for this league:
+ 
+    var league_data = [
+      country,
+      i,
+      popup
+    ];
+
+    all_leagues_data.push( league_data );
+
+    i++;
+  }
+
+  // Convert array to Google Visualization API data object:
+
+  all_leagues_data = google.visualization.arrayToDataTable( all_leagues_data );
+
+  // Clear any previously displayed map:
+
+  geochart.clearChart();
+
+  // Make sure the options for this chart default to the world view:
+
+  options_leagues.region = null;
+
+  // Draw the leagues on the map:
+ 
+  geochart.draw( all_leagues_data, options_leagues );
+
+  // Set global variables in case we need to modify this map in some fashion:
+
+  data = all_leagues_data;
+  options = options_leagues;
+
+  // Click listener to draw each country's teams when selected; first remove
+  // any previous map listener:
+
+  if ( geochart_listener ) {
+    google.visualization.events.removeListener( geochart_listener );
+  }
+
+  geochart_listener = google.visualization.events.addListener(
+    geochart,
+    'select',
+    function () {
+      var selectedItem = geochart.getSelection()[ 0 ];
+      if ( selectedItem ) {
+        var country = all_leagues_data.getValue( selectedItem.row, 0 );
+        drawCountry( country );
+      }
+    }
+  );
+
+  // Add/remove icons and buttons to the map:
+
+  document.getElementById( 'home_button' ).style.display = 'none';
+  document.getElementById( 'flag_button' ).style.display = 'none';
+  document.getElementById( 'flag_button' ).innerHTML = '';
+  document.getElementById( 'element_button' ).style.display = 'none';
+  document.getElementById( 'element_button' ).innerHTML = '';  
+  document.getElementById( 'region_button' ).style.display = '';
+
+} // drawWorld()
+
+
+/*
+listLeagues()
+Lists all of the world soccer leagues in the scrollable left-hand sidebar.
+*/
+
+function listLeagues () {
+
+  // Change sidebar subheader:
+ 
+  document.getElementById( 'subheader' ).innerHTML = 'Soccer Leagues:';
+
+  // Make sure scrollable sidebar is scrolled to the very top:
+
+  scrollToPageTop( 'elements' );
+
+  // We are going to sort the leagues by demonyms ("Dutch", "English", etc.): 
+
+  var all_leagues_html = '';
+
+  var countries = [];
+
+  for ( var country in leagues ) {
+    countries.push( country );
+  }
+
+  for ( var i = 0; i < countries.sort( function ( a, b ) { return sortLeaguesByDemonym( leagues, a, b ); }  ).length; i++ ) {
+
+    var country = countries[ i ];
+    var country_code = leagues[ country ][ 'code' ];
+    var demonym = leagues[ country ][ 'demonym' ]; 
+    var flag = leagues[ country ][ 'flag' ];
+    var league = leagues[ country ][ 'league' ];
+    var logo = leagues[ country ][ 'logo' ];
+
+    var logo_width = '';
+
+    if ( typeof( leagues[ country ][ 'logo_width' ] ) != 'undefined' ) {
+      logo_width = leagues[ country ][ 'logo_width' ];
+    }
+
+    // Get index of this team in the original counries array (for highlighting
+    // purposes below):
+
+    j = 0;
+
+    for ( var k = 0; k < countries.sort().length; k++ ) {
+      if ( country == countries[ k ] ) {
+        j = k;
+        break; 
+      }
+    }
+ 
+    // Define the HTML for this soccer league:
+
+    var league_html = '';
+    league_html += '<div class="element" onClick="drawCountry( \'' + country + '\' );" onMouseOver="geochart.setSelection( [ { row: ' + j + ' } ] );" onMouseOut="geochart.setSelection();">';
+    league_html += '  <h4>' + demonym + ' League:</h4>';
+    league_html += '  <table style="width: 100%;">';
+    league_html += '    <tr valign="center">';
+    league_html += '      <td style="width: 50%;" align="right"><img class="flag" src="' + flag + '" /></td>';
+    league_html += '      <td style="width: 50%;" align="left"><img src="' + logo + '" width="' + logo_width + '" /></td>';
+    league_html += '    </tr>';
+    league_html += '  </table>';
+    league_html += '</div>';
+
+    all_leagues_html += league_html;
+  }
+
+  // Define FIFA entry:
+
+  var fifa_html = '';
+  fifa_html += '<div class="element" onClick="drawCountry();">';
+  fifa_html += '  <h4>International Federation:</h4>';
+  fifa_html += '  <table style="width: 100%;">';
+  fifa_html += '    <tr valign="center">';
+  fifa_html += '      <td style="width: 50%;" align="right"><img class="flag" src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/26/World_Map_FIFA.svg/150px-World_Map_FIFA.svg.png" /></td>';
+  fifa_html += '      <td style="width: 50%;" align="left"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/aa/FIFA_logo_without_slogan.svg/150px-FIFA_logo_without_slogan.svg.png" /></td>';
+  fifa_html += '    </tr>';
+  fifa_html += '  </table>';
+  fifa_html += '</div>';
+ 
+  // Start the leagues list with FIFA international, then list country leagues:
+
+  document.getElementById( 'elements' ).innerHTML = fifa_html;
+  document.getElementById( 'elements' ).innerHTML += all_leagues_html;
+
+} // listLeagues()
+
+
+/*
+drawCountry()
+Draws all the teams associated with the specified country or defaults to
+showing the world's soccer leagues. 
+*/
+
+function drawCountry ( country ) {
+
+  // Hide static city map if any drawn yet:
+
+  document.getElementById( 'static_map_div' ).style.display = 'none';
+  
+  // Display map of teams associated with this country:
+
+  if ( country ) {
+
+    var league = leagues[ country ][ 'league' ];
+    var country_code = leagues[ country ][ 'code' ];
+
+    // Read in the JSON data of teams associated with this soccer league
+    // asynchronously and display:
+
+    $.ajax(
+      {
+        async: true,
+        url: country_code + '.json?v=7',
+        dataType: 'json',
+        success: function ( response ) {
+          teams = response; // set global var
+          drawTeams( country, teams );
+          listTeams( country, teams );
+        }
+      }
+    );
+  }
+
+  // Otherwise, display the world map of soccer leagues:
+
+  else {
+    drawWorld();
+  }
+
+} // drawCountry()
+
+
+/*
+drawTeams()
+Having received the JSON of data related to a particular country's soccer
+teams, this function draws the map with markers at each team's city. 
+*/
+
+function drawTeams ( country, teams ) {
+
+  // Grab league metadata:
+
+  var country_code = leagues[ country ][ 'code' ];
+  var league = leagues[ country ][ 'league' ];
+  var ranking_year = leagues[ country ][ 'ranking_year' ]; 
+
+  // Begin GeoChart data array for each team:
+
+  var all_teams = []; // array of team names only
+  var all_teams_data = [
+    [ 'Latitude', 'Longitude', 'Ranking', { 'role': 'tooltip', 'p': { 'html': true } } ]
+  ];
+
+  // Loop through each team and add to array:
+
+  var num_teams = Object.keys(teams).length;
+
+  for ( var team in teams ) {
+
+    all_teams.push( team );
+
+    // Compile the data and display properties for this team:
+
+    var city = teams[ team ][ 'city' ];
+    var latitude = teams[ team ][ 'latitude' ];
+    var longitude = teams[ team ][ 'longitude' ];
+    var logo = teams[ team ][ 'logo' ];
+    var founded = teams[ team ][ 'founded' ];
+    var ranking = teams[ team ][ 'ranking' ];
+
+    var full_name = '';
+    if ( teams[ team ][ 'full_name' ] ) {
+      full_name = teams[ team ][ 'full_name' ];
+    }
+
+    var nickname = ''; 
+    if ( teams[ team ][ 'nickname' ] ) {
+      nickname = teams[ team ][ 'nickname' ];
+    }
+
+    var note = '';
+    if ( teams[ team ][ 'note' ] ) { 
+      note = teams[ team ][ 'note' ];
+    } 
+
+    // Inverse of rank will determine size of marker on map (e.g. rank #1 out
+    // 20 teams would get an inverse ranking of 20):
+  
+    var ranking_inverse = num_teams - ranking + 1;
+
+    // Need small logo when hovering over marker icons on map:
+
+    var small_logo = getSmallLogo( logo, 0.5 );
+
+    // Define pop-up HTML content to appear when hovering over marker:
+
+    var popup = '';
+    popup += '<table>';
+    popup += '  <tr style="white-space: nowrap;">';
+    popup += '    <td><p><font size="+1"><b>' + team + '</b></font></p>';
+
+    if ( full_name ) {
+      popup += '    <p>' + full_name + '</p>';
+    }
+
+    if ( nickname ) {
+      popup += '    <p><i>' + nickname + '</i></p>';
+    }
+ 
+    popup += '<p>' + city + '</p><p>Founded: ' + founded + '</p><p>' + ranking_year + ' ranking: #' + ranking + '</p>';
+
+    if ( note ) { 
+      popup += '<p><b>NOTE</b>: ' + note + '</p>'; 
+    } 
+
+    popup += '    </td>';
+    popup += '    <td>' + small_logo + '</td>';
+    popup += '  </tr>';
+    popup += '</table>';
+ 
+    var team_data = [
+      latitude,
+      longitude,
+      ranking_inverse,
+      popup
+    ];
+
+    all_teams_data.push( team_data );
+  }
+
+  // Convert array to Google Visualization API data object:
+
+  all_teams_data = google.visualization.arrayToDataTable( all_teams_data );
+
+  // Set the map region to the league's country:
+
+  options_teams.region = country_code;
+
+  // Clear any previously displayed map:
+
+  geochart.clearChart();
+
+  // Draw the teams on the map:
+
+  geochart.draw( all_teams_data, options_teams );
+
+  // Set global variables in case we need to modify this map in some fashion:
+
+  data = all_teams_data;
+  options = options_teams;
+
+  // Add icons and buttons to the map:
+
+  var flag = leagues[ country ][ 'flag' ];
+  var logo = leagues[ country ][ 'logo' ];
+  var small_flag = getSmallLogo( flag, null, null, 100, 'getUrlOnly' );
+  //var small_logo = getSmallLogo( logo, null, null, 100, 'getUrlOnly' ); 
+
+  var logo_img = '<img src="' + logo + '" title="' + league + '" />';
+ 
+  document.getElementById( 'home_button' ).style.display = ''; 
+  document.getElementById( 'element_button' ).innerHTML = logo_img;
+  document.getElementById( 'element_button' ).style.display = '';
+
+  // Some countries use alternative name from GeoChart (e.g. England instead
+  // of United Kingdom):
+
+  var country_name = country;
+
+  if ( leagues[ country ][ 'country1' ] ) {
+    country_name = leagues[ country ][ 'country1' ];
+  }
+
+  // Are there more than one home countries?:
+
+  var flag_img = '<img src="' + small_flag + '" title="' + country_name + '" />';
+
+  if ( leagues[ country ][ 'flag2' ] ) {
+    var country2 = leagues[ country ][ 'country2' ];
+    var flag2 = leagues[ country ][ 'flag2' ];
+    var small_flag2 = getSmallLogo( flag2, null, null, 100, 'getUrlOnly' );
+    flag_img += '<br/><img src="' + small_flag2 + '" title="' + country2 + '" style="margin-top: 12px;" />'; 
+  }
+
+  document.getElementById( 'flag_button' ).innerHTML = flag_img;
+  document.getElementById( 'flag_button' ).style.display = '';
+  document.getElementById( 'region_button' ).style.display = 'none';
+
+  // Click listener to draw each country's teams when selected; first remove
+  // any previous map listener:
+
+  if ( geochart_listener ) {
+    google.visualization.events.removeListener( geochart_listener );
+  }
+
+  geochart_listener = google.visualization.events.addListener(
+    geochart,
+    'select',
+    function () {
+      var selectedItem = geochart.getSelection()[ 0 ];
+      if ( selectedItem ) {
+        var team = all_teams[ selectedItem.row ];
+        drawTeam( team );
+      }
+    }
+  );
+
+} // drawTeams()
+
+
+/*
+listTeams()
+Lists all of the soccer teams affiliated with the specified country's league
+in the scrollable left-hand sidebar.
+*/
+ 
+function listTeams ( country, teams ) {
+
+  // Change sidebar subheader:
+
+  var league = leagues[ country ][ 'league' ];
+  document.getElementById( 'subheader' ).innerHTML = league + ':';
+
+  // Make sure scrollable sidebar is scrolled to the very top:
+
+  scrollToPageTop( 'elements' );
+
+  // Compile the HTML for each team; assumes underlying JSON is already sorted:
+
+  var all_teams_html = '';
+
+  var i = 0;
+
+  for ( var team in teams ) {
+
+    var logo = teams[ team ][ 'logo' ]; 
+
+    var team_html = '';
+    team_html += '<div class="element" onClick="" onMouseOver="geochart.setSelection( [ { row: ' + i + ' } ] );" onMouseOut="geochart.setSelection();">';
+    team_html += '  <h4>' + team + ':</h4>';
+    team_html += '  <img class="team_logo" src="' + logo + '" />';
+    team_html += '</div>';
+
+    all_teams_html += team_html;
+
+    i++;
+  }
+
+  // Update the page div provides scrollable list of elements in sidebar:
+
+  document.getElementById( 'elements' ).innerHTML = all_teams_html;    
+   
+} // listTeams()
+
+
+/*
+drawTeam()
+Draws a city map for the specified team or defaults to showing the country's
+map of all teams.
+*/
+
+function drawTeam ( team ) {
+
+  // Display map of city associated with this team:
+
+  if ( team ) {
+
+    var team_info = teams[ team ];
+    
+    var latitude = team_info[ 'latitude' ];
+    var longitude = team_info[ 'longitude' ];
+
+    // Show a Google Static Map of the team's city; fill in map coordinates 
+    // and pixel size:
+
+    var map_width = $( '#map' ).width();
+    var map_height = $( '#map' ).height();
+
+    var static_map_url = static_map_baseurl + latitude + ',' + longitude;
+    static_map_url += '&size=' + map_width + 'x' + map_height;
+
+    document.getElementById( 'static_map' ).width = map_width;
+    document.getElementById( 'static_map' ).height = map_height;
+    document.getElementById( 'static_map' ).src = static_map_url;
+    document.getElementById( 'static_map_div' ).style.display = '';
+
+    //var league = leagues[ country ][ 'league' ];
+    //var team_code = leagues[ country ][ 'code' ];
+
+    // Read in the JSON data of teams associated with this soccer league
+    // asynchronously and display:
+
+    /*
+    $.ajax(
+      {
+        async: true,
+        url: country_code + '.json?v=7',
+        dataType: 'json',
+        success: function ( teams ) {
+          drawTeams( country, teams );
+          listTeams( country, teams );
+        }
+      }
+    );
+    */
+  }
+
+  // Otherwise, display the world map of soccer leagues:
+
+  else {
+    //drawCountry( country );
+    drawWorld();
+  }
+
+} // drawTeam()
+
+
+/*
+setRegion()
+This function zooms to the selected region code in the Google GeoChart. This
+are 3-digit numeric codes; see:
+https://developers.google.com/chart/interactive/docs/gallery/geochart?hl=en#continent-hierarchy-and-codes
+*/
+
+function setRegion ( region ) {
+
+  if ( region ) {
+    options.region = region;
+  }
+  else {
+    options.region = null;
+  }
+
+  // Set map to the selected region:
+
+  geochart.draw( data, options );
+
+  // Set region selector back its default value:
+
+  setTimeout(
+    function () {
+      document.getElementById( 'regionSelector' ).selectedIndex = 0;
+    },
+    750
+  );
+
+} // setRegion()
+
+
+/*
+sortLeaguesByDemonym()
+This custom sort function sorts the world soccer leagues alphabetically by
+their respective country's demonym (e.g. "American", "Dutch", "English", etc.).
+*/
+
+function sortLeaguesByDemonym ( leagues, a, b ) {
+  
+  var demonym_a = leagues[ a ][ 'demonym' ];
+  var demonym_b = leagues[ b ][ 'demonym' ];
+
+  if ( demonym_a < demonym_b ) {
+    return -1;
+  }
+  else if ( demonym_a > demonym_b ) {
+    return 1;
+  }
+  else {
+    return 0;
+  }
+
+} // sortLeaguesByDemonym()
+
+
+/*
+getSmallLogo()
+This function attempts to return a smaller version of the supplied logo image.
+It will shrink the logo width by the supplied fraction (e.g. 0.5). It does this
+based on known image URL patterns. Particularly, SVG PNG images from Wikipedia
+can be dynamically resized. 
+*/
+
+function getSmallLogo ( logo, fraction, input_width, output_width, getUrlOnly ) {
+
+  if ( !logo ) {
+    return;
+  }
+
+  var small_logo = logo;
+  var small_logo_width = 0;
+
+  // Make small logo a fraction of the original?: 
+
+  if ( fraction ) {
+
+    // Did the user pass the width of the original logo?:
+
+    if ( input_width ) {
+      small_logo_width = parseInt( input_width * fraction );
+    }
+
+    // Otherwise, is this an SVG image from Wikipedia?:
+ 
+    else if ( logo.match( /wikimedia/ ) ) {
+      logo.match( /\/(\d+)px-/ );
+      var logo_width = RegExp.$1;
+      small_logo_width = parseInt( logo_width * fraction );
+      small_logo = logo.replace( '\/' + logo_width + 'px-', '/' + small_logo_width + 'px-' );
+    }
+
+  }
+
+  // Or did user specify a particular output width?:
+
+  else if ( output_width ) {
+   
+    // Is this an SVG image from Wikipedia?:
+
+    if ( logo.match( /wikimedia/ ) ) {
+      logo.match( /\/(\d+)px-/ );
+      var logo_width = RegExp.$1;
+      small_logo = logo.replace( '\/' + logo_width + 'px-', '/' + output_width + 'px-' );
+    }
+
+    // Otherwise, set output width of img element:
+
+    else {
+      small_logo_width = output_width;
+    }
+  }
+
+  // Cache this image for rapid display; otherwise, map hover shows delay:
+
+  if ( !image_cache[ small_logo ] ) { 
+    var image = new Image();
+    image.src = small_logo;
+    image_cache[ small_logo ] = image;
+  }
+
+  // Return the URL of the small logo image?:
+
+  if ( getUrlOnly ) {
+    return small_logo;
+  }
+ 
+  // Otherwise, return an HTML "img" element:
+
+  else {
+    var small_logo_img = '<img src="' + small_logo + '" ';
+
+    if ( small_logo_width ) {
+      small_logo_img += 'width="' + small_logo_width + '"'; 
+    }
+
+    small_logo_img += '/>'; 
+
+    return small_logo_img;
+  } 
+
+} // getSmallLogo()
+
+
+function scrollToPageTop ( div_id ) {
+
+  if ( div_id
+    && document.getElementById( div_id ) ) {
+    document.getElementById( div_id ).style.display = 'none';
+  }
+
+  setTimeout( 
+    function () {
+      window.scrollTo( 0, 0 );
+      if ( div_id
+        && document.getElementById( div_id ) ) {
+        document.getElementById( div_id ).style.display = '';
+      }
+    },
+    5
+  );
+
+} // scrollToPageTop()
+
+</script>
+
+</head>
+
+<body>
+
+<div id="map" style="border: 1px solid lightgray; position: fixed; left: 35%; right: 20px; top: 20px; bottom: 20px; box-shadow: 5px 5px 10px lightgray;"></div>
+<div id="static_map_div" style="border: 1px solid lightgray; position: fixed; left: 35%; right: 20px; top: 20px; bottom: 20px; display: none;"><img id="static_map" src=""/></div>
+
+<div id="region_button" style="position: fixed; left: 35%; margin-left: 16px; top: 34px;">
+  <select id="regionSelector" onChange="setRegion( this.value ); this.blur();">
+    <option disabled selected>Zoom to...</option>
+    <option value="" class="highlightedOption">World</option>
+    <!--
+    <option value="002" class="highlightedOption">Africa</option>
+    <option value="014">&nbsp;&nbsp;&nbsp;&#149; East Africa</option>
+    <option value="017">&nbsp;&nbsp;&nbsp;&#149; Middle Africa</option>
+    <option value="015">&nbsp;&nbsp;&nbsp;&#149; North Africa</option> 
+    <option value="018">&nbsp;&nbsp;&nbsp;&#149; South Africa</option>
+    <option value="011">&nbsp;&nbsp;&nbsp;&#149; West Africa</option>
+    -->
+    <option value="019" class="highlightedOption">Americas</option>
+    <!--
+    <option value="029">&nbsp;&nbsp;&nbsp;&#149; Caribbean</option>
+    <option value="013">&nbsp;&nbsp;&nbsp;&#149; Central America</option>
+    <option value="021">&nbsp;&nbsp;&nbsp;&#149; North America</option>
+    <option value="005">&nbsp;&nbsp;&nbsp;&#149; South America</option>
+    -->
+    <!--
+    <option value="142" class="highlightedOption">Asia</option> 
+    <option value="143">&nbsp;&nbsp;&nbsp;&#149; Central Asia</option>
+    <option value="030">&nbsp;&nbsp;&nbsp;&#149; East Asia</option>
+    <option value="034">&nbsp;&nbsp;&nbsp;&#149; South Asia</option>
+    <option value="035">&nbsp;&nbsp;&nbsp;&#149; Southeast Asia</option>
+    <option value="145">&nbsp;&nbsp;&nbsp;&#149; West Asia</option>
+    -->
+    <option value="150" class="highlightedOption">Europe</option>
+    <!--
+    <option value="154">&nbsp;&nbsp;&nbsp;&#149; Northern Europe</option>
+    <option value="155">&nbsp;&nbsp;&nbsp;&#149; Western Europe</option>
+    <option value="151">&nbsp;&nbsp;&nbsp;&#149; Eastern Europe</option>
+    <option value="039">&nbsp;&nbsp;&nbsp;&#149; Southern Europe</option>
+    -->
+    <!--
+    <option value="009" class="highlightedOption">Oceania</option>
+    <option value="053">&nbsp;&nbsp;&nbsp;&#149; Australia &amp; New Zealand</option>
+    <option value="054">&nbsp;&nbsp;&nbsp;&#149; Melanesia</option>
+    <option value="057">&nbsp;&nbsp;&nbsp;&#149; Micronesia</option>
+    <option value="061">&nbsp;&nbsp;&nbsp;&#149; Polynesia</option>
+    -->
+  </select> 
+</div>
+
+<div id="home_button" class="map_button" style="position: fixed; left: 35%; margin-left: 10px; top: 24px; display: none;"><a href="javascript:void(0)" onClick="drawCountry(); this.blur();" title="Return to world soccer map..."><i class="fa fa-home fa-3x"></i></a></div>
+<div id="flag_button" style="position: fixed; right: 38px; bottom: 35px; display: none;"></div>
+<div id="element_button" style="position: fixed; left: 35%; margin-left: 20px; bottom: 35px; display: none;"></div>
+
+<div id="content" style="position: absolute; right: 65%; left: 20px; top: 20px; bottom: 20px; margin-right: 20px; padding: 20px; background-color: #f1f9f7;">
+<center>
+
+  <div style="margin: 0px; padding: 0px; position: fixed; width: 35%; left: 0px; top: 0px; height: 20px; background-color: #f1f9f7;">&nbsp;</div>
+  <h2 style="margin: 0px; padding: 0px; position: fixed; width: 35%; left: 0px; top: 20px; background-color: #f1f9f7; cursor: pointer;" onClick="drawCountry();"><i class="fa fa-globe" style="background-color: white; border-radius: 50%; height: 0.8em; width: 0.8em;"></i> World Soccer 411 <i class="fa fa-futbol-o" style="background-color: white; border-radius: 50%; height: 1m; width: 1em;"></i></h2>
+  <h3 id="subheader" class="font-effect-outline" style="margin: 0px; padding: 0px 0px 15px 0px; position: fixed; width: 35%; left: 0px; top: 75px; background-color: #f1f9f7;">Soccer Leagues:</h3>
+
+  <div id="elements" class="elements" style="display: none;"></div>
+
+</center>
+</div> <!-- content -->
+
+</body>
+
+</html>

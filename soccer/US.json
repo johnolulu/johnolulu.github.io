@@ -1,0 +1,195 @@
+{
+  "Chicago Fire": {
+    "code": "chicago", 
+    "nickname": "Men in Red",
+    "city": "Chicago, Illinois",
+    "latitude": 41.836944,
+    "longitude": -87.684722,
+    "logo": "https://upload.wikimedia.org/wikipedia/en/thumb/8/84/Chicago_Fire_Soccer_Club.svg/150px-Chicago_Fire_Soccer_Club.svg.png",
+    "founded": "1997",
+    "ranking": 20 
+  },
+  "Colorado Rapids": {
+    "code": "colorado",
+    "city": "Denver, Colorado",
+    "latitude": 39.76185,
+    "longitude": -104.881105,
+    "logo": "https://upload.wikimedia.org/wikipedia/en/thumb/2/2b/Colorado_Rapids_logo.svg/125px-Colorado_Rapids_logo.svg.png",
+    "founded": "1995",
+    "ranking": 18 
+  },
+  "Columbus Crew SC": {
+    "code": "columbus",
+    "city": "Columbus, Ohio",
+    "latitude": 39.983333,
+    "longitude": -82.983333,
+    "logo": "https://upload.wikimedia.org/wikipedia/en/thumb/5/54/Columbus_Crew_SC_Logo.svg/150px-Columbus_Crew_SC_Logo.svg.png",
+    "founded": "1994",
+    "ranking": 2 
+  },
+  "D.C. United": {
+    "code": "dc",
+    "city": "Washington, D.C.",
+    "latitude": 38.904722,
+    "longitude": -77.016389,
+    "logo": "https://upload.wikimedia.org/wikipedia/en/thumb/d/d1/D.C._United_logo_2016.png/150px-D.C._United_logo_2016.png",
+    "founded": "1995",
+    "ranking": 10 
+  },
+  "FC Dallas": {
+    "code": "dallas", 
+    "nickname": "Los Toros", 
+    "city": "Dallas, Texas",
+    "latitude": 32.775833,
+    "longitude": -96.796667,
+    "logo": "https://upload.wikimedia.org/wikipedia/en/thumb/c/c9/FC_Dallas_logo.svg/150px-FC_Dallas_logo.svg.png",
+    "founded": "1995",
+    "ranking":4 
+  },
+  "Houston Dynamo": {
+    "code": "houston",
+    "city": "Houston, Texas",
+    "latitude": 29.762778,
+    "longitude": -95.383056,
+    "logo": "https://upload.wikimedia.org/wikipedia/en/thumb/0/0c/Houston_Dynamo_logo.svg/180px-Houston_Dynamo_logo.svg.png",
+    "founded": "2005",
+    "ranking": 15 
+  },
+  "LA Galaxy": {
+    "code": "la",
+    "nickname": "Los Gal&aacute;cticos",
+    "city": "Los Angeles, California",
+    "latitude": 34.05,
+    "longitude": -118.25,
+    "logo": "https://upload.wikimedia.org/wikipedia/en/thumb/7/70/Los_Angeles_Galaxy_logo.svg/140px-Los_Angeles_Galaxy_logo.svg.png",
+    "founded": "1995",
+    "ranking": 6 
+  },
+  "Montreal Impact": {
+    "code": "montreal",
+    "city": "Montreal, Quebec, Canada",
+    "latitude": 45.5,
+    "longitude": -73.566667,
+    "logo": "https://upload.wikimedia.org/wikipedia/en/thumb/9/94/Montreal_Impact_%28MLS%29_logo.svg/150px-Montreal_Impact_%28MLS%29_logo.svg.png",
+    "founded": "2010",
+    "ranking": 8
+  },
+  "New England Revolution": {
+    "code": "new_england",
+    "nickname": "The Revs",
+    "city": "Boston, Massachusetts",
+    "latitude": 42.358056,
+    "longitude": -71.063611,
+    "logo": "https://upload.wikimedia.org/wikipedia/en/thumb/d/d6/New_England_Revolution_logo.svg/180px-New_England_Revolution_logo.svg.png",
+    "founded": "1995",
+    "ranking": 11 
+  },
+  "New York City FC": {
+    "code": "nycfc",
+    "city": "New York, New York",
+    "latitude": 40.7127,
+    "longitude": -74.0059,
+    "logo": "https://upload.wikimedia.org/wikipedia/en/thumb/f/f9/New_York_City_FC.svg/150px-New_York_City_FC.svg.png",
+    "founded": "2013",
+    "ranking": 17 
+  },
+  "New York Red Bulls": {
+    "code": "bulls",
+    "city": "Harrison, New Jersey",
+    "latitude": 40.742957,
+    "longitude": -74.152912,
+    "logo": "https://upload.wikimedia.org/wikipedia/en/thumb/5/51/New_York_Red_Bulls_logo.svg/180px-New_York_Red_Bulls_logo.svg.png",
+    "founded": "1995",
+    "ranking": 3,
+    "note": "2015 MLS Supporters' Shield Champions."
+  },
+  "Orlando City SC": {
+    "code": "orlando",
+    "nickname": "The Lions",
+    "city": "Orlando, Florida",
+    "latitude": 28.415833,
+    "longitude": -81.298889,
+    "logo": "https://upload.wikimedia.org/wikipedia/en/thumb/6/6a/Orlando_City_2014.svg/150px-Orlando_City_2014.svg.png",
+    "founded": "2013",
+    "ranking": 14 
+  },
+  "Philadelphia Union": {
+    "code": "philadelphia",
+    "nickname": "The U",
+    "city": "Philadelphia, Pennsylvania",
+    "latitude": 39.95,
+    "longitude": -75.166667,
+    "logo": "https://upload.wikimedia.org/wikipedia/en/thumb/3/3e/Philadelphia_Union_2010.svg/160px-Philadelphia_Union_2010.svg.png",
+    "founded": "2008",
+    "ranking": 19 
+  },
+  "Portland Timbers": {
+    "code": "portland",
+    "city": "Portland, Oregon",
+    "latitude": 45.52,
+    "longitude": -122.681944,
+    "logo": "https://upload.wikimedia.org/wikipedia/en/thumb/b/b2/Portland_Timbers_%28MLS%29_logo.svg/160px-Portland_Timbers_%28MLS%29_logo.svg.png",
+    "founded": "2009",
+    "ranking": 1,
+    "note": "2015 MLS Cup Champions."
+  },
+  "Real Salt Lake": {
+    "code": "salt_lake",
+    "nickname": "The Royals",
+    "city": "Salt Lake City, Utah",
+    "latitude": 40.75,
+    "longitude": -111.883333,
+    "logo": "https://upload.wikimedia.org/wikipedia/en/thumb/5/54/Real_Salt_Lake_2010.svg/120px-Real_Salt_Lake_2010.svg.png",
+    "founded": "2004",
+    "ranking": 16
+  },
+  "San Jose Earthquakes": {
+    "code": "san_jose",
+    "nickname": "Quakes",
+    "city": "San Jose, California",
+    "latitude": 37.333333,
+    "longitude": -121.9,
+    "logo": "https://upload.wikimedia.org/wikipedia/en/thumb/9/98/San_Jose_Earthquakes_2014.svg/150px-San_Jose_Earthquakes_2014.svg.png",
+    "founded": "1994",
+    "ranking": 13 
+  },
+  "Seattle Sounders FC": {
+    "code": "seattle",
+    "nickname": "Rave Green",
+    "city": "Seattle, Washington",
+    "latitude": 47.609722,
+    "longitude": -122.333056,
+    "logo": "https://upload.wikimedia.org/wikipedia/en/thumb/2/27/Seattle_Sounders_FC.svg/130px-Seattle_Sounders_FC.svg.png",
+    "founded": "2007",
+    "ranking": 7 
+  },
+  "Sporting Kansas City": {
+    "code": "kc",
+    "nickname": "The Wizards",
+    "city": "Kansas City, Missouri",
+    "latitude": 39.099722,
+    "longitude": -94.578333,
+    "logo": "https://upload.wikimedia.org/wikipedia/en/thumb/1/18/Sporting_Kansas_City_2011.svg/150px-Sporting_Kansas_City_2011.svg.png",
+    "founded": "1995",
+    "ranking": 9 
+  },
+  "Toronto FC": {
+    "code": "toronto", 
+    "city": "Toronto, Ontario, Canada",
+    "latitude": 43.7,
+    "longitude": -79.4,
+    "logo": "https://upload.wikimedia.org/wikipedia/en/thumb/7/7c/Toronto_FC_Logo.svg/180px-Toronto_FC_Logo.svg.png",
+    "founded": "2006",
+    "ranking": 12 
+  },
+  "Vancouver Whitecaps FC": {
+    "code": "vancouver",
+    "nickname": "The Caps",
+    "city": "Vancouver, British Columbia, Canada",
+    "latitude": 49.25,
+    "longitude": -123.1,
+    "logo": "https://upload.wikimedia.org/wikipedia/en/thumb/5/5d/Vancouver_Whitecaps_FC_logo.svg/140px-Vancouver_Whitecaps_FC_logo.svg.png",
+    "founded": "1974",
+    "ranking": 5 
+  }
+}

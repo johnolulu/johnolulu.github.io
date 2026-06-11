@@ -1,0 +1,526 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<link rel="shortcut icon" href="../favicon.ico" />
+<title>Local-scale snow accumulation variability on the Greenland ice sheet from ground-penetrating radar (GPR)</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link href="../css/subpages.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+<p><a name="top"></a></p>
+<blockquote> 
+  <p><b><font face="Arial, Helvetica, sans-serif">Appendix A. DATA PROCESSING 
+    INSTRUCTIONS</font></b></p>
+  <table width="29%" border="0">
+    <tr> 
+      <td width="13%"><div align="center"><a href="http://www.malags.com/software/#groundvision" target="_blank"><img src="Mala_Geoscience_logo.gif" width="150" height="56" border="0"></a></div></td>
+      <td width="13%"> <div align="center"><a href="http://www.goldensoftware.com/products/surfer/surfer.shtml" target="_blank"><img src="Surfer8_logo.gif" width="137" height="70" border="0"></a></div></td>
+    </tr>
+    <tr> 
+      <td valign="top"><div align="center"><a href="http://www.rsinc.com/idl/" target="_blank"><img src="IDL_logo.jpg" width="114" height="37" border="0"></a></div></td>
+      <td valign="top"> <div align="center"><a href="http://www.rsinc.com/envi/" target="_blank"><img src="ENVI_logo.jpg" width="123" height="41" border="0"></a></div></td>
+    </tr>
+  </table>
+  <p><em>by John Maurer &lt;<font size="-1"><!--#include virtual="../ssi/email.ssi" --></font>&gt;</em></p>
+  <p>A.1. <a href="#a1">Opening Files In ENVI</a><br>
+    A.2. <a href="#a2">Subsetting</a><br>
+    A.3. <a href="#a3">Filtering</a><br>
+    A.4. <a href="#a4">Tracing Layers</a><br>
+    A.5. <a href="#a5">Creating 3-D Surfaces</a><br>
+    A.6. <a href="#a6">Computing Statistics</a></p>
+  <p>This Appendix provides some guidelines on how the <strong>Mal&aring; Geoscience 
+    RAMAC&#8482;</strong> (<a href="http://ramac.malags.com" target="_blank">http://ramac.malags.com</a>) 
+    <strong>ground-penetrating radar (GPR)</strong> data were processed for this 
+    thesis to help others who may need to accomplish similar tasks in the future 
+    or to reproduce the reported results. Where custom-made <a href="http://rsinc.com/idl/" target="_blank">IDL</a> 
+    procedures are referred to (*.pro), please refer to <a href="appendixb.html">Appendix 
+    B</a> for documentation and installation instructions. The GPR data were processed 
+    on a Microsoft Windows personal computer (1.8 GHz CPU, 256 MB RAM) using the 
+    following software packages and programming languages:</p>
+  <ul>
+    <li><strong>Mal&aring; Geoscience <a href="http://www.malags.com/software/#groundvision">GroundVision</a> 
+      </strong>(Version 1.3.6) GPR data acquisition and filtering software.</li>
+    <li> <strong>Research Systems, Inc.'s (<a href="http://rsinc.com">RSI</a>) 
+      Interactive Data Language (<a href="http://rsinc.com/idl/">IDL</a>)</strong> 
+      (Version 6.1) for use within RSI's <strong>Environment for Visualizing Images 
+      (<a href="http://rsinc.com/envi/">ENVI</a>) </strong>(Version 4.1) software.</li>
+    <li> <strong>Golden Software, Inc.'s <a href="http://www.goldensoftware.com/products/surfer/surfer.shtml">Surfer</a> 
+      </strong>(Version 8.00) contouring, gridding, and surface mapping software.</li>
+  </ul>
+  <hr>
+  <p><strong><font face="Arial, Helvetica, sans-serif"><a name="a1"></a>A.1. <font color="#CC0000">Opening 
+    Files In ENVI</font></font></strong></p>
+  <p>An IDL procedure has been written to easily import RAMAC GPR data into ENVI. 
+    Refer to the documentation and installation instructions for &#8220;open_ramac_gpr_file.pro&#8221; 
+    in <a href="appendixb.html">Appendix B</a> for further details, including 
+    step-by-step instructions for opening the RAMAC GPR data in ENVI manually 
+    without the use of this procedure. After installing this IDL procedure, follow 
+    these steps:</p>
+  <ol type="a">
+    <li> Open ENVI.</li>
+  </ol>
+  <ol type="a">
+    <li value="2"> <strong>File</strong> <img src="right.gif" width="5" height="8"> 
+      <strong>Open External File</strong> <img src="right.gif" width="5" height="8"> 
+      <strong>GPR</strong> <img src="right.gif" width="5" height="8"> <strong>RAMAC</strong></li>
+  </ol>
+  <ol type="a">
+    <li value="3">Select a RAMAC GPR file (*.rd3) to open.</li>
+  </ol>
+  <ol type="a">
+    <li value="4">The &#8220;<a href="appendixb.html#open_ramac_gpr_file">open_ramac_gpr_file.pro</a>&#8221; 
+      procedure will automatically read the RAMAC GPR header file (*.rad) associated 
+      with the selected data file (*.rd3) to determine the dimensions of the data 
+      file. The procedure also rotates the file into the proper orientation for 
+      viewing as is necessary when opening these data into ENVI. </li>
+  </ol>
+  <ol type="a">
+    <li value="5">The result is saved to memory and will be listed in the ENVI 
+      &#8220;<strong>Available Bands List</strong>&#8221; window. Select the image 
+      (e.g. &#8220;Rotated (filename.rd3)&#8221;) and press &#8220;<strong>Load 
+      Band</strong>&#8221; to view the data.</li>
+  </ol>
+  <ol type="a">
+    <li value="6">To view the depth and distance of the current cursor location 
+      as you scroll over the image window, select &#8220;<strong>Cursor Depth/Distance</strong>&#8221; 
+      from the &#8220;<strong>GPR</strong>&#8221; menu of the image window. This 
+      will require that you have installed several of the files listed in <a href="appendixb.html#b3">Appendix 
+      B.3.</a> under the heading &#8220;Cursor Depth/Distance&#8221;.</li>
+  </ol>
+  <hr>
+  <p><strong><font face="Arial, Helvetica, sans-serif"><a name="a2"></a>A.2. <font color="#CC0000">Subsetting</font></font></strong></p>
+  <p>If the original GPR file contains multiple transects associated with a survey 
+    grid, it is easier to work with the data if each of the individual transects 
+    are contained in their own individual file. Otherwise, it becomes cumbersome 
+    always needing to locate what part of the original file contains your current 
+    transect of interest, and it may also be slower to do processing on a file 
+    of that size. Furthermore, several of the filters will work better on smaller 
+    files since otherwise they may do things such as remove the mean trace over 
+    your entire file, which may contain drifting average brightness levels over 
+    time and may also contain sections that you are not interested in including 
+    in the filtering process (e.g. regions between transects in a survey grid).</p>
+  <p>The following steps describe how to split up the original GPR file into individual 
+    files by transect:</p>
+  <ol type="a">
+    <li> Open the original file in ENVI as described in part <a href="#a1">A.1.</a> 
+      above.</li>
+  </ol>
+  <ol type="a">
+    <li value="2"> Write down on a piece of paper or record into a spreadsheet 
+      the start and end trace (horizontal- or x- dimension) for each transect. 
+      You can find the start and end trace of each transect by scrolling through 
+      the data file in ENVI and visually noting when the GPR instrument was being 
+      pulled versus when it was being held stationary between transects: when 
+      the GPR was stationary, only straight, horizontal bands appear (from antenna 
+      ringing) but no squiggly layers or echoes. To determine the trace number 
+      (or &quot;sample&quot; number, in ENVI&#8217;s terminology) use the &quot;<strong>Tools</strong>&quot; 
+      pull-down menu above the image window and select &quot;<strong>Cursor Location/Value...</strong>&quot;. 
+      This will bring up a window that displays the (x,y) coordinates and the 
+      data value of whatever pixel that the mouse pointer is currently pointed 
+      at. You can use this to determine the x coordinate for the start and end 
+      of each transect (the y coordinate is irrelevant). If the default contrast 
+      of the image does not allow you to easily view the divisions between transects, 
+      use the &quot;<strong>Enhance</strong>&quot; pull-down menu and select one 
+      of the available contrast stretches: the &quot;<strong>[Zoom] Linear 2%</strong>&quot; 
+      usually provides a suitable contrast. Another useful tool for helping you 
+      move through the data file without having to drag the red zoom box within 
+      the &quot;<strong>Scroll</strong>&quot; window is the &quot;<strong>Pixel 
+      Locator...</strong>&quot; tool underneath the &quot;<strong>Tools</strong>&quot; 
+      menu. Here you can specify a sample number to move to within the data file. 
+      If you are currently viewing traces/samples 1-500, for example, you can 
+      use the &quot;<strong>Pixel Locator</strong>&quot; to move to trace/sample 
+      #501 to begin viewing traces/samples 501-1000 for further transect divisions.</li>
+  </ol>
+  <ol type="a">
+    <li value="3"> After you have recorded the start and end traces/samples for 
+      each transect, you can then begin subsetting the original GPR file into 
+      these individual transects. Because ENVI does not provide a stand-alone 
+      &quot;subset&quot; function that allows you to specify coordinates to subset 
+      a file by, subsetting must be accomplished within another pre-existing ENVI 
+      function. Most ENVI functions that perform an operation on a data file allow 
+      you to perform that function on a spatial subset of the file. I choose to 
+      use the &quot;<strong>Rotate/Flip Data</strong>&quot; function in the &quot;<strong>Basic 
+      Tools</strong>&quot; pull-down menu at the top of the screen. On the &quot;<strong>Rotation 
+      Input File</strong>&quot; window that pops up, select the original GPR data 
+      file that you wish to subset (*.rd3). Press the &quot;<strong>Spatial Subset</strong>&quot; 
+      button that then appears. In the &quot;<strong>Select Spatial Subset</strong>&quot; 
+      window that follows, enter the start and end trace/sample for the first 
+      transect in the &quot;<strong>Samples</strong>&quot; and adjacent &quot;<strong>To</strong>&quot; 
+      input boxes. It will automatically compute the number of samples that this 
+      contains in the &quot;<strong>NS</strong>&quot; box. Keep the default number 
+      of &quot;<strong>Lines</strong>&quot; and press &quot;<strong>OK</strong>&quot;. 
+      Back on the &quot;<strong>Rotation Input File</strong>&quot; window, now 
+      press &quot;<strong>OK</strong>&quot;. In the &quot;<strong>Rotation Parameters</strong>&quot; 
+      window that follows, leave the default rotation &quot;<strong>Angle</strong>&quot; 
+      of zero and default &quot;<strong>Transpose</strong>&quot; to &quot;<strong>No</strong>&quot;: 
+      this means that no rotation will be performed on the data, which is what 
+      we want since subsetting is our objective here and not rotation. Select 
+      to output the result to a file and choose a filename for the output: for 
+      example, &quot;filename_t01.bin&quot; for the first transect (&quot;bin&quot; 
+      for binary). Keep the default &quot;<strong>Background Value</strong>&quot; 
+      of zero and press &quot;<strong>OK</strong>&quot;. The image rotation (or 
+      lack thereof, in this case) will take a few seconds to perform and then 
+      the transect will appear as its own file in the &quot;<strong>Available 
+      Bands List</strong>&quot; window.</li>
+  </ol>
+  <ol type="a">
+    <li value="4"> After the subsetted file appears in the &quot;<strong>Available 
+      Bands List</strong>&quot; window, select the new filename in the window 
+      (e.g. &quot;filename_t01.bin&quot;), right-click, and select &quot;<strong>Edit 
+      Header...</strong>&quot;. In the &quot;<strong>Header Info</strong>&quot; 
+      window that follows, select &quot;<strong>Band Names...</strong>&quot; from 
+      the &quot;<strong>Edit Attributes</strong>&quot; pull-down menu. In the 
+      &quot;<strong>Edit Band Name values</strong>&quot; window that appears, 
+      select the current band name: e.g. &quot;Rotate (Band 1:filename.rd3)&quot;. 
+      In the &quot;<strong>Edit Selected Item</strong>&quot; box, change the band 
+      name to just &quot;<strong>Band 1</strong>&quot;: because no rotation was 
+      actually performed on the data, we don't want this to mislead people in 
+      the future. Then, back on the &quot;<strong>Header Info</strong>&quot; window, 
+      change the &quot;<strong>xstart</strong>&quot; value to the start trace/sample 
+      number as identified in the original data file (filename.rd3) instead of 
+      the default of 1 and then press &quot;<strong>OK</strong>&quot;: this will 
+      allow us to always remember where the transect is situated within the original 
+      data file. It also allows us to &quot;link&quot; the transect file and the 
+      original file in ENVI to visually compare them if we ever need to. &quot;Linking&quot; 
+      the two files is a good thing to do now, as well, to ensure that everything 
+      was entered correctly. To do so, first select the file in the &quot;<strong>Available 
+      Bands List</strong>&quot;, select &quot;<strong>New Display</strong>&quot; 
+      under the &quot;<strong>Display #1</strong>&quot; pull-down menu, and then 
+      press &quot;<strong>Load Band</strong>&quot; to view the subsetted file 
+      in a new window. In the image window of the Subsetted file, then, select 
+      &quot;<strong>Link</strong> <img src="right.gif" width="5" height="8"> <strong>Link 
+      Displays...</strong>&quot; from the &quot;<strong>Tools</strong>&quot; pull-down 
+      menu. Press &quot;<strong>OK</strong>&quot; in the &quot;<strong>Link Displays</strong>&quot; 
+      window that appears. Both the original data file in the first window and 
+      the subsetted file in the second window will now be viewing the same data. 
+      Press the mouse over the subsetted data file image window to see and compare 
+      the original data file with the subsetted data: besides having differing 
+      contrasts, the data should be identical. If they are not identical, you 
+      have made an error in one of the above steps. You should also visually inspect 
+      the subsetted file to ensure that the file contains a full and proper transect 
+      and does not erroneously contain any transect divisions. If you are satisfied 
+      that the subsetted file is correct, right-click on the subsetted file in 
+      the &quot;<strong>Available Bands List</strong>&quot; window and select 
+      &quot;<strong>Close Selected File</strong>&quot; to close the file. </li>
+  </ol>
+  <ol type="a">
+    <li value="5"> Repeat steps <em>c</em> and <em>d</em> until all of the transects 
+      have been subsetted from the original data into their own individual files.</li>
+  </ol>
+  <ol type="a">
+    <li value="6"> Open the ENVI header file for each of the resulting transect 
+      files (e.g. &quot;filename_t01.hdr&quot;) and edit the &quot;<strong>description</strong>&quot; 
+      field. By default, it will say something like &quot;File Rotation Result 
+      [Wed Apr 13 22:18:54 2005]&quot;. Because there was no rotation performed 
+      on the files, however, (again, we just used the rotate function to perform 
+      subsetting) this description should be changed to something more useful 
+      that you would want users of the data to know. Note that the description 
+      could have been edited back in step <em>d </em>in the &quot;<strong>Header 
+      Info</strong>&quot; window, but I have found that this results in some words 
+      getting strung together. Note also that you cannot use commas in the description 
+      if you want it to properly appear within ENVI (everything after a comma 
+      is omitted in ENVI, I have noticed).</li>
+  </ol>
+  <hr>
+  <p><strong><font face="Arial, Helvetica, sans-serif"><a name="a3"></a>A.3. <font color="#CC0000">Filtering</font></font></strong></p>
+  <p>To optimize viewability of <strong>internal reflecting horizons (IRH)</strong> 
+    (e.g. stratigraphic layers within a glacial snowpack), GPR data often need 
+    to be filtered due to a variety of factors (noise, loss of signal with depth, 
+    antenna ringing, etc.). </p>
+  <ol type="a">
+    <li> Open the data in <a href="http://www.malags.com/software/#groundvision" target="_blank">GroundVision</a> 
+      to investigate which combination of filters and filter parameters are optimal 
+      for viewing the data. GroundVision is good for experimenting with the filters 
+      because they can be applied and edited very quickly. This is because GroundVision 
+      does not actually apply the filters to the entire file; it only applies 
+      the filters to the currently displayed portion of the data. Furthermore, 
+      the filters are for display purposes only and the filtered data cannot be 
+      saved (which is why I have written similar filters in IDL/ENVI). In GroundVision, 
+      select &#8220;<strong>Filter</strong>&#8221; under the &#8220;<strong>Radargram</strong>&#8221; 
+      menu. You may use any combination of the following four filters, which are 
+      the most important and have been simulated in IDL: </li>
+  </ol>
+  <ul>
+    <ul type="disc">
+      <li><strong>Automatic gain control</strong></li>
+      <li><strong>Subtract Mean Trace</strong></li>
+      <li><strong>Time Varying Gain</strong></li>
+      <li><strong>DC removal </strong></li>
+    </ul>
+  </ul>
+  <blockquote> 
+    <p> Write down what filters you have used, what order you have applied them 
+      in, and what settings you used to apply each of them. These settings will 
+      now be used in ENVI. </p>
+  </blockquote>
+  <ol type="a">
+    <li value="2"> Open the same RAMAC GPR file or subset in ENVI (see <a href="#a1">A.1.</a>).</li>
+  </ol>
+  <ol type="a">
+    <li value="3"> ENVI should automatically apply a linear 2% gain adjustment 
+      to any data that you view in ENVI. This is similar to applying the &#8220;<strong>Automatic 
+      gain control</strong>&#8221; filter in GroundVision. To try different gain 
+      adjustments, select one of the enhancements under the &#8220;<strong>Enhance</strong>&#8221; 
+      menu of the image window. Likely you will get the best results by using 
+      either &#8220;<strong>[Image] Linear 2%</strong>&#8221;, &#8220;<strong>[Scroll] 
+      Linear 2%</strong>&#8221;, or &#8220;<strong>[Zoom] Linear 2%</strong>&#8221;.</li>
+  </ol>
+  <ol type="a">
+    <li value="4"> Make sure you have installed and read the documentation for 
+      the following custom-made IDL filtering procedures: <br>
+      <ol>
+        <br>
+        <li><a href="appendixb.html#subtract_mean_trace">subtract_mean_trace.pro</a></li>
+        <li><a href="appendixb.html#collect_input_subtract_mean_trace">collect_input_subtract_mean_trace.pro</a></li>
+        <li><a href="appendixb.html#time_varying_gain"> time_varying_gain.pro</a></li>
+        <li><a href="appendixb.html#collect_input_time_varying_gain">collect_input_time_varying_gain.pro</a></li>
+        <li><a href="appendixb.html#dc_removal">dc_removal.pro</a></li>
+        <li><a href="appendixb.html#collect_input_dc_removal">collect_input_dc_removal.pro</a></li>
+        <li><a href="appendixb.html#bulk_gpr_filter">bulk_gpr_filter.pro</a><br>
+          <br>
+        </li>
+      </ol>
+    </li>
+    <li value="5">Apply each of the filters that you used in GroundVision in the 
+      same order and with the same settings. To do this, select each of the necessary 
+      filters from the &#8220;<strong>GPR</strong> <img src="right.gif" width="5" height="8"> 
+      <strong>Filter</strong>&#8221; menu on the image window. You can either 
+      choose to save the one or each of the filtering results to your computer, 
+      or you can select to output some or all of them to memory. Likely you will 
+      want to output the results to memory until you are applying the last filter, 
+      at which point you may decide to save the final result to your computer. 
+      Note that information about the filters applied will be written to the description 
+      in the associated ENVI header file (*.hdr) for future reference.</li>
+  </ol>
+  <ol type="a">
+    <li value="6">If you have an entire series of files that you wish to filter 
+      using the same filter sequence and settings, you may alternatively use the 
+      &#8220;<strong>Bulk Filter</strong>&#8221; option under the &#8220;<strong>GPR</strong>&#8221; 
+      menu on the main ENVI menu bar. You would probably want to do this, for 
+      example, if you had split up your original GPR file into many individual 
+      subsets (see <a href="#a2">A.2.</a>) and now wish to filter each of these 
+      files using the same settings. Note that you will probably get better filter 
+      results if you subset the file into transects and filter those rather than 
+      filtering the entire file at once, which may drift in its average brightness 
+      over time or include regions that you are not interested in.</li>
+  </ol>
+  <ol type="a">
+    <li value="7"> Just to provide some examples, the <strong>Tunu-N </strong>data 
+      that I analyzed from 2003 used the following filters and settings, listed 
+      in the order they were applied: </li>
+  </ol>
+  <blockquote> 
+    <blockquote> 
+      <p>1. <strong>Subtract Mean Trace:</strong> method = running average; window 
+        length = 5%.<br>
+        2. <strong>Time-Varying Gain: </strong>time window = 42.522624; start 
+        sample = 1; linear gain = 136; exponential gain = 80.</p>
+    </blockquote>
+    <p> The <strong>NASA-U </strong>data that I analyzed from 2003 were filtered 
+      as so:</p>
+    <blockquote> 
+      <p>1.<strong> Subtract Mean Trace: </strong>method = running average; window 
+        length = 5%.<br>
+        2. <strong>Time-Varying Gain:</strong> time window = 66.146304; start 
+        sample = 1; linear gain = 780; exponential gain = 0.</p>
+    </blockquote>
+    <p> GPR data from the <strong>Petermann</strong> ice tongue in northwestern 
+      Greenland (not part of this thesis):</p>
+    <blockquote> 
+      <p>1.<strong> Time-Varying Gain: </strong>time window = 5247.0000; start 
+        sample = 70; linear gain = 3; exponential gain = 0.</p>
+    </blockquote>
+  </blockquote>
+  <hr>
+  <p><strong><font face="Arial, Helvetica, sans-serif"><a name="a4"></a>A.4. <font color="#CC0000">Tracing 
+    Layers </font></font></strong></p>
+  <p>Once the GPR data have been optimally filtered as described in section <a href="#a3">A.3.</a> 
+    and the desired linear features are visible, these features (e.g. stratigraphic 
+    layers, basal topography of a floating ice tongue, permafrost layer, etc.) 
+    can be easily traced with the mouse in ENVI using ENVI&#8217;s <strong>Region 
+    Of Interest (ROI)</strong> tool:</p>
+  <ol type="a">
+    <li> In the image window, go to &#8220;<strong>Tools</strong> <img src="right.gif" width="5" height="8"> 
+      <strong>Region Of Interest</strong> <img src="right.gif" width="5" height="8"> 
+      <strong>ROI Tool&#8230;</strong>&#8221;.</li>
+  </ol>
+  <ol type="a">
+    <li value="2"> In the ROI Tool window, select &#8220;<strong>Polyline</strong>&#8221; 
+      under the &#8220;<strong>ROI_Type</strong>&#8221; menu.</li>
+  </ol>
+  <ol type="a">
+    <li value="3">Hold down the left mouse button to begin tracing the layer. 
+      Let go of the left mouse button when you are ready to save the layer. Press 
+      the right mouse button twice to accept the result. (For more details on 
+      tracing layers with the ROI Tool, go to the &#8220;<strong>Help</strong>&#8221; 
+      menu of the <strong>ROI Tool</strong> window.) </li>
+  </ol>
+  <ol type="a">
+    <li value="4"><strong>File</strong> <img src="right.gif" width="5" height="8"> 
+      <strong>Save ROIs&#8230;</strong></li>
+  </ol>
+  <ol type="a">
+    <li value="5">Do the same for all transects related to these GPR data if you 
+      have created subsets as described in <a href="#a2">A.2.</a></li>
+  </ol>
+  <ol type="a">
+    <li value="6"> Saving the ROI into an ROI file (*.roi) stores the pixel address 
+      of every pixel contained within the polyline that you have traced. These 
+      pixel addresses can be later used to generate a 3-D surface of this layer 
+      (see <a href="#a5">A.5.</a>) and to compute depth statistics (see <a href="#a6">A.6.</a>). 
+      Obviously, the success of the results will depend on how carefully and accurately 
+      you have traced the features of interest using the <strong>ROI Tool</strong>. 
+    </li>
+  </ol>
+  <ol type="a">
+    <li value="7">Though I created prototypes for automatically detecting linear 
+      features based on a starting and ending point identified by the user, this 
+      turned out to be unsuccessful given how noisy most GPR data and because 
+      of the high prevalence of echoes in the data. As a result, manual layer 
+      tracing using the ENVI <strong>ROI Tool</strong> is the best tool for doing 
+      this.</li>
+  </ol>
+  <hr>
+  <p><strong><font face="Arial, Helvetica, sans-serif"><a name="a5"></a>A.5. <font color="#CC0000">Creating 
+    3-D Surfaces</font></font></strong></p>
+  <p>Now that one or more linear features have been identified in the GPR data 
+    file or transects (subsets) using ENVI&#8217;s polyline <strong>Region Of 
+    Interest (ROI)</strong> tool, the latitude, longitude, and depth of each pixel 
+    in these features can be used to generate a <strong>three-dimensional (3-D) 
+    </strong>surface. This is accomplished using custom-made IDL programs that 
+    can compute the depth of the pixel (based on various input criteria) as well 
+    as extract the corresponding latitude and longitude for each pixel from the 
+    RAMAC <strong>GPS coordinates file</strong> (.cor) that was hopefully collected 
+    during the acquisition of the GPR data. See the programs listed in <a href="appendixb.html#b3">Appendix 
+    B.3.</a> for documentation and installation instructions regarding these particular 
+    programs.</p>
+  <ol type="a">
+    <li>In order to create a 3-D surface, the latitude, longitude, and depth must 
+      first be output to a text file. Given that there are three dimensions to 
+      these data, this is called an <strong>XYZ file</strong>. If you wish to 
+      generate an XYZ file for a single GPR file and corresponding ROI file (*.roi), 
+      select &#8220;<strong>Create XYZ File&#8230;</strong>&#8221; from the &#8220;<strong>GPR</strong>&#8221; 
+      menu of the image window in ENVI. If you wish to generate an XYZ file for 
+      multiple GPR files and their corresponding ROI files, however, select &#8220;<strong>Create 
+      XYZ File</strong>&#8221; from the &#8220;<strong>GPR</strong>&#8221; menu 
+      of the main ENVI menu bar. This function will ask you for the location of 
+      the necessary ROI file(s), RAMAC header file (*.rad), and RAMAC GPS coordinates 
+      file (*.cor) in addition to settings for converting time to depth and a 
+      location for writing the output XYZ file to.</li>
+  </ol>
+  <ol type="a">
+    <li value="2"> Now that you have an irregular collection of geographic points, 
+      these need to be <strong>gridded and interpolated</strong> to generate a 
+      3-D surface. This can either be done using IDL&#8217;s &#8220;<strong>iTools</strong>&#8221; 
+      or the <strong><a href="http://www.goldensoftware.com/products/surfer/surfer.shtml" target="_blank">Surfer</a></strong> 
+      software application (or other tools of your choosing). For using iTools, 
+      use the IDL Help page to look up &#8220;iTools&#8221; (in short, however, 
+      you can type &#8220;<strong>ICONTOUR</strong>&#8221; at the IDL prompt to 
+      start the tool). This is a relatively easy application to use for gridding 
+      and viewing data in 3-D with a series of graphical user interfaces (GUI). 
+      In my experience, however, creating the final images in iTools was not as 
+      flexible and elegant as Surfer. My remaining instructions, therefore, pertain 
+      to Surfer.</li>
+  </ol>
+  <ol type="a">
+    <li value="3"> Open Surfer and select &#8220;<strong>Grid</strong> <img src="right.gif" width="5" height="8"> 
+      <strong>Data&#8230;</strong>&#8221;.</li>
+  </ol>
+  <ol type="a">
+    <li value="4"> Select the XYZ file that you generated above in step <em>b</em> 
+      for gridding.</li>
+  </ol>
+  <ol type="a">
+    <li value="5"> I used <strong>kriging</strong> as my gridding method but got 
+      similar results from various other methods; another option that I liked 
+      was &#8220;<strong>Triangulation with Linear Interpolation</strong>&#8221;. 
+      The method you choose is up to you. For the most part, I just used all of 
+      the default settings, but you could also investigate the &#8220;<strong>Advanced 
+      Options&#8230;</strong>&#8221; on this screen. By default it will create 
+      a <strong>Surfer grid file</strong> (*.grd) in the same directory as the 
+      XYZ file.</li>
+  </ol>
+  <ol type="a">
+    <li value="6"> After the <strong>grid file </strong>has been generated (*.grd), 
+      you can now view this file in 3-D. Select &#8220;<strong>New</strong>&#8221; 
+      from the main Surfer &#8220;<strong>File</strong>&#8221; menu and choose 
+      &#8220;<strong>Plot Document</strong>&#8221;. On the right-hand side of 
+      the screen are different types of visualizations that you can generate from 
+      the Surfer grid file. Select <img src="Surfer_3Dplot_icon.jpg" width="23" height="24" align="absmiddle"> 
+      to generate a <strong>3-D surface plot</strong>; similarly, you can select 
+      &#8220;<strong>Surface&#8230;</strong>&#8221; from the main Surfer &#8220;<strong>Map</strong>&#8221; 
+      menu. Select the Surfer <strong>grid file</strong> (*.grd) that you generated 
+      above. </li>
+  </ol>
+  <ol type="a">
+    <li value="7"> You may need to adjust the scale of the resulting 3-D surface 
+      plot. For instance, since my GPR survey was 100-m by 100-m, I adjusted the 
+      scale of the X and Y axes to be the same. To do this, double-click on &#8220;<strong>3D 
+      Surface</strong>&#8221; on the left-hand side of the screen to adjust settings 
+      for the plot. Go to the &#8220;<strong>Scale</strong>&#8221; tab, unselect 
+      &#8220;<strong>Proportional XY Scaling</strong>&#8221;, and set the length 
+      of the <strong>X </strong>scale to be equal to that of the <strong>Y</strong> 
+      scale. Similarly, adjust the scale of the <strong>Z</strong> axis for <strong>vertical 
+      exaggeration</strong> or true scale settings, depending on your desired 
+      output. The other important tab for the <strong>3D Surface Properties</strong> 
+      is the &#8220;<strong>View</strong>&#8221; tab: here you can adjust the 
+      perspective at which the surface is viewed.</li>
+  </ol>
+  <ol type="a">
+    <li value="8"> You can easily adjust each of the axes, all of the fonts, add 
+      labels, add a color bar, etc. I found that Surfer is extremely flexible 
+      and easy to use for creating the output image that you desire.</li>
+  </ol>
+  <ol type="a">
+    <li value="9"> When you have adjusted the plot to your liking, do &#8220;<strong>File</strong> 
+      <img src="right.gif" width="5" height="8"> <strong>Save</strong>&#8221; 
+      to save the result as a <strong>Surfer plot file</strong> (*.srf) that can 
+      be opened again and further edited in Surfer. You can also select &#8220;<strong>File 
+      </strong><img src="right.gif" width="5" height="8"> <strong>Export</strong>&#8221; 
+      to export the file in a variety of image formats, including PNG, TIFF, JPEG, 
+      GIF, BMP, ESRI Shapefile, etc.</li>
+  </ol>
+  <hr>
+  <p><strong><font face="Arial, Helvetica, sans-serif"><a name="a6"></a>A.6. <font color="#CC0000">Computing 
+    Statistics </font></font></strong></p>
+  <p>Now that one or more linear features have been identified in the GPR data 
+    file or transects (subsets) using ENVI&#8217;s polyline <strong>Region Of 
+    Interest (ROI)</strong> tool, the depth of each pixel in these features can 
+    also be used to compute <strong>depth</strong> and <strong>snow water equivalent 
+    (SWE)</strong> statistics. This is accomplished using custom-made IDL programs 
+    that can compute the depth of the pixel (based on various input criteria). 
+    See the programs listed in <a href="appendixb.html#b3">Appendix B.3.</a> for 
+    documentation and installation instructions regarding these particular programs. 
+    The depth and SWE statistics that are reported are the mean, standard deviation, 
+    minimum, and maximum as well as the total number of pixels used in the calculations. 
+    These statistics can be generated as so:</p>
+  <ol type="a">
+    <li>If you wish to compute statistics for a single GPR file and corresponding 
+      ROI file (*.roi), select &#8220;<strong>Compute Depth Statistics&#8230;</strong>&#8221; 
+      from the &#8220;<strong>GPR</strong>&#8221; menu of the image window in 
+      ENVI. If you wish to compute statistics for multiple GPR files and their 
+      corresponding ROI files, however, select &#8220;<strong>Compute Depth Statistics</strong>&#8221; 
+      from the &#8220;<strong>GPR</strong>&#8221; menu of the main ENVI menu bar. 
+      This function will ask you for the location of the necessary ROI file(s) 
+      and RAMAC header file (*.rad) in addition to settings for converting time 
+      to depth and for converting depth to SWE. If the subsurface in the data 
+      is not snow, the snow density setting for computing SWE can be ignored. 
+    </li>
+  </ol>
+  <ol type="a">
+    <li value="2"> The results will be printed to a separate window and can be 
+      saved to an ASCII text file if desired.</li>
+  </ol>
+  <hr>
+  <p align="center"> <a href="#" onClick="window.scrollTo( 0, 0 ); this.blur(); return false;">Top of page</a> &bull; <a href="index.html">Abstract</a> 
+    &bull; <a href="index.html#intro">Introduction</a> &bull; <a href="index.html#methods">Methods</a> 
+    &bull; <a href="index.html#results">Results</a> &bull; <a href="index.html#discussion">Discussion</a> 
+    &bull; <a href="index.html#references">References<br>
+    </a>Appendix B. <a href="appendixb.html">Program Documentation and Installation 
+    Instructions</a></p>
+  <p align="center">&copy; 2006, <!--#include virtual="../ssi/footer.ssi" --></p>
+</blockquote>
+<!--#include virtual="../ssi/google_analytics.ssi" -->
+</body>
+</html>

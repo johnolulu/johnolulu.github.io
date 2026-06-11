@@ -1,0 +1,217 @@
+{
+  "Athletic Bilbao": {
+    "code": "bilbao",
+    "full_name": "Athletic Club Bilbao",
+    "nickname": "Los Leones (The Lions)",
+    "city": "Bilbao, Basque Country",
+    "latitude": 43.256944,
+    "longitude": -2.923611,
+    "logo": "https://upload.wikimedia.org/wikipedia/en/thumb/9/98/Club_Athletic_Bilbao_logo.svg/150px-Club_Athletic_Bilbao_logo.svg.png",
+    "founded": "1898",
+    "ranking": 7
+  },
+  "Atl&eacute;tico Madrid": {
+    "code": "atletico_madrid",
+    "full_name": "Club Atl&eacute;tico de Madrid",
+    "nickname": "Los Indios (The Indians)",
+    "city": "Madrid",
+    "latitude": 40.401719,
+    "longitude": -3.720606,
+    "logo": "https://upload.wikimedia.org/wikipedia/en/thumb/c/c1/Atletico_Madrid_logo.svg/130px-Atletico_Madrid_logo.svg.png",
+    "founded": "1903",
+    "ranking": 3
+  },
+  "Barcelona": {
+    "code": "barcelona",
+    "full_name": "FC Barcelona",
+    "nickname": "Bar&ccedil;a",
+    "city": "Barcelona, Catalonia",
+    "latitude": 41.38087,
+    "longitude": 2.122802,
+    "logo": "https://upload.wikimedia.org/wikipedia/en/thumb/4/47/FC_Barcelona_%28crest%29.svg/150px-FC_Barcelona_%28crest%29.svg.png",
+    "founded": "1899",
+    "ranking": 1
+  },
+  "Celta de Vigo": {
+    "code": "celta",
+    "full_name": "Real Club Celta de Vigo",
+    "nickname": "Os C&eacute;lticos (The Celts/Celtics)",
+    "city": "Vigo, Galicia",
+    "latitude": 42.231356,
+    "longitude": -8.712447,
+    "logo": "https://upload.wikimedia.org/wikipedia/en/thumb/1/12/RC_Celta_de_Vigo_logo.svg/100px-RC_Celta_de_Vigo_logo.svg.png",
+    "founded": "1923",
+    "ranking": 8
+  },
+  "Deportivo La Coru&ntilde;a": {
+    "code": "deportivo",
+    "full_name": "Real Club Deportivo de La Coru&ntilde;a",
+    "nickname": "D&eacute;por",
+    "city": "A Coru&ntilde;a, Galicia",
+    "latitude": 43.365,
+    "longitude": -8.41,
+    "logo": "https://upload.wikimedia.org/wikipedia/en/thumb/4/4e/RC_Deportivo_La_Coru%C3%B1a_logo.svg/180px-RC_Deportivo_La_Coru%C3%B1a_logo.svg.png",
+    "founded": "1906",
+    "ranking": 16
+  },
+  "Eibar": {
+    "code": "eibar",
+    "full_name": "SD Eibar",
+    "nickname": "Los Armeros (The Gunners)",
+    "city": "Eibar, Basque Country",
+    "latitude": 43.183333,
+    "longitude": -2.466667,
+    "logo": "https://upload.wikimedia.org/wikipedia/en/thumb/7/75/SD_Eibar_logo.svg/130px-SD_Eibar_logo.svg.png",
+    "founded": "1940",
+    "ranking": 18
+  },
+  "Espanyol": {
+    "code": "espanyol",  
+    "full_name": "RCD Espanyol de Barcelona",
+    "nickname": "Los Periquitos (The Parakeets)",
+    "city": "Barcelona, Catalonia",
+    "latitude": 41.347861,
+    "longitude": 2.075667,
+    "logo": "https://upload.wikimedia.org/wikipedia/en/thumb/d/d6/Rcd_espanyol_logo.svg/130px-Rcd_espanyol_logo.svg.png",
+    "founded": "1900",
+    "ranking": 10
+  },
+  "Getafe CF": {
+    "code": "getafe",
+    "nickname": "El Geta",
+    "city": "Getafe, Madrid",
+    "latitude": 40.304722,
+    "longitude": -3.731111,
+    "logo": "https://upload.wikimedia.org/wikipedia/en/thumb/e/ef/Getafe_cf_200px.png/150px-Getafe_cf_200px.png",
+    "founded": "1946",
+    "ranking": 15 
+  },
+  "Granada CF": {
+    "code": "granada",
+    "nickname": "Los Nazar&iacute;es (The Nasrids), El Gran&aacute;",
+    "city": "Granada",
+    "latitude": 37.178056,
+    "longitude": -3.600833,
+    "logo": "https://upload.wikimedia.org/wikipedia/en/thumb/b/ba/Granada_CF_logotipo.svg/70px-Granada_CF_logotipo.svg.png",
+    "founded": "1931",
+    "ranking": 17
+  },
+  "Las Palmas": {
+    "code": "las_palmas", 
+    "full_name": "UD Las Palmas",
+    "nickname": "Los Amarillos (The Yellows)",
+    "city": "Las Palmas, Canary Islands",
+    "latitude": 28.15,
+    "longitude": -15.416667,
+    "logo": "https://upload.wikimedia.org/wikipedia/en/thumb/2/20/UD_Las_Palmas_logo.svg/130px-UD_Las_Palmas_logo.svg.png",
+    "founded": "1949",
+    "ranking": 21,
+    "note": "Promoted from Segunda Divisi&oacute;n."
+  },
+  "Levante UD": {
+    "code": "levante",
+    "nickname": "Les Granotes (The Frogs)",
+    "city": "Valencia",
+    "latitude": 39.494722,
+    "longitude": -0.364167,
+    "logo": "https://upload.wikimedia.org/wikipedia/en/thumb/7/7b/Levante_Uni%C3%B3n_Deportiva%2C_S.A.D._logo.svg/150px-Levante_Uni%C3%B3n_Deportiva%2C_S.A.D._logo.svg.png",
+    "founded": "1909",
+    "ranking": 14
+  },
+  "M&aacute;laga CF": {
+    "code": "malaga",
+    "nickname": "Los Boquerones (The Anchovies)",
+    "city": "M&aacute;laga, Andalusia",
+    "latitude": 36.719444,
+    "longitude": -4.42,
+    "logo": "https://upload.wikimedia.org/wikipedia/en/thumb/c/c3/M%C3%A1laga_CF.png/150px-M%C3%A1laga_CF.png",
+    "founded": "1904",
+    "ranking": 9
+  },
+  "Rayo Vallecano": {
+    "code": "vallecano",
+    "full_name": "Rayo Vallecano de Madrid",
+    "nickname": "Los Franjirrojos (The Red Sashes)",
+    "city": "Madrid",
+    "latitude": 40.391944,
+    "longitude": -3.658961,
+    "logo": "https://upload.wikimedia.org/wikipedia/en/thumb/d/d8/Rayo_Vallecano_logo.svg/180px-Rayo_Vallecano_logo.svg.png",
+    "founded": "1924",
+    "ranking": 11
+  },
+  "Real Betis": {
+    "code": "betis",
+    "full_name": "Real Betis Balompi&eacute;",
+    "nickname": "Betis, Los B&eacute;ticos",
+    "city": "Sevilla (Seville), Andalusia",
+    "latitude": 37.356389,
+    "longitude": -5.981389,
+    "logo": "https://upload.wikimedia.org/wikipedia/en/thumb/1/13/Real_betis_logo.svg/200px-Real_betis_logo.svg.png",
+    "founded": "1907",
+    "ranking": 19,
+    "note": "Promoted from Segunda Divisi&oacute;n." 
+  },
+  "Real Madrid": {
+    "code": "real_madrid",
+    "full_name": "Real Madrid CF",
+    "city": "Madrid",
+    "latitude": 40.45306,
+    "longitude": -3.68835,
+    "logo": "https://upload.wikimedia.org/wikipedia/en/thumb/5/56/Real_Madrid_CF.svg/130px-Real_Madrid_CF.svg.png",
+    "founded": "1902",
+    "ranking": 2
+  },
+  "Real Sociedad": {
+    "code": "real_sociedad",
+    "full_name": "Real Sociedad de F&uacute;tbol",
+    "nickname": "La Real (The Royals)",
+    "city": "San Sebasti&aacute;n, Basque Country",
+    "latitude": 43.321389,
+    "longitude": -1.985556,
+    "logo": "https://upload.wikimedia.org/wikipedia/en/thumb/f/f1/Real_Sociedad_logo.svg/150px-Real_Sociedad_logo.svg.png",
+    "founded": "1909",
+    "ranking": 14
+  },
+  "Sevilla FC": {
+    "code": "sevilla",
+    "nickname": "Los Nervionenses (From Nervi&oacute;n)",
+    "city": "Sevilla (Seville), Andalusia",
+    "latitude": 37.384,
+    "longitude": -5.9705,
+    "logo": "https://upload.wikimedia.org/wikipedia/en/thumb/8/86/Sevilla_cf_200px.png/150px-Sevilla_cf_200px.png",
+    "founded": "1905",
+    "ranking": 5
+  },
+  "Sporting de Gij&oacute;n": {
+    "code": "sporting",
+    "full_name": "Real Sporting de Gij&oacute;n",
+    "nickname": "Sporting",
+    "city": "Gij&oacute;n, Asturias",
+    "latitude": 43.533333,
+    "longitude": -5.7,
+    "logo": "https://upload.wikimedia.org/wikipedia/en/thumb/4/48/Real_Sporting_de_Gijon.svg/130px-Real_Sporting_de_Gijon.svg.png",
+    "founded": "1905",
+    "ranking": 20,
+    "note": "Promoted from Segunda Divisi&oacute;n."
+  },
+  "Valencia CF": {
+    "code": "valencia",
+    "nickname": "Los Che, Los Murci&eacute;lagos (The Bats)",
+    "city": "Valencia",
+    "latitude": 39.474656,
+    "longitude": -0.358361,
+    "logo": "https://upload.wikimedia.org/wikipedia/en/thumb/c/ce/Valenciacf.svg/150px-Valenciacf.svg.png",
+    "founded": "1919",
+    "ranking": 4
+  },
+  "Villarreal CF": {
+    "code": "villarreal",
+    "nickname": "El Submarino Amarillo (The Yellow Submarine)",
+    "city": "Villarreal, Castell&oacute;",
+    "latitude": 39.937778,
+    "longitude": -0.101389,
+    "logo": "https://upload.wikimedia.org/wikipedia/en/thumb/7/70/Villarreal_CF_logo.svg/150px-Villarreal_CF_logo.svg.png",
+    "founded": "1923",
+    "ranking": 6
+  }
+}

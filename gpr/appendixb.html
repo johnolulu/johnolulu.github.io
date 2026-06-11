@@ -1,0 +1,2041 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<link rel="shortcut icon" href="../favicon.ico" />
+<title>Local-scale snow accumulation variability on the Greenland ice sheet from ground-penetrating radar (GPR)</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link href="../css/subpages.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+<p><a name="top"></a></p>
+<blockquote> 
+  <p><b><font face="Arial, Helvetica, sans-serif">Appendix B. PROGRAM DOCUMENTATION 
+    AND INSTALLATION INSTRUCTIONS</font></b></p>
+  <table width="29%" border="0">
+    <tr> 
+      <td width="13%"><div align="center"><a href="http://www.malags.com/software/#groundvision" target="_blank"><img src="Mala_Geoscience_logo.gif" width="150" height="56" border="0"></a></div></td>
+      <td width="13%"> <div align="center"><a href="http://www.goldensoftware.com/products/surfer/surfer.shtml" target="_blank"><img src="Surfer8_logo.gif" width="137" height="70" border="0"></a></div></td>
+    </tr>
+    <tr> 
+      <td valign="top"><div align="center"><a href="http://www.rsinc.com/idl/" target="_blank"><img src="IDL_logo.jpg" width="114" height="37" border="0"></a></div></td>
+      <td valign="top"> <div align="center"><a href="http://www.rsinc.com/envi/" target="_blank"><img src="ENVI_logo.jpg" width="123" height="41" border="0"></a></div></td>
+    </tr>
+  </table>
+  <p><em>by John Maurer &lt;<font size="-1"><!--#include virtual="../ssi/email.ssi" --></font>&gt;</em></p>
+  <p>B.1. <a href="#b1">Opening Files In ENVI</a><br>
+    B.2. <a href="#b2">Filtering Tools</a><br>
+    B.3. <a href="#b3">Analysis Tools</a></p>
+  <p>The following software tools have been created for opening, filtering, and 
+    analyzing <strong>Mal&aring; Geoscience RAMAC&#8482;</strong> (<a href="http://ramac.malags.com" target="_blank">http://ramac.malags.com</a>) 
+    g<strong>round-penetrating radar (GPR)</strong> data. These tools are programmed 
+    using <strong>Research Systems, Inc.'s (<a href="http://rsinc.com" target="_blank">RSI</a>) 
+    Interactive Data Language (<a href="http://rsinc.com/idl/" target="_blank">IDL</a>) 
+    </strong>for use within RSI's <strong>Environment for Visualizing Images (<a href="http://rsinc.com/envi/" target="_blank">ENVI</a>)</strong> 
+    software (<a href="http://rsinc.com" target="_blank">http://rsinc.com</a>). 
+    These tools were programmed and tested on a Microsoft Windows personal computer 
+    using IDL 6.1 and ENVI 4.1 but should work on other operating systems and 
+    software versions. Each of the programs is individually documented and downloadable 
+    below but may be downloaded as a collection from the following compressed 
+    folder; also provided are some example input and output data files in an additional 
+    file:</p>
+  <blockquote> 
+    <p><a href="GPR_IDL_tools_1.00.zip"><img src="WinZip_icon.jpg" width="36" height="36" border="0" align="absmiddle"></a><a href="GPR_IDL_tools_1.00.zip">GPR_IDL_tools_1.00.zip</a> 
+      (103 KB)</p>
+    <p><a href="GPR_example_data.zip"><img src="WinZip_icon.jpg" width="36" height="36" border="0" align="absmiddle"></a><a href="GPR_example_data.zip">GPR_example_data.zip</a> 
+      (10.5 MB)</p>
+  </blockquote>
+  <p>These software tools are saved as IDL procedures (.pro files) and should 
+    be moved to the ENVI &quot;save_add&quot; directory prior to use. The location 
+    of the ENVI &quot;<strong>save_add</strong>&quot; directory may vary on different 
+    systems, but can generally be found according to the following path on a Windows 
+    computer:</p>
+  <blockquote> 
+    <p> <font face="Courier New, Courier, mono">C:\RSI\IDL61\products\ENVI41\save_add\</font></p>
+  </blockquote>
+  <p>When ENVI user functions (.pro or .sav files) are placed in the ENVI &quot;save_add&quot; 
+    directory, they are automatically compiled in the ENVI session's RAM when 
+    ENVI starts. Also, once a user function has been added to ENVI, its code can 
+    be modified at any time, recompiled from within the current ENVI session, 
+    and then used in its modified form without having to restart ENVI.</p>
+  <p>Furthermore, these procedures can be made part of the ENVI menus. The ENVI 
+    menu system is comprised of the <strong>&quot;Main&quot; menu</strong> that 
+    appears when you start ENVI and the <strong>&quot;Functions&quot; menu</strong> 
+    that is accessed only from image display windows. These two menus are defined 
+    by separate ASCII files located in the ENVI &quot;<strong>menu</strong>&quot; 
+    directory:</p>
+  <blockquote> 
+    <p> <font face="Courier New, Courier, mono">C:\RSI\IDL61\products\ENVI41\menu\</font></p>
+  </blockquote>
+  <p>The &quot;<strong>envi.men</strong>&quot; file in the above directory defines 
+    the Main menu, and the &quot;<strong>display.men</strong>&quot; file defines 
+    the Functions menu. Each time a new ENVI session is started, these two menu 
+    files are read and used to construct the ENVI menus based on the content of 
+    the files. To add a new button to one of the two menus, simply add a new line 
+    to one of the files and restart ENVI. See &quot;Modifying the ENVI Menus&quot; 
+    in the ENVI Online Help for more details on the specific syntax and format 
+    of modifying the menu files. Each of the procedures documented below lists 
+    the necessary lines to add to the menu files. In short, however, add the following 
+    text to the bottom of &quot;<strong>display.men</strong>&quot; for the necessary 
+    tools to be displayed in the &quot;Functions&quot; menu under a menu heading 
+    labeled &quot;GPR&quot;:</p>
+  <blockquote> 
+    <p><font face="Courier New, Courier, mono">C:\RSI\IDL61\products\ENVI41\menu\display.men:</font></p>
+    <p><font face="Courier New, Courier, mono">0 {GPR}<br>
+      &nbsp;&nbsp;1 {Filter}<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;2 {Subtract Mean Trace} {not used} {subtract_mean_trace}<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;2 {Time-Varying Gain} {not used} {time_varying_gain}<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;2 {DC Removal} {not used} {dc_removal}<br>
+      &nbsp;&nbsp;1 {Cursor Depth/Distance...} {not used} {cursor_depth_distance}<br>
+      &nbsp;&nbsp;1 {Create XYZ File...} {not used} {collect_input_create_xyz_file}<br>
+      &nbsp;&nbsp;1 {Compute Depth Statistics...} {not used} {collect_input_compute_depth_statistics}</font></p>
+  </blockquote>
+  <p>Next, add the following text to the &quot;<strong>envi.men</strong>&quot; 
+    file for the remaining tools to be displayed on the main ENVI menu bar. These 
+    tools are added to this menu since they can be applied to multiple GPR files 
+    and because these GPR files do not need to be already open in ENVI for these 
+    procedures to run:</p>
+  <blockquote> 
+    <p><font face="Courier New, Courier, mono">C:\RSI\IDL61\products\ENVI41\menu\envi.men:</font></p>
+    <p><font face="Courier New, Courier, mono">0 {GPR}<br>
+      &nbsp;&nbsp;1 {Bulk Filter} {not used} {bulk_gpr_filter}<br>
+      &nbsp;&nbsp;1 {Create XYZ File} {not used} {collect_input_bulk_xyz_file}<br>
+      &nbsp;&nbsp;1 {Compute Depth Statistics} {not used} {collect_input_bulk_depth_statistics}</font></p>
+  </blockquote>
+  <p>The following should also be appended to the above &#8220;<strong>envi.men</strong>&#8221; 
+    file underneath the existing main &#8220;<strong>File <img src="right.gif" width="5" height="8"> 
+    Open External File</strong>&#8221; section for adding a tool that can open 
+    the GPR data automatically:</p>
+  <blockquote> 
+    <p><font face="Courier New, Courier, mono">C:\RSI\IDL61\products\ENVI41\menu\envi.men:</font></p>
+    <p><font face="Courier New, Courier, mono">0 {File}<br>
+      &nbsp;&nbsp;1 {Open External File} {separator}<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;2 {GPR}<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3 {RAMAC} {not used} {open_ramac_gpr_file}</font></p>
+  </blockquote>
+  <p>Lastly, in order for the &#8220;Cursor Depth/Distance&#8221; tools to work, 
+    you must also open the ENVI &quot;<strong>Preferences</strong>&quot; menu 
+    from the main ENVI &quot;File&quot; menu. On the main tab entitled &quot;<strong>User 
+    Defined Files</strong>&quot;, enter &quot;<strong>gpr_cursor_info</strong>&quot; 
+    in the bottom text box that is labeled &quot;<strong>User Defined Motion Routine</strong>&quot;. 
+    Click &quot;OK&quot; to save the new preference and choose to save these updated 
+    preferences to a file if you wish them to be saved after you close and restart 
+    ENVI. The information from this procedure will not be displayed, however, 
+    until the &quot;Cursor Depth/Distance&quot; function is called from either 
+    the Main or Function &quot;GPR&quot; menus created above. See &quot;<a href="#cursor_depth_distance">cursor_depth_distance.pro</a>&quot; 
+    below for further details.</p>
+  <p>The software tools created as part of this thesis are documented below and 
+    are divided into the following categories:</p>
+  <p>B.1. <a href="#b1">Opening Files In ENVI</a><br>
+    B.2. <a href="#b2">Filtering Tools</a><br>
+    B.3. <a href="#b3">Analysis Tools</a></p>
+  <hr>
+  <p><strong><font face="Arial, Helvetica, sans-serif"><a name="b1" id="b1"></a>B.1. 
+    <font color="#CC0000">Opening Files In ENVI</font></font></strong></p>
+  <ol type="a">
+    <li><a href="#open_ramac_gpr_file">open_ramac_gpr_file.pro</a></li>
+  </ol>
+  <ol type="a">
+    <li><strong><font face="Arial, Helvetica, sans-serif"><a name="open_ramac_gpr_file"></a><font color="#CC0000">open_ramac_gpr_file.pro</font></font></strong></li>
+  </ol>
+  <blockquote> 
+    <p><a href="open_ramac_gpr_file.pro"><img src="IDL_file_icon.jpg" width="32" height="36" border="0" align="absmiddle"></a> 
+      <a href="open_ramac_gpr_file.pro">Click here to download this file</a>. 
+      (18 KB) (See also: <a href="GNU_License.txt">GNU license</a>) <br>
+      <a href="GPR_IDL_tools_1.00.zip"><img src="WinZip_icon.jpg" width="36" height="36" border="0" align="absmiddle"></a><a href="GPR_IDL_tools_1.00.zip">Click 
+      here to download all files</a>. (103 KB) </p>
+    <p>This IDL procedure can be run in ENVI to automatically and properly import 
+      a <strong>Mal&aring; Geoscience</strong> <strong><a href="http://ramac.malags.com" target="_blank">RAMAC</a>&#8482; 
+      ground-penetrating radar (GPR) </strong> data file for viewing in ENVI (under 
+      ENVI's &quot;<strong>File</strong> <img src="right.gif" width="5" height="8"> 
+      <strong>Open External File</strong>&quot; file menu). The dimensions of 
+      the data file are read from an associated RAMAC &quot;*.rad&quot; header 
+      file and the data are transposed (rotated) so that they are displayed properly. 
+      The data file is opened in ENVI in memory and given an informative description 
+      in its ENVI header file so that if the rotated file is saved to disk this 
+      information can be referred to later. Having a procedure such as this one, 
+      though, prevents the need for saving an alternate format of the GPR data 
+      just for ENVI (and thereby doubling your space requirements) since you can 
+      view it directly from memory.</p>
+    <p>What follows are step-by-step instructions for opening a Mal&aring; Geoscience 
+      RAMAC GPR data file (*.rd3) in ENVI manually for the first time. These are 
+      essentially the steps that the current procedure enables automatically for 
+      the user:</p>
+    <ol>
+      <li> Determine data dimensions: 
+        <p> Open the *.rad file associated with the particular GPR data file that 
+          you wish to view in order to determine its dimensions:</p>
+        <ol type="a">
+          <li> Determine the number of pixels in the vertical/y-axis dimension 
+            of the data. This is labeled on the first line of the *.rad file as 
+            the number of &quot;<strong>samples</strong>&quot;. For example: 
+            <blockquote> 
+              <p> <font face="Courier New, Courier, mono">SAMPLES:1024</font></p>
+            </blockquote>
+            <p>This will be used to identify the number of &quot;<strong>samples</strong>&quot; 
+              in ENVI, which confusingly represents the horizontal/x-axis dimension 
+              of the data in ENVI. (The data will be flipped vertically in ENVI 
+              when we first open the file and will subsequently require a rotation 
+              within ENVI prior to usage.)</p>
+          </li>
+          <li> Determine the number of pixels in the horizontal/x-axis dimension 
+            of the data. This is labeled on the 22nd line of the *.rad file as 
+            the number of the &quot;<strong>last trace</strong>&quot;. For example: 
+            <blockquote> 
+              <p> <font face="Courier New, Courier, mono">LAST TRACE:37745</font></p>
+            </blockquote>
+            <p> In RAMAC GPR terminology, each line of data in the horizontal 
+              dimension is considered a single &quot;<strong>trace</strong>&quot; 
+              of data since it represents the data traced by radar pulses for 
+              that particular distance along the x-axis. The last trace represents 
+              the total number of pixels in the horizontal dimension and will 
+              be used to identify the number of &quot;<strong>lines</strong>&quot; 
+              in ENVI, which confusingly represents the vertical/y-axis dimension 
+              of the data in ENVI. (Again, the data will be flipped vertically 
+              in ENVI when we first open the file and will therefore require a 
+              rotation within ENVI prior to usage.</p>
+          </li>
+        </ol>
+      </li>
+      <li> Open the file in ENVI:</li>
+    </ol>
+    <blockquote> 
+      <p>Open ENVI and select &quot;<strong>Open Image File</strong>&quot; from 
+        the &quot;<strong>File</strong>&quot; pull-down menu. Select the particular 
+        RAMAC GPR data file (*.rd3) that you wish to open in ENVI. A &quot;<strong>Header 
+        Info</strong>&quot; window will appear for you to input various characteristics 
+        about the data so that ENVI knows how to properly display it. Using the 
+        dimensions of the data determined in step 1 above, fill in each of the 
+        fields as so:</p>
+      <ol type="a">
+        <li> <strong>Samples</strong> 
+          <p> Enter the number of &quot;<strong>samples</strong>&quot; determined 
+            from the *.rad file in step 1 above (e.g. 1024).</p>
+        </li>
+        <li> <strong>Lines</strong> 
+          <p> Enter the number of the &quot;<strong>last trace</strong>&quot; 
+            determined from the *.rad file in step 1 above (e.g. 37745).</p>
+        </li>
+        <li> <strong>Bands</strong> 
+          <p> Enter &quot;<strong>1</strong>&quot;. RAMAC GPR data only consist 
+            of a single band of data.</p>
+        </li>
+        <li> <strong>Offset</strong> 
+          <p> Enter &quot;<strong>0</strong>&quot;. There is no header information 
+            that precedes/offsets the RAMAC GPR data.</p>
+        </li>
+        <li> <strong>xstart</strong> 
+          <p> Use the default of &quot;<strong>1</strong>&quot;. This will define 
+            the left-most column of data as beginning at 1.</p>
+        </li>
+        <li> <strong>ystart</strong> 
+          <p> Use the default of &quot;<strong>1</strong>&quot;. This will define 
+            the upper-most row of data as beginning at 1.</p>
+        </li>
+        <li> <strong>Data Type</strong> 
+          <p> Select &quot;<strong>Integer</strong>&quot;. <em>NOTE:</em> It is 
+            incorrect to select &quot;Unsigned Integer&quot; since the RAMAC GPR 
+            data files can contain negative values and these will be incorrectly 
+            represented as very large positive values if you select &quot;Unsigned 
+            Integer&quot; as the data type.</p>
+        </li>
+        <li> <strong>Byte Order</strong> 
+          <p> If the data were collected on a computer running the Windows operating 
+            system, select &quot;<strong>Host (Intel)</strong>&quot; byte order. 
+            If the data were collected on a computer running a Unix-based operating 
+            system (ex. SGI, Sun, or Linux operating systems), select &quot;<strong>Network 
+            (IEEE)</strong>&quot; byte order. If you have selected the incorrect 
+            byte order, the data will obviously appear incorrect when displayed.</p>
+        </li>
+        <li> <strong>File Type</strong> 
+          <p> Select the default of &quot;<strong>ENVI Standard</strong>&quot;.</p>
+        </li>
+        <li> <strong>Interleave</strong> 
+          <p> Select the default of &quot;<strong>BSQ</strong>&quot;. Because 
+            the data contain only a single band, the band interleave that you 
+            select is irrelevant and any option will work equally well. <em>NOTE: 
+            </em>&quot;BSQ&quot; stands for band-sequential, &quot;BIL&quot; stands 
+            for band interleaved by line (y-dimension), and &quot;BIP&quot; stands 
+            for band interleaved by pixel (x-dimension).</p>
+        </li>
+        <li> <strong>Description</strong> 
+          <p> In the text box at the bottom of the window you can enter any description 
+            of the data file that you like. The default description is &quot;File 
+            imported into ENVI.&quot; If desired, enter informative details about 
+            the data file such as, &quot;Mala Geoscience RAMAC 1000 MHz GPR data 
+            file from the NASA-U Greenland Climate Network (GC-Net) automatic 
+            weather station (AWS) collected on June 1 2003.&quot; <em>NOTE: </em>Avoid 
+            commas because the description will not display properly when viewing 
+            the header in ENVI. </p>
+        </li>
+      </ol>
+      <p>Select &quot;<strong>OK</strong>&quot; after entering the above selections 
+        and the file will automatically appear in a new &quot;<strong>Available 
+        Bands List</strong>&quot; window. Select the file from this window, use 
+        the default display mode of &quot;<strong>Gray Scale</strong>&quot; (the 
+        data are not in color), and then select &quot;<strong>Load Band</strong>&quot; 
+        to load the data for display. If any of the above fields were accidentally 
+        entered incorrectly and the data are displayed incorrectly, you can always 
+        right-click on the data file in the &quot;<strong>Available Bands List</strong>&quot; 
+        window and select &quot;<strong>Edit Header...</strong>&quot; to go back 
+        to the &quot;<strong>Header Info</strong>&quot; window and edit the appropriate 
+        field.</p>
+      <p> <em>NOTE: </em>An <strong>ENVI header file</strong> (*.hdr) will now 
+        be saved in the same directory as the original data file (*.rd3). This 
+        file contains all of the information entered above so that the next time 
+        you open the file in ENVI, it will automatically pop into the &quot;<strong>Available 
+        Bands List</strong>&quot; window without requiring to re-enter all of 
+        the above information in the &quot;<strong>Header Info</strong>&quot; 
+        window. If the ENVI header file is ever removed or moved to a different 
+        directory from the data file, ENVI will require you to re-enter all of 
+        the above information the next time you attempt to open the data file 
+        in ENVI.</p>
+    </blockquote>
+    <ol>
+      <li value="3"> Rotate the file in ENVI: 
+        <p> You will notice that the GPR data are flipped vertically when you 
+          first open them for display in ENVI after completing steps 1-2 above. 
+          The next step is to rotate the data so that they are oriented properly 
+          in ENVI. To do this, select &quot;<strong>Rotate/Flip Data</strong>&quot; 
+          from the main ENVI &quot;<strong>Basic Tools</strong>&quot; menu at 
+          the top of the screen. In the &quot;<strong>Rotation Input File</strong>&quot; 
+          window that pops-up, select the GPR data file that you wish to rotate 
+          and select &quot;<strong>OK</strong>&quot;.</p>
+        <p> <em>NOTE:</em> If you are subsetting the original GPR data, you can 
+          also choose a &quot;<strong>Spatial Subset</strong>&quot; before selecting 
+          &quot;<strong>OK</strong>&quot; to only apply and output the rotation 
+          on a small section of the original data file. This may be desired, for 
+          example, if the original data file contains all of the transects that 
+          are part of a larger gridded survey and you wish to split the data file 
+          into its individual transect components for convenience and quickness 
+          during post-processing.</p>
+        <p> In the &quot;<strong>Rotation Parameters</strong>&quot; window that 
+          follows, press the toggle button next to &quot;<strong>Transpose</strong>&quot; 
+          to change the option to &quot;<strong>Yes</strong>&quot;. Use the default 
+          of zero (0) for the rotation &quot;<strong>Angle</strong>.&quot; Select 
+          to &quot;<strong>Output Result to</strong>&quot; a file and then select 
+          an output filename (e.g. &quot;*_ENVI.bin&quot;) if you wish to save 
+          the rotated data. Use the default &quot;<strong>Background Value</strong>&quot; 
+          of 0.00. The image rotation will take some time to complete before the 
+          new, rotated file will automatically appear in the &quot;<strong>Available 
+          Bands List</strong>&quot; for display. <em>NOTE:</em> It is incorrect 
+          to select a rotation angle of 90 degrees and no transpose: although 
+          this will rotate the data into the proper orientation, it will make 
+          the first sample of the image file be the last sample of the actual 
+          data.</p>
+      </li>
+      <li> The file is now displayed correctly in ENVI and ready for processing.</li>
+    </ol>
+    <p> <font face="Arial, Helvetica, sans-serif"><strong>TO USE IN ENVI: </strong></font></p>
+    <p>After saving this procedure in the ENVI &quot;<strong>save_add</strong>&quot; 
+      directory, look for the following line in ENVI's main menu configuration 
+      file (<strong>envi.men</strong>) located in ENVI's &quot;<strong>menu</strong>&quot; 
+      directory:</p>
+    <blockquote> 
+      <p> <font face="Courier New, Courier, mono">1 {Open External File} {separator}</font></p>
+    </blockquote>
+    <p>Add the following lines beneath the above line prior to opening ENVI.</p>
+    <blockquote> 
+      <p> <font face="Courier New, Courier, mono">&nbsp;&nbsp;2 {GPR}<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;3 {RAMAC} {not used} {open_ramac_gpr_file}</font></p>
+    </blockquote>
+    <p>This procedure can then be run from the pull-down menu labeled &quot;<strong>Open 
+      External File</strong>&quot; under the main &quot;<strong>File</strong>&quot; 
+      menu option on ENVI's main menu bar. Along with the existing external file 
+      formats, at the top you will now see &quot;<strong>GPR</strong>&quot; as 
+      a category and &quot;<strong>RAMAC</strong>&quot; as a type of GPR file.</p>
+  </blockquote>
+  <hr>
+  <p><strong><font face="Arial, Helvetica, sans-serif"><a name="b2" id="b2"></a>B.2. 
+    <font color="#CC0000">Filtering Tools</font></font></strong></p>
+  <ol type="a">
+    <li><a href="#subtract_mean_trace">subtract_mean_trace.pro</a></li>
+    <li> <a href="#collect_input_subtract_mean_trace">collect_input_subtract_mean_trace.pro</a></li>
+    <li> <a href="#time_varying_gain">time_varying_gain.pro</a></li>
+    <li> <a href="#collect_input_time_varying_gain">collect_input_time_varying_gain.pro</a></li>
+    <li> <a href="#dc_removal">dc_removal.pro</a></li>
+    <li> <a href="#collect_input_dc_removal">collect_input_dc_removal.pro</a></li>
+    <li> <a href="#bulk_gpr_filter">bulk_gpr_filter.pro</a></li>
+  </ol>
+  <ol type="a">
+    <li><strong><font face="Arial, Helvetica, sans-serif"><a name="subtract_mean_trace"></a><font color="#CC0000">subtract_mean_trace.pro</font></font></strong></li>
+  </ol>
+  <blockquote> 
+    <p><a href="subtract_mean_trace.pro"><img src="IDL_file_icon.jpg" width="32" height="36" border="0" align="absmiddle"></a> 
+      <a href="subtract_mean_trace.pro">Click here to download this file</a>. 
+      (22 KB) (See also: <a href="GNU_License.txt">GNU license</a>)<br>
+      <a href="GPR_IDL_tools_1.00.zip"><img src="WinZip_icon.jpg" width="36" height="36" border="0" align="absmiddle"></a><a href="GPR_IDL_tools_1.00.zip">Click 
+      here to download all files</a>. (103 KB) </p>
+    <p><em><strong>NOTE: </strong>Requires the following other file:</em></p>
+    <ul>
+      <li> <a href="#collect_input_subtract_mean_trace">collect_input_subtract_mean_trace.pro</a></li>
+    </ul>
+    <p>This IDL procedure can be run in ENVI to simulate the &quot;<strong>subtract 
+      mean trace</strong>&quot; image-processing filter available within <strong>Mal&aring; 
+      Geoscience </strong>&quot;<strong><a href="http://www.malags.com/software/#groundvision" target="_blank">GroundVision</a></strong>&quot; 
+      software that is used to acquire and process <strong>Mal&aring; Geoscience</strong> 
+      <strong><a href="http://ramac.malags.com" target="_blank">RAMAC</a>&#8482; 
+      ground-penetrating radar (GPR) </strong>data. As described in Appendix 1 
+      of the GroundVision Manual:</p>
+    <blockquote> 
+      <p> &quot;This filter is used to remove horizontal and nearly horizontal 
+        features in the radargram by subtracting a calculated mean trace from 
+        all traces. The running average version subtracts a mean trace calculated 
+        in a window centered at the trace to be filtered. The size of the window 
+        is selected by the 'Number of traces to use in filter process' edit box. 
+        The Total average method calculates the mean trace as the mean of the 
+        whole data file.&quot;</p>
+    </blockquote>
+    <p>A &quot;<strong>trace</strong>&quot; is a single, vertical column of GPR 
+      data, representing the signal &quot;traced&quot; by a radar pulse as it 
+      travels from the instrument into the subsurface. Each trace is composed 
+      of individual &quot;<strong>samples</strong>,&quot; the smallest measurement 
+      unit in the vertical dimension.</p>
+    <p>In following with the description above, this IDL procedure filters a GPR 
+      image (that has already been formatted to view properly in ENVI) using the 
+      following methodology:</p>
+    <ol>
+      <li> Ask the user for a <strong>subtraction method </strong>(either <strong>running 
+        average</strong> or <strong>total average</strong>) and for a <strong>window 
+        length</strong> (in traces) to apply to the filter if running average<br>
+        is the selected subtraction method. This information can be provided to 
+        the program in one of two ways: <br>
+        <ol type="a">
+          <br>
+          <li> through the use of a <strong>graphical user interface (GUI)</strong> 
+            that pops up when calling the program from within an ENVI image pull-down 
+            menu, or<br>
+            <br>
+          </li>
+        </ol>
+        <ol type="a">
+          <li value="2"> automatically through the use of <strong>command-line</strong> 
+            options at the IDL prompt or from within another IDL program (to facilitate 
+            the application of this filter programmatically across multiple files).</li>
+        </ol>
+      </li>
+    </ol>
+    <p> The IDL procedure then applies the following mean-subtraction filter to 
+      the data on a row-by-row basis (note: rows are oriented horizontally in 
+      the data, as opposed to traces, which are oriented vertically):</p>
+    <ol>
+      <li value="2"> Calculate the mean data value for the row, either for the 
+        entire row (total average method) or for a window centered around the 
+        current trace (running average method).</li>
+    </ol>
+    <ol>
+      <li value="3"> Subtract this mean data value from each pixel in the row. 
+        Note that pixels that used to have the mean data value will now have a 
+        data value of 0. This also means that pixels that used to have data values 
+        less than the mean will now be negative. Negative data values are acceptable 
+        in these data, however.</li>
+    </ol>
+    <p> <font face="Arial, Helvetica, sans-serif"><strong>TO USE IN ENVI:</strong></font> 
+    </p>
+    <p>After saving this procedure in the ENVI &quot;<strong>save_add</strong>&quot; 
+      directory, add the following lines to ENVI's function menu configuration 
+      file (<strong>display.men</strong>) located in ENVI's &quot;<strong>menu</strong>&quot; 
+      directory:</p>
+    <blockquote> 
+      <p> <font face="Courier New, Courier, mono">0 {GPR}<br>
+        &nbsp;&nbsp;1 {Filter}<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;2 {Subtract Mean Trace} {not used} {subtract_mean_trace}</font></p>
+    </blockquote>
+    <p>This procedure can then be run from the pull-down menu labeled &quot;<strong>GPR</strong>&quot; 
+      on a GPR file that you have already opened in ENVI. The result can either 
+      be saved to memory or to a new file.</p>
+    <p> <font face="Arial, Helvetica, sans-serif"><strong>TO USE IN IDL:</strong></font></p>
+    <p><font face="Courier New, Courier, mono">subtract_mean_trace, input_location 
+      = input_location, [window_length = window_length,] output_location = output_location</font></p>
+    <p><em>Keywords:</em></p>
+    <p><strong>input_location</strong> = full pathname and filename of the file 
+      to filter, surrounded by quotes (&quot;&quot;).</p>
+    <p><strong>window_length</strong> (optional) = length in traces (horizontal 
+      dimension, or x-axis) to use in the running average subtraction method. 
+      Must be an integer between 2 and the total number of traces in the file. 
+      If this keyword is not supplied, the program will assume a total average 
+      subtraction method.</p>
+    <p><strong>output_location</strong> = full pathname and filename of a file 
+      to output the filtered result to, surrounded by quotes (&quot;&quot;).</p>
+    <p><em>Examples:</em></p>
+    <p><font face="Courier New, Courier, mono">subtract_mean_trace, input_location 
+      = &quot;C:\data\ramac_gpr.bin&quot;, window_length = 60, output_location 
+      = &quot;C:\data\ramac_gpr_filtered.bin&quot;<br>
+      <br>
+      subtract_mean_trace, input_location = &quot;/home/maurer/data/ramac_gpr.bin&quot;, 
+      output_location = &quot;/home/maurer/data/ramac_gpr_filtered.bin&quot;</font></p>
+  </blockquote>
+  <ol type="a">
+    <li value="2"><a name="collect_input_subtract_mean_trace"></a><strong><font color="#CC0000" face="Arial, Helvetica, sans-serif">collect_input_subtract_mean_trace.pro</font></strong></li>
+  </ol>
+  <blockquote> 
+    <p><a href="collect_input_subtract_mean_trace.pro"><img src="IDL_file_icon.jpg" width="32" height="36" border="0" align="absmiddle"></a> 
+      <a href="collect_input_subtract_mean_trace.pro">Click here to download this 
+      file </a>. (8 KB) (See also: <a href="GNU_License.txt">GNU license</a>)<br>
+      <a href="GPR_IDL_tools_1.00.zip"><img src="WinZip_icon.jpg" width="36" height="36" border="0" align="absmiddle"></a><a href="GPR_IDL_tools_1.00.zip">Click 
+      here to download all files</a>. (103 KB) </p>
+    <p><em><strong>NOTE: </strong>Requires the following other file:</em></p>
+    <ul>
+      <li> <a href="#subtract_mean_trace">subtract_mean_trace.pro</a></li>
+    </ul>
+    <p>This IDL function is called by or for the &quot;<strong>Subtract Mean Trace</strong>&quot; 
+      ground-penetrating radar (GPR) image-processing filter (<a href="#subtract_mean_trace">subtract_mean_trace.pro</a>) 
+      to collect user input. It displays a window for the user to enter a <strong>subtraction 
+      method</strong> (either running average or total average) and for a <strong>window 
+      length</strong> (in traces) to apply to the filter if running average is 
+      the selected subtraction method. A &quot;<strong>trace</strong>&quot; is 
+      a single, vertical column of GPR data, representing the signal &quot;traced&quot; 
+      by a radar pulse as it travels from the instrument into the subsurface.</p>
+    <p> <font face="Arial, Helvetica, sans-serif"><strong>TO USE IN IDL:</strong></font></p>
+    <p><font face="Courier New, Courier, mono">result = collect_input_subtract_mean_trace( 
+      [num_traces = num_traces], [/SPECIFY_OUTPUT] )</font></p>
+    <p><em>Return Value:</em></p>
+    <p><strong>result.accept</strong> = 1 if user selects &quot;OK&quot;, 0 if 
+      &quot;Cancel&quot;.</p>
+    <p><strong>result.subtraction_method</strong> = either &quot;running average&quot; 
+      or &quot;total average&quot;.</p>
+    <p><strong>result.window_length</strong> = length of a sliding time window 
+      in number of traces (horizontal- or x- dimension) over which the filter 
+      is applied. If the optional keyword &quot;num_traces&quot; is not supplied, 
+      this field will instead return the length of the window in the percent of 
+      the total number of traces in the file (0% = 2 traces; 100% = all traces).</p>
+    <p><strong>result.output_location</strong> = where to output filtered result, 
+      either to memory or to a file:</p>
+    <blockquote> 
+      <p> <strong>result.output_location.in_memory</strong> = 1 if output is to 
+        memory.<br>
+        <strong>result.output_location.name</strong> = full path and filename 
+        of file to output to.</p>
+    </blockquote>
+    <p><em>Keywords:</em></p>
+    <p><strong>num_traces</strong> (optional) = total number of traces (horizontal- 
+      or x- dimension) in the file being filtered. Used to provide a slider between 
+      two samples and the total number of samples in the file for the user to 
+      select a window length. If not provided, the slider will instead be between 
+      0% (2 samples) and 100% (all samples), necessary when the number of samples 
+      in the file being filtered is not known in advance.</p>
+    <p><strong>SPECIFY_OUTPUT</strong> (optional) = when this keyword is set, 
+      the widget will ask the user whether to save the output to memory or to 
+      a file; if the user chooses to output to a file, the widget will also ask 
+      the user where to save the file and what to name it.</p>
+    <p><em>Examples:</em></p>
+    <p><font face="Courier New, Courier, mono">result = collect_input_subtract_mean_trace( 
+      num_traces = 1031 )<br>
+      result = collect_input_subtract_mean_trace( num_traces = 1031, /SPECIFY_OUTPUT 
+      )<br>
+      result = collect_input_subtract_mean_trace()</font></p>
+  </blockquote>
+  <ol type="a">
+    <li value="3"><strong><font face="Arial, Helvetica, sans-serif"> <a name="time_varying_gain"></a><font color="#CC0000">time_varying_gain.pro</font></font></strong></li>
+  </ol>
+  <blockquote> 
+    <p><a href="time_varying_gain.pro"><img src="IDL_file_icon.jpg" width="32" height="36" border="0" align="absmiddle"></a> 
+      <a href="time_varying_gain.pro">Click here to download this file</a>. (23 
+      KB) (See also: <a href="GNU_License.txt">GNU license</a>)<br>
+      <a href="GPR_IDL_tools_1.00.zip"><img src="WinZip_icon.jpg" width="36" height="36" border="0" align="absmiddle"></a><a href="GPR_IDL_tools_1.00.zip">Click 
+      here to download all files</a>. (103 KB) </p>
+    <p><em><strong>NOTE: </strong>Requires the following other file:</em></p>
+    <ul>
+      <li> <a href="#collect_input_time_varying_gain">collect_input_time_varying_gain.pro</a></li>
+    </ul>
+    <p>This IDL procedure can be run in ENVI to simulate the &quot;<strong>Time-Varying 
+      Gain</strong>&quot; image processing filter available within <strong>Mal&aring; 
+      Geoscience </strong>&quot;<strong><a href="http://www.malags.com/software/#groundvision" target="_blank">GroundVision</a></strong>&quot; 
+      software that is used to acquire and process <strong>Mal&aring; Geoscience</strong> 
+      <strong><a href="http://ramac.malags.com" target="_blank">RAMAC</a>&#8482; 
+      ground-penetrating radar (GPR)</strong> data. As described in Appendix 1 
+      of the GroundVision Manual:</p>
+    <blockquote> 
+      <p> &quot;The Time-Gain filter applies a time-varying gain to compensate 
+        for amplitude loss due to spreading and attenuation. The trace is multiplied 
+        by a gain function combining linear and an exponential gain, with coefficients 
+        set by the user.&quot;</p>
+    </blockquote>
+    <p>A &quot;<strong>trace</strong>&quot; is a single, vertical column of GPR 
+      data, representing the signal &quot;traced&quot; by a radar pulse as it 
+      travels from the instrument into the subsurface. Each trace is composed 
+      of individual &quot;<strong>samples</strong>,&quot; the smallest measurement 
+      unit in the vertical dimension. Because of geometrical &quot;<strong>spreading</strong>,&quot; 
+      the radar signal decreases in strength with depth as 1/r<sup>2</sup>, where 
+      r is depth.</p>
+    <p>In following with the description above, this IDL procedure filters a GPR 
+      image (that has already been formatted to view properly in ENVI) using the 
+      following methodology:</p>
+    <ol>
+      <li> Collect the necessary user input: <br>
+        <br>
+        <ol type="a">
+          <li> Ask the user for the &quot;<strong>time window</strong>&quot; of 
+            the GPR data being filtered. The time window is the amount of time 
+            that the GPR instrument was set to &quot;listen&quot; for radar pulses 
+            per trace at the time of data acquisition. This value is used to compute 
+            the gain function in step 2 below and can be found in the &quot;*.rad&quot; 
+            file associated with a particular RAMAC GPR data file (&quot;*.rd3&quot;), 
+            labeled &quot;<strong>TIMEWINDOW</strong>&quot; and reported in nanoseconds 
+            (10<sup>-9</sup> seconds).<br>
+            <br>
+          </li>
+        </ol>
+        <ol type="a">
+          <li value="2"> Ask the user for the <strong>start sample</strong> at 
+            which to begin applying the time-varying gain, providing a reasonable 
+            default as GroundVision does. The user may prefer to set the start 
+            sample below any outstanding features within the trace. The time-varying 
+            gain will be applied to all samples between the selected start sample 
+            and the last sample of each trace.<br>
+            <br>
+          </li>
+          <li value="3"> Ask the user for <strong>linear</strong> (<em>A</em>) 
+            and <strong>exponential</strong> (<em>B</em>) <strong>gain factors</strong> 
+            to be applied in the equation outlined in step 2 below. Typical values 
+            range anywhere between 0 and ~1000 for linear gain and 0 and ~150 
+            for exponential gain. Increasing the exponential gain has the effect 
+            of dramatically amplifying the gain of the lower portion of the trace, 
+            which may be important if there are features you are looking for in 
+            the deeper portion of the GPR data.</li>
+        </ol>
+        <p> This information can be provided to the program in one of two ways:</p>
+        <ol type="a">
+          <li> through the use of a <strong>graphical user interface (GUI)</strong> 
+            that pops up when calling the program from within an ENVI image pull-down 
+            menu, or<br>
+            <br>
+          </li>
+          <li value="2"> automatically through the use of <strong>command-line</strong> 
+            options at the IDL prompt or from within another IDL program (to facilitate 
+            the application of this filter programmatically across multiple files).</li>
+        </ol>
+      </li>
+    </ol>
+    <p>The IDL procedure then applies the following time-varying gain function 
+      to the data on a trace-by-trace basis:</p>
+    <ol>
+      <li value="2"> Multiply each sample in the trace from the selected start 
+        sample to the last sample in the trace by a gain factor computed according 
+        to the following equation (note: this is the same equation used in the 
+        &quot;GroundVision&quot; software): 
+        <blockquote> 
+          <p> (A*time) + e<sup>(B*time)</sup></p>
+        </blockquote>
+        <p> where &quot;<em>A</em>&quot; is the linear gain factor and &quot;<em>B</em>&quot; 
+          is the exponential gain factor selected by the user in step 1c above. 
+          Time, here, is expressed in microseconds (10<sup>-6</sup> seconds) and 
+          is computed from the time window input by the user in step 1 above (in 
+          nanoseconds, or 10<sup>-9</sup> seconds) according to the following 
+          equation:</p>
+        <blockquote> 
+          <p> time = ((time window) &divide; (total samples per trace)) * (number 
+            of samples filtered so far)</p>
+        </blockquote>
+        <p> where &quot;<em>time window</em>&quot; is first divided by 1000 to 
+          convert it from nanoseconds (10<sup>-9</sup> seconds) to microseconds 
+          (10<sup>-6</sup> seconds).</p>
+      </li>
+    </ol>
+    <p> <font face="Arial, Helvetica, sans-serif"><strong>TO USE IN ENVI: </strong></font></p>
+    <p>After saving this procedure in the ENVI &quot;<strong>save_add</strong>&quot; 
+      directory, add the following lines to ENVI's function menu configuration 
+      file (<strong>display.men</strong>) located in ENVI's &quot;<strong>menu</strong>&quot; 
+      directory:</p>
+    <blockquote> 
+      <p> <font face="Courier New, Courier, mono">0 {GPR}<br>
+        &nbsp;&nbsp;1 {Filter}<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;2 {Time Varying Gain} {not used} {time_varying_gain}</font></p>
+    </blockquote>
+    <p>This procedure can then be run from the pull-down menu labeled &quot;<strong>GPR</strong>&quot; 
+      on a GPR file that you have already opened in ENVI. The result can either 
+      be saved to memory or to a new file.</p>
+    <p> <font face="Arial, Helvetica, sans-serif"><strong>TO USE IN IDL:</strong></font></p>
+    <p><font face="Courier New, Courier, mono">time_varying_gain, input_location 
+      = input_location, time_window = time_window, start_sample = start_sample, 
+      linear_gain = linear_gain, exponential_gain = exponential_gain, output_location 
+      = output_location</font></p>
+    <p><em>Keywords:</em></p>
+    <p><strong>input_location</strong> = full pathname and filename of file to 
+      filter, surrounded by quotes (&quot;&quot;).</p>
+    <p><strong>time_window</strong> = the amount of time in nanoseconds (10<sup>-9</sup> 
+      seconds) that the GPR instrument was set to &quot;listen&quot; for radar 
+      pulses per trace at the time of data acquisition.</p>
+    <p><strong>start_sampl</strong>e = sample number (vertical dimension, or y-axis) 
+      to begin applying the filter at. Must be an integer between 1 (the first 
+      sample at the top of the file) and the total number of samples in the file.</p>
+    <p><strong>linear_gain</strong> = scale factor to apply in linear gain component. 
+      Must be between 0 and 1000.</p>
+    <p><strong>exponential_gain</strong> = scale factor to apply in exponential 
+      gain component. Must be between 0 and 1000.</p>
+    <p><strong>output_location</strong> = full pathname and filename of file to 
+      output the filtered result to, surrounded by quotes (&quot;&quot;).</p>
+    <p><em>Examples:</em></p>
+    <p><font face="Courier New, Courier, mono">time_varying_gain, input_location 
+      = &quot;C:\data\ramac_gpr.bin&quot;, time_window = 42.522624, start_sample 
+      = 1, linear_gain = 135, exponential_gain = 80, output_location = &quot;C:\data\ramac_gpr_filtered.bin&quot;<br>
+      <br>
+      time_varying_gain, input_location = &quot;/home/maurer/data/ramac_gpr.bin&quot;, 
+      time_window = 5247.0, start_sample = 17, linear_gain = 0, exponential_gain 
+      = 4, output_location = &quot;/home/maurer/data/ramac_gpr_filtered.bin&quot;</font></p>
+  </blockquote>
+  <ol type="a">
+    <li value="4"><strong><font color="#CC0000" face="Arial, Helvetica, sans-serif"> 
+      <a name="collect_input_time_varying_gain"></a>collect_input_time_varying_gain.pro</font></strong></li>
+  </ol>
+  <blockquote> 
+    <p><a href="collect_input_time_varying_gain.pro"><img src="IDL_file_icon.jpg" width="32" height="36" border="0" align="absmiddle"></a> 
+      <a href="collect_input_time_varying_gain.pro">Click here to download this 
+      file</a>. (12 KB) (See also: <a href="GNU_License.txt">GNU license</a>)<br>
+      <a href="GPR_IDL_tools_1.00.zip"><img src="WinZip_icon.jpg" width="36" height="36" border="0" align="absmiddle"></a><a href="GPR_IDL_tools_1.00.zip">Click 
+      here to download all files</a>. (103 KB) </p>
+    <p><em><strong>NOTE: </strong>Requires the following other file:</em></p>
+    <ul>
+      <li> <a href="#time_varying_gain">time_varying_gain.pro</a></li>
+    </ul>
+    <p>This IDL function is called by or for the &quot;<strong>Time-Varying Gain</strong>&quot; 
+      ground-penetrating radar (GPR) image-processing filter (<a href="#time_varying_gain">time_varying_gain.pro</a>) 
+      to collect user input. It displays a window for the user to enter the following 
+      information:</p>
+    <ol>
+      <li> Ask the user for the &quot;<strong>time window</strong>&quot; of the 
+        GPR data being filtered. The time window is the amount of time that the 
+        GPR instrument was set to &quot;listen&quot; for radar pulses per trace 
+        at the time of data acquisition. This value is used to compute the gain 
+        function and can be found in the &quot;*.rad&quot; file associated with 
+        a particular RAMAC GPR data file (&quot;*.rd3&quot;), labeled &quot;<strong>TIMEWINDOW</strong>&quot; 
+        and reported in nanoseconds (10<sup>-9</sup> seconds).</li>
+    </ol>
+    <ol>
+      <li value="2"> Ask the user for the <strong>start sample</strong> at which 
+        to begin applying the time-varying gain, providing a reasonable default 
+        as <a href="http://www.malags.com/software/#groundvision" target="_blank">GroundVision</a> 
+        does. The user may prefer to set the start sample below any outstanding 
+        features within the trace. The time-varying gain will be applied to all 
+        samples between the selected start sample and the last sample of each 
+        trace.</li>
+    </ol>
+    <ol>
+      <li value="3">Ask the user for <strong>linear</strong> (<em>A</em>) and 
+        <strong>exponential</strong> (<em>B</em>) <strong>gain factors </strong>to 
+        be applied in the filter. Typical values range anywhere between 0 and 
+        ~1000 for linear gain and 0 and ~150 for exponential gain. Increasing 
+        the exponential gain has the effect of dramatically amplifying the gain 
+        of the lower portion of the trace, which may be important if there are 
+        features you are looking for in the deeper portion of the GPR data.</li>
+    </ol>
+    <p><em>NOTE:</em> A &quot;<strong>trace</strong>&quot; is a single, vertical 
+      column of GPR data, representing the signal &quot;traced&quot; by a radar 
+      pulse as it travels from the instrument into the subsurface.</p>
+    <p> <font face="Arial, Helvetica, sans-serif"><strong>TO USE IN IDL:</strong></font></p>
+    <p><font face="Courier New, Courier, mono">result = collect_input_time_varying_gain( 
+      [num_samples = num_samples], [/SPECIFY_OUTPUT] )</font></p>
+    <p><em>Return Value:</em></p>
+    <p><strong>result.accept</strong> = 1 if user selects &quot;OK&quot;, 0 if 
+      &quot;Cancel&quot;.</p>
+    <p><strong>result.time_window</strong> = amount of time (ns) that the GPR 
+      instrument was set to &quot;listen&quot; for radar pulses per trace at the 
+      time of data acquisition.</p>
+    <p><strong>result.start_sample</strong> = start sample (vertical- or y- dimension) 
+      at which to begin applying the time-varying gain on a trace-by-trace basis. 
+      If the optional keyword &quot;num_samples&quot; is not supplied, this field 
+      will instead return the percent (0-100) of the sample to start at between 
+      the first sample (0%) and the last sample (100%) in the file.</p>
+    <p><strong>result.linear_gain</strong> = linear gain factor, between 0 and 
+      1000.</p>
+    <p><strong>result.exponential_gain</strong> = exponential gain factor, between 
+      0 and 1000.</p>
+    <p><strong>result.output_location</strong> = where to output filtered result, 
+      either to memory or to a file:</p>
+    <blockquote> 
+      <p> <strong>result.output_location.in_memory</strong> = 1 if output is to 
+        memory.<br>
+        <strong>result.output_location.name</strong> = full path and filename 
+        of file to output to.</p>
+    </blockquote>
+    <p><em>Keywords:</em></p>
+    <p><strong>num_samples</strong> (optional) = total number of samples (vertical- 
+      or y- dimension) in the file being filtered. Used to provide a slider between 
+      the first sample and the last sample for the user to select a start sample. 
+      If not provided, the slider will instead be between 0% (first sample) and 
+      100% (last sample), necessary when the number of samples in the file being 
+      filtered is not <br>
+      known in advance.</p>
+    <p><strong>SPECIFY_OUTPUT</strong> (optional) = when this keyword is set, 
+      the widget will ask the user whether to save the output to memory or to 
+      a file; if the user chooses to output to a file, the widget will also ask 
+      the user where to save the file and what to name it. This would not be set, 
+      for example, if using the function programmatically to collect input parameters 
+      for several filters before asking where to save the output file(s) separately.</p>
+    <p><em>Examples:</em></p>
+    <p><font face="Courier New, Courier, mono">result = collect_input_time_varying_gain( 
+      num_samples = 1024 )<br>
+      result = collect_input_time_varying_gain( num_samples = 1024, /SPECIFY_OUTPUT 
+      )<br>
+      result = collect_input_time_varying_gain()</font></p>
+  </blockquote>
+  <ol type="a">
+    <li value="5"><strong><font face="Arial, Helvetica, sans-serif"> <a name="dc_removal"></a><font color="#CC0000">dc_removal.pro</font></font></strong></li>
+  </ol>
+  <blockquote> 
+    <p><a href="dc_removal.pro"><img src="IDL_file_icon.jpg" width="32" height="36" border="0" align="absmiddle"></a> 
+      <a href="dc_removal.pro">Click here to download this file</a>. (22 KB) (See 
+      also: <a href="GNU_License.txt">GNU license</a>)<br>
+      <a href="GPR_IDL_tools_1.00.zip"><img src="WinZip_icon.jpg" width="36" height="36" border="0" align="absmiddle"></a><a href="GPR_IDL_tools_1.00.zip">Click 
+      here to download all files</a>. (103 KB) </p>
+    <p><em><strong>NOTE: </strong>Requires the following other file:</em></p>
+    <ul>
+      <li> <a href="#collect_input_dc_removal">collect_input_dc_removal.pro</a></li>
+    </ul>
+    <p>This IDL procedure can be run in ENVI to simulate the &quot;<strong>DC 
+      removal</strong>&quot; image processing filter available within <strong>Mal&aring; 
+      Geoscience </strong>&quot;<strong><a href="http://www.malags.com/software/#groundvision" target="_blank">GroundVision</a></strong>&quot; 
+      software that is used to acquire and process <strong>Mal&aring; Geoscience</strong> 
+      <strong><a href="http://ramac.malags.com" target="_blank">RAMAC</a>&#8482; 
+      ground-penetrating radar (GPR)</strong> data. &quot;DC&quot; stands for 
+      an electrical &quot;<strong>direct current</strong>.&quot; As described 
+      in Appendix 1 of the GroundVision Manual:</p>
+    <blockquote> 
+      <p> &quot;There is often a constant offset in the amplitude of the registered 
+        trace. This is known as the DC level or the DC offset. This filter removes 
+        the DC component from the data. The DC component is individually calculated 
+        and removed for each trace [...]. The sample interval on which the DC 
+        component is calculated is specified [by the user]. The end sample is 
+        always the last sample in each trace and the start sample is set [by the 
+        user].&quot;</p>
+    </blockquote>
+    <p>A &quot;<strong>trace</strong>&quot; is a single, vertical column of GPR 
+      data, representing the signal &quot;traced&quot; by a radar pulse as it 
+      travels from the instrument into the subsurface. Each trace is composed 
+      of individual &quot;<strong>samples</strong>,&quot; the smallest measurement 
+      unit in the vertical dimension.</p>
+    <p>In following with the description above, this IDL procedure filters a GPR 
+      image (that has already been formatted to view properly in ENVI) using the 
+      following methodology:</p>
+    <ol>
+      <li> Ask the user for the<strong> start sample</strong> for calculation 
+        of each trace's DC level. This start sample should be set below any outstanding 
+        features within the trace to cover an area where DC <strong>noise</strong> 
+        is the prominent feature. This information can be provided to the program 
+        in one of two ways: <br>
+        <br>
+        <ol type="a">
+          <li value="1"> through the use of a <strong>graphical user interface 
+            (GUI) </strong>that pops up when calling the program from within an 
+            ENVI image pull-down menu, or<br>
+            <br>
+          </li>
+          <li> automatically through the use of <strong>command-line</strong> 
+            options at the IDL prompt or from within another IDL program (to facilitate 
+            the application of this filter programmatically across multiple files).</li>
+        </ol>
+      </li>
+    </ol>
+    <p>The IDL procedure then applies the following DC removal method to the data 
+      on a trace-by-trace basis:</p>
+    <ol>
+      <li value="2"> Calculate the <strong>standard deviation</strong> of the 
+        data between the user-selected start sample and the last sample of the 
+        trace in order to compute the <strong>offset</strong> to be removed from 
+        the trace's data.</li>
+    </ol>
+    <ol>
+      <li value="3">Calculate the <strong>mean</strong> data value of the entire 
+        trace.</li>
+    </ol>
+    <ol>
+      <li value="4">For every sample in the trace, <em>subtract</em> the standard 
+        deviation from the sample's data value if it is <em>greater than</em> 
+        the mean plus the standard deviation. <em>Add</em> the standard deviation 
+        to the sample's data value if it is <em>less than </em>the mean minus 
+        the standard deviation. Otherwise, set the sample's data value <em>equal 
+        to</em> the mean.</li>
+    </ol>
+    <p> <font face="Arial, Helvetica, sans-serif"><strong>TO USE IN ENVI: </strong></font></p>
+    <p>After saving this procedure in the ENVI &quot;<strong>save_add</strong>&quot; 
+      directory, add the following lines to ENVI's function menu configuration 
+      file (<strong>display.men</strong>) located in ENVI's &quot;<strong>menu</strong>&quot; 
+      directory:</p>
+    <blockquote> 
+      <p> <font face="Courier New, Courier, mono">0 {GPR}<br>
+        &nbsp;&nbsp;1 {Filter}<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;2 {DC Removal} {not used} {dc_removal}</font></p>
+    </blockquote>
+    <p>This procedure can then be run from the pull-down menu labeled &quot;<strong>GPR</strong>&quot; 
+      on a GPR file that you have already opened in ENVI. The result can either 
+      be saved to memory or to a new file.</p>
+    <p> <font face="Arial, Helvetica, sans-serif"><strong>TO USE IN IDL:</strong></font></p>
+    <p><font face="Courier New, Courier, mono">dc_removal, input_location = input_location, 
+      start_sample = start_sample, output_location = output_location</font></p>
+    <p><em>Keywords:</em></p>
+    <p><strong>input_location</strong> = full pathname and filename of file to 
+      filter, surrounded by quotes (&quot;&quot;).</p>
+    <p><strong>start_sample</strong> = sample number (vertical dimension, or y-axis) 
+      to begin calculation of DC component from. Must be an integer between 1 
+      (the first sample at the top of the file) and the total number of samples 
+      in the file.</p>
+    <p><strong>output_location</strong> = full pathname and filename of file to 
+      output the filtered result to, surrounded by quotes (&quot;&quot;).</p>
+    <p><em>Examples:</em></p>
+    <p><font face="Courier New, Courier, mono">dc_removal, input_location = &quot;C:\data\ramac_gpr.bin&quot;, 
+      start_sample = 150, output_location = &quot;C:\data\ramac_gpr_filtered.bin&quot;</font></p>
+    <p><font face="Courier New, Courier, mono">dc_removal, input_location = &quot;/home/maurer/data/ramac_gpr.bin&quot;, 
+      start_sample = 23, output_location = &quot;/home/maurer/data/ramac_gpr_filtered.bin&quot;</font></p>
+  </blockquote>
+  <ol type="a">
+    <li value="6"><strong><font face="Arial, Helvetica, sans-serif"> <a name="collect_input_dc_removal"></a><font color="#CC0000">collect_input_dc_removal.pro</font></font></strong></li>
+  </ol>
+  <blockquote> 
+    <p><a href="collect_input_dc_removal.pro"><img src="IDL_file_icon.jpg" width="32" height="36" border="0" align="absmiddle"></a> 
+      <a href="collect_input_dc_removal.pro">Click here to download this file</a>. 
+      (7 KB) (See also: <a href="GNU_License.txt">GNU license</a>) <br>
+      <a href="GPR_IDL_tools_1.00.zip"><img src="WinZip_icon.jpg" width="36" height="36" border="0" align="absmiddle"></a><a href="GPR_IDL_tools_1.00.zip">Click 
+      here to download all files</a>. (103 KB) </p>
+    <p><em><strong>NOTE: </strong>Requires the following other file:</em></p>
+    <ul>
+      <li> <a href="#dc_removal">dc_removal.pro</a></li>
+    </ul>
+    <p>This IDL function is called by or for the &quot;<strong>DC Removal</strong>&quot; 
+      ground-penetrating radar (GPR) image-processing filter (<a href="#dc_removal">dc_removal.pro</a>) 
+      to collect user input. It displays a window for the user to enter a <strong>start 
+      sample</strong> for calculation of each trace's DC level. &quot;DC&quot; 
+      stands for an electrical &quot;<strong>direct current</strong>.&quot; A 
+      &quot;<strong>trace</strong>&quot; is a single, vertical column of GPR data, 
+      representing the signal &quot;traced&quot; by a radar pulse as it travels 
+      from the instrument into the subsurface.</p>
+    <p> <font face="Arial, Helvetica, sans-serif"><strong>TO USE IN IDL:</strong></font></p>
+    <p><font face="Courier New, Courier, mono">result = collect_input_dc_removal( 
+      [num_samples = num_samples], [/SPECIFY_OUTPUT] )</font></p>
+    <p><em>Return Value:</em></p>
+    <p><strong>result.accept</strong> = 1 if user selects &quot;OK&quot;, 0 if 
+      &quot;Cancel&quot;.</p>
+    <p><strong>result.start_sample</strong> = start sample (vertical- or y- dimension) 
+      at which to begin computing the DC level on a trace-by-trace basis. If the 
+      optional keyword &quot;num_samples&quot; is not supplied, this field will 
+      instead return the percent (0-100) of the sample to start at between the 
+      first sample (0%) and the last sample (100%) in the file.</p>
+    <p><strong>result.output_location</strong> = where to output filtered result, 
+      either to memory or to a file:</p>
+    <blockquote> 
+      <p> <strong>result.output_location.in_memory</strong> = 1 if output is to 
+        memory.<br>
+        <strong>result.output_location.name</strong> = full path and filename 
+        of file to output to.</p>
+    </blockquote>
+    <p><em>Keywords:</em></p>
+    <p><strong>num_samples</strong> (optional) = total number of samples (vertical- 
+      or y- dimension) in the file being filtered. Used to provide a slider between 
+      the first sample and the last sample for the user to select a start sample. 
+      If not provided, the slider will instead be between 0% (first sample) and 
+      100% (last sample), necessary when the number of samples in the file being 
+      filtered is not known in advance.</p>
+    <p><strong>SPECIFY_OUTPUT</strong> (optional) = when this keyword is set, 
+      the widget will ask the user whether to save the output to memory or to 
+      a file; if the user chooses to output to a file, the widget will also ask 
+      the user where to save the file and what to name it.</p>
+    <p><em>Examples:</em></p>
+    <p><font face="Courier New, Courier, mono">result = collect_input_dc_removal( 
+      num_samples = 1024 )<br>
+      result = collect_input_dc_removal( num_samples = 1024, /SPECIFY_OUTPUT )<br>
+      result = collect_input_dc_removal()</font></p>
+  </blockquote>
+  <ol type="a">
+    <li value="7"><a name="bulk_gpr_filter"></a><strong><font color="#CC0000" face="Arial, Helvetica, sans-serif">bulk_gpr_filter.pro</font></strong></li>
+  </ol>
+  <blockquote> 
+    <p><a href="bulk_gpr_filter.pro"><img src="IDL_file_icon.jpg" width="32" height="36" border="0" align="absmiddle"></a> 
+      <a href="bulk_gpr_filter.pro">Click here to download this file</a>. (46 
+      KB) (See also: <a href="GNU_License.txt">GNU license</a>)<br>
+      <a href="GPR_IDL_tools_1.00.zip"><img src="WinZip_icon.jpg" width="36" height="36" border="0" align="absmiddle"></a><a href="GPR_IDL_tools_1.00.zip">Click 
+      here to download all files</a>. (103 KB) </p>
+    <p><em><strong>NOTE: </strong>Requires the following other files:</em></p>
+    <ul>
+      <li> <a href="#collect_input_subtract_mean_trace">collect_input_subtract_mean_trace.pro</a></li>
+      <li> <a href="#collect_input_time_varying_gain">collect_input_time_varying_gain.pro</a></li>
+      <li> <a href="#collect_input_dc_removal">collect_input_dc_removal.pro</a></li>
+    </ul>
+    <p>This IDL procedure applies selected image-processing filters on one or 
+      more <strong>Mal&aring; Geoscience</strong> <strong><a href="http://ramac.malags.com" target="_blank">RAMAC</a>&#8482; 
+      ground-penetrating radar (GPR)</strong> data files that have been previously 
+      formatted for viewing in ENVI. The following filters have been implemented 
+      as IDL procedures by the author to simulate filters available within <strong>Mal&aring; 
+      Geoscience </strong>&quot;<strong><a href="http://www.malags.com/software/#groundvision" target="_blank">GroundVision</a></strong>&quot; 
+      software that is used to acquire and process RAMAC GPR data (GroundVision 
+      does not allow the user to permanently apply filtering to the data or to 
+      save the results to another file):</p>
+    <ol>
+      <li> <strong>Subtract Mean Trace</strong> (<a href="#subtract_mean_trace">subtract_mean_trace.pro</a>) 
+        <p> Removes horizontal and nearly horizontal features within the radargram 
+          (i.e. &quot;<strong>ringing</strong>&quot;) by subtracting a calculated 
+          mean trace from all traces. <em>NOTE: </em>A &quot;<strong>trace</strong>&quot; 
+          is a single, vertical column of GPR data, representing the signal &quot;traced&quot; 
+          by a radar pulse as it travels from the instrument into the subsurface. 
+          Each trace is composed of individual &quot;<strong>samples</strong>,&quot; 
+          the smallest measurement unit in the vertical dimension.</p>
+      </li>
+      <li value="2"> <strong>Time-Varying Gain</strong> (<a href="#time_varying_gain">time_varying_gain.pro</a>) 
+        <p> Applies a time-varying (i.e. depth-varying) gain to compensate for 
+          amplitude loss due to <strong>spreading</strong> and <strong>attenuation</strong>. 
+          Each radar trace is multiplied by a gain function combining <strong>linear</strong> 
+          and <strong>exponential</strong> components, with coefficients set by 
+          the user.</p>
+      </li>
+      <li value="3"> <strong>DC Removal</strong> (<a href="#dc_removal">dc_removal.pro</a>) 
+        <p> There is often a constant offset in the amplitude of each radar trace 
+          caused by interference from <strong>direct current (DC)</strong> used 
+          to power the GPR instrument. This filter removes the DC component from 
+          the data, which has the effect of making the data less noisy, or <strong>smoothing</strong> 
+          the data.</p>
+      </li>
+    </ol>
+    <p>Refer to the documentation within each of the aforementioned IDL procedures 
+      above for further details on their operation. Each is located in the ENVI 
+      &quot;<strong>save_add</strong>&quot; directory.</p>
+    <p>This IDL procedure operates in the following manner:</p>
+    <ol>
+      <li> Collect the necessary user input: <br>
+        <br>
+        <ol type="a">
+          <li> Ask the user to select the <strong>input files</strong> to be filtered. 
+            These must all be in the same directory. The user can use Shift-click 
+            to select multiple contiguous files or Ctrl-click to individually 
+            select multiple files.<br>
+            <br>
+          </li>
+          <li value="2"> The user must then check off the <strong>filters</strong> 
+            to be applied to the input files from a list of the available filters 
+            and select the order in which these filters should be applied to the 
+            files.<br>
+            <br>
+          </li>
+          <li value="3"> An input window will then appear for each of the selected 
+            filters for the user to provide the necessary <strong>parameters</strong> 
+            to be applied for these filters.<br>
+            <br>
+          </li>
+          <li value="4"> Lastly, the user must select an <strong>output directory 
+            </strong>to save the resulting files to. Also, a <strong>filename 
+            pattern</strong> must be determined for naming the output files, including 
+            a basename, suffix, and the format of an incrementing number to be 
+            inserted in the middle.<br>
+            <br>
+          </li>
+          <li value="5"> Display the user's selections and ask the user for <strong>confirmation</strong> 
+            before continuing. Also ask the user for an existing or new <strong>log 
+            file</strong> to write messages to during processing.</li>
+        </ol>
+        <br>
+      </li>
+      <li> The IDL procedure then applies the above selected filters in the order 
+        specified on a on a file-by-file basis. A <strong>status window</strong> 
+        will display the percentage of completion for all of the files to be filtered. 
+        This status window includes a &quot;<strong>Cancel</strong>&quot; button 
+        to terminate the program prematurely. Individual status windows are also 
+        displayed for the progress of each individual filter that is run. Status 
+        messages will also be written to the specified log file so that a history 
+        of events can be viewed after processing is complete.</li>
+    </ol>
+    <p> <font face="Arial, Helvetica, sans-serif"><strong>TO USE IN ENVI: </strong></font></p>
+    <p>After saving this procedure in the ENVI &quot;<strong>save_add</strong>&quot; 
+      directory, add the following lines to ENVI's main menu configuration file 
+      (<strong>envi.men</strong>) located in ENVI's &quot;<strong>menu</strong>&quot; 
+      directory:</p>
+    <blockquote> 
+      <p> <font face="Courier New, Courier, mono">0 {GPR}<br>
+        &nbsp;&nbsp;1 {Bulk Filter} {not used} {bulk_gpr_filter}</font></p>
+    </blockquote>
+    <p>This procedure can then be run from the pull-down menu labeled &quot;<strong>GPR</strong>&quot; 
+      on ENVI's main menu bar.</p>
+  </blockquote>
+  <hr>
+  <p><strong><font face="Arial, Helvetica, sans-serif"><a name="b3" id="b3"></a>B.3. 
+    <font color="#CC0000">Analysis Tools</font></font></strong></p>
+  <p><em>Cursor Depth/Distance:</em></p>
+  <ol type="a">
+    <li><a href="#gpr_cursor_info">gpr_cursor_info.pro</a></li>
+    <li><a href="#cursor_depth_distance">cursor_depth_distance.pro</a></li>
+    <li><a href="#get_gpr_depth">get_gpr_depth.pro</a></li>
+    <li><a href="#collect_input_get_gpr_depth">collect_input_get_gpr_depth.pro</a></li>
+    <li><a href="#get_gpr_distance">get_gpr_distance.pro</a></li>
+  </ol>
+  <p><em>Create XYZ File:</em></p>
+  <ol start="6" type="a">
+    <li> <a href="#create_xyz_file">create_xyz_file.pro</a></li>
+    <li><a href="#collect_input_create_xyz_file">collect_input_create_xyz_file.pro</a></li>
+    <li><a href="#collect_input_bulk_xyz_file">collect_input_bulk_xyz_file.pro</a></li>
+  </ol>
+  <p><em>Compute Depth Statistics:</em></p>
+  <ol start="9" type="a">
+    <li><a href="#compute_depth_statistics">compute_depth_statistics.pro</a></li>
+    <li><a href="#collect_input_compute_depth_statistics">collect_input_compute_depth_statistics.pro</a></li>
+    <li><a href="#collect_input_bulk_depth_statistics">collect_input_bulk_depth_statistics.pro</a></li>
+  </ol>
+  <p><em><strong><font color="#CC0000" face="Arial, Helvetica, sans-serif">Cursor 
+    Depth/Distance:</font></strong></em></p>
+  <ol type="a">
+    <li><font face="Arial, Helvetica, sans-serif"><strong><a name="gpr_cursor_info"></a><font color="#CC0000">gpr_cursor_info.pro</font></strong></font></li>
+  </ol>
+  <blockquote> 
+    <p><a href="gpr_cursor_info.pro"><img src="IDL_file_icon.jpg" width="32" height="36" border="0" align="absmiddle"></a> 
+      <a href="gpr_cursor_info.pro">Click here to download this file</a>. (11 
+      KB) (See also: <a href="GNU_License.txt">GNU license</a>)<br>
+      <a href="GPR_IDL_tools_1.00.zip"><img src="WinZip_icon.jpg" width="36" height="36" border="0" align="absmiddle"></a><a href="GPR_IDL_tools_1.00.zip">Click 
+      here to download all files</a>. (103 KB) </p>
+    <p><em><strong>NOTE:</strong> Requires the following other files:</em></p>
+    <ul>
+      <li> <a href="#cursor_depth_distance">cursor_depth_distance.pro</a></li>
+      <li> <a href="#get_gpr_depth">get_gpr_depth.pro</a></li>
+      <li> <a href="#get_gpr_distance">get_gpr_distance.pro</a></li>
+      <li> <a href="#collect_input_get_gpr_depth">collect_input_get_gpr_depth.pro</a></li>
+    </ul>
+    <p>This IDL procedure can be run in ENVI to track the <strong>depth</strong> 
+      and <strong>distance</strong> of the current cursor location as it is moved 
+      over any image window of a <strong>Mal&aring; Geoscience</strong> <strong><a href="http://ramac.malags.com" target="_blank">RAMAC</a>&#8482; 
+      ground-penetrating radar (GPR)</strong> data file. As an interactive user-defined 
+      <strong>ENVI motion routine</strong>, this procedure has access to information 
+      about the position of the current pixel (i.e. the pixel under the cursor 
+      cross-hairs). In order for ENVI to know that it must pass cursor information 
+      to this procedure, you must first define this procedure in the <strong>ENVI 
+      Configuration File</strong>. Under the main ENVI &quot;<strong>File</strong>&quot; 
+      menu, select &quot;<strong>Preferences</strong>&quot;. Next, under the tab 
+      entitled &quot;<strong>User Defined Files</strong>&quot;, enter the name 
+      of this procedure (i.e. &quot;<strong>gpr_cursor_info</strong>&quot;) into 
+      the text box labeled &quot;<strong>User Defined Motion Routine</strong>&quot; 
+      at the bottom of the form. Then press &quot;<strong>OK</strong>&quot; to 
+      save the new configuration. See &quot;<strong>User Move Routines</strong>&quot; 
+      in the ENVI Online Help document for further details on ENVI user-defined 
+      move and motion routines.</p>
+    <p>This procedure will then be supplied with cursor location information as 
+      you steer the mouse over an image window of RAMAC GPR data. This information 
+      is then used by the helper procedure entitled &quot;<a href="#cursor_depth_distance">cursor_depth_distance.pro</a>&quot; 
+      (which should reside in the ENVI &quot;<strong>save_add</strong>&quot; directory) 
+      to display a widget that will display the depth (y-axis) and distance (x-axis) 
+      (both in meters) of the current cursor location. To compute the depth and 
+      distance, it uses input parameters from the user supplied in a widget displayed 
+      by &quot;<a href="#cursor_depth_distance">cursor_depth_distance.pro</a>&quot; 
+      that get saved in global variables and passed to two routines for calculation: 
+      &quot;<a href="#get_gpr_depth">get_gpr_depth.pro</a>&quot; and &quot;<a href="#get_gpr_distance">get_gpr_distance.pro</a>&quot;, 
+      respectively (both of which also should reside in the ENVI &quot;<strong>save_add</strong>&quot; 
+      directory). Although the current procedure (i.e. &quot;gpr_cursor_info&quot;) 
+      generates the final widget that displays the cursor location, depth and 
+      distance, this widget will not appear until &quot;<a href="#cursor_depth_distance">cursor_depth_distance.pro</a>&quot; 
+      is called by the user: this helper procedure gets called when the user selects 
+      &quot;<strong>Cursor Depth/Distance...</strong>&quot; from the &quot;<strong>GPR</strong>&quot; 
+      pull-down menu on the image window. Before the information can be displayed, 
+      the user must first enter information about the current GPR file before 
+      it can be computed; namely, the <strong>time window</strong>, <strong>ground 
+      velocity</strong>, <strong>start distance</strong>, and <strong>end distance</strong>. 
+      See &quot;<a href="#cursor_depth_distance">cursor_depth_distance.pro</a>&quot; 
+      for further details.</p>
+    <p> <font face="Arial, Helvetica, sans-serif"><strong>TO USE IN ENVI: </strong></font></p>
+    <p>After saving this procedure in the ENVI &quot;<strong>save_add</strong>&quot; 
+      directory, open the ENVI &quot;<strong>Preferences</strong>&quot; menu from 
+      the main ENVI &quot;<strong>File</strong>&quot; menu. On the main tab entitled 
+      &quot;<strong>User Defined Files</strong>&quot;, enter &quot;<strong>gpr_cursor_info</strong>&quot; 
+      in the bottom text box that is labeled &quot;<strong>User Defined Motion 
+      Routine</strong>&quot;. Click &quot;<strong>OK</strong>&quot; to save the 
+      new preference and choose to save these updated preferences to a file if 
+      you wish them to be saved after you close and restart ENVI. The information 
+      from this procedure will not be displayed, however, until the associated 
+      &quot;<a href="#cursor_depth_distance">cursor_depth_distance.pro</a>&quot; 
+      procedure is called. See &quot;<a href="#cursor_depth_distance">cursor_depth_distance.pro</a>&quot; 
+      for further details.</p>
+  </blockquote>
+  <ol type="a">
+    <li value="2"><a name="cursor_depth_distance"></a><font color="#CC0000" face="Arial, Helvetica, sans-serif"><strong>cursor_depth_distance.pro</strong></font></li>
+  </ol>
+  <blockquote> 
+    <p><a href="cursor_depth_distance.pro"><img src="IDL_file_icon.jpg" width="32" height="36" border="0" align="absmiddle"></a> 
+      <a href="cursor_depth_distance.pro">Click here to download this file</a>. 
+      (13 KB) (See also: <a href="GNU_License.txt">GNU license</a>) <br>
+      <a href="GPR_IDL_tools_1.00.zip"><img src="WinZip_icon.jpg" width="36" height="36" border="0" align="absmiddle"></a><a href="GPR_IDL_tools_1.00.zip">Click 
+      here to download all files</a>. (103 KB) </p>
+    <p><em><strong>NOTE:</strong> Requires the following other files:</em></p>
+    <ul>
+      <li><a href="#gpr_cursor_info"> gpr_cursor_info.pro</a></li>
+      <li> <a href="#get_gpr_depth">get_gpr_depth.pro</a></li>
+      <li> <a href="#get_gpr_distance">get_gpr_distance.pro</a></li>
+      <li> <a href="#collect_input_get_gpr_depth">collect_input_get_gpr_depth.pro</a></li>
+    </ul>
+    <p>This IDL procedure can be run in ENVI to track the <strong>depth</strong> 
+      and <strong>distance</strong> of the current cursor location as it is moved 
+      over any image window of a <strong>Mal&aring; Geoscience</strong> <strong><a href="http://ramac.malags.com" target="_blank">RAMAC</a>&#8482; 
+      ground-penetrating radar (GPR)</strong> data file. The current procedure 
+      gets called by selecting the &quot;<strong>Cursor Depth/Distance...</strong>&quot; 
+      option from the &quot;<strong>GPR</strong>&quot; pull-down menu of the image 
+      window. A widget will then appear that asks the user to define certain characteristics 
+      about the currently displayed GPR file so that the cursor depth and distance 
+      can be computed. Namely, the <strong>time window</strong> (in nanoseconds), 
+      <strong>ground velocity</strong> (in meters per nanosecond), <strong>start 
+      distance</strong> of the left-most pixel in the data file (in meters), and 
+      the <strong>end distance</strong> of the right-most pixel in the data file 
+      (in meters). The time window is automatically determined from the ENVI header 
+      file (*.rad) associated with the current data file (*.rd3) after asking 
+      the user where the header file (*.rad) is located.</p>
+    <p>The time window and ground velocity terminology and usage is modeled after 
+      RAMAC <a href="http://www.malags.com/software/#groundvision" target="_blank">GroundVision</a> 
+      software, which similarly requires the user to enter these parameters in 
+      order to convert time to depth for the scale bars that are displayed to 
+      the right and left of the data imagery in GroundVision. The <strong>time 
+      window</strong> is the amount of time (in nanoseconds) that the radar receiver 
+      was set to &quot;listen&quot; for the return pulse after each radar pulse 
+      was released from the transmitting antenna during data acquisition. If the 
+      time window is set to 40 ns, for example, that means an individual radar 
+      pulse has a maximum time duration of 20 ns to reach a reflector and 20 more 
+      ns to reflect back to the receiver in order to be recorded in the data file. 
+      The bottom of the data file therefore represents a maximum duration of 20 
+      ns for a time window of 40 ns. The <strong>ground velocity</strong> represents 
+      (in meters per nanosecond) how fast the radar pulses traveled through the 
+      subsurface medium being imaged in the data file. Ground velocities range 
+      from slow (e.g. 0.03 m/ns for fresh water) to fast (e.g. 0.3 m/ns for air) 
+      and the user should refer to a GPR textbook or manual for the proper value 
+      related to the media being imaged. For dry snow on the Greenland ice sheet, 
+      for example, an average value of 0.236 m/ns may suffice if the value has 
+      not been measured in a snow pit, based on an average dry snow density of 
+      0.3 grams per cubic centimeter that has been empirically related to a dry 
+      snow permittivity of 1.62 by the following publication:</p>
+    <blockquote> 
+      <p> M&auml;tzler, C. (1996), Microwave permittivity of dry snow.<em> IEEE 
+        Transactions on Geoscience and Remote Sensing</em>. 34(2): 573-581.</p>
+    </blockquote>
+    <p>Given an average dry snow permittivity of 1.62, an average radar velocity 
+      of 0.236 m/ns can be derived by dividing the speed of light in a vacuum 
+      (0.3 m/ns) by the square root of this permittivity.</p>
+    <p>The user may also select the sample of the &quot;<strong>first arrival</strong>&quot; 
+      of the radar pulse reaching the subsurface: depth computations will start 
+      at this sample number (y-axis). Often in GPR data, there is an obvious lack 
+      of backscatter at the top of the file that results from the empty space 
+      that occurred between the antenna and the surface. The first arrival begins 
+      at the point where obvious backscatter begins. The user may also select 
+      whether or not to adjust the first arrival travel time by the &quot;<strong>direct 
+      wave</strong>.&quot; The direct wave is the part of the transmitted energy 
+      that travels the shortest distance between the transmitter and receiver. 
+      Due to <strong>antenna separation</strong>, the wave traveling from the 
+      transmitter directly to the receiver (i.e. the direct wave) is received 
+      some time after the actual transmission. This means that the transmitted 
+      pulse has already penetrated the medium a certain distance before the direct 
+      wave is received. The result of this is that the depth scale zero must be 
+      corrected to be accurate. The zero for the depth scale is calculated using 
+      the first arrival value, the antenna separation, and the first arrival <strong>adjustment 
+      velocity</strong>. The adjustment velocity can be set to any value. Practically 
+      however, it can be the ground velocity, the air velocity (most common), 
+      or anything in between depending on the antenna configuration.</p>
+    <p>The start and end distances may only be educated guess-timates if you have 
+      not measured the distance of your GPR survey in the field. In most cases, 
+      the start distance will be 0 meters but can be set differently. The <strong>distance</strong> 
+      of the current cursor location will be interpolated between the provided 
+      start and end distances. If you do not know the distance of your survey, 
+      you may provide 0 for both distances, or just make something up and ignore 
+      the distance field in the output widget.</p>
+    <p>These input parameters are then stored in global (&quot;common&quot;) variables 
+      that are accessible by a user-defined ENVI motion routine named &quot;<a href="#gpr_cursor_info">gpr_cursor_info.pro</a>&quot; 
+      that is responsible for displaying a widget window that updates the current 
+      depth (y-axis) and distance (x-axis) (both in meters) of the cursor as the 
+      mouse is moved over the surface of an image display of any RAMAC GPR file. 
+      See &quot;<a href="#gpr_cursor_info">gpr_cursor_info.pro</a>&quot; for further 
+      details and on how to set that procedure up as a viable ENVI user-defined 
+      <strong>motion routine</strong> (<em>NOTE:</em> this requires changes to 
+      the <strong>ENVI Preferences</strong>).</p>
+    <p> <font face="Arial, Helvetica, sans-serif"><strong>TO USE IN ENVI: </strong></font></p>
+    <p>After saving this procedure in the ENVI &quot;<strong>save_add</strong>&quot; 
+      directory, add the following lines to ENVI's function menu configuration 
+      file (<strong>display.men</strong>) located in ENVI's &quot;<strong>menu</strong>&quot; 
+      directory:</p>
+    <blockquote> 
+      <p> <font face="Courier New, Courier, mono">0 {GPR}<br>
+        &nbsp;&nbsp;1 {Cursor Depth/Distance...} {not used} {cursor_depth_distance}</font></p>
+    </blockquote>
+    <p>This procedure can then be run from the pull-down menu labeled &quot;<strong>GPR</strong>&quot; 
+      on a GPR file that you have already opened in ENVI.</p>
+  </blockquote>
+  <ol type="a">
+    <li value="3"><font face="Arial, Helvetica, sans-serif"><strong><a name="get_gpr_depth"></a><font color="#CC0000">get_gpr_depth.pro</font></strong></font></li>
+  </ol>
+  <blockquote> 
+    <p><a href="get_gpr_depth.pro"><img src="IDL_file_icon.jpg" width="32" height="36" border="0" align="absmiddle"></a> 
+      <a href="get_gpr_depth.pro">Click here to download this file</a>. (15 KB) 
+      (See also: <a href="GNU_License.txt">GNU license</a>)<br>
+      <a href="GPR_IDL_tools_1.00.zip"><img src="WinZip_icon.jpg" width="36" height="36" border="0" align="absmiddle"></a><a href="GPR_IDL_tools_1.00.zip">Click 
+      here to download all files</a>. (103 KB) </p>
+    <p>This IDL function returns the <strong>depth</strong> in meters of a given 
+      sample (y-axis) in a <strong>Mal&aring; Geoscience</strong> <strong><a href="http://ramac.malags.com" target="_blank">RAMAC</a>&#8482; 
+      ground-penetrating radar (GPR)</strong> data file based on the <strong>time 
+      window</strong> (in nanoseconds) of the data file and the <strong>ground 
+      velocity</strong> (in meters per nanosecond) of radar through the imaged 
+      subsurface medium/media.</p>
+    <p><em>NOTE: </em>A &quot;<strong>trace</strong>&quot; is a single, vertical 
+      column of GPR data, representing the signal &quot;traced&quot; by a radar 
+      pulse as it travels from the instrument into the subsurface. Traces are 
+      herein described to be composed of a number of <strong>samples</strong> 
+      (vertical dimension, or y-axis), and the number of traces are used to describe 
+      the horizontal dimension, or x-axis. Note that in ENVI-terminology, &quot;<strong>samples</strong>&quot; 
+      are counted in the horizontal dimension, in contrast, and &quot;<strong>lines</strong>&quot; 
+      are counted in the vertical dimension, but we use GPR-terminology here instead 
+      to avoid confusion.</p>
+    <p>The &quot;<strong>time window</strong>&quot; and &quot;<strong>ground velocity</strong>&quot; 
+      terminology are common in the GPR literature and are herein modeled after 
+      RAMAC <a href="http://www.malags.com/software/#groundvision" target="_blank">GroundVision</a> 
+      software, which similarly requires the user to enter these parameters in 
+      order to convert time to depth for the scale bars that are displayed to 
+      the right and left of the data imagery in GroundVision. The <strong>time 
+      window</strong> is the amount of time (in nanoseconds) that the radar receiver 
+      was set to &quot;listen&quot; for the return pulse after each radar pulse 
+      was released from the transmitting antenna during data acquisition. If the 
+      time window is set to 40 ns, for example, that means an individual radar 
+      pulse has a maximum time duration of 20 ns to reach a reflector and 20 more 
+      ns to reflect back to the receiver in order to be recorded in the data file. 
+      The bottom of the data file therefore represents a maximum duration of 20 
+      ns for a time window of 40 ns. The <strong>ground velocity</strong> represents 
+      (in meters per nanosecond) how fast the radar pulses traveled through the 
+      subsurface medium being imaged in the data file. Ground velocities range 
+      from slow (e.g. 0.03 m/ns for fresh water) to fast (e.g. 0.3 m/ns for air) 
+      and the user should refer to a GPR textbook or manual for the proper value 
+      related to the media being imaged. For dry snow on the Greenland ice sheet, 
+      for example, an average value of 0.236 m/ns may suffice if the value has 
+      not been measured in a snow pit, based on an average dry snow density of 
+      0.3 grams per cubic centimeter that has been empirically related to a dry 
+      snow permittivity of 1.62 by the following publication:</p>
+    <blockquote> 
+      <p> M&auml;tzler, C. (1996), Microwave permittivity of dry snow. <em>IEEE 
+        Transactions on Geoscience and Remote Sensing</em>. 34(2): 573-581.</p>
+    </blockquote>
+    <p>Given an average dry snow permittivity of 1.62, an average radar velocity 
+      of 0.236 m/ns can be derived by dividing the speed of light in a vacuum 
+      (0.3 m/ns) by the square root of this permittivity.</p>
+    <p>The user may also select the sample of the &quot;<strong>first arrival</strong>&quot; 
+      of the radar pulse reaching the subsurface: depth computations will start 
+      at this sample number (y-axis). Often in GPR data, there is an obvious lack 
+      of backscatter at the top of the file that results from the empty space 
+      that occurred between the antenna and the surface. The first arrival begins 
+      at the point where obvious backscatter begins. The user may also select 
+      whether or not to adjust the first arrival travel time by the &quot;<strong>direct 
+      wave</strong>.&quot; The direct wave is the part of the transmitted energy 
+      that travels the shortest distance between the transmitter and receiver. 
+      Due to <strong>antenna separation</strong>, the wave traveling from the 
+      transmitter directly to the receiver (i.e. the direct wave) is received 
+      some time after the actual transmission. This means that the transmitted 
+      pulse has already penetrated the medium a certain distance before the direct 
+      wave is received. The result of this is that the depth scale zero must be 
+      corrected to be accurate. The zero for the depth scale is calculated using 
+      the first arrival value, the antenna separation, and the first arrival <strong>adjustment 
+      velocity</strong>. The adjustment velocity can be set to any value. Practically 
+      however, it can be the ground velocity, the air velocity (most common), 
+      or anything in between depending on the antenna configuration.</p>
+    <p> <font face="Arial, Helvetica, sans-serif"><strong>TO USE IN IDL:</strong></font></p>
+    <p><font face="Courier New, Courier, mono">depth = get_gpr_depth( current_sample 
+      = current_sample, num_samples = num_samples, time_window = time_window, 
+      ground_velocity = ground_velocity, first_arrival = first_arrival, [ direct_wave_adjustment 
+      = direct_wave_adjustment, adjustment_velocity = adjustment_velocity, antenna_separation 
+      = antenna_separation ] )</font></p>
+    <p><em>Return Value:</em></p>
+    <p><strong>depth</strong> (integer) = the depth in meters of the specified 
+      sample number (y-axis).</p>
+    <p><em>Keywords:</em></p>
+    <p><strong>current_sample</strong> (integer) = the number of the sample (vertical- 
+      or y- dimension) to compute the depth of, where 0 is the first sample at 
+      the top of the file.</p>
+    <p><strong>num_samples</strong> (integer) = total number of samples (vertical- 
+      or y- dimension) in the GPR file.</p>
+    <p><strong>time_window</strong> (double) = the amount of time in nanoseconds 
+      (10<sup>-9</sup> seconds) that the GPR instrument was set to &quot;listen&quot; 
+      for radar pulses per trace at the time of data acquisition. This value can 
+      be found in the &quot;*.rad&quot; file associated with a particular RAMAC 
+      GPR data file (&quot;*.rd3&quot;) in the row labeled &quot;TIMEWINDOW&quot;.</p>
+    <p><strong>ground_velocity</strong> (float) = the velocity (in meters per 
+      nanosecond) at which radar would travel through the imaged subsurface medium/media. 
+      Ground velocities range from slow (e.g. 0.03 m/ns for fresh water) to fast 
+      (e.g. 0.3 m/ns for air) and the user should refer to a GPR textbook or manual 
+      for the proper value related to the media being imaged.</p>
+    <p><strong>first_arrival</strong> (integer) = the number of the sample (vertical- 
+      or y- dimension) at which the first radar pulse has reached the subsurface 
+      in the data file. This will be the zero-depth point, without direct wave 
+      adjustment.</p>
+    <p><strong>direct_wave_adjustment</strong> (0 = no; 1 = yes) (optional) = 
+      a flag to specify whether or not to adjust the reported depth measurement 
+      by the direct wave. If not supplied, the default is 0 (no adjustment).</p>
+    <p><strong>adjustment_velocity</strong> (double) (optional) = the velocity 
+      (in meters per nanosecond) at which radar would travel the direct wave. 
+      Most frequently this will be the velocity of air (0.3 m/ns). This only needs 
+      to be supplied if the direct_wave_adjustment is set to 1.</p>
+    <p><strong>antenna_separation</strong> (double) (optional) = the separation 
+      in meters between the transmitter and receiver antennae. This value can 
+      be found in the &quot;*.rad&quot; file associated with a particular RAMAC 
+      GPR data file (&quot;*.rd3&quot;) in the row labeled &quot;ANTENNA SEPARATION&quot;. 
+      This keyword only needs to be supplied if the direct_wave_adjustment is 
+      set to 1.</p>
+    <p><em>Examples:</em></p>
+    <p><font face="Courier New, Courier, mono">depth = get_gpr_depth( current_sample 
+      = 212, num_samples = 1024, time_window = 42.5, ground_velocity = 0.236, 
+      first_arrival = 0 )</font></p>
+    <p>[<em>NOTE:</em> depth should be 1.0382617 meters in the above example.]</p>
+    <p><font face="Courier New, Courier, mono">depth = get_gpr_depth( current_sample 
+      = 212, num_samples = 1024, time_window = 42.5, ground_velocity = 0.236, 
+      first_arrival = 100, direct_wave_adjustment = 1, adjustment_velocity = 0.3, 
+      antenna_separation = 0.1 )</font></p>
+    <p>[<em>NOTE:</em> depth should be 0.58784896 meters in the above example.]</p>
+  </blockquote>
+  <ol type="a">
+    <li value="4"><font face="Arial, Helvetica, sans-serif"><strong><a name="collect_input_get_gpr_depth"></a><font color="#CC0000">collect_input_get_gpr_depth.pro</font></strong></font></li>
+  </ol>
+  <blockquote> 
+    <p><a href="collect_input_get_gpr_depth.pro"><img src="IDL_file_icon.jpg" width="32" height="36" border="0" align="absmiddle"></a> 
+      <a href="collect_input_get_gpr_depth.pro">Click here to download this file</a>. 
+      (14 KB) (See also: <a href="GNU_License.txt">GNU license</a>)<br>
+      <a href="GPR_IDL_tools_1.00.zip"><img src="WinZip_icon.jpg" width="36" height="36" border="0" align="absmiddle"></a><a href="GPR_IDL_tools_1.00.zip">Click 
+      here to download all files</a>. (103 KB) </p>
+    <p>This IDL function is called to collect user input related to converting 
+      <strong>time to depth conversion</strong> <strong>settings</strong> for 
+      a <strong>Mal&aring; Geoscience</strong> <strong><a href="http://ramac.malags.com" target="_blank">RAMAC</a>&#8482; 
+      ground-penetrating radar (GPR)</strong> data file. In addition, this function 
+      may also collect start and end <strong>distance</strong> <strong>settings</strong>. 
+      It displays a window for the user to enter various parameters necessary 
+      for computing depth (and optionally distance), which are ultimately passed 
+      to the &quot;<a href="#get_gpr_depth">get_gpr_depth.pro</a>&quot; procedure 
+      for a given pixel location.</p>
+    <p> <font face="Arial, Helvetica, sans-serif"><strong>TO USE IN IDL:</strong></font></p>
+    <p><font face="Courier New, Courier, mono">result = collect_input_get_gpr_depth( 
+      ystart = ystart, num_samples = num_samples, time_window = time_window, antenna_separation 
+      = antenna_separation, [/COLLECT_DISTANCE_INFO] )</font></p>
+    <p><em>Return Value:</em></p>
+    <p><strong>result.accept</strong> = 1 if user selects &quot;OK&quot;, 0 if 
+      &quot;Cancel&quot;.</p>
+    <p><strong>return.ground_velocity</strong> (float) = the velocity (in meters 
+      per nanosecond) at which radar would travel through the imaged subsurface 
+      medium/media. Ground velocities range from slow (e.g. 0.03 m/ns for fresh 
+      water) to fast (e.g. 0.3 m/ns for air) and the user should refer to a GPR 
+      textbook or manual for the proper value related to the media being imaged.</p>
+    <p><strong>return.first_arrival</strong> (integer) = the number of the sample 
+      (vertical- or y- dimension) at which the first radar pulse has reached the 
+      subsurface in the data file. This will be the zero-depth point, without 
+      direct wave adjustment. This first arrival is returned in image coordinates 
+      (ystart is top pixel and num_samples is bottom pixel).</p>
+    <p><strong>return.direct_wave_adjustment</strong> (0 = no; 1 = yes) = a flag 
+      to specify whether or not to adjust the reported depth measurement by the 
+      direct wave.</p>
+    <p><strong>return.adjustment_velocity</strong> (double) = the velocity (in 
+      meters per nanosecond) at which radar would travel the direct wave. Most 
+      frequently this will be the velocity of air (0.3 m/ns). This only needs 
+      to be supplied if the direct_wave_adjustment is set to 1.</p>
+    <p><strong>return.start_distance</strong> (optional) (float) = The start distance 
+      (in meters) of the data file. Will not be supplied unless /COLLECT_DISTANCE_INFO 
+      is set.</p>
+    <p><strong>return.end_distance</strong> (optional) (float) = The estimated 
+      end distance (in meters) of the data file. Will not be supplied unless /COLLECT_DISTANCE_INFO 
+      is set.</p>
+    <p><em>Keywords:</em></p>
+    <p><strong>ystart</strong> (integer) = the first sample (vertical- or y- dimension) 
+      in the file being filtered (i.e. at the very top of the file). This is a 
+      zero-based number, so unless the data have been subsetted, it is likely 
+      that ystart = 0.</p>
+    <p><strong>num_samples</strong> (integer) = total number of samples (vertical- 
+      or y- dimension) in the file being filtered. Used to provide a slider between 
+      the first sample and the last sample for the user to select a first arrival 
+      sample.</p>
+    <p><strong>time_window </strong>(double) = the amount of time in nanoseconds 
+      (10<sup>-9</sup> seconds) that the GPR instrument was set to &quot;listen&quot; 
+      for radar pulses per trace at the time of data acquisition. This value can 
+      be found in the &quot;*.rad&quot; file associated with a particular RAMAC 
+      GPR data file (&quot;*.rd3&quot;) in the row labeled &quot;TIMEWINDOW&quot;.</p>
+    <p><strong>antenna_separation</strong> (double) = the separation in meters 
+      between the transmitter and receiver antennae. This value can be found in 
+      the &quot;*.rad&quot; file associated with a particular RAMAC GPR data file 
+      (&quot;*.rd3&quot;) in the row labeled &quot;ANTENNA SEPARATION&quot;. This 
+      keyword only needs to be supplied if the direct_wave_adjustment is set to 
+      1.</p>
+    <p><strong>COLLECT_DISTANCE_INFO</strong> (optional) = when this keyword is 
+      set, the widget will ask the user for an estimated start distance and end 
+      distance (in meters) in addition to the time-to-depth conversion settings.</p>
+    <p><em>Examples:</em></p>
+    <p><font face="Courier New, Courier, mono">result = collect_input_get_gpr_depth( 
+      ystart = 0, num_samples = 1024, time_window = 42.5, antenna_separation = 
+      0.1, /COLLECT_DISTANCE_INFO )<br>
+      <br>
+      result = collect_input_get_gpr_depth( ystart = 0, num_samples = 1024, time_window 
+      = 42.5, antenna_separation = 0.1 )</font></p>
+  </blockquote>
+  <ol type="a">
+    <li value="5"><a name="get_gpr_distance"></a><font color="#CC0000" face="Arial, Helvetica, sans-serif"><strong>get_gpr_distance.pro</strong></font></li>
+  </ol>
+  <blockquote> 
+    <p><a href="get_gpr_distance.pro"><img src="IDL_file_icon.jpg" width="32" height="36" border="0" align="absmiddle"></a> 
+      <a href="get_gpr_distance.pro">Click here to download this file</a>. (7 
+      KB) (See also: <a href="GNU_License.txt">GNU license</a>)<br>
+      <a href="GPR_IDL_tools_1.00.zip"><img src="WinZip_icon.jpg" width="36" height="36" border="0" align="absmiddle"></a><a href="GPR_IDL_tools_1.00.zip">Click 
+      here to download all files</a>. (103 KB) </p>
+    <p>This IDL function returns the <strong>distance</strong> in meters of a 
+      given trace (x-axis) in a <strong>Mal&aring; Geoscience <a href="http://ramac.malags.com" target="_blank">RAMAC</a>&#8482; 
+      ground-penetrating radar (GPR)</strong> data file based on the given start 
+      and end distance of the data file provided by the user.</p>
+    <p><em>NOTE: </em>A &quot;<strong>trace</strong>&quot; is a single, vertical 
+      column of GPR data, representing the signal &quot;traced&quot; by a radar 
+      pulse as it travels from the instrument into the subsurface. Traces are 
+      herein described to be composed of a number of <strong>samples</strong> 
+      (vertical dimension, or y-axis), and the number of traces are used to describe 
+      the horizontal dimension, or x-axis. Note that in ENVI-terminology, &quot;<strong>samples</strong>&quot; 
+      are counted in the horizontal dimension, in contrast, and &quot;<strong>lines</strong>&quot; 
+      are counted in the vertical dimension, but we use GPR-terminology here instead 
+      to avoid confusion.</p>
+    <p>The distance of a given trace is computed according to the following equation:</p>
+    <ol>
+      <li> total_distance = end_distance - start_distance</li>
+    </ol>
+    <ol>
+      <li value="2"> depth_per_trace = total_distance &divide; num_traces</li>
+    </ol>
+    <ol>
+      <li value="3"> current_distance = depth_per_trace * current_trace</li>
+    </ol>
+    <p> <font face="Arial, Helvetica, sans-serif"><strong>TO USE IN IDL:</strong></font></p>
+    <p><font face="Courier New, Courier, mono">distance = get_gpr_distance( current_trace 
+      = current_trace, num_traces = num_traces, start_distance = start_distance, 
+      end_distance = end_distance )</font></p>
+    <p><em>Return Value:</em></p>
+    <p><strong>distance</strong> = the distance in meters of the specified trace 
+      number (x-axis).</p>
+    <p><em>Keywords:</em></p>
+    <p><strong>current_trace</strong> = the number of the trace (horizontal- or 
+      x-dimension) to compute the distance of, where 0 is the first trace at the 
+      left of the file.</p>
+    <p><strong>num_traces</strong> = total number of traces (horizontal- or x- 
+      dimension) in the GPR file.</p>
+    <p><strong>start_distance</strong> = the distance of the first (left-most) 
+      trace in the GPR file. In most cases, this will probably be 0 meters.</p>
+    <p><strong>end_distance</strong> = the distance of the last (right-most) trace 
+      in the GPR file.</p>
+    <p><em>Example:</em></p>
+    <p><font face="Courier New, Courier, mono">distance = get_gpr_distance( current_trace 
+      = 500, num_traces = 1000, start_distance = 0, end_distance = 100 )</font></p>
+    <p>[<em>NOTE: </em>distance should be 50.0000 meters in the above example.]</p>
+  </blockquote>
+  <p><em><strong><font color="#CC0000" face="Arial, Helvetica, sans-serif">Create 
+    XYZ File:</font></strong></em></p>
+  <ol type="a">
+    <li value="6"><font face="Arial, Helvetica, sans-serif"><strong><a name="create_xyz_file"></a><font color="#CC0000">create_xyz_file.pro</font></strong></font></li>
+  </ol>
+  <blockquote> 
+    <p><a href="create_xyz_file.pro"><img src="IDL_file_icon.jpg" width="32" height="36" border="0" align="absmiddle"></a> 
+      <a href="create_xyz_file.pro">Click here to download this file</a>. (22 
+      KB) (See also: <a href="GNU_License.txt">GNU license</a>)<br>
+      <a href="GPR_IDL_tools_1.00.zip"><img src="WinZip_icon.jpg" width="36" height="36" border="0" align="absmiddle"></a><a href="GPR_IDL_tools_1.00.zip">Click 
+      here to download all files</a>. (103 KB) </p>
+    <p><em><strong>NOTE: </strong>Requires the following other files:</em></p>
+    <ul>
+      <li><a href="#get_gpr_depth"> get_gpr_depth.pro</a></li>
+      <li><a href="#collect_input_get_gpr_depth"> collect_input_get_gpr_depth.pro</a></li>
+    </ul>
+    <p>This IDL procedure creates an <strong>XYZ file (latitude, longitude, depth)</strong> 
+      of a linear feature identified within one or more <strong>Mal&aring; Geoscience</strong> 
+      <strong><a href="http://ramac.malags.com" target="_blank">RAMAC</a>&#8482; 
+      ground-penetrating radar (GPR)</strong> data files. An &quot;<strong>XYZ 
+      file</strong>&quot; is a text file with three space-delimited columns: the 
+      first column (X) contains a <strong>latitude</strong> (in decimal degrees: 
+      e.g. 78.0167778), the second column (Y) contains a <strong>longitude</strong> 
+      (also in decimal degrees: e.g. 33.9808222), and the third column (Z) contains 
+      a <strong>depth</strong> measurement (in negative meters: e.g. -0.661157). 
+      Such a file can be used to create a regularly-gridded data file that can 
+      then be visualized in <strong>three dimensions</strong>. Both IDL's &quot;iTools&quot; 
+      and the Surfer software package (<a href="http://goldensoftware.com" target="_blank">http://goldensoftware.com</a>) 
+      are examples of tools that can be easily used to both grid and view the 
+      XYZ text file in three dimensions.</p>
+    <p>In order to output the XYZ file, this procedure gets the pixel locations 
+      of each specified <strong>ENVI Region-of-Interest (ROI) file</strong> (*.roi) 
+      and uses further input from the user (i.e. ground radar velocity, sample 
+      number [y-dimension] of first arrival, whether to adjust for the direct 
+      wave, etc.) to compute the depth of each of these pixel locations (using 
+      &quot;<a href="#get_gpr_depth">get_gpr_depth.pro</a>&quot;). Each pixel 
+      location can also be associated with an associated trace number (x-dimension) 
+      in the RAMAC <strong>GPS coordinates</strong> file (.cor), for which the 
+      coordinates are converted from degree:minutes:seconds format to double-precision 
+      floating-point decimal degrees. The user is also asked for an output file 
+      location at which to write the XYZ output to.</p>
+    <p> <font face="Arial, Helvetica, sans-serif"><strong>TO USE IN IDL:</strong></font></p>
+    <p><font face="Courier New, Courier, mono">create_xyz_file, gpr_files = gpr_files, 
+      roi_files = roi_files, header_file = header_file, gps_file = gps_file</font></p>
+    <p><em>Return Value:</em></p>
+    <p>Does not return anything to IDL. Outputs a<strong> text file</strong> with 
+      <strong>three space-delimited columns</strong> at a file location specified 
+      by the user before processing. The first column (X) contains a <strong>latitude</strong> 
+      (in decimal degrees: e.g. 78.0167778), the second column (Y) contains a 
+      <strong>longitude</strong> (also in decimal degrees: e.g. 33.9808222), and 
+      the third column (Z) contains a <strong>depth</strong> measurement (in negative 
+      meters: e.g. -0.661157). Latitude and longitude are reported as double-precision 
+      floating-point values with seven decimal places while depth is reported 
+      as a single-precision floating-point value with six decimal places. For 
+      example:</p>
+    <blockquote> 
+      <p> 78.0167778 &nbsp;33.9808222 &nbsp;-0.695942<br>
+        78.0167694 &nbsp;33.9808361 &nbsp;-0.666542<br>
+        78.0167556 &nbsp;33.9807333 &nbsp;-0.681242<br>
+        78.0167694 &nbsp;33.9808694 &nbsp;-0.784144<br>
+        78.0167639 &nbsp;33.9808694 &nbsp;-0.784144</p>
+    </blockquote>
+    <p><em>Keywords:</em></p>
+    <p><strong>gpr_files</strong> (string array) = The data file(s) for which 
+      to generate an XYZ file. Each file should be specified with its full path 
+      and filename.</p>
+    <p><strong>roi_files </strong>(string array) = The associated ENVI polyline 
+      region-of-interest (ROI) files (*.roi) that identify a linear feature of 
+      interest within the data files (e.g. annual snow accumulation layer, bottom 
+      of a floating ice tongue, e etc.). There must be one ROI file selected per 
+      data file. Also, in order for &quot;create_xyz_file.pro&quot; to know which 
+      ROI file goes with which data file, the ROI files must be listed in alphabetical 
+      order in the same manner as the associated data files. Each file should 
+      be specified with its full path and filename.</p>
+    <p><strong>header_file</strong> (string) = The associated RAMAC header file 
+      (*.rad) so that the two-way time window (ns), transmitter-to-receiver antenna 
+      separation (m), and total number of traces (x-dimension) can be passed to 
+      the depth-computing procedure (i.e. &quot;<a href="#get_gpr_depth">get_gpr_depth.pro</a>&quot;). 
+      When specifying multiple data files (e.g. spatial subsets/transects of an 
+      original RAMAC *.rd3 data file), therefore, each must conform to the same 
+      time window and antenna separation. The header file should be specified 
+      with its full path and filename.</p>
+    <p><strong>gps_file</strong> (string) = The RAMAC GPS coordinates file (*.cor) 
+      that contains the latitude and longitude for every trace (x-dimension) in 
+      the original *.rd3 RAMAC data file. RAMAC &quot;<a href="http://www.malags.com/software/#groundvision" target="_blank">GroundVision</a>&quot; 
+      software can be set to collect GPS data in the <strong>GroundVision Standard 
+      </strong>(*.cor) format during data acquisition. At this time, other GPS 
+      file formats are not accepted. The GroundVision Standard format (*.cor) 
+      is a comma-delimited text file with latitude and longitude in the 4th and 
+      5th columns respectively, where both are expressed in units of degrees:minutes:seconds 
+      as in the following example:</p>
+    <blockquote> 
+      <p> 78:01:00.42 NN,33:58:50.96 WW</p>
+    </blockquote>
+    <p> When selecting multiple data files (e.g. spatial subsets/transects of 
+      an original RAMAC *.rd3 data file), therefore, each must be contained by 
+      the selected *.cor GPS coordinates file. When subsetting, therefore, it 
+      is necessary to record the &quot;xstart&quot; location of every subset/transect 
+      so that these files record their location within the original *.rd3 RAMAC 
+      data file and can thereby find their associated GPS coordinates in the *.cor 
+      file. The GPS file should be specified with its full path and filename.</p>
+    <p><em>Examples:</em></p>
+    <p><font face="Courier New, Courier, mono">create_xyz_file, gpr_files = [ 
+      'C:\GPR_data\GPR_data_file1.rd3' ], roi_files = [ 'C:\GPR_data\GPR_layer1.roi' 
+      ], header_file = 'C:\GPR_data\GPR_data_file1.rad', gps_file = 'C:\GPR_data\GPR_data_file1.cor'</font></p>
+    <p><font face="Courier New, Courier, mono">create_xyz_file, gpr_files = [ 
+      'C:\GPR_data\GPR_transect1.bin', 'C:\GPR_data\GPR_transect2.bin' ], roi_files 
+      = [ 'C:\GPR_data\GPR_transect1.roi', 'C:\GPR_data\GPR_transect2.roi' ], 
+      header_file = 'C:\GPR_data\GPR_data_file1.rad', gps_file = 'C:\GPR_data\GPR_data_file1.cor'</font></p>
+    <p> <font face="Arial, Helvetica, sans-serif"><strong>TO USE IN ENVI:</strong></font></p>
+    <p>To use this procedure within ENVI, refer to the documentation for the following 
+      two IDL procedures:</p>
+    <blockquote> 
+      <p> 1. <a href="#collect_input_create_xyz_file">collect_input_create_xyz_file.pro</a><br>
+        2. <a href="#collect_input_bulk_xyz_file">collect_input_bulk_xyz_file.pro</a></p>
+    </blockquote>
+    <p>The above procedures can be used to gather the necessary input and call 
+      this procedure (i.e. &quot;create_xyz_file.pro&quot;) on either a single 
+      file that is already open in ENVI or on multiple files, respectively.</p>
+  </blockquote>
+  <ol type="a">
+    <li value="7"><a name="collect_input_create_xyz_file"></a><font color="#CC0000" face="Arial, Helvetica, sans-serif"><strong>collect_input_create_xyz_file.pro</strong></font></li>
+  </ol>
+  <blockquote> 
+    <p><a href="collect_input_create_xyz_file.pro"><img src="IDL_file_icon.jpg" width="32" height="36" border="0" align="absmiddle"></a> 
+      <a href="collect_input_create_xyz_file.pro">Click here to download this 
+      file</a>. (8 KB) (See also: <a href="GNU_License.txt">GNU license</a>)<br>
+      <a href="GPR_IDL_tools_1.00.zip"><img src="WinZip_icon.jpg" width="36" height="36" border="0" align="absmiddle"></a><a href="GPR_IDL_tools_1.00.zip">Click 
+      here to download all files</a>. (103 KB) </p>
+    <p><em><strong>NOTE: </strong>Requires the following other files:</em></p>
+    <ul>
+      <li> <a href="#create_xyz_file">create_xyz_file.pro</a></li>
+      <li><a href="#get_gpr_depth"> get_gpr_depth.pro</a></li>
+      <li><a href="#collect_input_get_gpr_depth"> collect_input_get_gpr_depth.pro</a></li>
+    </ul>
+    <p>This IDL procedure can be run in ENVI to collect the necessary input parameters 
+      for and then call the associated &quot;<a href="#create_xyz_file">create_xyz_file.pro</a>&quot; 
+      IDL procedure for creating an <strong>XYZ file (latitude, longitude, depth)</strong> 
+      of a layer identified within a <strong>Mal&aring; Geoscience</strong> <strong><a href="http://ramac.malags.com" target="_blank">RAMAC</a>&#8482; 
+      ground-penetrating radar (GPR)</strong> data file. An &quot;<strong>XYZ 
+      file</strong>&quot; is a text file with three space-delimited columns: the 
+      first column (X) contains a <strong>latitude</strong> (in decimal degrees: 
+      e.g. 78.0167778), the second column (Y) contains a <strong>longitude</strong> 
+      (also in decimal degrees: e.g. 33.9808222), and the third column (Z) contains 
+      a <strong>depth</strong> measurement (in negative meters: e.g. -0.661157). 
+      Such a file can be used to create a regularly-gridded data file that can 
+      then be visualized in <strong>three dimensions</strong>. Both IDL's &quot;iTools&quot; 
+      and Surfer software (<a href="http://goldensoftware.com" target="_blank">http://goldensoftware.com</a>) 
+      are examples of tools that can be easily used to both grid and view the 
+      XYZ text file in three dimensions.</p>
+    <p>In order to produce such an XYZ file, the &quot;<a href="#create_xyz_file">create_xyz_file.pro</a>&quot; 
+      procedure needs to know the following input parameters:</p>
+    <ol>
+      <li> The <strong>data file</strong> (i.e. the currently viewed GPR data 
+        file).</li>
+    </ol>
+    <ol>
+      <li value="2">The associated <strong>ENVI polyline region-of-interest (ROI) 
+        file</strong> (*.roi) that identifies a linear feature of interest within 
+        the data file (e.g. annual snow accumulation layer, bottom of a floating 
+        ice tongue, etc.).</li>
+    </ol>
+    <ol>
+      <li value="3">The associated RAMAC<strong> header file</strong> (*.rad) 
+        so that the two-way time window (ns), transmitter-to-receiver antenna 
+        separation (m), and total number of traces (x-dimension) can be passed 
+        to the depth-computing procedure (i.e. &quot;<a href="#get_gpr_depth">get_gpr_depth.pro</a>&quot;) 
+        called within &quot;<a href="#create_xyz_file">create_xyz_file.pro</a>&quot;.</li>
+    </ol>
+    <ol>
+      <li value="4">The RAMAC <strong>GPS coordinates file</strong> (*.cor) that 
+        contains the latitude and longitude for every trace (x-dimension) in the 
+        data file. RAMAC &quot;<a href="http://www.malags.com/software/#groundvision" target="_blank">GroundVision</a>&quot; 
+        software can be set to collect GPS data in the <strong>GroundVision Standard</strong> 
+        (*.cor) format during data acquisition. At this time, other GPS file formats 
+        are not acceptable. The GroundVision Standard format (*.cor) is a comma-delimited 
+        text file with latitude and longitude in the 4th and 5th columns respectively, 
+        where both are expressed in units of degrees:minutes:seconds as in the 
+        following example: 
+        <blockquote> 
+          <p> 78:01:00.42 NN,33:58:50.96 WW</p>
+        </blockquote>
+      </li>
+    </ol>
+    <p>The above parameters are collected by this procedure and then passed to 
+      &quot;<a href="#create_xyz_file">create_xyz_file.pro</a>&quot; to generate 
+      an XYZ file at a user-specified file location.</p>
+    <p> <font face="Arial, Helvetica, sans-serif"><strong>TO USE IN ENVI: </strong></font></p>
+    <p>After saving this procedure in the ENVI &quot;<strong>save_add</strong>&quot; 
+      directory, add the following lines to ENVI's function menu configuration 
+      file (<strong>display.men</strong>) located in ENVI's &quot;<strong>menu</strong>&quot; 
+      directory:</p>
+    <blockquote> 
+      <p> <font face="Courier New, Courier, mono">0 {GPR}<br>
+        &nbsp;&nbsp;1 {Create XYZ File...} {not used} {collect_input_create_xyz_file}</font></p>
+    </blockquote>
+    <p>This procedure can then be run from the pull-down menu labeled &quot;<strong>GPR</strong>&quot; 
+      on a GPR file that you have already opened in ENVI.</p>
+  </blockquote>
+  <ol type="a">
+    <li value="8"><font face="Arial, Helvetica, sans-serif"><strong><a name="collect_input_bulk_xyz_file"></a><font color="#CC0000">collect_input_bulk_xyz_file.pro</font></strong></font></li>
+  </ol>
+  <blockquote> 
+    <p><a href="collect_input_bulk_xyz_file.pro"><img src="IDL_file_icon.jpg" width="32" height="36" border="0" align="absmiddle"></a> 
+      <a href="collect_input_bulk_xyz_file.pro">Click here to download this file</a>. 
+      (10 KB) (See also: <a href="GNU_License.txt">GNU license</a>)<br>
+      <a href="GPR_IDL_tools_1.00.zip"><img src="WinZip_icon.jpg" width="36" height="36" border="0" align="absmiddle"></a><a href="GPR_IDL_tools_1.00.zip">Click 
+      here to download all files</a>. (103 KB) </p>
+    <p><em><strong>NOTE:</strong> Requires the following other files:</em></p>
+    <ul>
+      <li> <a href="#create_xyz_file">create_xyz_file.pro</a></li>
+      <li> <a href="#get_gpr_depth">get_gpr_depth.pro</a></li>
+      <li> <a href="#collect_input_get_gpr_depth">collect_input_get_gpr_depth.pro</a></li>
+    </ul>
+    <p>This IDL procedure can be run in ENVI to collect the necessary input parameters 
+      for and then call the associated &quot;<a href="#create_xyz_file">create_xyz_file.pro</a>&quot; 
+      IDL procedure for creating an <strong>XYZ file (latitude, longitude, depth)</strong> 
+      of a layer identified within one or more <strong>Mal&aring; Geoscience</strong> 
+      <strong><a href="http://ramac.malags.com" target="_blank">RAMAC</a>&#8482; 
+      ground-penetrating radar (GPR)</strong> data files. An &quot;<strong>XYZ 
+      file</strong>&quot; is a text file with three space-delimited columns: the 
+      first column (X) contains a <strong>latitude</strong> (in decimal degrees: 
+      e.g. 78.0167778), the second column (Y) contains a <strong>longitude</strong> 
+      (also in decimal degrees: e.g. 33.9808222), and the third column (Z) contains 
+      a <strong>depth</strong> measurement (in negative meters: e.g. -0.661157). 
+      Such a file can be used to create a regularly-gridded data file that can 
+      then be visualized in<strong> three dimensions</strong>. Both IDL's &quot;iTools&quot; 
+      and Surfer software (<a href="http://goldensoftware.com" target="_blank">http://goldensoftware.com</a>) 
+      are examples of tools that can be easily used to both grid and view the 
+      XYZ text file in three dimensions.</p>
+    <p>In order to produce such an XYZ file, the &quot;<a href="#create_xyz_file">create_xyz_file.pro</a>&quot; 
+      procedure needs to know the following input parameters:</p>
+    <ol>
+      <li> The <strong>data file(s) </strong>for which to generate an XYZ file.</li>
+    </ol>
+    <ol>
+      <li value="2">The associated <strong>ENVI polyline region-of-interest (ROI) 
+        files </strong>(*.roi) that identify a linear feature of interest within 
+        the data files (e.g. annual snow accumulation layer, bottom of a floating 
+        ice tongue, etc.). There must be one ROI file selected per data file. 
+        Also, in order for the &quot;<a href="#create_xyz_file">create_xyz_file.pro</a>&quot; 
+        to know which ROI file goes with which data file, the ROI files must be 
+        listed in alphabetical order in the same manner as the associated data 
+        files.</li>
+    </ol>
+    <ol>
+      <li value="3">The associated RAMAC <strong>header file</strong> (*.rad) 
+        so that the two-way time window (ns), transmitter-to-receiver antenna 
+        separation (m), and total number of traces (x-dimension) can be passed 
+        to the depth-computing procedure (i.e. &quot;<a href="#get_gpr_depth">get_gpr_depth.pro</a>&quot;) 
+        called within &quot;<a href="#create_xyz_file">create_xyz_file.pro</a>&quot;. 
+        When selecting multiple data files (e.g. spatial subsets/transects of 
+        an original RAMAC *.rd3 data file), therefore, each must conform to the 
+        same time window and antenna separation.</li>
+    </ol>
+    <ol>
+      <li value="4">The RAMAC<strong> GPS coordinates file</strong> (*.cor) that 
+        contains the latitude and longitude for every trace (x-dimension) in the 
+        original *.rd3 RAMAC data file. RAMAC &quot;<a href="http://www.malags.com/software/#groundvision" target="_blank">GroundVision</a>&quot; 
+        software can be set to collect GPS data in the <strong>GroundVision Standard</strong> 
+        (*.cor) format during data acquisition. At this time, other GPS file formats 
+        are not acceptable. The GroundVision Standard format (*.cor) is a comma-delimited 
+        text file with latitude and longitude in the 4th and 5th columns respectively, 
+        where both are expressed in units of degrees:minutes:seconds as in the 
+        following example: 
+        <blockquote> 
+          <p> 78:01:00.42 NN,33:58:50.96 WW</p>
+        </blockquote>
+        <p> When selecting multiple data files (e.g. spatial subsets/transects 
+          of an original RAMAC *.rd3 data file), therefore, each must be contained 
+          by the selected *.cor GPS coordinates file. When subsetting, therefore, 
+          it is necessary to record the xstart of every subset/transect so that 
+          these files record their location within the original *.rd3 RAMAC data 
+          file and can find their associated GPS coordinates in the *.cor file.</p>
+      </li>
+    </ol>
+    <p>The above parameters are collected by this procedure and then passed to 
+      &quot;<a href="#create_xyz_file">create_xyz_file.pro</a>&quot; to generate 
+      an XYZ file at a user-specified file location.</p>
+    <p> <font face="Arial, Helvetica, sans-serif"><strong>TO USE IN ENVI: </strong></font></p>
+    <p>After saving this procedure in the ENVI &quot;<strong>save_add</strong>&quot; 
+      directory, add the following lines to ENVI's main menu configuration file 
+      (<strong>envi.men</strong>) located in ENVI's &quot;<strong>menu</strong>&quot; 
+      directory:</p>
+    <blockquote> 
+      <p> <font face="Courier New, Courier, mono">0 {GPR}<br>
+        &nbsp;&nbsp;1 {Create XYZ File} {not used} {collect_input_bulk_xyz_file}</font></p>
+    </blockquote>
+    <p>This procedure can then be run from the pull-down menu labeled &quot;<strong>GPR</strong>&quot; 
+      on ENVI's main menu bar.</p>
+  </blockquote>
+  <p><em><strong><font color="#CC0000" face="Arial, Helvetica, sans-serif">Compute 
+    Depth Statistics:</font></strong></em></p>
+  <ol type="a">
+    <li value="9"><font face="Arial, Helvetica, sans-serif"><font face="Arial, Helvetica, sans-serif"><strong><a name="compute_depth_statistics"></a><font color="#CC0000">compute_depth_statistics.pro</font></strong></font></font></li>
+  </ol>
+  <blockquote> 
+    <p><a href="compute_depth_statistics.pro"><img src="IDL_file_icon.jpg" width="32" height="36" border="0" align="absmiddle"></a> 
+      <a href="compute_depth_statistics.pro">Click here to download this file</a>. 
+      (22 KB) (See also: <a href="GNU_License.txt">GNU license</a>) <br>
+      <a href="GPR_IDL_tools_1.00.zip"><img src="WinZip_icon.jpg" width="36" height="36" border="0" align="absmiddle"></a><a href="GPR_IDL_tools_1.00.zip">Click 
+      here to download all files</a>. (103 KB) </p>
+    <p><em><strong>NOTE:</strong> Requires the following other files:</em></p>
+    <ul>
+      <li> <a href="#get_gpr_depth">get_gpr_depth.pro</a></li>
+      <li> <a href="#collect_input_get_gpr_depth">collect_input_get_gpr_depth.pro</a></li>
+    </ul>
+    <p>This IDL procedure computes <strong>statistics</strong> <strong>for the 
+      depth</strong> <strong>of a linear feature</strong> within a <strong>Mal&aring; 
+      Geoscience</strong> <strong><a href="http://ramac.malags.com" target="_blank">RAMAC</a>&#8482; 
+      ground-penetrating radar (GPR)</strong> data file or files. This linear 
+      feature (e.g. annual snow accumulation layer, bottom of a floating ice tongue, 
+      etc.) should be previously digitized in an <strong>ENVI polyline region-of-interest 
+      (ROI) file</strong> (*.roi) or files. The statistics reported are the mean, 
+      max, and min depths (in meters) and the standard deviation of the depth 
+      (in meters). In addition, these depth statistics can also be expressed in 
+      terms of <strong>snow water equivalent (SWE)</strong> if the subsurface 
+      in the GPR data is snow/ice. In order to accomplish this, the user is presented 
+      with a window to input the average density of the subsurface (in grams per 
+      cubic centimeter). The SWE is then returned in grams per squared centimeter; 
+      this can be converted by the end-user to units of millimeters simply by 
+      dividing by the density of water (1 g/cm<sup>3</sup>) and multiplying by 
+      10.</p>
+    <p>In order to output these statistics, this procedure gets the pixel locations 
+      of each specified ROI file and uses further input from the user (i.e. ground 
+      radar velocity, sample number [y-dimension] of first arrival, whether to 
+      adjust for the direct wave, etc.) to compute the depth of each of these 
+      pixel locations (using &quot;<a href="#get_gpr_depth">get_gpr_depth.pro</a>&quot;).</p>
+    <p> <font face="Arial, Helvetica, sans-serif"><strong>TO USE IN IDL:</strong></font></p>
+    <p><font face="Courier New, Courier, mono">statistics = compute_depth_statistics( 
+      gpr_files = gpr_files, roi_files = roi_files, header_file = header_file 
+      )</font></p>
+    <p><em>Return Value:</em></p>
+    <p><strong>statistics.total_measurements</strong> (integer) = The total number 
+      of pixel addresses in the polyline region-of-interest (ROI) used in the 
+      depth/SWE statistics reported below. Note that this may be greater than 
+      the number of pixels in the x-dimension in the corresponding data file(s) 
+      since the polyline may include multiple samples (y-dimension) at a particular 
+      trace (x-dimension).</p>
+    <p><strong>statistics.mean_depth_meters</strong> (float) = The mean depth 
+      in meters of the selected linear feature.</p>
+    <p><strong>statistics.stddev_depth_meters</strong> (float) = The standard 
+      deviation in meters of the selected linear feature.</p>
+    <p><strong>statistics.min_depth_meters</strong> (float) = The minimum depth 
+      in meters of the selected linear feature.</p>
+    <p><strong>statistics.max_depth_meters</strong> (float) = The maximum depth 
+      in meters of the selected linear feature.</p>
+    <p><strong>statistics.mean_swe_gcm2</strong> (float or NaN) = The mean snow 
+      water equivalent (SWE) in units of grams per squared centimeter (g/cm<sup>2</sup>) 
+      of the selected linear feature. If the user did not provide a subsurface 
+      density because SWE is irrelevant to the subsurface being measured, this 
+      value will be an invalid value (IDL's &quot;NaN&quot;, for &quot;not a number&quot;).</p>
+    <p><strong>statistics.stddev_swe_gcm2</strong> (float or NaN) = The standard 
+      deviation of SWE in units of grams per squared centimeter (g/cm<sup>2</sup>) 
+      of the selected linear feature. If the user did not provide a subsurface 
+      density because SWE is irrelevant to the subsurface being measured, this 
+      value will be an invalid value (IDL's &quot;NaN&quot;, for &quot;not a number&quot;).</p>
+    <p><strong>statistics.min_swe_gcm2</strong> (float or NaN) = The minimum SWE 
+      in units of grams per squared centimeter (g/cm<sup>2</sup>) of the selected 
+      linear feature. If the user did not provide a subsurface density because 
+      SWE is irrelevant to the subsurface being measured, this value will be an 
+      invalid value (IDL's &quot;NaN&quot;, for &quot;not a number&quot;).</p>
+    <p><strong>statistics.max_swe_gcm2</strong> (float or NaN) = The maximum SWE 
+      in units of grams per squared centimeter (g/(cm<sup>2</sup>) of the selected 
+      linear feature. If the user did not provide a subsurface density because 
+      SWE is irrelevant to the subsurface being measured, this value will be an 
+      invalid value (IDL's &quot;NaN&quot;, for &quot;not a number&quot;).</p>
+    <p><em>Keywords:</em></p>
+    <p><strong>gpr_files</strong> (string array) = The data file(s) for which 
+      to generate an XYZ file. Each file should be specified with its full path 
+      and filename.</p>
+    <p><strong>roi_files</strong> (string array) = The associated ENVI polyline 
+      region-of-interest (ROI) files (*.roi) that identify a linear feature of 
+      interest within the data files (e.g. annual snow accumulation layer, bottom 
+      of a floating ice tongue, etc.). There must be one ROI file selected per 
+      data file. Also, in order for the &quot;<a href="#create_xyz_file">create_xyz_file.pro</a>&quot; 
+      to know which ROI file goes with which data file, the ROI files must be 
+      listed in alphabetical order in the same manner as the associated data files. 
+      Each file should be specified with its full path and filename.</p>
+    <p><strong>header_file</strong> (string) = The associated RAMAC header file 
+      (*.rad) so that the two-way time window (ns), transmitter-to-receiver antenna 
+      separation (m), and total number of traces (x-dimension) can be passed to 
+      the depth-computing procedure (i.e. &quot;<a href="#get_gpr_depth">get_gpr_depth.pro</a>&quot;). 
+      When specifying multiple data files (e.g. spatial subsets/transects of an 
+      original RAMAC *.rd3 data file), therefore, each must conform to the same 
+      time window and antenna separation. The header file should be specified 
+      with its full path and filename.</p>
+    <p><em>Examples:</em></p>
+    <p><font face="Courier New, Courier, mono">statistics = compute_depth_statistics( 
+      gpr_files = [ 'C:\GPR_data\GPR_data_file1.rd3' ], roi_files = [ 'C:\GPR_data\GPR_layer1.roi' 
+      ], header_file = 'C:\GPR_data\GPR_data_file1.rad' )</font></p>
+    <p><font face="Courier New, Courier, mono">statistics = compute_depth_statistics( 
+      gpr_files = [ 'C:\GPR_data\GPR_transect1.bin', 'C:\GPR_data\GPR_transect2.bin' 
+      ], roi_files = [ 'C:\GPR_data\GPR_transect1.roi', 'C:\GPR_data\GPR_transect2.roi' 
+      ], header_file = 'C:\GPR_data\GPR_data_file1.rad' )</font></p>
+    <p> <font face="Arial, Helvetica, sans-serif"><strong>TO USE IN ENVI:</strong></font></p>
+    <p>To use this procedure within ENVI, refer to the documentation for the following 
+      two IDL procedures:</p>
+    <blockquote> 
+      <p> 1. <a href="#collect_input_compute_depth_statistics">collect_input_compute_depth_statistics.pro</a><br>
+        2. <a href="#collect_input_bulk_depth_statistics">collect_input_bulk_depth_statistics.pro</a></p>
+    </blockquote>
+    <p>The above procedures can be used to gather the necessary input and call 
+      this procedure (i.e. &quot;compute_depth_statistics.pro&quot;) on either 
+      a single file that is already open in ENVI or on multiple files, respectively.</p>
+  </blockquote>
+  <ol type="a">
+    <li value="10"><font face="Arial, Helvetica, sans-serif"><font face="Arial, Helvetica, sans-serif"><strong><a name="collect_input_compute_depth_statistics"></a><font color="#CC0000">collect_input_compute_depth_statistics.pro</font></strong></font></font></li>
+  </ol>
+  <blockquote> 
+    <p><a href="collect_input_compute_depth_statistics.pro"><img src="IDL_file_icon.jpg" width="32" height="36" border="0" align="absmiddle"></a> 
+      <a href="collect_input_compute_depth_statistics.pro">Click here to download 
+      this file</a>. (9 KB) (See also: <a href="GNU_License.txt">GNU license</a>)<br>
+      <a href="GPR_IDL_tools_1.00.zip"><img src="WinZip_icon.jpg" width="36" height="36" border="0" align="absmiddle"></a><a href="GPR_IDL_tools_1.00.zip">Click 
+      here to download all files</a>. (103 KB) </p>
+    <p><em><strong>NOTE:</strong> Requires the following other files:</em></p>
+    <ul>
+      <li> <a href="#compute_depth_statistics">compute_depth_statistics.pro</a></li>
+      <li><a href="#get_gpr_depth">get_gpr_depth.pro</a></li>
+      <li> <a href="#collect_input_get_gpr_depth">collect_input_get_gpr_depth.pro</a></li>
+    </ul>
+    <p>This IDL procedure can be run in ENVI to collect the necessary input parameters 
+      for and then call the associated &quot;<a href="#compute_depth_statistics">compute_depth_statistics.pro</a>&quot; 
+      IDL procedure for computing <strong>depth statistics</strong> <strong>of 
+      a linear feature </strong>identified within a <strong>Mal&aring; Geoscience 
+      <a href="http://ramac.malags.com" target="_blank">RAMAC</a>&#8482; ground-penetrating 
+      radar (GPR)</strong> data file. The computed statistics are displayed in 
+      a widget window for the user to view. Please see the documentation for &quot;<a href="#compute_depth_statistics">compute_depth_statistics.pro</a>&quot; 
+      for further details on the statistics that get generated.</p>
+    <p>In order to produce such statistics, the &quot;<a href="#compute_depth_statistics">compute_depth_statistics.pro</a>&quot; 
+      procedure needs to know the following input parameters:</p>
+    <ol>
+      <li> The <strong>data file </strong>(i.e. the currently viewed GPR data 
+        file).</li>
+    </ol>
+    <ol>
+      <li value="2">The associated <strong>ENVI polyline region-of-interest (ROI) 
+        file</strong> (*.roi) that identifies a linear feature of interest within 
+        the data file (e.g. annual snow accumulation layer, bottom of a floating 
+        ice tongue, etc.).</li>
+    </ol>
+    <ol>
+      <li value="3">The associated RAMAC <strong>header file </strong>(*.rad) 
+        so that the two-way time window (ns), transmitter-to-receiver antenna 
+        separation (m), and total number of traces (x-dimension) can be passed 
+        to the depth-computing procedure (i.e. &quot;<a href="#get_gpr_depth">get_gpr_depth.pro</a>&quot;) 
+        called within &quot;<a href="#compute_depth_statistics">compute_depth_statistics.pro</a>&quot;.</li>
+    </ol>
+    <p>The above parameters are collected by this procedure and then passed to 
+      &quot;<a href="#compute_depth_statistics">compute_depth_statistics.pro</a>&quot; 
+      to generate the statistics and display the results to the user.</p>
+    <p> <font face="Arial, Helvetica, sans-serif"><strong>TO USE IN ENVI: </strong></font></p>
+    <p>After saving this procedure in the ENVI &quot;<strong>save_add</strong>&quot; 
+      directory, add the following lines to ENVI's function menu configuration 
+      file (<strong>display.men</strong>) located in ENVI's &quot;<strong>menu</strong>&quot; 
+      directory:</p>
+    <blockquote> 
+      <p> <font face="Courier New, Courier, mono">0 {GPR}<br>
+        &nbsp;&nbsp;1 {Compute Depth Statistics...} {not used} {collect_input_compute_depth_statistics}</font></p>
+    </blockquote>
+    <p>This procedure can then be run from the pull-down menu labeled &quot;<strong>GPR</strong>&quot; 
+      on a GPR file that you have already opened in ENVI.</p>
+  </blockquote>
+  <ol type="a">
+    <li value="11"><a name="collect_input_bulk_depth_statistics"></a><font face="Arial, Helvetica, sans-serif"><font color="#CC0000" face="Arial, Helvetica, sans-serif"><strong>collect_input_bulk_depth_statistics.pro</strong></font></font></li>
+  </ol>
+  <blockquote> 
+    <p><a href="collect_input_bulk_depth_statistics.pro"><img src="IDL_file_icon.jpg" width="32" height="36" border="0" align="absmiddle"></a> 
+      <a href="collect_input_bulk_depth_statistics.pro">Click here to download 
+      this file</a>. (10 KB) (See also: <a href="GNU_License.txt">GNU license</a>)<br>
+      <a href="GPR_IDL_tools_1.00.zip"><img src="WinZip_icon.jpg" width="36" height="36" border="0" align="absmiddle"></a><a href="GPR_IDL_tools_1.00.zip">Click 
+      here to download all files</a>. (103 KB) </p>
+    <p><em><strong>NOTE:</strong> Requires the following other files:</em></p>
+    <ul>
+      <li><a href="#compute_depth_statistics"> compute_depth_statistics.pro</a></li>
+      <li> <a href="#get_gpr_depth">get_gpr_depth.pro</a></li>
+      <li> <a href="#collect_input_get_gpr_depth">collect_input_get_gpr_depth.pro</a></li>
+    </ul>
+    <p>This IDL procedure can be run in ENVI to collect the necessary input parameters 
+      for and then call the associated &quot;<a href="#compute_depth_statistics">compute_depth_statistics.pro</a>&quot; 
+      IDL procedure for computing <strong>depth statistics of a linear feature</strong> 
+      identified within one or more <strong>Mal&aring; Geoscience</strong> <strong><a href="http://ramac.malags.com" target="_blank">RAMAC</a>&#8482; 
+      ground-penetrating radar (GPR)</strong> data files. The computed statistics 
+      are displayed in a widget window for the user to view. Please see the documentation 
+      for &quot;<a href="#compute_depth_statistics">compute_depth_statistics.pro</a>&quot; 
+      for further details on the statistics that get generated.</p>
+    <p>In order to produce such statistics, the &quot;<a href="#compute_depth_statistics">compute_depth_statistics.pro</a>&quot; 
+      procedure needs to know the following input parameters:</p>
+    <ol>
+      <li> The <strong>data file(s)</strong> for which to generate an XYZ file.</li>
+    </ol>
+    <ol>
+      <li value="2"> The associated <strong>ENVI polyline region-of-interest (ROI) 
+        files</strong> (*.roi) that identify a linear feature of interest within 
+        the data files (e.g. annual snow accumulation layer, bottom of a floating 
+        ice tongue, etc.). There must be one ROI file selected per data file. 
+        Also, in order for the &quot;<a href="#compute_depth_statistics">compute_depth_statistics.pro</a>&quot; 
+        to know which ROI file goes with which data file, the ROI files must be 
+        listed in alphabetical order in the same manner as the associated data 
+        files.</li>
+    </ol>
+    <ol>
+      <li value="3"> The associated RAMAC<strong> header file</strong> (*.rad) 
+        so that the two-way time window (ns), transmitter-to-receiver antenna 
+        separation (m), and total number of traces (x-dimension) can be passed 
+        to the depth-computing procedure (i.e. &quot;<a href="#get_gpr_depth">get_gpr_depth.pro</a>&quot;) 
+        called within &quot;<a href="#compute_depth_statistics">compute_depth_statistics.pro</a>&quot;. 
+        When selecting multiple data files (e.g. spatial subsets/transects of 
+        an original RAMAC *.rd3 data file), therefore, each must conform to the 
+        same time window and antenna separation.</li>
+    </ol>
+    <p>The above parameters are collected by this procedure and then passed to 
+      &quot;<a href="#compute_depth_statistics">compute_depth_statistics.pro</a>&quot; 
+      to generate the statistics and display the results to the user.</p>
+    <p> <font face="Arial, Helvetica, sans-serif"><strong>TO USE IN ENVI: </strong></font></p>
+    <p>After saving this procedure in the ENVI &quot;<strong>save_add</strong>&quot; 
+      directory, add the following lines to ENVI's main menu configuration file 
+      (<strong>envi.men</strong>) located in ENVI's &quot;<strong>menu</strong>&quot; 
+      directory:</p>
+    <blockquote> 
+      <p> <font face="Courier New, Courier, mono">0 {GPR}<br>
+        &nbsp;&nbsp;1 {Compute Depth Statistics} {not used} {collect_input_bulk_depth_statistics}</font></p>
+    </blockquote>
+    <p>This procedure can then be run from the pull-down menu labeled &quot;<strong>GPR</strong>&quot; 
+      on ENVI's main menu bar.</p>
+  </blockquote>
+  <hr>
+  <p align="center"> <a href="#" onClick="window.scrollTo( 0, 0 ); this.blur(); return false;">Top of page</a> &bull; <a href="index.html">Abstract</a> 
+    &bull; <a href="index.html#intro">Introduction</a> &bull; <a href="index.html#methods">Methods</a> 
+    &bull; <a href="index.html#results">Results</a> &bull; <a href="index.html#discussion">Discussion</a> 
+    &bull; <a href="index.html#references">References<br>
+    </a>Appendix A. <a href="appendixa.html">Data Processing Instructions</a></p>
+  <p align="center">&copy; 2006, <!--#include virtual="../ssi/footer.ssi" --></p>
+</blockquote>
+<!--#include virtual="../ssi/google_analytics.ssi" -->
+</body>
+</html>

@@ -1,0 +1,67 @@
+<html>
+<head>
+<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
+<script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
+<script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+<script src="leaflet-canvasoverlay.js"></script>
+<script src="wind-js/windy.js?junk=16"></script>
+<style>
+#map { height: 100%; width: 100%; }
+</style>
+<script>
+function showMap() {
+var map = L.map('map').setView([20.5, -157.5], 8);
+L.tileLayer("http://{s}.sm.mapstack.stamen.com/(toner-lite,$fff[difference],$fff[@23],$fff[hsl-saturation@20])/{z}/{x}/{y}.png").addTo(map);
+$.ajax({url: 'gfs.json'}).success( function(result) {
+
+    var timer = null;
+
+    //Add CanvasLayer to the map
+    canvasOverlay = L.canvasOverlay()
+        .drawing(redraw)
+        .addTo(map);
+
+    //windy object  
+    windy = new Windy({canvas: canvasOverlay.canvas(), data: result});
+
+    //prepare context global var
+    context = canvasOverlay.canvas().getContext('2d');
+
+    //start drawing wind map
+    function redraw(overlay, params) {
+
+        if( timer ) 
+            window.clearTimeout( timer ); 
+
+        timer = setTimeout(function() { //showing wind is delayed
+            var bounds = map.getBounds();
+            var size = map.getSize();
+
+            /*context.rect(0,0,3000,3000);
+            context.fillStyle = "red";
+            context.fill();*/
+
+            windy.start( [[0,0],[size.x, size.y]], size.x, size.y, 
+                [[bounds._southWest.lng, bounds._southWest.lat ],[bounds._northEast.lng, bounds._northEast.lat]] );
+        },750)
+
+    }
+
+    //clear canvas and stop animation
+    function clearWind() {
+        windy.stop();
+        context.clearRect(0,0,3000, 3000);
+    }   
+
+    map.on('dragstart', function() { clearWind() });
+    map.on('zoomstart', function() { clearWind() });
+    map.on('resize', function() { clearWind() });
+
+});
+}
+</script>
+</head>
+<body onLoad="showMap();">
+<div id="map"></div>
+</body>
+</html>

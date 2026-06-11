@@ -1,0 +1,1252 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+
+<head>
+
+<title>Atlas of Hawai&#699;i &middot; Palapala&#699;&#257;ina o Hawai&#699;i</title>
+
+<link rel="shortcut icon" href="icons/favicon_ah_navy.ico" />
+<link href="css/main.css" rel="stylesheet" type="text/css">
+
+<style type="text/css"> 
+ 
+* {
+  margin: 0;
+  padding: 0;
+}
+
+a img, iframe {
+  border: 0;
+}
+
+body {
+  font-family: Arial, Helvetica, Verdana, sans-serif;
+  font-size: 85%;
+}
+
+form, fieldset {
+  border: 0;
+}
+
+table {
+  border-collapse: collapse;
+  border: 0;
+}
+
+#homelogo {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  border: 1px solid #0F1B28;
+}
+
+#header {
+  position: absolute;
+  top: 5px;
+  left: 332px;
+  right: 5px;
+  height: 26px;
+  padding: 6px 5px 0px 5px;
+  /*text-align: center;
+  font-size: 22px;*/
+  border: 1px solid #AAAAAA;
+}
+
+#zoomToText {
+  position: absolute;
+  top: 6px;
+  left: 332px;
+  right: 5px;
+  height: 26px;
+  padding: 6px 5px 0px 5px; 
+}
+
+#title {
+  position: absolute;
+  top: 5px;
+  left: 42px;
+  right: 5px;
+  height: 26px;
+  width: 275px;
+  padding: 6px 5px 0px 5px;
+  border: 1px solid #AAAAAA;
+  /*text-align: center;*/
+  /*font-size: 22px;*/
+  /*font-weight: bolder;*/
+  /*font-family: Arial, Verdana, Arial, sans-serif;*/
+}
+
+#addressBox {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  height: 26px;
+  padding: 7px 5px 0px 5px;
+}
+
+#map {
+  position: absolute;
+  top: 42px;
+  left: 5px;
+  right: 210px;
+  bottom: 5px;
+  border: 1px solid #979797;
+}
+
+#dragZoomInfo {
+  position: absolute;
+  top: 47px;
+  left: 13px;
+}
+ 
+#sidebar {
+  position: absolute; 
+  top: 42px; 
+  right: 5px; 
+  width: 190px; 
+  bottom: 77px;
+  padding: 5px 5px 5px 5px;
+  /*background-color: #CCCCCC; */
+  border: 1px solid #777777; 
+  overflow: auto;
+  /*font-family: "Times New Roman", Times, serif;*/
+  /*font-size: 14px;*/
+  /*font-style: normal;*/
+}
+
+#sidebar * {
+  margin-bottom: 5px;
+}
+
+#sidebar select {
+  margin-top: 5px;
+}
+
+#toolBox {
+  position: absolute;
+  right: 5px;
+  width: 200px;
+  bottom: 55px;
+  height: 17px;
+  border: 1px solid #777777;
+  overflow: auto;
+  text-align: center;
+  font-size: small;
+}
+
+#mapInfo {
+  position: absolute;
+  right: 5px;
+  width: 200px;
+  bottom: 5px;
+  height: 45px;
+  border: 1px solid #777777;
+  overflow: auto;
+  font-size: small;
+}
+ 
+#boundingBox {
+  position: absolute;
+  bottom: 25px;
+  text-align: center;
+  width: 200px;
+  /*font-family: "Times New Roman", Times, serif;*/
+  /*font-size: 15px;*/
+}
+ 
+#cursorPosition {
+  position: absolute;
+  bottom: 3px;
+  left: 5px;
+  right: 5px;
+  z-index: 2; 
+  background-color: #FFCC00; /*#FF9900; */
+  /*background-color: #FFFFFF;*/
+  /*color: #000000;*/
+  text-align: center; 
+  /*font-size: small;*/
+  /*font-size: 15px;*/
+  color: #0F1B28;
+}
+ 
+#max_display_text {
+  left: 4px;
+  top: 20px;
+}
+
+#max_display_selector {
+  width: 150px;
+}
+
+#welcomeMessage {
+  background: #FFCC00;
+  color: #000000;
+  border: 1px dashed #FFFFFF;
+  padding: 15px;
+  margin: 15px;
+}
+
+#welcomeMessage a:link {
+  color: #006699; 
+  text-decoration: none;
+}
+
+#welcomeMessage a:visited {
+  color: #006699;
+  text-decoration: none;
+}
+
+#welcomeMessage a:hover {
+  color: #990033;
+  text-decoration: none;
+}
+
+#welcomeMessage a:active {
+  color: #990033;
+  text-decoration: none;
+}
+
+#welcomeMessage p {
+  margin: 0px 0px 8px 0px;
+}
+
+/* NOTE: .labelstyle used by planimeter.js and ruler.js for style of ELabel in elabel.js: */
+.labelstyle {
+  color: #000000;
+  background-color: #FFFFFF;
+  font-weight: bold;
+}
+ 
+.niceborder {
+  border: 0px solid #000000;
+  margin: 3px;
+  padding-top: 2px;
+  padding-right: 2px;
+  padding-bottom: 4px;
+  padding-left: 2px;
+}
+
+</style>
+
+<!-- 
+This supplies the Google Maps API Key for John Maurer's homepage:
+-->
+
+<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;key=ABQIAAAAKfKzHtniMnzunHIMxSVkPxQaLZwQxbrHWeSEzQ5oyC7vtQh23xSu92Qem5E5uIg-Elfocps16Em-8A" type="text/javascript"></script>
+
+<!--
+Add JavaScript code for Key DragZoom Google Map utility library.
+Source: http://gmaps-utility-library.googlecode.com/svn/trunk/keydragzoom/ 
+Key Drag Zoom v1.0
+Authors: Nianwei Liu [nianwei at gmail dot com] & Gary Little [gary at luxcentral dot com]
+NOTE: Put in document.write so loads after above Google Maps API.
+-->
+
+<script>document.write( '<script src="scripts/keyDragZoom.js"><\/script>' );</script>
+
+<!--
+Add JavaScript code to display a latitude/longitude graticule on the map.
+Source: http://www.bdcc.co.uk/Gmaps/BdccGmapBits.htm
+Author: Bill Chadwick
+-->
+
+<script src="scripts/latLonGraticule.js" type="text/javascript"></script>
+
+<!--
+Add JavaScript code to display circular rings showing distance from a point
+on the map.
+Source: http://www.bdcc.co.uk/Gmaps/BdccGmapBits.htm
+Author: Bill Chadwick
+-->
+
+<script src="scripts/rangeRings.js" type="text/javascript"></script>
+
+<!--
+Add JavaScript code to display ELabels, which allows you to place text labels
+or images or any other HTML elements on the map and have them move with the map,
+like marker and polyline overlays.
+Source: http://econym.org.uk/gmap/elabel.htm
+Author: Mike Williams
+-->
+
+<script src="scripts/elabel.js" type="text/javascript"></script>
+
+<!--
+Add JavaScript code to create or remove a dynamic ruler on the map.
+Source: http://koti.mbnet.fi/ojalesa/exam/ruler.html
+Author: Esa Ilmari
+NOTE: Requires above elabel.js for ELabels.
+-->
+
+<script src="scripts/ruler.js" type="text/javascript"></script>
+
+<!--
+Add JavaScript code to create or remove a dynamic area calculator (a.k.a.
+planimeter) on the map.
+Source: 
+Author:
+Modified By: John Maurer (2009).
+NOTE: Requires above elabel.js for ELabels.
+-->
+
+<script src="scripts/planimeter.js" type="text/javascript"></script>
+
+<!--
+Add JavaScript code for iBox inline pop-up window.
+Source: http://www.ibegin.com/labs/ibox/
+Author: iBegin
+-->
+
+<script src="scripts/ibox/ibox.js" type="text/javascript"></script>
+
+<!--
+Add JavaScript code for jQuery cluetip inline pop-up window.
+Source:
+Author:
+-->
+
+<script src="scripts/jquery/cluetip/lib/jquery-1.3.2.js" type="text/javascript"></script>
+<!-- Need these?
+<script src="scripts/jquery/cluetip/lib/jquery.hoverIntent.js" type="text/javascript"></script>
+<script src="scripts/jquery/cluetip/old/jquery.dimensions.js" type="text/javascript"></script>
+-->
+<script src="scripts/jquery/cluetip/jquery.cluetip.js" type="text/javascript"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+  $('a.clue').cluetip({activation: 'click', attribute: 'href', closePosition: 'title', closeText: '<img src="icons/cross.png" alt="close window" title="close window"/>', sticky: true, width: 300});
+});
+</script>
+<link rel="stylesheet" href="scripts/jquery/cluetip/jquery.cluetip.css" type="text/css" />
+
+<!--
+User-defined JavaScript functions:
+-->
+
+<script type="text/javascript">
+
+/* Pre-load image icons: */
+
+var ahLogoGold = new Image( 32, 32 );
+    ahLogoGold.src = "logos/ah_icon_simple_gold_32x32.png";
+
+var ahLogoOlive = new Image( 32, 32 );
+    ahLogoOlive.src = "logos/ah_icon_simple_olive_32x32.png";
+
+var nextImage = new Image( 19, 18 );
+    nextImage.src = "icons/next.png";
+
+var nextHighlightImage = new Image( 19, 18 );
+    nextHighlightImage.src = "icons/nextHighlight.png";
+
+var pauseImage = new Image( 13, 18 );
+    pauseImage.src = "icons/pause.png";
+
+var pauseHighlightImage = new Image( 13, 18 );
+    pauseHighlightImage.src = "icons/pauseHighlight.png";
+
+var playImage = new Image( 13, 18 );
+    playImage.src = "icons/play.png";
+
+var playHighlightImage = new Image( 13, 18 );
+    playHighlightImage.src = "icons/playHighlight.png";
+
+var prevImage = new Image( 19, 18 );
+    prevImage.src = "icons/prev.png";
+
+var prevHighlightImage = new Image( 19, 18 );
+    prevHighlightImage.src = "icons/prevHighlight.png";
+
+/* Global variables: */
+
+// For storing Google Map:
+
+var map;
+
+// For storing Google Map address geocoder:
+
+var geocoder;
+
+// For storing ID of setInterval() function when looping through locations:
+
+var loopIntervalID;
+
+// For storing number of milliseconds to loop in the above setInterval():
+
+var loopIntervalMilliseconds = 5000;
+
+// Global variables to hold IDs for various tools overlays: 
+
+var latLonGraticuleID  = 0;
+var rangeRingsID       = 0;
+var rangeRingsMarkerID = 0;
+
+// For storing whether a marker has been single or double clicked:
+
+var markerSingleClicked = false;
+var markerDoubleClicked = false;
+
+// For storing KML/KMZ overlays...
+
+var nwsOverlayTest;
+var nws_1hour_precip;
+var nws_composite_reflectivity;
+var nws_longrange_reflectivity;
+var nws_shortrange_reflectivity;
+var nws_storm_relativemotion;
+var nws_storm_totalprecip;
+var nws_velocity;
+var nws_warnings;
+
+/*
+This JavaScript function controls the Google Map that is displayed.
+Author: John Maurer
+*/
+
+function loadGoogleMap() {
+
+  // Only create a Google Map if Google determines the browser is compatible:
+
+  if ( GBrowserIsCompatible() ) {
+
+    // Start a new Google Map and Geocoder:
+
+    map      = new GMap2( document.getElementById( 'map' ) );
+    geocoder = new GClientGeocoder();
+
+    // Set starting map center, bounds, and zoom level; to
+    // fit the main islands of Hawaii:
+
+    var center    = new GLatLng( 20.5453, -157.4780 );
+    var sw        = new GLatLng( 18.5941, -160.4498 );
+    var ne        = new GLatLng( 22.4364, -154.5996 );
+    var bounds    = new GLatLngBounds( sw, ne );
+    var zoomLevel = map.getBoundsZoomLevel( bounds );
+
+    map.setCenter( center, zoomLevel );
+
+    // Set various features of the map:
+
+    map.setMapType( G_HYBRID_MAP );
+
+    //map.setMapType( G_SATELLITE_MAP );
+
+    map.addMapType( G_PHYSICAL_MAP );
+    map.addMapType( G_SATELLITE_3D_MAP );
+
+    map.addControl( new GLargeMapControl3D(), new GControlPosition( G_ANCHOR_TOP_LEFT, new GSize( 7, 24 ) ) );
+    map.addControl( new GMapTypeControl() );
+    map.addControl( new GScaleControl() );
+    //map.addControl( new GNavLabelControl(), new GControlPosition( G_ANCHOR_BOTTOM_RIGHT ) );
+
+    // Add draggable zoom box from keyDragZoom.js:
+
+    map.enableKeyDragZoom( {
+         key: "shift", 
+         boxStyle: { border: "medium solid yellow", backgroundColor: "transparent", opacity: 1 },
+         paneStyle: { backgroundColor: "black", opacity: 0.1 }
+      }
+    );
+
+    map.enableDoubleClickZoom();
+    map.enableContinuousZoom();
+    map.enableScrollWheelZoom();
+
+    // Add an overview map:
+    //var overviewMap = new GOverviewMapControl()
+    //map.addControl( overviewMap );
+    //overviewMap.hide();
+
+    // Display the lat/long of the current cursor location when the
+    // mouse is over the map image:
+
+    GEvent.addListener( map, "mousemove", function( point ) {
+
+        // First, strip the latitude and longitude of the cursor location
+        // down to a reasonable number of decimals (Google supplies many by default!):
+
+        var numDecimals = 4;
+
+        // Get latitude and longitude and convert to strings:
+
+        var cursorLat    = point.lat();
+        var cursorLatStr = cursorLat.toString();
+        var cursorLng    = point.lng();
+        var cursorLngStr = cursorLng.toString();
+
+        // Get the string index of the decimal point for each:
+
+        var decimalPointIndexLat = cursorLatStr.indexOf( '.' );
+        var decimalPointIndexLng = cursorLngStr.indexOf( '.' );
+
+        // Get the substring that goes up to the number of decimals specified
+        // in numDecimals:
+
+        var cursorLatSubstr = cursorLatStr.substr( 0, decimalPointIndexLat + 1 + numDecimals );
+        var cursorLngSubstr = cursorLngStr.substr( 0, decimalPointIndexLng + 1 + numDecimals );
+
+        // Define and display the string that will be displayed using these two
+        // n-digit numbers:
+
+        var pointNumDecimals = cursorLatSubstr + ', ' + cursorLngSubstr;
+
+        document.getElementById( "cursorPosition" ).innerHTML = '<b>cursor:</b> ' + pointNumDecimals;
+      } 
+    );
+
+    // When the mouse is not over the map image, display nothing:
+
+    GEvent.addListener( map, "mouseout", function() {
+        document.getElementById( "cursorPosition" ).innerHTML = '';
+      }  
+    );
+
+    // Define various KML overlays:
+
+    // Give them a useless random parameter so that Google does not cache results; this will
+    // allow content that get refreshed to be refreshed in our map:
+
+    var date = new Date();
+    var junkParameter = ( date.getYear() + 1900 ).toString() + date.getMonth().toString() + date.getDate().toString() + date.getHours().toString() + date.getMinutes().toString() + date.getSeconds().toString();
+  
+    // Doppler radar overlays:
+
+    nws_1hour_precip            = new GGeoXml( "http://www2.hawaii.edu/~jmaurer/kml/doppler/nws_1hour_precip.kml?" + junkParameter );
+    nws_composite_reflectivity  = new GGeoXml( "http://www2.hawaii.edu/~jmaurer/kml/doppler/nws_composite_reflectivity.kml?" + junkParameter );
+    nws_longrange_reflectivity  = new GGeoXml( "http://www2.hawaii.edu/~jmaurer/kml/doppler/nws_longrange_reflectivity.kml?" + junkParameter );
+    nws_shortrange_reflectivity = new GGeoXml( "http://www2.hawaii.edu/~jmaurer/kml/doppler/nws_shortrange_reflectivity.kml?" + junkParameter );
+    nws_storm_relativemotion    = new GGeoXml( "http://www2.hawaii.edu/~jmaurer/kml/doppler/nws_storm_relativemotion.kml?" + junkParameter );
+    nws_storm_totalprecip       = new GGeoXml( "http://www2.hawaii.edu/~jmaurer/kml/doppler/nws_storm_totalprecip.kml?" + junkParameter );
+    nws_velocity                = new GGeoXml( "http://www2.hawaii.edu/~jmaurer/kml/doppler/nws_velocity.kml?" + junkParameter );
+    nws_warnings                = new GGeoXml( "http://www2.hawaii.edu/~jmaurer/kml/doppler/nws_warnings.kml?" + junkParameter );
+
+  } // if browser compatible
+
+  // If the browser is not compatible, display a static image instead:
+
+  else {
+    alert( "You're browser is not compatible with Google Maps." ); 
+  }
+
+} // end function loadGoogleMap()
+
+/*
+This JavaScript function prints a message with the current map dimensions,
+including the map center, zoom level, and map bounding box:
+NOTE: map needs to be predefined (see loadGoogleMap() above).
+Author: John Maurer
+*/
+
+function showMapDimensions() {
+
+  // First, strip latitudes and longitudes down to a reasonable 
+  // number of decimals (Google supplies many by default!):
+
+  var numDecimals = 4;
+
+  // Get map center:
+
+  var centerStr = map.getCenter().toString();
+
+  // Split map center into latitude and longitude:
+
+  centerStr.match( /^\((.+), (.+)\)$/ );
+
+  var centerLat = RegExp.$1;
+  var centerLon = RegExp.$2;
+
+  // Reduce number of digits in map center lat/long:
+
+  var centerLatSubstr = centerLat.substr( 0, centerLat.indexOf( '.' ) + 1 + numDecimals );
+  var centerLonSubstr = centerLon.substr( 0, centerLon.indexOf( '.' ) + 1 + numDecimals );
+
+  // Get map zoom level:
+
+  var zoomLevel = map.getZoom().toString();
+
+  // Get map bounding box:
+
+  var bboxStr = map.getBounds().toString();
+
+  // Split bounding box into minlat, minlon, maxlat, and maxlon:
+
+  bboxStr.match( /^\(\((.+), (.+)\), \((.+), (.+)\)\)$/ );
+
+  var minLat = RegExp.$1;
+  var minLon = RegExp.$2;
+  var maxLat = RegExp.$3;
+  var maxLon = RegExp.$4;
+
+  // Reduce the number of digits in each of the above:
+
+  var minLatSubstr = minLat.substr( 0, minLat.indexOf( '.' ) + 1 + numDecimals );
+  var minLonSubstr = minLon.substr( 0, minLon.indexOf( '.' ) + 1 + numDecimals );
+  var maxLatSubstr = maxLat.substr( 0, maxLat.indexOf( '.' ) + 1 + numDecimals );
+  var maxLonSubstr = maxLon.substr( 0, maxLon.indexOf( '.' ) + 1 + numDecimals );
+
+  // Get map size (in number of pixels):
+
+  var sizeStr = map.getSize().toString();
+
+  // Split map size into width and height:
+
+  sizeStr.match( /^\((.+), (.+)\)$/ );
+
+  var width  = RegExp.$1;
+  var height = RegExp.$2;
+
+  // Print the above dimensions into a separate pop-up window: 
+
+  var popup = window.open( '', 'popup', 'resizable=yes, width=650, height=200, menubar=no, toolbar=no, location=no, scrollbars=no, left=400, top=400' );
+
+  popup.document.write( 
+      '<html>'
+    + '<head>'
+    + '<title>Current Map Dimensions</title>'
+    + '<link href="css/subpages.css" rel="stylesheet" type="text/css">'
+    + '<style>'
+    + 'h3 { font-family: Verdana, Tahoma, sans-serif; font-size: 105%; font-weight: bold; color: #003366; line-height: normal; padding-top: 6px; padding-bottom: 3px; padding-left: 0px; margin: 0px; }'
+    + '</style>'
+    + '</head>'
+    + '<body style="padding: 0px 0px 0px 12px;">'
+    + '<h3>Current map dimensions:</h3>'
+    + '<ul>'
+    + '<li>Center (Lat, Long): ' + centerLatSubstr + ', ' + centerLonSubstr
+    + '<br/>' 
+    + '<li>Zoom Level: ' + zoomLevel
+    + '<br/>'
+    + '<li>Bounds (Min Lat, Min Long, Max Lat, Max Long): ' + minLatSubstr + ', ' + minLonSubstr + ', ' + maxLatSubstr + ', ' + maxLonSubstr
+    + '<br/>' 
+    + '<li>Size (Width, Height): ' + width + ' px, ' + height + ' px'
+    + '<br/>' 
+    + '<li>Map Projection: Spherical Mercator'
+    + '</ul>'
+    + '<a href="javascript:window.close();" class="NavLinksNSIDC" style="cursor: pointer; cursor: hand;"><img src="icons/cross_maroon_8x8.gif" border=0 align="absmiddle" width="8" height="8"/> <font color="#990033" style="Arial, Helvetica, sans-serif;">close window</font></a>'
+    + '</body>'
+    + '</html>'
+  );
+
+} // function showMapDimensions()
+
+/*
+This JavaScript function puts a marker and info window at the submitted address. 
+NOTE: map and geocoder need to be predefined (see loadGoogleMap() above).
+Author: Google Maps API Documentation 
+*/
+
+function showAddress( address ) {
+
+  if ( geocoder ) {
+
+    geocoder.getLatLng(
+      address,
+      function( point ) {
+
+        // If the address is not found, display an alert message:
+
+        if ( !point ) {
+          alert( address + " not found" );
+        } 
+
+        // Otherwise, display a marker and info window at the address:
+
+        else {
+
+          map.setCenter( point );
+
+          var markerOptions = { title:address };
+          var marker = new GMarker( point, markerOptions );
+
+          var markerHtml;
+        
+          markerHtml  = "<p class='googleMapMarkerText'>" + address + "</p>";
+          markerHtml += "<br/><p><font class='SmallTextGray'><i>NOTE: Double-click marker to remove it...</i></font></p>";
+              
+          map.addOverlay( marker );
+          marker.openInfoWindowHtml( markerHtml );
+
+          // Make the info window appear when the marker is clicked, and
+          // make the marker disappear when it is double-clicked. Google
+          // Maps doesn't work to give a marker both a click and a double-
+          // click listener, so we're going to listen for a double-click
+          // by using a 250 millisecond setTimeout():
+
+          GEvent.addListener( marker, "click", function() {
+              if ( markerSingleClicked ) {
+                markerDoubleClicked = true;
+              }
+              else {
+                markerSingleClicked = true;
+                markerDoubleClicked = false;
+                setTimeout( makeCaller( markerActionAddress, marker, point, markerHtml ), 250 );
+              }
+            }
+          );
+        } 
+      } // function()
+
+    ); // geocoder()
+
+  } // if geocoder
+
+  // Set the default message and style into address display box:
+
+  var addressBox = window.document.atlasForm.address;
+
+  addressBox.value           = "Enter an address or coordinates here...";
+  addressBox.style.color     = "gray";
+  addressBox.style.fontStyle = "italic";
+
+} // function showAddress()
+
+/*
+This function displays an info pop-up window on a marker if it is single-clicked
+or it removes the marker if it is double-clicked. A setTimeout() must be used
+to toggle global variables that determine if there is a single or double-click.
+Author: John Maurer
+*/
+
+function markerActionAddress ( marker, point, markerHtml ) { 
+
+  if ( markerDoubleClicked ) {
+    map.removeOverlay( marker );
+  }
+  else {
+    map.openInfoWindowHtml( point, markerHtml );
+  }
+
+  // Reset the clicked/double-clicked status:
+
+  markerSingleClicked = false;
+}
+
+/*
+This fuction turns the first argument into a function with up to 10 optional
+arguments. Used in event listeners like GEvent.addListener() and setTimeout() so
+they properly handle arguments.
+Author: Acme Laboratories (http://acme.com/javascript/Utils.jsm)
+*/
+
+function makeCaller ( func, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10 ) {
+  return function () {
+    func( arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10 );
+  };
+}
+
+/*
+This JavaScript function jumps to a particular location from a list of options.
+It chooses an appopriate zoom level for each location.
+NOTE: map needs to be predefined (see loadGoogleMap() above).
+Author: John Maurer
+*/
+
+function jumpTo( location ) {
+
+  var center;
+  var zoomLevel;
+  var sw;
+  var ne;
+  var bounds;
+
+  // Home location:
+
+  if ( location == "Hawai'i (State)" ) {
+    center = new GLatLng( 19.5869, -155.4675 );
+    sw     = new GLatLng( 17.7225, -161.9494 );
+    ne     = new GLatLng( 23.1757, -152.5836 );
+  }
+
+  // Each of the main Hawaiian islands:
+
+  else if ( location == "Hawai'i (Big Island)" ) {
+    center = new GLatLng( 19.5895, -155.5128 );
+    sw     = new GLatLng( 18.9023, -156.6842 );
+    ne     = new GLatLng( 20.2737, -154.3428 );
+  }
+  else if ( location == "Kaho'olawe" ) {
+    center = new GLatLng( 20.5476, -156.6066 );
+    sw     = new GLatLng( 20.4850, -156.7103 );
+    ne     = new GLatLng( 20.6226, -156.5220 );
+  }
+  else if ( location == "Kaua'i" ) {
+    center = new GLatLng( 22.0506, -159.4960 );
+    sw     = new GLatLng( 21.7862, -159.8497 );
+    ne     = new GLatLng( 22.3310, -159.1905 );
+  }
+  else if ( location == "Lana'i" ) {
+    center = new GLatLng( 20.8312, -156.9348 );
+    sw     = new GLatLng( 20.6970, -157.1020 );
+    ne     = new GLatLng( 20.9716, -156.7724 );
+  }
+  else if ( location == "Maui" ) {
+    center = new GLatLng( 20.7920, -156.3327 );
+    sw     = new GLatLng( 20.5241, -156.7172 );
+    ne     = new GLatLng( 21.0736, -155.9193 );
+  }
+  else if ( location == "Moloka'i" ) {
+    center = new GLatLng( 21.1280, -157.0159 );
+    sw     = new GLatLng( 20.9934, -157.3743 );
+    ne     = new GLatLng( 21.2573, -156.665 );
+  }
+  else if ( location == "Ni'ihau" ) {
+    center = new GLatLng( 21.8965, -160.1408 );
+    sw     = new GLatLng( 21.7652, -160.2726 );
+    ne     = new GLatLng( 22.0219, -160.0254 );
+  }
+  else if ( location == "O'ahu" ) {
+    center = new GLatLng( 21.4524, -157.9648 );
+    sw     = new GLatLng( 21.1914, -158.3164 );
+    ne     = new GLatLng( 21.7505, -157.6023 );
+  }
+
+  // The Northwestern (Leeward) Islands:
+
+  else if ( location == "Northwestern" ) {
+    center = new GLatLng( 24.5271, -168.6621 );
+    sw     = new GLatLng( 17.9996, 177.6708 );
+    ne     = new GLatLng( 31.5972, -154.0722 );
+  }
+
+  // Compute the zoomLevel that will fit the location's bounding box:
+
+  bounds    = new GLatLngBounds( sw, ne );
+  zoomLevel = map.getBoundsZoomLevel( bounds );
+
+  // Set map to specified center point and zoom level:
+
+  map.setCenter( center, zoomLevel );
+}
+
+/*
+This JavaScript function fills in the appropriate select options for
+zoom-to locations based on the selected category.
+Author: John Maurer
+*/
+
+function setJumpToOptions ( category ) {
+
+  var form = window.document.atlasForm;
+
+  form.jumpToIsland.style.display = "none";
+  form.jumpToBeach.style.display = "none";
+  form.jumpToStatePark.style.display = "none";
+
+  if ( category == "Island" ) {
+    form.jumpToIsland.style.display = "inline";
+    form.jumpToIsland.selectedIndex = 0;
+  }
+  else if ( category == "Beach" ) {
+    form.jumpToBeach.style.display = "inline";
+    form.jumpToBeach.selectedIndex = 0;
+  }
+  else if ( category == "State Park" ) {
+    form.jumpToStatePark.style.display = "inline";
+    form.jumpToStatePark.selectedIndex = 0;
+  }
+}
+
+/*  
+This JavaScript function increments either "forward" or "backward" in the
+select list for the specified category.
+Author: John Maurer
+*/
+  
+function incrementCategory ( category, direction ) {
+  
+  var form = window.document.atlasForm;
+
+  // Determine which select list to increment:
+
+  var jumpToList;
+
+  if ( category == "Island" ) {
+    jumpToList = form.jumpToIsland;
+  }
+  else if ( category == "Beach" ) {
+    jumpToList = form.jumpToBeach;
+  }
+  else if ( category == "State Park" ) {
+    jumpToList = form.jumpToStatePark;
+  }
+
+  // Get currently selected location and total length of this list:
+
+  var currentIndex = jumpToList.selectedIndex;
+  var length       = jumpToList.length;
+  var lastIndex    = length - 1;
+
+  // Determine the incremented index in this list; if value is
+  // null, skip another increment until you find a non-null value:
+  // this allows us to have select options that provide other
+  // event handler functions like displaying or removing markers:
+
+  var incIndex = currentIndex;
+  var incValue = '';
+
+  do { 
+    if ( direction == "forward" ) {
+      if ( incIndex == lastIndex ) {
+        incIndex = 1;
+      }
+      else {
+        incIndex++;
+      }
+    }
+    else {
+      if ( incIndex == 1 ) {
+        incIndex = lastIndex;
+      }
+      else {
+        incIndex--;
+      }
+    }
+
+    // Get the value associated with the incremented index:
+
+    incValue = jumpToList[ incIndex ].value;
+  }
+  while ( !incValue );
+
+  // Set and jump to the next location value:
+
+  jumpToList.value = incValue;
+  jumpTo( incValue );
+}   
+
+/*
+This JavaScript function increments the loop speed for looping through 
+location lists when the play button has been pressed either "faster" or
+"slower"; this either increases or decreases the number of milliseconds
+in the global loopIntervalMilliseconds variable.
+Author: John Maurer
+*/
+
+function incrementSpeed ( direction ) {
+
+  var minIntervalMilliseconds =  3000;
+  var maxIntervalMilliseconds = 10000;
+ 
+  if ( direction == "faster" ) {
+    if ( loopIntervalMilliseconds > minIntervalMilliseconds ) {
+      loopIntervalMilliseconds -= 1000;
+    }
+  }
+  else {
+    if ( loopIntervalMilliseconds < maxIntervalMilliseconds ) {
+      loopIntervalMilliseconds += 1000;
+    }
+  }
+
+  // Update the speed display with the new interval:
+
+  var loopIntervalSeconds = ( loopIntervalMilliseconds / 1000 ).toString();
+
+  window.document.getElementById( 'displaySpeed' ).innerHTML = "<font color='gold'><b>" + loopIntervalSeconds + "</b></font>"; 
+
+  // Stop the current loop and restart another with the new speed:
+
+  clearInterval( loopIntervalID );
+  loopIntervalID = setInterval( "incrementCategory( window.document.atlasForm.jumpToCategory.value, 'forward' )", loopIntervalMilliseconds );
+}
+
+/*
+This function removes all map overlays using the values in the 
+given "category" select list.
+Author: John Maurer
+*/
+
+function removeOverlays ( category ) {
+
+  for ( var i = 0; i < category.length; i++ ) {
+    // eval() is used to turn option value into reference to global variable 
+    // of the same name holding that Google Maps API GGeoXml object:
+
+    map.removeOverlay( eval( category.options[ i ].value ) );
+  }
+}
+
+/*
+This function adds the specified overlay with the specified refresh rate.
+Since the Google Map API does not currently seem to honor the refresh rate
+specified in the KML, this is a workaround to achieve it, since data that
+are frequently updated (doppler radar, etc.) need it in order to stay current.
+Before adding the overlay each time it is removed and then added back.
+Author: John Maurer
+*/
+
+function addOverlayWithRefresh( overlay, refreshRateMilliseconds ) {
+
+  alert( overlay.value );
+  refreshIntervalID = setInterval( "map.removeOverlay( overlay ); map.addOverlay( overlay );", refreshRateMilliseconds ); 
+}
+
+/*
+This function either adds or removes range rings (circule rings showing distance
+from a clicked point on the map).
+Author: John Maurer
+*/
+
+function drawRangeRings() {
+
+  // Set parameters for rangeRings function or leave undefined for
+  // using defaults:
+
+  var colorMap = '#0000FF';
+  var colorSat = '#FFFF00';
+  var weight   = 4;
+  var opacity  = 0.5;
+  var interval;
+  var maxRings;
+  var labels;
+
+  // Change cursor style to a question mark when over the map:
+
+  //map.getDragObject().setDraggableCursor( "help" ); 
+
+  // Add event listener to map on click:
+
+  var rangeRingsListener = GEvent.addListener( map, "click", function( overlay, latlng ) {
+      
+      // If there's an existing set of range rings displayed, remove them before adding
+      // a new one:
+
+      if ( rangeRingsID != 0 ) {
+        map.removeOverlay( rangeRingsID );
+      }
+
+      rangeRingsID = new RangeRings( latlng, colorMap, colorSat, weight, opacity, interval, maxRings, labels );
+      map.addOverlay( rangeRingsID ); 
+
+      // Add a marker at the clicked center point:
+
+      rangeRingsMarkerID = new GMarker( latlng, { title: 'Range rings center point', draggable: true } );
+      map.addOverlay( rangeRingsMarkerID );
+
+      // Make an info window appear when the marker is clicked, and
+      // make the marker and rings disappear when it is double-clicked. Google
+      // Maps doesn't work to give a marker both a click and a double-
+      // click listener, so we're going to listen for a double-click
+      // by using a 250 millisecond setTimeout():
+
+      GEvent.addListener( rangeRingsMarkerID, 'click',
+        function ( latlng ) {
+          if ( markerSingleClicked ) {
+            markerDoubleClicked = true;
+          }
+          else {
+            markerSingleClicked = true;
+            markerDoubleClicked = false;
+            setTimeout( makeCaller( markerActionRangeRings, rangeRingsMarkerID, latlng ), 250 );
+          }
+        }
+      );
+
+      // When the user starts to drag the marker, remove the range rings:
+
+      GEvent.addListener( rangeRingsMarkerID, 'dragstart',
+        function () {
+          map.removeOverlay( rangeRingsID );
+          rangeRingsID = 0;
+        }
+      );
+
+      // When the user ends dragging the marker, re-draw the range rings at
+      // the new end location:
+
+      GEvent.addListener( rangeRingsMarkerID, 'dragend',
+        function ( latlng ) {
+          rangeRingsID = new RangeRings( latlng, colorMap, colorSat, weight, opacity, interval, maxRings, labels );
+          map.addOverlay( rangeRingsID );
+        }
+      );
+
+      // Remove the listener now that the range rings are displayed:
+
+      GEvent.removeListener( rangeRingsListener );
+
+      // Change the cursor back to its default:
+
+      map.getDragObject().setDraggableCursor( "url( http://maps.google.com/intl/en_us/mapfiles/openhand.cur ), default" );
+    }
+  );
+}
+
+/*
+This function displays an info pop-up window on the center-point marker of the
+rangge rings set if it is single-clicked or it removes the marker and all the
+range rings if it is double-clicked. A setTimeout() must be used to toggle 
+global variables that determine if there is a single or double-click.
+Author: John Maurer
+*/
+
+function markerActionRangeRings ( marker, latLon ) {
+
+  // If double-clicked, remove all overlays and re-set global status
+
+  if ( markerDoubleClicked ) {
+
+    map.removeOverlay( marker );
+    map.removeOverlay( rangeRingsID );
+
+    rangeRingsID       = 0;
+    rangeRingsMarkerID = 0;
+
+    // Set style of range rings link back to normal:
+
+    var rangeRingsLink = document.getElementById( 'rangeRingsLink' );
+
+    rangeRingsLink.style.color     = 'GOLD';
+    rangeRingsLink.style.fontStyle = 'normal';
+    rangeRingsLink.title           = 'Click a point on the map to display the distance from that point in a series of rings...';
+  }
+
+  // If single-clicked, define and display info pop-up window:
+
+  else {
+
+    // Convert GLatLng object to string:
+
+    latLonStr = latLon.toString();
+
+    // Split marker location into lat and lon:
+
+    latLonStr.match( /^\((.+), (.+)\)$/ );
+
+    var lat = RegExp.$1;
+    var lon = RegExp.$2;
+
+    // Reduce number of digits in map center lat/long:
+
+    var numDecimals = 4;
+
+    var lat = lat.substr( 0, lat.indexOf( '.' ) + 1 + numDecimals );
+    var lon = lon.substr( 0, lon.indexOf( '.' ) + 1 + numDecimals );
+
+    // Define text to be displayed when marker is clicked:
+
+    var markerHtml;
+
+    markerHtml = '<p><font class="googleMapMarkerText">Range rings center point</font></p><br/>'
+               + '<p><font class="googleMapMarkerText">lat, lon: </font>'
+               + '<font color="#000000">'
+               + lat + ', ' + lon
+               + '</font></p>'
+               + '<br/><p><font class="SmallTextGray"><i>NOTE: Double-click marker to remove range rings...<br>'
+               + 'NOTE: Drag marker to move to a new location...</i></font></p><br/>'
+               + '<p class="googleMapMarker"><font size="-1"><a class="googleMapMarker" href="#" onClick="this.blur(); map.panTo( new GLatLng( ' + lat + ',' + lon + ' ) )">Center map here</a></font></p>';
+
+    map.openInfoWindowHtml( latLon, markerHtml );
+  }
+
+  // Reset the clicked/double-clicked status:
+
+  markerSingleClicked = false;
+}
+
+</script>
+
+</head>
+
+<body onLoad="loadGoogleMap();" onUnload="GUnload();">
+
+<form name="atlasForm">
+
+<div id="homelogo"><a rel="ibox&width=500&height=263" href="mapwelcome.html" title="About the Atlas of Hawai&#699;i..."><img src='logos/ah_icon_simple_gold_32x32.png' width="32" height="32" onMouseOver="this.src='logos/ah_icon_simple_olive_32x32.png'" onMouseOut="this.src='logos/ah_icon_simple_gold_32x32.png'" /></a></div>
+<div id="title"><b>Atlas of Hawai&#699;i <font color="gray">&middot;</font> Palapala&#699;&#257;ina o Hawai&#699;i</b></div>
+<div id="zoomToText"><b>Zoom to:</b></div>
+<div id="header"><!--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-->
+  <select style="margin: 0px 0px 0px 65px;" name="jumpToCategory" onChange="this.blur(); setJumpToOptions( this.value );">
+    <option value="" disabled>Select a category...</option>
+    <option value="Beach">Beach</option>
+    <option value="Island" selected>Island</option>
+    <option value="State Park">State Park</option>
+  </select>
+  <select id="jumpToIsland" name="jumpToIsland" onChange="this.blur(); jumpTo( this.value );">
+    <option value="" selected disabled>Which one?...</option>
+    <option value="Hawai'i (Big Island)">Hawai&#699;i (Big Island)</option>
+    <option value="Kaho'olawe">Kaho&#699;olawe</option>
+    <option value="Kaua'i">Kaua&#699;i</option>
+    <option value="Lana'i">L&#257;na&#699;i</option>
+    <option value="Maui">Maui</option>
+    <option value="Moloka'i">Moloka&#699;i</option>
+    <option value="Ni'ihau">Ni&#699;ihau</option>
+    <option value="O'ahu">O&#699;ahu</option>
+    <option value="Northwestern">Northwestern Islands</option>
+  </select>
+  <select id="jumpToBeach" name="jumpToBeach" style="display: none;" onChange="this.blur(); jumpTo( this.value );">
+    <option value="" selected disabled>Which one?...</option>
+    <option value="Kailua">Kailua</option>
+    <option value="Waikiki">Waikiki</option>
+  </select>
+  <select id="jumpToStatePark" name="jumpToStatePark" style="display: none;" onChange="this.blur(); jumpTo( this.value );">
+    <option value="" selected disabled>Which one?...</option>
+    <option value="Ahupua'a O Kahana">Ahupua'a O Kahana</option>
+    <option value="Ka'ena Point">Ka'ena Point State Park</option>
+  </select>
+
+  <!-- Prev button: -->
+
+  <a onClick="incrementCategory( window.document.atlasForm.jumpToCategory.value, 'backward' );" title="Jump to previous location in the list..." style="cursor: pointer; cursor: hand;"><img src="icons/prev.png" width="19" height="18" align="absmiddle" onMouseOver="this.src='icons/prevHighlight.png'" onMouseOut="this.src='icons/prev.png'" /></a>
+
+  <!-- Play button: -->
+
+  <a onClick="window.document.getElementById( 'playButton' ).style.display = 'none'; window.document.getElementById( 'pauseButton' ).style.display = 'inline'; window.document.getElementById( 'loopSpeedButtons' ).style.display = 'inline'; incrementCategory( window.document.atlasForm.jumpToCategory.value, 'forward' ); loopIntervalID = setInterval( 'incrementCategory( window.document.atlasForm.jumpToCategory.value, \'forward\' )', loopIntervalMilliseconds );" title="Loop continuously through every location in the list..." style="cursor: pointer; cursor: hand;"><img id="playButton" src="icons/play.png" width="13" height="18" align="absmiddle" style="display: inline;" onMouseOver="this.src='icons/playHighlight.png'" onMouseOut="this.src='icons/play.png'" /></a>
+
+  <!-- Pause button: -->
+
+  <a onClick="window.document.getElementById( 'pauseButton' ).style.display = 'none'; window.document.getElementById( 'loopSpeedButtons' ).style.display = 'none'; window.document.getElementById( 'playButton' ).style.display = 'inline'; clearInterval( loopIntervalID );" title="Stop looping through the list..." style="cursor: pointer; cursor: hand;"><img id="pauseButton" src="icons/pause.png" width="13" height="18" align="absmiddle" style="display: none;" onMouseOver="this.src='icons/pauseHighlight.png'" onMouseOut="this.src='icons/pause.png'" /></a>
+
+  <!-- Next button: -->
+
+  <a onClick="incrementCategory( window.document.atlasForm.jumpToCategory.value, 'forward' );" title="Jump to next location in the list..." style="cursor: pointer; cursor: hand;"><img src="icons/next.png" width="19" height="18" align="absmiddle" onMouseOver="this.src='icons/nextHighlight.png'" onMouseOut="this.src='icons/next.png'" /></a>
+
+  <!-- Loop speed: -->
+
+  <div id="loopSpeedButtons" style="display: none;"><b><font color="gold"><a onClick="this.blur(); incrementSpeed( 'faster' );" title="Faster" style="cursor: pointer; cursor: hand;">&minus;</a> <div id="displaySpeed" style="display: inline;"><script>document.write( loopIntervalMilliseconds / 1000 );</script></div> sec <a onClick="this.blur(); incrementSpeed( 'slower' );" title="Slower" style="cursor: pointer; cursor: hand;">+</a></font></b></div>
+
+</div>
+
+<div id="addressBox">
+<input type="text" size="37" name="address" maxlength="255" value="Enter an address or coordinates here..." style="color: gray; font-style: italic;" onFocus="this.value = ''; this.style.color = 'black'; this.style.fontStyle = 'normal';"> <input type="submit" value="Go!" onClick="showAddress( top.document.atlasForm.address.value ); return false;"/>
+</div>
+
+<div id="map"></div> 
+
+<div id="sidebar"> 
+  <p>
+    <b>Select overlays:</b>
+  </p>
+
+  <p id="doppler">
+    <input type="checkbox" name="dopplerCheckBox" value="dopplerCheckbox" onClick="this.blur(); if ( this.checked ) { map.addOverlay( eval( window.document.atlasForm.dopplerOptions.value ) ); window.document.atlasForm.dopplerOptions.style.display = 'inline'; } else { removeOverlays( window.document.atlasForm.dopplerOptions ); window.document.atlasForm.dopplerOptions.style.display = 'none'; };"> doppler radar 
+    <select id="dopplerOptions" name="dopplerOptions" style="display: none;" onChange="this.blur(); removeOverlays( this ); map.addOverlay( eval( this.value ) );">
+      <option value="nws_shortrange_reflectivity">short-range reflectivity</option>
+      <option value="nws_longrange_reflectivity">long-range reflectivity</option>
+      <option value="nws_composite_reflectivity">composite reflectivity</option>
+      <option value="nws_velocity">velocity</option>
+      <option value="nws_storm_relativemotion">storm relative motion</option>
+      <option value="nws_1hour_precip">1-hour precipitation</option>
+      <option value="nws_storm_totalprecip">storm total precipitation</option>
+      <option value="nws_warnings">warnings</option>
+    </select>
+  </p>
+
+</div>
+
+<div id="dragZoomInfo"><b>&lt;Shift&gt;</b>-drag to zoom</div>
+
+<div id="toolBox">
+  <font color="GOLD"><a href="#" onClick="this.blur(); if ( latLonGraticuleID == 0 ) { this.style.color='OLIVE'; this.style.fontStyle='italic'; this.title='Remove lat/lon grid from the map...'; latLonGraticuleID = new LatLonGraticule( map ); map.addOverlay( latLonGraticuleID ); } else { this.style.color='GOLD'; this.style.fontStyle='normal'; this.title='Display a grid of latitude and longitude lines over the map...'; map.removeOverlay( latLonGraticuleID ); latLonGraticuleID = 0; }" title="Display a grid of latitude and longitude lines over the map..." style="cursor: pointer; cursor: hand;">lat/lon</a></font> &middot; <font color="GOLD"><a href="#" id="rangeRingsLink" onClick="this.blur(); if ( rangeRingsID == 0 ) { this.style.color='OLIVE'; this.style.fontStyle='italic'; this.title='Remove range rings from the map...'; drawRangeRings(); } else { this.style.color='GOLD'; this.style.fontStyle='normal'; this.title='Click a point on the map to display the distance from that point in a series of rings...'; map.removeOverlay( rangeRingsID ); rangeRingsID = 0; map.removeOverlay( rangeRingsMarkerID ); rangeRingsMarkerID = 0; }" title="Click a point on the map to display the distance from that point in a series of rings..." style="cursor: pointer; cursor: hand;">range</a></font> &middot; <font color="GOLD"><a href="#" onClick="this.blur(); if ( this.title.match( /^Measure distance/ ) ) { this.style.color='OLIVE'; this.style.fontStyle='italic'; this.title='Double-click any distance marker to stop adding points...'; var rulerID = new Ruler( map, this ); rulerID.addRuler(); }" title="Measure distance between two or more points; click on map to set points..." style="cursor: pointer; cursor: hand;">distance</a></font> &middot; <font color="GOLD"><a href="#" onClick="this.blur(); if ( this.title.match( /^Measure area/ ) ) { this.style.color='OLIVE'; this.style.fontStyle='italic'; this.title='Double-click any area marker to stop adding points...'; var planimeterID = new Planimeter( map, this ); planimeterID.addPlanimeter(); }" title="Measure area between three or more points; click on map to set points..." style="cursor: pointer; cursor: hand;">area</a></font>
+</div>
+
+<div id="mapInfo">
+  <div id="boundingBox"><font color="GOLD"><a onClick="this.blur(); showMapDimensions();" title="Prints a pop-up window with location information for the currently displayed map..." style="cursor: pointer; cursor: hand;">show map dimensions</a></font></div> 
+  <div id="cursorPosition"></div> 
+</div> 
+
+<div id="mapInfoPopup"></div>
+
+</form>
+
+</body>
+
+</html>

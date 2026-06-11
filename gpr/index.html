@@ -1,0 +1,1411 @@
+<html>
+<head>
+<link rel="shortcut icon" href="../favicon.ico" />
+<title>Local-scale snow accumulation variability on the Greenland ice sheet from ground-penetrating radar (GPR)</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link href="../css/subpages.css" rel="stylesheet" type="text/css">
+</head>
+
+<body bgcolor="#FFFFFF" text="#000000">
+<blockquote> 
+  <h1 align="left"><a name="top"></a>Local-scale snow accumulation variability 
+    on the Greenland ice sheet from ground-penetrating radar (GPR)</h1>
+  <hr>
+  <table width="96%" border="0" cellpadding="5">
+    <tr> 
+      <td width="21%" valign="top"> <div align="left"><i><img src="GPR_photo.jpg" width="303" height="404"><br>
+          </i><font size="-7" face="Arial, Helvetica, sans-serif">Ground-penetrating 
+          radar (GPR) pulled on a sled by snowmobile <br>
+          on the Greenland ice sheet. Photo: Konrad Steffen.</font></div></td>
+      <td width="79%" valign="top"> <p><font size="+1"><i><b>John Maurer</b></i></font></p>
+        <p>
+        <!--#include virtual="../ssi/address.ssi" -->
+        </p>
+<p>This paper was written for my Masters thesis in the Department of Geography 
+          at the University of Colorado at Boulder. My thesis committee consisted 
+          of my thesis advisor, <a href="http://en.wikipedia.org/wiki/Konrad_Steffen" target="_blank">Dr. 
+          Konrad Steffen</a> (Geography Professor, <a href="http://cires.colorado.edu" target="_blank">CIRES</a> 
+          Director), Dr. Ted Scambos (<a href="http://nsidc.org" target="_blank">NSIDC</a> 
+          Lead Scientist), and Ken Knowles (<a href="http://nsidc.org" target="_blank">NSIDC</a> 
+          Lead Scientific Programmer).</p>
+        <p>March, 2006</p>
+        <p><em>Measurements of snow accumulation are critical to studies of mass 
+          balance. Traditional point measurement techniques (snow pits, manual 
+          probes, firn and ice cores) are limited in space and often do not represent 
+          the region surrounding them due to spatial variability that is caused 
+          by a variety of factors, including surface slope and deposition and 
+          erosion by wind. Current accumulation maps of Greenland are based on 
+          point measurements and have estimated errors of 20-25% (Bales et al. 
+          2001; Ohmura and Reeh 1991). Ground-penetrating radar (GPR) has the 
+          potential to significantly improve upon these accumulation estimates 
+          because of its ability to cover large regions over short time periods 
+          with relative ease at high vertical (depth) and horizontal (areal) resolutions. 
+          The current study employs GPR data to investigate the distribution and 
+          variability of accumulation at shallow depths (~5 m) and at the local 
+          scale (100-m by 100-m) at two locations on the Greenland ice sheet (Tunu-N 
+          and NASA-U). Beyond providing a better understanding of local-scale 
+          snow accumulation patterns on the Greenland ice sheet, the results that 
+          will be discussed also have potential implications for the interpretation 
+          and selection of ice cores as well as for space-borne remote sensing 
+          techniques aimed at deriving snow water equivalent (SWE) from passive-microwave 
+          and/or scatterometry.</em></p></td>
+    </tr>
+  </table>
+  <hr>
+  <p align="center"><a href="#intro">Introduction</a> &bull; <a href="#methods">Methods</a> 
+    &bull; <a href="#results">Results</a> &bull; <a href="#discussion">Discussion</a> &bull; 
+    <a href="#references">References<br>
+    </a>Appendix A. <a href="appendixa.html">Data Processing Instructions</a> 
+    &bull; Appendix B. <a href="appendixb.html">Program Documentation and Installation 
+    Instructions</a></p>
+  <p align="center"><a href="Maurer_GPR_thesis_2006.pdf"><img src="PDF_icon.jpg" width="36" height="34" border="0" align="absmiddle"></a> 
+    <a href="Maurer_GPR_thesis_2006.pdf">Click here</a> for a printer-friendly 
+    PDF version of this site (3.6 MB).</p>
+  <hr>
+  <p><b><a name="intro"></a><font face="Arial, Helvetica, sans-serif">1. INTRODUCTION</font></b></p>
+  <table width="25%" border="0" align="right">
+    <tr> 
+      <td align="left" valign="top"><img src="GC-Net_map.jpg" width="314" height="600" hspace="10"></td>
+    </tr>
+    <tr> 
+      <td><font size="-7" face="Arial, Helvetica, sans-serif"><strong>Figure 1.</strong> 
+        Map of the Greenland Climate Network (GC-Net), with Tunu-N (northeast) 
+        and NASA-U (west-central) labeled.</font></td>
+    </tr>
+  </table>
+  <p align="left">1.1. <a href="#accumulation">Current Knowledge About Accumulation 
+    on Greenland</a><br>
+    1.2. <a href="#cryosphere">Cryospheric Applications of GPR</a><br>
+    1.3. <a href="#physics">The Physical Basis of GPR</a><br>
+    1.4. <a href="#significance">Project Significance</a></p>
+  <p align="left">Due to the technical and physical difficulties involved, it 
+    is not known yet whether the Greenland ice sheet is shrinking or growing. 
+    Net losses of ice mass, potentially associated with climate change, are important 
+    to monitor because of the commensurate rises in sea level, as well as freshening 
+    of the North Atlantic, which could slow or halt ocean currents that transport 
+    heat to the north. Containing 8% of all of the Earth&#8217;s fresh water, 
+    the Greenland ice sheet has the potential to raise the global mean sea level 
+    by about seven meters if it were to melt. There is evidence that Greenland 
+    significantly melted during the most recent interglacial (Cuffey and Marshall, 
+    2000) and may therefore be a primary contributor to sea level rise in the 
+    event of continued global warming. This would be catastrophic for many coastal 
+    regions across the planet (Small and Nicholls, 2003; Nicholls, 2002), inciting 
+    large migrations of environmental refugees. On the other hand, a warmer atmosphere 
+    could contain more water vapor, which may potentially lead to <em>increased</em> 
+    snow accumulation and <em>growth</em> of the ice sheet (Zwally, 1989). Shutting 
+    down or significantly weakening North Atlantic currents, furthermore, could 
+    abruptly halt heat transport to the Arctic and incite another glacial period 
+    (Schwartz and Randall, 2003). For all of these reasons, it is important to 
+    monitor Greenland&#8217;s <strong>mass balance</strong>, or changes to its 
+    total volume of snow and ice.</p>
+  <p align="left">Mass balance of the Greenland ice sheet can be estimated by 
+    measuring volume inputs (snow accumulation) and subtracting volume losses 
+    (melting, iceberg calving, and sublimation), by measuring changes in ice sheet 
+    height using altimetry and correcting for isostatic uplift and losses due 
+    to calving and basal melt of floating ice tongues (see <a href="http://icesat.gsfc.nasa.gov/docs/ICESat_Brochure_Page_06.png" target="_blank">ICESat</a>), 
+    or by measuring changes in the gravity field above Greenland and correcting 
+    for isostatic uplift (see <a href="http://www.csr.utexas.edu/grace/" target="_blank">GRACE</a>). 
+    Accurately measuring <strong>accumulation</strong> is critical to the first 
+    method. Current estimates of snow accumulation on Greenland, however, have 
+    large errors (20-25%) because they are derived from a relatively sparse network 
+    of point measurements from snow pits, firn or ice cores, and manual probing 
+    (Ohmura and Reeh, 1991; Bales <em>et al.</em>, 2001). <strong>Ground-penetrating 
+    radar (GPR)</strong>, also referred to as <strong>radio echo sounding (RES)</strong> 
+    when used at lower frequencies (&lt; 10 MHz), has the potential to significantly 
+    improve upon these accumulation estimates because of its ability to cover 
+    large regions over short time periods with relative ease at high vertical 
+    (depth) and horizontal (areal) resolutions. This coverage is useful to help 
+    characterize the spatial variability and distribution of accumulation.</p>
+  <p align="left">A total of 20 <strong>automatic weather stations (AWS) </strong>have 
+    been installed across Greenland since 1995 (Steffen and Box, 2001), known 
+    as the <strong>Greenland Climate Network (<a href="http://cires.colorado.edu/steffen/gcnet/" target="_blank">GC-Net</a>)</strong>, 
+    as part of NASA&#8217;s <strong>Program for Arctic Regional Climate Assessment 
+    (<a href="http://cires.colorado.edu/science/pro/parca/" target="_blank">PARCA</a>)</strong>. 
+    The primary objective of this research has been to process and analyze GPR 
+    data collected near two of these AWSs to analyze the variability and spatial 
+    distribution of snow accumulation at the local scale (&lt; 100 m). On May 
+    31 and June 1, 2003, <a href="http://en.wikipedia.org/wiki/Konrad_Steffen" target="_blank">Dr. 
+    Konrad Steffen</a> and his graduate student, Russell Huff, collected 100-m 
+    by 100-m GPR survey grids in the accumulation zone of Greenland near two PARCA 
+    automatic weather stations: respectively, Tunu-N in the northeast (78&deg;01'01&quot; 
+    N, 33&deg;58'54&quot; W; 2113 m a.s.l.) and NASA-U in west-central Greenland 
+    (73&deg;50'29&quot; N, 49&deg;30'14&quot; W; 2369 m a.s.l.) (Figure 1). </p>
+  <p align="left">In this introduction I will review current knowledge about accumulation 
+    on the Greenland ice sheet as well as previously published cryospheric applications 
+    of GPR, focusing on those investigating snow accumulation. A more theoretical 
+    review of the physics behind GPR over snow and ice follows, with emphasis 
+    on some of the difficulties encountered when analyzing GPR data. </p>
+  <p><b><a name="accumulation" id="accumulation"></a><font face="Arial, Helvetica, sans-serif">1.1. 
+    <font color="#CC0000">Current Knowledge About Accumulation on Greenland</font></font></b></p>
+  <table width="25%" border="0" align="right">
+    <tr> 
+      <td align="left" valign="top"><img src="Bales_accumulation_map.jpg" width="318" height="556" hspace="10"></td>
+    </tr>
+    <tr> 
+      <td><font size="-7" face="Arial, Helvetica, sans-serif"><strong>Figure 2.</strong> 
+        Map of observed mean annual accumulation on the Greenland ice sheet from 
+        a collection of 256 snow pits and ice cores and 17 coastal meteorological 
+        stations from the period 1913-1999 (Bales <em>et al</em>., 2001) reprinted 
+        from the Journal of Geophysical Research with permission of the American 
+        Geophysical Union. Average accumulation for the entire ice sheet is ~30 
+        g&middot;cm<sup>-2</sup>&middot;yr<sup>-1 </sup>(300 mm&middot;yr<sup>-1</sup>).</font></td>
+    </tr>
+  </table>
+  <p>Current estimates of snow accumulation on Greenland have large errors (20-25%) 
+    because they are derived from a relatively sparse network of point measurements 
+    from snow pits, firn or ice cores, and manual probing. These measurements 
+    are sparse both temporally and spatially due to the difficulty of collecting 
+    measurements in the harsh environment of the Greenland ice sheet and because 
+    they are manually intensive to acquire. The most recent compilations of existing 
+    accumulation measurements are <strong>Ohmura and Reeh (1991)</strong> and 
+    <strong>Bales <em>et al.</em> (2001)</strong>. In total, the number of point 
+    locations included in these compilations are 251 and 256, respectively, spread 
+    over more than three-quarters of a century from 1913 to 1999. </p>
+  <p>The mean accumulation maps derived in these two sources agree to within 3% 
+    of their total accumulation average for the entire ice sheet (31 g&middot;cm<sup>-2</sup>&middot;yr<sup>-1</sup> 
+    vs. 30 g&middot;cm<sup>-2</sup>&middot;yr<sup>-1</sup>) but have large regional 
+    differences due to differing interpolation techniques (hand-contouring in 
+    Ohmura and Reeh, 1991, vs. kriging in Bales <em>et al.</em>, 2001) and data 
+    sources. Overall, the Bales <em>et al.</em> (2001) map (Figure 2) is an improvement 
+    on the previous Ohmura and Reeh (1991) compilation due to the addition of 
+    new, high-quality firn and ice cores from NASA&#8217;s <a href="http://cires.colorado.edu/science/pro/parca/" target="_blank">PARCA</a> 
+    initiative and their filtering out of erroneous, short (single-year), and/or 
+    closely spaced records. There are relatively few data records below 1800 m 
+    elevation or in northeastern, southeastern, far northern, or east-central 
+    Greenland. </p>
+  <p>Primary sources for spatial distribution of accumulation on the ice sheet 
+    include topography and wind/atmospheric circulation patterns (Ohmura and Reeh, 
+    1991; van der Veen <em>et al.</em>, 2001). The greatest accumulation on the 
+    ice sheet occurs in the southeast due to cyclonic activity generated by the 
+    Icelandic low in winter, while the least accumulation occurs in the northeast 
+    due to the precipitation shadow that is caused by a topographic barrier preventing 
+    flows from both the southeast and the west. The west coast of Greenland experiences 
+    moderate accumulation from a wet continental air mass in the summer but is 
+    mostly dry in the winter except for stray cyclones entering Baffin Bay through 
+    Davis Strait from the Atlantic. Meanwhile, the northwest gets moderate-to-low 
+    levels of precipitation resulting from polar lows in the summer only. </p>
+  <p>Based on the available measurements in the Bales <em>et al.</em> (2001) compilation, 
+    the mean uncertainty (standard deviation) in accumulation on the Greenland 
+    ice sheet is 24% (7 g&middot;cm<sup>-2</sup>&middot;yr<sup>-1</sup>) and ranges 
+    between 15-30% (4.5-9 g&middot;cm<sup>-2</sup>&middot;yr<sup>-1</sup>). In 
+    his effort to produce formal error bars for Greenland&#8217;s existing accumulation 
+    maps, Cogley (2004) notes the need to double our current accuracy in accumulation 
+    in order to achieve a corresponding &plusmn;1 mm&middot;yr<sup>-1 </sup>accuracy 
+    in sea level rise with 95% confidence. He concludes that this can be achieved 
+    through measurement of the winter balance in the ablation zone of Greenland, 
+    where measurements are currently extremely sparse, and through concerted efforts 
+    involving airborne and spaceborne remote sensing techniques. High-resolution 
+    airborne radar surveys seem like a promising avenue for accomplishing this 
+    in the relatively near future (Kanagaratnam <em>et al.</em>, 2001). It is 
+    important to note, however, that uncertainty in the accumulation is only part 
+    of the problem regarding accuracy of Greeland&#8217;s mass balance, and that 
+    the amount of iceberg calving from the ice sheet may have an even larger uncertainty 
+    at this time.</p>
+  <p>Mosley-Thompson <em>et al.</em> (2001) point out that any single point measurement 
+    of accumulation contains both a climate signal (i.e. accumulation due to climate 
+    in that specific location) and local glaciological &#8220;noise&#8221; such 
+    as topography (e.g. small-scale sastrugi vs. large-scale shifting dunes) or 
+    redeposition and sublimation of snow due to wind. In order to derive the climate 
+    signal, one must first correct for local glaciological noise by using time-averaging 
+    within a point measurement (i.e. depth-averaging) and/or spatial-averaging 
+    across several closely-spaced point measurements. How <em>much</em> averaging 
+    that is required for any particular location, however, (i.e. how many years 
+    or points you must average across to separate out the climate signal from 
+    the noise) is dependent on the degree to which local glaciological noise impacts 
+    the snow accumulation at a given location. </p>
+  <p>Quantifying glaciological noise at the local scale at two locations in Greenland 
+    is the objective of this thesis. Mosley-Thompson <em>et al.</em> (2001) drives 
+    home the point for <em>why</em> this is an important endeavor: so that we 
+    can get a better measurement of actual climate variability. Though closely-spaced 
+    cores have been compared for accumulation variability on the Greenland ice 
+    sheet (e.g. Humbolt &gt; 20% within 25 km (Mosley-Thompson <em>et al.</em>, 
+    2001)), smaller-scale variability has not been previously studied for the 
+    Greenland ice sheet. Such an assessment can best be accomplished with GPR 
+    due to its continuous areal coverage. </p>
+  <p>Besides point measurements, other tools have also been used to measure accumulation 
+    on the Greenland ice sheet, including remote sensing, meteorological models, 
+    and GCMs. Drinkwater <em>et al.</em> (2001) use scatterometry measurements 
+    from Seasat, ERS-1/2, NASA scatterometer (NSCAT), and QuikSCAT to empirically 
+    relate the backscatter coefficient to accumulation in the dry snow zone of 
+    Greenland; similarly, Nghiem <em>et al.</em> (2005) use QuikSCAT to derive 
+    accumulation in the percolation zone of Greenland. As previously mentioned, 
+    high-resolution airborne radar also shows promise in mapping accumulation 
+    over the entire ice sheet (Kanagaratnam <em>et al.</em>, 2004). Meteorological 
+    models have been used to employ ECMWF re-analysis data (ERA-40) for the analysis 
+    of ice sheet-wide mass balance and accumulation patterns for the period 1958-2003 
+    (Hanna <em>et al.</em>, 2005). GCMs do not yet accurately reproduce mean accumulation 
+    on Greenland, consistently underestimating this value. Nevertheless, ECHAM4 
+    and Genesis-2 have been used to predict a ~30% increase in accumulation for 
+    Greenland in a double-C0<sub>2</sub> climate due to increased moisture in 
+    the atmosphere and northward displacement of the Icelandic low, which brings 
+    precipitation to southeastern Greenland (Wild and Ohmura, 2000; Thompson and 
+    Pollard, 1997). The magnitude of such predictions justifies the need for a 
+    better understanding of accumulation changes in Greenland, to which the current 
+    study hopes to contribute.</p>
+  <p><b><a name="cryosphere" id="cryosphere"></a><font face="Arial, Helvetica, sans-serif">1.2. 
+    <font color="#CC0000">Cryospheric Applications of GPR</font></font></b></p>
+  <p>Since the first surface-based radar soundings of ice in 1964 (Walford, 1964), 
+    glaciological applications of GPR have included measurements of glacier or 
+    ice sheet <strong>thickness </strong>(e.g. Welch <em>et al.</em>, 1998), <strong>basal 
+    conditions</strong> (e.g. Winebrenner <em>et al.</em>, 2003), <strong>liquid 
+    water content</strong> (e.g. Arcone, 1996; Albert <em>et al.</em>, 1999; Pettersson 
+    <em>et al.</em>, 2004), and <strong>internal structure</strong> (e.g. P&auml;lli 
+    et al, 2003), including crevasse and buried debris detection for the purposes 
+    of construction (e.g. Delaney and Arcone, 1995; Delaney <em>et al.</em>, 1999). 
+    In the category of internal structure, GPR surveys have been successfully 
+    conducted to identify isochronous reflection horizons for correlating between 
+    disparate ice cores in order to better calibrate their time-depth relationships 
+    (e.g. Eisen <em>et al.</em>, 2003a). Internal reflection horizons have also 
+    been used to infer glacial dynamics (e.g. Vaughan <em>et al.</em>, 1999) and, 
+    more relevant to the current study, patterns of snow accumulation over time 
+    and space. Other cryospheric applications of GPR include mapping of permafrost 
+    extent and depth (e.g. Wu <em>et al.</em>, 2005; Judge <em>et al.</em>, 1991) 
+    as well as measurements of snow depth and snow water equivalent (SWE) in alpine 
+    mountain catchments (e.g. Marchand <em>et al.</em>, 2001; Marchand and Killingveit, 
+    2004) and validation of spaceborne radar data (e.g. Engeset and &Oslash;deg&aring;rd, 
+    1999).</p>
+  <p>To date, there have been several published studies using GPR to measure snow 
+    accumulation distribution and variability. These have focused on glaciers 
+    and ice caps on Svalbard and on a few locations on the Antarctic ice sheet, 
+    which I will briefly review here. Though there have been numerous airborne 
+    radar studies of the Greenland ice sheet, no GPR studies conducted on Greenland 
+    appear in the scientific literature.</p>
+  <p><strong><font face="Arial, Helvetica, sans-serif">Svalbard:</font></strong></p>
+  <p><img src="Svalbard_map_combined.png" width="461" height="207" hspace="10"><br>
+    <font size="-7" face="Arial, Helvetica, sans-serif"><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Sources:</strong> 
+    Wikipedia (left) and CIA World Factbook (right).</font> </p>
+  <p>Winther <em>et al.</em> (1998) conducted three GPR transects ranging in length 
+    from approximately 100-200 km on Spitsbergen, Svalbard in May, 1997 at 450 
+    &amp; 500 MHz. The previous year&#8217;s snow accumulation was mapped, using 
+    manual probing and snow pit stratigraphy for validation, and converted to 
+    snow water equivalent using representative <em>in situ</em> measurements of 
+    density. They found that accumulation increases significantly with elevation, 
+    is 38-49% higher in the east than the west, 40-55% higher in the south than 
+    the north, and occurs at a minimum in central and northern locations. </p>
+  <p>Pinglot<em> et al.</em> (2001) similarly mapped the previous year&#8217;s 
+    snow accumulation on the Austfonna ice cap on the nearby island of Nordaustlandet, 
+    Svalbard in 1998/1999 at 500 MHz measured across seven separate 300-km transects. 
+    As Winther <em>et al.</em> (1998) found on Spitsbergen, Pinglot <em>et al.</em> 
+    find that accumulation increases with elevation and is higher on the eastern 
+    coast compared with the west. Of particular interest was their finding that 
+    SWE is highly variable over both short (50-100 m) and long (1-10 km) distances, 
+    with up to 25% variability in the accumulation zone of the ice cap, presumably 
+    due to wind scouring and redeposition of snow. The authors conclude that individual 
+    measurements (cores and pits) are therefore not a reliable estimator of average 
+    accumulation rates.</p>
+  <p>P&auml;lli <em>et al.</em> (2002) limited their GPR survey to Nordenskj&ouml;ldbreen 
+    glacier on Spitsbergen, Svalbard in May, 1999 over a single 11.4 km transect. 
+    Using a much lower frequency of 50 MHz to achieve greater penetration depths, 
+    the authors use data from three existing ice cores along the transect to accurately 
+    date two accumulation layers identified in the GPR data at depths of roughly 
+    10 m (1986) and 20 m (1963). They then use the GPR data to measure and compare 
+    snow accumulation rates between three time periods, finding an average annual 
+    accumulation rate for 1986-1999 that is 12% higher than for the period 1963-1986. 
+    Of interest to my study is that they also found high spatial variability (40-60%) 
+    in snow accumulation over short distances (100 m) along their transect, which 
+    they attribute, in part, to changes in basal topography beneath the glacier 
+    (i.e. increased ice thickness within bedrock depressions).</p>
+  <p>Lastly, Sand <em>et al.</em> (2003) acquired 13 transects on Spitsbergen 
+    and Nordaustlandet, Svalbard during 1997-1999 at 450 &amp; 500 MHz, ranging 
+    in length from approximately 100-200 km at four different latitudes. Methodology 
+    and results were similar to Winther <em>et al.</em> (1998) and Pinglot <em>et 
+    al.</em> (2001) for mapping the previous year&#8217;s snow accumulation. The 
+    authors also note that accumulation varies considerably on the Austfonna ice 
+    cap over relatively short distances (a factor of four within a few tens of 
+    kilometers) due to topography. </p>
+  <p><strong><font face="Arial, Helvetica, sans-serif">Antarctica:</font></strong></p>
+  <p><img src="Antarctica_BlueMarble.png" width="200" height="172" hspace="10"><br>
+    &nbsp;&nbsp; <font size="-7" face="Arial, Helvetica, sans-serif"><strong>&nbsp;Source:</strong> 
+    NASA Blue Marble</font></p>
+  <p>Richardson <em>et al.</em> (1997) use frequency-modulated continuous wave 
+    (FMCW) GPR at a center frequency of 1550 MHz and a bandwidth of 800-2300 MHz 
+    to measure accumulation variability on Dronning Maud Land, East Antarctica 
+    during the austral summer of 1993/1994. Penetrating 12 m below the surface, 
+    their 1040 km transect extended from the ice shelf of the Antarctic coast 
+    at Neumayer station inland to the polar plateau. The authors find that accumulation 
+    is highly variable over short and regional distances: over a distance of &lt; 
+    5 km, accumulation varied by as much as &plusmn; 60-70% from the local average 
+    value. Areas with large surface slopes reached standard deviations of 59% 
+    from the spatial average accumulation, while smoother areas on the higher-altitude 
+    plateau had standard deviations reaching 22%. The authors conclude that wind 
+    redistribution due to topographic features may have a major influence on the 
+    observed variability and that because of the large magnitude of variability 
+    in the region, point measurements are insufficient for characterizing accumulation. 
+  </p>
+  <p>Richardson and Holmlund (1999) similarly measure accumulation variability 
+    at Dronning Maud Land, East Antarctica, in 1996/1997, using 800-2300 MHz FMCW. 
+    They conducted a 500-km traverse on the polar plateau along a path of 11 existing 
+    firn cores. The GPR transect shows that the firn cores are generally representative 
+    of the mean accumulation rate of the surrounding region, but can be off by 
+    as much as 22%, indicating the importance of incorporating GPR for the validation 
+    and interpretation of firn and ice cores. The GPR data also show standard 
+    deviations in depth of accumulation layers ranging from 3-35%, with less variability 
+    (&lt; 10 %) at higher elevations on the plateau where the surface relief is 
+    much smoother. The authors also conducted a more detailed GPR survey (700-1100 
+    MHz, 15 km x 20 km) surrounding a deeper core (100 m) nearer the coast. For 
+    this study, they found that the spatial variability in accumulation was 21% 
+    and that the core underestimates the mean accumulation rate for the survey 
+    grid area by 10% (Figure 3).</p>
+  <p align="center"><img src="Richardson_GPR_map.jpg" width="621" height="404"><br>
+    <font size="-7" face="Arial, Helvetica, sans-serif"><strong>Figure 3.</strong> 
+    Example of local-scale snow accumulation variability mapped using GPR data, 
+    as measured in East <br>
+    Antarctica in 1999 (Richardson and Holmlund, 1999).</font></p>
+  <p>Frezzotti <em>et al.</em> (2004) acquired a 1000+ km GPR transect extending 
+    from Terra Nova Bay to Dome C in East Antarctica during a 1998-2000 investigation. 
+    Their study shows that accumulation is homogenous at large scales (&gt; 100's 
+    km<sup>2</sup>) but highly variable (3-47% std. dev.) at short (10's of m) 
+    and medium (km) spatial scales due mostly to wind-driven processes. They also 
+    conclude that previous compilations of surface mass balance (SMB) in the study 
+    region, which are based on point measurements, over-estimate SMB by as much 
+    as 65% due to sparse data and the unrepresentativeness of many of the collected 
+    data points as compared with their GPR results. </p>
+  <p>Lastly, King <em>et al.</em> (2004) collected a 100-MHz 13-km transect across 
+    the Lyddan ice rise in northwestern Antarctica (74&ordm; S, 22&ordm; W) off 
+    the coast of the Weddell Sea during 2000-2002, with a penetration depth ranging 
+    from 5-50 m. Counter to previous assumptions, they found that even gentle 
+    topography (slopes &lt; 0.04) can be associated with large spatial variability 
+    (20-30%) in snow accumulation. Based on wind speed measurements from nearby 
+    automatic weather stations (AWS) and radiosonde measurements as well as a 
+    snow transport model using these data, they were able to attribute the observed 
+    variability in accumulation to postdepositional redistribution (i.e. sublimation 
+    and redistribution of wind-borne snow). Similar to the other publications 
+    described above, the authors therefore caution that the interpretation and 
+    location of ice cores must be done carefully to avoid wind-driven variation 
+    patterns that may mask or distort the climate-based precipitation variability 
+    derived from such data. </p>
+  <pre>* &nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*</pre>
+  <p>In summary, almost all of the aforementioned GPR publications report <strong>high 
+    spatial variability in snow accumulation over both short and regional scales 
+    </strong>due to either <strong>surface and/or basal topography</strong> and 
+    the <strong>wind patterns</strong> that surface topography controls, even 
+    on surfaces with very gradual slopes. The authors therefore recommend caution 
+    in the interpretation of point measurements when used to represent average 
+    accumulation over a surrounding area. None of the studies are at the scale 
+    or location used in my thesis, which investigates sub-100-m accumulation variability 
+    at two locations on the Greenland ice sheet, so it will be interesting to 
+    find out how our results compare against these previous GPR surveys. </p>
+  <p>Other reviews of cryospheric GPR applications include Plewes and Hubbard 
+    (2001) and Gruber and Ludwig (1996). Siegert (1999) also presents a review 
+    of airborne radar surveys conducted in Antarctica that is also relevant to 
+    the current investigation. </p>
+  <p><b><a name="physics" id="physics"></a><font face="Arial, Helvetica, sans-serif">1.3. 
+    <font color="#CC0000">The Physical Basis of GPR</font></font></b></p>
+  <p>Short, successive pulses of radar electromagnetic energy are transmitted 
+    by a GPR antenna. These radar pulses are reflected at <strong>dielectric discontinuities</strong> 
+    (Figure 4). The reflected pulses are measured by a separate receiver antenna 
+    and result in relatively high amplitude signals in the output display at the 
+    location of the discontinuity. Discontinuities in snow and ice include air-bubble 
+    related changes in density, liquid water content, chemical impurities, and 
+    crystal fabric (P&auml;lli <em>et al.</em>, 2002). In dry snow in the uppermost 
+    ~75 meters, changes in <strong>density</strong> have the most significant 
+    impact on the radar signal (Winther <em>et al.</em>, 1998). </p>
+  <p align="center"><img src="dielectric_interface.jpg" width="366" height="145" hspace="10"><br>
+    <font size="-7" face="Arial, Helvetica, sans-serif"><strong>Figure 4.</strong> 
+    Radar pulses are reflected at dielectric discontinuities (Plewes and Hubbard, 
+    2001).</font></p>
+  <p align="left">Depositional processes of snow accumulation create <strong>stratigraphic 
+    layers </strong>within the subsurface. Melting and refreezing of snow at the 
+    end of summer results in relatively dense layers of snow and/or hoar frost 
+    that appear in GPR data as reflection horizons (Figure 5). These layers are 
+    shaped by spatial variation in accumulation, surface slopes, and wind-induced 
+    snow deposition and erosion. The data for this project were collected over 
+    flat terrain, however, so surface slope does not play a significant role. 
+    Intrusions of refrozen melt water that exist as ice layers and ice lenses 
+    within the subsurface, prevalent in the percolation zone of Greenland, may 
+    interrupt the continuity of these stratigraphic layers and result in gaps 
+    in the GPR reflection horizons. </p>
+  <table border="0" align="center">
+    <tr> 
+      <td> <div align="center"><img src="snow_pit_wall_lit.jpg" width="352" height="264"></div></td>
+      <td> <div align="center"> 
+          <p> <font size="-7">&nbsp;<img src="right_arrow.png" width="72" height="36" align="absmiddle"></font></p>
+        </div></td>
+      <td> <div align="center"><img src="GPR_example_image.jpg" width="427" height="264"></div></td>
+    </tr>
+    <tr> 
+      <td colspan="3"><div align="center"><font size="-7" face="Arial, Helvetica, sans-serif"><strong>Figure 
+          5.</strong> Photograph of a back-lit snow pit wall (Photo: Konrad Steffen) 
+          (left) and a sample GPR profile from Tunu-N, Greenland (right), both 
+          illustrating reflection horizons.</font></div></td>
+    </tr>
+  </table>
+  <p align="left">GPR instruments measure the time it takes for a pulse to travel 
+    to and from a target, referred to as its<strong> two-way travel time (TWT)</strong>. 
+    In order to convert this travel time into a measurement of <strong>depth</strong>, 
+    the velocity of the radar pulse through the subsurface must be known (i.e. 
+    depth [m] = velocity [m/s] * time [s]). <strong>Velocity</strong> is a function 
+    of two electrical properties of the propagated medium: its <strong>relative 
+    dielectric permittivity (&#949<sub>r</sub>) </strong>and <strong>electrical 
+    conductivity (&#963)</strong>, collectively referred to as the &quot;<strong>dielectric 
+    constant</strong>.&quot; A material&#8217;s dielectric permittivity measures 
+    its capacity to store an applied electric charge relative to a vacuum, thereby 
+    impeding its flow. A material with high &#949<sub>r</sub>, such as liquid 
+    water, absorbs an applied electromagnetic signal such as GPR such that very 
+    little signal is left to be reflected to the instrument. Electrical conductivity, 
+    on the other hand, measures the ability of a material to conduct, or carry, 
+    an applied electrical charge. A material with high &#963, such as a metal, 
+    acts as a good conduit for a GPR signal, carrying most of the signal away 
+    from the instrument into the host material so that very little signal is reflected 
+    to the instrument. For these reasons, GPR requires subsurfaces with low enough 
+    &#949<sub>r</sub> and &#963 so that the signal is not completely absorbed. 
+  </p>
+  <p>The conductivity of pure snow and ice is almost zero so that velocity is 
+    primarily determined by the relative dielectric permittivity of the subsurface, 
+    which varies between ~1.0 for air and ~3-4 for ice, with intermediate values 
+    for snow and firn (i.e. compacted snow) depending on density (Plewes and Hubbard, 
+    2001). Density profiles can be measured, then, using ice core dielectric profiling 
+    (DEP) (Eisen <em>et al.</em>, 2003b) or traditional stratigraphic methods 
+    associated with snow pits and cores (&Oslash;strem and Bruggman, 1991) for 
+    deriving a velocity-depth function that can be applied to the GPR data for 
+    converting TWT to measurements of depth. Velocity can be empirically related 
+    to density via the permittivity of snow (M&auml;tzler, 1996). The resulting 
+    permittivity can then be used to compute the velocity of the radar signal 
+    through the snow via the following equation:</p>
+  <p align="center"><em><font size="+2">v</font></em><font size="+2"> = <em>c</em> 
+    &divide; &#8730;&#949<sub>r</sub></font></p>
+  <p>where: <em>v</em> = wave propagation speed,<br>
+    <em>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;c</em> 
+    = speed of light in a vacuum (0.3 m/ns),<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#949<sub>r</sub> 
+    = relative dielectric permittivity.</p>
+  <p>Once the depth of a given reflection horizon is known, accumulation above 
+    that horizon can be derived. For the purposes of our data, calibration of 
+    TWT to depth is accomplished using an average snow density measured from a 
+    snow pit at one corner of the GPR survey grid.</p>
+  <p>Advantages of using GPR include its complete<strong> areal coverage</strong>, 
+    <strong>ease of use</strong> relative to traditional point measurement techniques, 
+    and <strong>high resolution</strong>. There are also difficulties associated 
+    with using GPR, however, which I expound upon here:</p>
+  <pre>* &nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*</pre>
+  <p><strong>Antenna ringing</strong><font face="Arial, Helvetica, sans-serif">.</font> 
+    Horizontal banding in the resulting radargram is caused by &quot;ringing&quot; 
+    of the radar signal (negative and positive perturbations of signal strength) 
+    that results from interference due to radar waves that flow directly from 
+    the transmitting antenna and couple with the signal received at the receiving 
+    antenna during data acquisition (Figure 6).</p>
+  <table border="0" align="center">
+    <tr> 
+      <td><div align="center"><img src="antenna_ringing3.png" width="523" height="266"></div></td>
+      <td><div align="center"><img src="right_arrow.png" width="72" height="36" align="absmiddle"></div></td>
+      <td><div align="center"><img src="antenna_ringing4.png" width="268" height="266"></div></td>
+    </tr>
+    <tr> 
+      <td colspan="3"><div align="center"><font size="-7" face="Arial, Helvetica, sans-serif"><strong>Figure 
+          6.</strong> An illustration demonstrating antenna ringing (left) and 
+          a sample GPR profile demonstrating the horizontal banding that results 
+          from this (right).</font></div></td>
+    </tr>
+  </table>
+  <p><strong>Near-field effect</strong><font face="Arial, Helvetica, sans-serif">.</font> 
+    GPR does not collect good data near the surface down to a depth of about 1.5 
+    times the center wavelength (Conyers and Goodman, 1997) while the signal first 
+    penetrates the surface from the air above it and is still in the process of 
+    coupling with the subsurface medium (Figure 7).</p>
+  <table border="0" align="center">
+    <tr> 
+      <td width="283"><div align="center"><img src="near_field_effect1.png" width="283" height="266"></div></td>
+      <td width="65" valign="top"> <div align="center"> 
+          <p> <font size="-7">&nbsp;</font></p>
+          <p><img src="right_arrow_up.png" width="65" height="51" align="top"></p>
+        </div></td>
+      <td width="268"><div align="center"><img src="antenna_ringing4.png" width="268" height="266"></div></td>
+    </tr>
+    <tr> 
+      <td colspan="3"><div align="center"><font size="-7" face="Arial, Helvetica, sans-serif"><strong>Figure 
+          7.</strong> An illustration demonstrating the near-field effect (left) 
+          and a sample GPR profile demonstrating the extreme horizontal <br>
+          banding that results from this at the top of the profile (right).</font></div></td>
+    </tr>
+  </table>
+  <p><strong>Geometrical spreading</strong>. Because of geometrical spreading, 
+    the radar signal decreases exponentially in strength with depth as 1/r<sup>2</sup>, 
+    where r is depth (Plewes and Hubbard, 2001) (Figure 8). </p>
+  <table border="0" align="center">
+    <tr> 
+      <td width="282"><div align="center"><img src="geometrical_spreading1.png" width="282" height="266"></div></td>
+      <td width="65" valign="bottom"> <div align="center"> 
+          <p><img src="right_arrow_down.png" width="65" height="51"></p>
+          <p>&nbsp;</p>
+        </div></td>
+      <td width="268"><div align="center"><img src="near_field_effect2.png" width="268" height="266"></div></td>
+    </tr>
+    <tr> 
+      <td colspan="3"><div align="center"><font size="-7" face="Arial, Helvetica, sans-serif"><strong>Figure 
+          8.</strong> An illustration demonstrating geometrical spreading (left) 
+          and a sample GPR profile demonstrating the loss of signal with <br>
+          depth that results from this (right).</font></div></td>
+    </tr>
+  </table>
+  <p><strong>Echoes</strong>. There is often evidence of multiple reflections 
+    (i.e. echoes) from a single reflection horizon in the resulting radargram 
+    when part of the return signal continually bounces between the surface boundary 
+    and the reflection horizon (Figure 9). With each subsequent &quot;bounce,&quot; 
+    however, the signal dissipates in energy so that subsequent echoes become 
+    increasingly faint in the resulting GPR data. The brightest return in the 
+    radargram, therefore, can be interpreted as the first reflection and the true 
+    source of the reflector in the subsurface. </p>
+  <table border="0" align="center">
+    <tr> 
+      <td width="283"><div align="center"><img src="echoes1.png" width="283" height="266"></div></td>
+      <td width="72"> <div align="center"> 
+          <p><img src="right_arrow.png" width="72" height="36" align="absmiddle"></p>
+        </div></td>
+      <td width="291"><div align="center"><img src="echoes2.png" width="291" height="266"></div></td>
+    </tr>
+    <tr> 
+      <td colspan="3"><div align="center"><font size="-7" face="Arial, Helvetica, sans-serif"><strong>Figure 
+          9.</strong> An illustration demonstrating radar echoes (left) and a 
+          sample GPR profile demonstrating the repeated layers that results <br>
+          from this (right), highlighting one particular layer in red.</font></div></td>
+    </tr>
+  </table>
+  <p><strong>Interpretation</strong>. Because dielectric discontinuities can be 
+    due to a variety of factors, the interpretation of GPR data can sometimes 
+    be challenging, in cryospheric applications as well as in others. Reflection 
+    horizons in glacial subsurfaces can be due to accumulation layers, sporadic 
+    ice lenses from refrozen meltwater, layers of meltwater, relatively dense 
+    snow resulting from past weather events, crevasses, debris, dust layers, etc. 
+    At lower resolutions, also, the reflections that are apparent in the radargram 
+    are a combined effect of dielectric properties within the subsurface since 
+    individual layers cannot be resolved, making the data interpretation all the 
+    more complex. For these reasons, it is important to include <em>in situ</em> 
+    observations (e.g. snow pit stratigraphy, historical AWS measurements, manual 
+    probes, firn/ice cores, etc.) along with a GPR survey to help identify features 
+    and interpret the resulting radargram.</p>
+  <p><strong>Resolution vs. penetration depth</strong>. Shorter wavelengths can 
+    resolve smaller features within the subsurface but dissipate more quickly 
+    with depth as they are readily absorbed by the medium. Longer wavelengths 
+    can penetrate more deeply into the subsurface but have poorer resolution in 
+    the vertical (depth) direction. As a practical sidenote, longer wavelengths 
+    also require larger antennae and more sophisticated transport mechanisms. 
+  </p>
+  <p><strong>Resolution vs. noise</strong>. The tradeoff to good resolution is 
+    a higher incidence of noise, or a lower signal-to-noise ratio, which speckles 
+    the resulting radargram and can heavily obscure features you are trying to 
+    locate. </p>
+  <p><strong>Correct for topography</strong>. GPR data that are not collected 
+    over flat terrain must correct for surface topography by warping the data 
+    in the vertical direction so that reflection horizons are not distorted (Figure 
+    10). This requires the collection of accurate GPS elevation data coincident 
+    with the GPR survey.</p>
+  <p align="center"><img src="vertical_warping1.png" width="282" height="266"><br>
+    <font size="-7" face="Arial, Helvetica, sans-serif"><strong>Figure 10.</strong> 
+    An illustration demonstrating the effect of topography on the resulting radargram 
+    if left uncorrected. <br>
+    The top two scenarios properly reproduce the shape of the subsurface reflection 
+    horizon, but the bottom scenario skews the horizon. </font></p>
+  <p><strong>Correct for forward velocity variations</strong>. GPR data must also 
+    be dynamically stretched or compressed in the horizontal direction after data 
+    collection to correct for any significant variation in forward velocity of 
+    the antennae during data acquisition, if any. This either requires GPS data 
+    or equidistant markings stored within the data via an attached wheel during 
+    acquisition. Because such wheels do not often operate successfully over snow 
+    and ice surfaces, the GPS method is usually used. </p>
+  <p><strong>TWT-depth conversion</strong>. As previously mentioned, consideration 
+    and effort must be made prior to a GPR survey for calibrating the instrument&#8217;s 
+    native measurement of two-way travel-time (TWT) to a more useful measurement 
+    of depth. This can be acquired in a variety of ways, from dielectric profiling 
+    of the subsurface, to calibration against a target of known depth, to manual 
+    measurements of density in a snow pit. </p>
+  <pre>* &nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*</pre>
+  <p>The GPR data processed and analyzed for this thesis exhibit a number of the 
+    difficulties mentioned above. At a frequency of 1000 MHz, our data have high 
+    enough depth resolution (~0.5 cm ) to resolve individual stratigraphic layers. 
+    On the downside, they only penetrate about five meters into the subsurface 
+    before geometrical spreading completely dissipates the signal, and they also 
+    have a relatively high incidence of speckle (noise). Antenna ringing is obvious 
+    in the horizontal banding that is present throughout the data, and the near-field 
+    effect highly distorts the imagery down to a depth of roughly 45 cm. Echoes 
+    from stratigraphic layers are numerous and can be tricky to separate visually 
+    in areas where overlap of echoes from different layers occurs. Interpretation 
+    of the subsurface features in the radargram has been aided by snow-pit stratigraphy 
+    and AWS sonic surface-height measurements. Because the surveys were conducted 
+    over flat terrain and at constant walking speed, it was unnecessary to correct 
+    for vertical or horizontal distortion within the data. Lastly, TWT-depth conversion 
+    has been made by a simple average density derived from the snow pit analysis.</p>
+  <p>In short, as I will show later, the data allow successful identification 
+    of 1-2 stratigraphic layers after processing to correct for antenna ringing, 
+    the near-field interference zone, geometrical spreading, and noise. Echoes 
+    and remaining noise make the layer identifications difficult along some areas 
+    of the survey grid but not impossible. From these layers, variability and 
+    distribution of snow accumulation have been computed for two 100-m by 100-m 
+    GPR survey grids in northeastern and west-central Greenland.</p>
+  <p><b><a name="significance" id="significance"></a><font face="Arial, Helvetica, sans-serif">1.4. 
+    <font color="#CC0000">Project Significance</font></font></b></p>
+  <p>The proposed GPR study is one small piece in the larger puzzle of Greenland&#8217;s 
+    mass balance. With the potential to raise sea levels by as much as seven meters 
+    if it were to completely melt, it is imperative that Greenland&#8217;s mass 
+    balance be better understood and monitored. Though continued global warming 
+    is not expected to melt the ice sheet entirely or very quickly, Greenland&#8217;s 
+    contributions to sea level rise could still be significant. Melt can also 
+    indirectly influence ablation through basal lubrication and increased dynamic 
+    response of the ice sheet, leading to greater rates of calving (Zwally <em>et 
+    al.</em>, 2002). Although Greenland is an order of magnitude smaller than 
+    Antarctica, it has a much greater potential for melting due to its lower latitude, 
+    and there is evidence that it has significantly melted in the past during 
+    the most recent interglacial (Cuffey and Marshall, 2000). Losses in Greenland&#8217;s 
+    mass balance could also combine with other increasing outlets of freshwater 
+    into the Artic (melting glaciers and permafrost, increased precipitation) 
+    that may eventually slow or halt the oceanic conveyor belt that transports 
+    heat to the Arctic, with the potential for abrupt climate change that could 
+    catapult the planet into another glacial period (Schwartz and Randall, 2003). 
+    Because global warming is amplified in the Arctic due to positive feedbacks 
+    associated with the high albedo of snow and ice, it is imperative that we 
+    continue to monitor and improve our understanding of Greenland&#8217;s mass 
+    balance. </p>
+  <hr>
+  <p><b><a name="methods" id="methods"></a><font face="Arial, Helvetica, sans-serif">2. 
+    METHODS</font></b></p>
+  <p><font face="Times New Roman, Times, serif">2.1. <a href="#data_acquisition">Data 
+    Acquisition</a><br>
+    2.2. <a href="#data_processing">Data Processing</a><br>
+    2.3. </font><font face="Times New Roman, Times, serif"><a href="#data_analysis">Data 
+    Analysis</a></font></p>
+  <p><font face="Times New Roman, Times, serif"><strong><font face="Arial, Helvetica, sans-serif"><a name="data_acquisition"></a>2.1. 
+    <font color="#CC0000">Data Acquisition</font></font></strong></font></p>
+  <p>A total of 20 automatic weather stations (AWS) have been installed across 
+    Greenland since 1995 (Steffen and Box, 2001), known as the Greenland Climate 
+    Network (<a href="http://cires.colorado.edu/steffen/gcnet/" target="_blank">GC-Net</a>), 
+    as part of NASA&#8217;s Program for Arctic Regional Climate Assessment (<a href="http://cires.colorado.edu/science/pro/parca/" target="_blank">PARCA</a>). 
+    On May 31 and June 1, 2003, <a href="http://en.wikipedia.org/wiki/Konrad_Steffen" target="_blank">Konrad 
+    Steffen</a> and Russell Huff collected GPR data in the accumulation zone of 
+    Greenland near two PARCA AWSs: respectively, Tunu-N in the northeast (78&deg;01'01&quot;N, 
+    33&deg;58'54&quot;W; 2,113 m a.s.l.) and NASA-U in west-central Greenland 
+    (73&deg;50'29&quot;N, 49&deg;30'14&quot;W; 2,369 m a.s.l.).</p>
+  <p>The Tunu-N location experiences relatively little accumulation (Ohmura and 
+    Reeh, 1991; Bales <em>et al.</em>, 2001) or melt (Abdalati and Steffen, 2001) 
+    throughout the year, with 100-150 mm&middot;yr<sup>-1</sup> of snow water 
+    equivalent (SWE) accumulation on average (Bales <em>et al.</em>, 2001). In 
+    2002, however, Greenland experienced an anomalously large amount of surface 
+    melt that extended from the northeast coast into the region where Tunu-N is 
+    located (Steffen and Huff, 2003). This melt event, after refreezing as an 
+    ice layer in the subsurface, results in a dielectric contrast compared to 
+    the snow above and below it that appears as a distinct reflection horizon 
+    within the GPR data and will be analyzed as part of this project. The NASA-U 
+    location accumulates twice as much snow annually as Tunu-N with 200-300 mm&middot;yr<sup>-1</sup> 
+    SWE on average (Ohmura and Reeh, 1991; Bales <em>et al.</em>, 2001) and regular 
+    occurrence of summer melt (Abdalati and Steffen, 2001), providing two visible 
+    reflection horizons in the collected data. </p>
+  <p>Besides refrozen melt layers and summer accumulation surfaces that appear 
+    via hoar frost, other mechanisms that can cause reflection horizons through 
+    the formation of dielectric interfaces in the subsurface are: relatively dense 
+    layers that form through wind compaction (wind crusts); percolation and refreezing 
+    of melt water as discontinuous ice layers, ice lenses, and ice pipes; layers 
+    that may have formed as the result of significant dust deposition; as well 
+    as the presence of crevasses or other empty spaces in the subsurface. </p>
+  <p>A <strong>Mal&aring; Geoscience</strong> (<a href="http://malags.com" target="_blank">http://malags.com</a>) 
+    <strong>RAMAC&#8482; GPR</strong> instrument with a <strong>1000-MHz</strong> 
+    antenna (the highest frequency antenna offered for the RAMAC GPR) was housed 
+    and pulled in a sled at a constant walking speed for the GPR surveys. Sixteen 
+    consecutive traces were stacked together during data acquisition to reduce 
+    noise in the horizontal (areal) direction. The instrument transmitted pulses 
+    at a rate of 24,081 MHz, collecting 1024 discrete samples per trace over a 
+    two-way time window of 42.5 ns. The data therefore have high vertical (depth) 
+    resolution of ~0.5 cm, well within the width of many stratigraphic layers. 
+    Using an average dry snow density of 0.3 g&middot;cm<sup>-3</sup> measured 
+    at each of the snow pits and an empirically derived relative dielectric permittivity 
+    of 1.62 (M&auml;tzler, 1996), maximum penetration depth of the GPR signal 
+    at 1000-MHz over a 42.5 ns two-way time window was about five meters. Within 
+    these five meters, one or two stratigraphic layers can be visually identified 
+    within the data after filtering.</p>
+  <p>Non-differential GPS data were collected coincident with the GPR data. Due 
+    to the low position update rate of many GPS receivers (one measurement per 
+    second, in our case), the RAMAC acquisition software interpolates between 
+    GPS positions so that each individual GPR trace has an assigned GPS position. 
+    Though differential GPS data were also collected during the survey, the low 
+    number of available GPS satellites at the time of collection prevented improved 
+    accuracy. Though the non-differential GPS data give relatively poor estimates 
+    of surface elevation, the surface was very flat and so the elevation measurements 
+    are ignored. Accuracy in latitude and longitude, however, appears to be more 
+    than sufficient at the scale of the current study.</p>
+  <p>Surveys were conducted along <strong>100-m by 100-m grids</strong>, with 
+    10-m spacing between transects (Figure 11). In addition, two diagonal transects 
+    were collected, connecting opposite corners of the grid, providing overlap 
+    with other measurements to allow for subsequent validation. A shallow <strong>snow 
+    pit</strong> (2-3 meters) was dug at one corner of each grid to investigate 
+    stratigraphic layers and their depths to assist in subsequent analysis of 
+    the GPR data.</p>
+  <p align="center"><img src="survey_grid.jpg" width="401" height="387"><br>
+    <font size="-7" face="Arial, Helvetica, sans-serif"><strong>Figure 11.</strong> 
+    Survey grid used for both the Tunu-N and NASA-U GPR surveys.</font></p>
+  <p><font face="Arial, Helvetica, sans-serif"><strong><a name="data_processing"></a>2.2. 
+    <font color="#CC0000">Data Processing</font></strong></font></p>
+  <ul>
+    <li><em>For step-by-step data processing instructions, please see the instruction 
+      manual provided in <a href="appendixa.html">Appendix A</a>. For a listing 
+      of the custom IDL programs written for this project, please see <a href="appendixb.html">Appendix 
+      B</a>, which also includes documentation and installation instructions for 
+      these programs.</em></li>
+  </ul>
+  <p>Preprocessing of the resulting GPR data is necessary to produce quality images 
+    with clearly-visible reflection horizons. <strong>Mal&aring; Geoscience &#8220;<a href="http://www.malags.com/software/#groundvision" target="_blank">GroundVision</a>&#8221; 
+    software</strong>, used to acquire and display GPR data from the RAMAC instrument, 
+    has filtering capabilities that can dramatically improve the appearance of 
+    data when properly applied. Unfortunately, however, these filters are for 
+    display purposes only and cannot be permanently applied to the data or saved 
+    to a new output file, preventing any post-processing on the filtered data 
+    such as digitizing reflection horizons in other image-processing applications. 
+    To circumvent this limitation, we have simulated the GroundVision filters 
+    based on their description in the manual into a programming environment that 
+    allows us to save the results for subsequent processing and data analysis. 
+    This has been accomplished using <strong>Research Systems Inc.&#8217;s (RSI) 
+    </strong>(<a href="http://rsinc.com" target="_blank">http://rsinc.com</a>) 
+    <strong>Interactive Data Language (<a href="http://rsinc.com/idl/" target="_blank">IDL</a>)</strong> 
+    programming language along with RSI&#8217;s <strong>Environment for Visualizing 
+    Images (<a href="http://rsinc.com/envi/" target="_blank">ENVI</a>) </strong>image-processing 
+    software. A histogram-based image contrast stretch is automatically applied 
+    in ENVI to enhance details. In addition, the following IDL/ENVI software tools 
+    have been created:</p>
+  <ol>
+    <li><strong>Subtract Mean Trace </strong> 
+      <p>Removes horizontal banding within the radargram by subtracting a calculated 
+        mean trace from all traces. A &quot;trace&quot; is a single, vertical 
+        column of GPR data, representing the signal &quot;traced&quot; by radar 
+        pulses as they travel from the instrument into the subsurface and back. 
+        Horizontal banding is caused by &quot;ringing&quot; of the radar signal 
+        (negative and positive perturbations of signal strength) that results 
+        from interference between the transmitting and receiving signals since 
+        some of the transmission travels straight from the transmitter to the 
+        nearby receiver antenna (i.e. the &#8220;direct wave&#8221;) (Figure 6).</p>
+    </li>
+    <li><strong>Time- (Depth-) Varying Gain </strong> 
+      <p>Because of geometrical spreading, the radar signal decreases in strength 
+        with depth as 1/r<sup>2</sup>, where r is depth (Plewes and Hubbard, 2001) (Figure 
+        8). Each radar trace is multiplied by a gain function combining linear 
+        and exponential components, with coefficients set by the user, to correct 
+        for this loss of signal with depth.</p>
+    </li>
+    <li><strong>DC Removal </strong> 
+      <p>There is often a constant offset in the amplitude of each radar trace 
+        caused by interference from direct current (DC) used to power the GPR 
+        instrument. This filter removes the DC component from the data, which 
+        has the effect of making the data less noisy.</p>
+    </li>
+  </ol>
+  <p>Because of the extremely flat surface terrain (Figure 12) and constant walking 
+    speed of the GPR survey, there was no need to also correct for vertical (topography) 
+    (Figure 10) or horizontal (areal) variations that would otherwise distort 
+    the data.</p>
+  <table width="610" border="0" align="center">
+    <tr> 
+      <td width="290" valign="top"> <div align="left">
+          <p>a) Tunu-N AWS, 31 May 2003:</p>
+          <p align="center"><img src="TunuN_AWS_053103.JPG" width="264" height="350"></p>
+        </div></td>
+      <td width="310"> <div align="left">
+          <p>b) NASA-U AWS, 1 June 2003:</p>
+          <p align="center"><img src="NASAU_AWS_060103.JPG" width="266" height="351"></p>
+        </div></td>
+    </tr>
+    <tr> 
+      <td colspan="2"><div align="center"><font size="-7" face="Arial, Helvetica, sans-serif"><strong>Figure 
+          12.</strong> Photographs of the Tunu-N (a) and NASA-U (b) AWS at the 
+          time of the GPR surveys. Note the very flat topography at these sites. 
+          The disturbed region directly surrounding the Tunu-N AWS is the result 
+          of human footprints.</font></div></td>
+    </tr>
+  </table>
+  <p align="left">The original data file was spatially subsetted into individual 
+    100-m or 10-m transects in order to decrease the individual file sizes to 
+    improve processing speed and filter performance. After application of the 
+    above filters, the GPR data are visually optimized for identifying reflection 
+    horizons, as shown in Figure 13 below.</p>
+  <p align="center"><img src="ENVI_screenshot.PNG" width="632" height="392"><br>
+    <br>
+    <font size="-7" face="Arial, Helvetica, sans-serif"><strong>Figure 13.</strong> 
+    Screen shot in ENVI showing GPR data before (left) and after (right) application 
+    of custom-made IDL filters listed in the pull-down menu. <br>
+    Note the clearer reflection horizons and lack of horizontal bands (ringing) 
+    in the right image. A stratigraphic layer has been traced in the right image 
+    in red.</font></p>
+  <p align="left">Now that the reflection horizons can be visually identified, 
+    the next step is to digitize these reflection horizons so that the stratigraphic 
+    layers can be compiled, visualized, and analyzed. Because the reflection horizons 
+    are not continuous enough, display multiple echoes, are distorted by varying 
+    degrees of noise, and are not delineated clearly enough for automatic or semi-automatic 
+    identification, this process was done manually using ENVI&#8217;s polyline 
+    <strong>Region of Interest (ROI)</strong> tool, which allowed the layers to 
+    be traced with the mouse, capturing the location of every pixel therein for 
+    subsequent analysis (e.g. see red line in Figure 13). </p>
+  <p align="left">After a contiguous layer had been digitized for the entire GPR 
+    survey grid, the depth and location (latitude and longitude) of each point 
+    in the layer could be extracted. Depth was computed using the two-way travel 
+    time window (i.e. the total time in nanoseconds that the instrument was set 
+    to &#8220;listen&#8221; for radar pulses during acquisition) and an estimated 
+    radar velocity (i.e. the velocity with which radar pulses traveled through 
+    the subsurface). Using an average dry snow density of 0.3 g&middot;cm<sup>-3</sup> 
+    measured at each of the snow pits and an empirically derived relative dielectric 
+    permittivity of 1.62 (M&auml;tzler, 1996), radar velocity was computed to 
+    be 236 m&middot;&micro;s<sup>-1</sup> according to the previously described 
+    equation:</p>
+  <p align="center"> <font size="+2">c<sub>snow</sub> = c<sub>vacuum</sub> &divide; 
+    &#8730;&#949&#8217;</font></p>
+  <p align="left">where c<sub>snow</sub> is the computed radar velocity in snow, 
+    c<sub>vacuum</sub> is the speed of light in a vacuum (300 m&middot;&micro;s<sup>-1</sup>), 
+    and &#949;&#8217; is the relative dielectric permittivity of the subsurface 
+    (snow = 1.62).</p>
+  <p align="left">After compiling latitude, longitude, and depth for each point 
+    in a stratigraphic layer, the output was fed into <strong><a href="http://www.goldensoftware.com/products/surfer/surfer.shtml" target="_blank">Surfer</a> 
+    software</strong>, version 8.00, by <strong>Golden Software, Inc.</strong> 
+    (<a href="http://www.goldensoftware.com" target="_blank">http://www.goldensoftware.com</a>) 
+    for applying <strong>kriging</strong> to grid the data and render a smooth 
+    three-dimensional surface for visualization purposes.<br>
+  </p>
+  <p><font face="Arial, Helvetica, sans-serif"><strong><a name="data_analysis"></a>2.3. 
+    <font color="#CC0000">Data Analysis</font></strong></font></p>
+  <p>The first step of analysis was to validate the GPR measurements. This was 
+    accomplished in a variety of ways. Observed stratigraphy of the subsurface 
+    in a shallow snow pit at one corner of the GPR surveys is compared against 
+    depth of layers detected in the GPR data. Also, points within the GPR survey 
+    where transects overlapped (i.e. <strong>cross-points</strong>) are used to 
+    test how well measurements of depth are reproduced. Lastly, the directionality 
+    of patterns observed in the final three-dimensional visualization is compared 
+    against the predominant wind direction observed at the two sites as measured 
+    over several years by a nearby AWS.</p>
+  <p>The spatial variability in the depth of stratigraphic layers is statistically 
+    determined from the survey grid (not the kriged three-dimensional surface, 
+    since this introduces interpolation errors) using the mean and standard deviation. 
+  </p>
+  <p>Lastly, the volume of snow measured above and between the separate stratigraphic 
+    layers can be used to derive a measurement of snow accumulation in terms of 
+    its snow water equivalent (SWE). In order to do this, the mean depth (cm) 
+    of the layer is multiplied by the average snow density (0.3 g&middot;cm<sup>-3</sup>), 
+    divided by the density of water (1 g&middot;cm<sup>-3</sup>), and then multiplied 
+    by 10 in order to derive SWE in units of mm&middot;yr<sup>-1</sup>. </p>
+  <p>All together, these measurements will provide an estimate as to how (un)representative 
+    a single point measurement of layer depth using traditional mass balance techniques 
+    would have been for the surveyed grids. For one such comparison at Tunu-N, 
+    the annual accumulation measured at the nearby AWS is compared against the 
+    mean of the survey grid for a corresponding year.</p>
+  <hr>
+  <p><b><a name="results" id="results"></a><font face="Arial, Helvetica, sans-serif">3. 
+    RESULTS</font></b></p>
+  <p>After filtering, only one <strong>internal reflecting horizon </strong>was 
+    clearly identifiable within the Tunu-N GPR data while two separate horizons 
+    were identifiable in the data for NASA-U. The results of applying <strong>kriging</strong> 
+    in the <a href="http://www.goldensoftware.com/products/surfer/surfer.shtml" target="_blank">Surfer</a> 
+    software package to these digitized layers for visualizing them as <strong>three-dimensional 
+    surfaces</strong> is shown in Figure 14, where latitude and longitude are 
+    displayed on the X and Y axes, respectively, and depth is shown on the vertical 
+    (Z) axis. Recall that the survey grids are 100-m by 100-m. Depth is plotted 
+    with 10x vertical exaggeration in the right-hand column to emphasize the topography 
+    of the layers, since the layers are otherwise extremely flat when plotted 
+    at true scale. These surfaces are also plotted orthogonally in the left-hand 
+    column of Figure 14 to help illustrate any spatial patterns.</p>
+  <table width="65%" border="0" align="center">
+    <tr> 
+      <td width="49%">a) <br>
+        <img src="tunun_053103_3Dsurface_l1_orthogonal_pub.png" width="408" height="328"></td>
+      <td width="51%">b) <br>
+        <img src="tunun_053103_3Dsurface_l1_10x_pub.png" width="494" height="328"></td>
+    </tr>
+    <tr> 
+      <td>c) <br>
+        <img src="nasau_060103_3Dsurface_l1_orthogonal_pub.png" width="407" height="328"></td>
+      <td>d) <br>
+        <img src="nasau_060103_3Dsurface_l1_10x_pub.png" width="475" height="328" align="absbottom"></td>
+    </tr>
+    <tr> 
+      <td>e) <br>
+        <img src="nasau_060103_3Dsurface_l2_orthogonal_pub.png" width="405" height="328"></td>
+      <td>f)<br>
+        <img src="nasau_060103_3Dsurface_l2_10x_pub.png" width="474" height="328" align="absbottom"></td>
+    </tr>
+    <tr> 
+      <td colspan="2"><div align="center"><font size="-7" face="Arial, Helvetica, sans-serif"><strong>Figure 
+          14.</strong> Kriged three-dimensional surface views of stratigraphic 
+          layers identified within the GPR data at Tunu-N (a-b) and NASA-U (layer 
+          1: c-d, layer 2: e-f). Grid surveys are 100-m by 100-m, and are outlined 
+          in the NASA-U data with a dashed line, whereas the survey fills the 
+          entire images in the Tunu-N data. Images in the left-hand column (a, 
+          c, e) are orthogonal views looking straight down onto the surface, with 
+          the predominant wind direction labeled from Steffen and Box (2001). 
+          Images in the right-hand column (b, d, f) have 10x vertical exaggeration 
+          in the depth direction to emphasize topography.</font></div></td>
+    </tr>
+  </table>
+  <p>The results of the three-dimensional surfaces plotted in Figure 14 were verified 
+    using various other interpolation methods (e.g. nearest neighbor, natural 
+    neighbor, triangulation with linear interpolation, etc.), each of which produced 
+    similar results. The features of these surfaces were also preserved even after 
+    plotting the digitized layers from transects aligned in only one orientation 
+    (e.g. north-south transects vs. east-west). These methods help confirm that 
+    the patterns observed are not a relict of either the interpolation method 
+    or the orientation of transects in the survey grid.</p>
+  <p>There is a clear orientation of the surface features present in the Tunu-N 
+    layer, as can be seen in Figure 14a. The <strong>shallow dunes</strong> that 
+    this surface is composed of are aligned at an angle of roughly 170-175&deg; 
+    with an undulation frequency of about 5-10 m. These features lie perpendicular 
+    to the predominant (1995-1999) wind direction (~265&deg;, 5.3 m&middot;s<sup>-1</sup>), 
+    which is portrayed in the upper-right-hand corner of Figure 14a (Steffen and 
+    Box, 2001). The nearby Tunu-N AWS anemometer data (not shown) determine that 
+    the average wind direction and speed during the formation of this layer surface 
+    (roughly 42 days between 21 July and 1 September 2001: see Figure 15) were 
+    typical (266&deg;, 5.1 m&middot;s<sup>-1</sup>).</p>
+  <p align="center"><img src="TunuN_snowheight_unprocessed.PNG" width="774" height="514"><br>
+    <font size="-7" face="Arial, Helvetica, sans-serif"><strong>Figure 15.</strong> 
+    AWS sonic surface-height measurements from the Tunu-N GC-Net AWS between July 
+    1, 2000 and May 31, 2003 (Steffen <em>et al</em>. 1996).</font></p>
+  <p align="left">The two reflection horizons at NASA-U, on the other hand, are 
+    more homogenous and noisy in their surface features (Figure 14c,e), especially 
+    in the upper layer (Figure 14c). It is difficult to ascertain any preferred 
+    orientation or undulation frequency of these features as a result. Several 
+    plausible reasons for this will be explained below. The predominant (1995-1999) 
+    wind direction is shown as ~130&deg; at 6.4 m&middot;s<sup>-1</sup>, and according 
+    to the same logic applied to the Tunu-N surface, one would expect shallow 
+    dunes to align perpendicular to this (i.e. ~220&deg;) if they had been allowed 
+    to form properly. The NASA-U AWS anemometer data (not shown) determine that 
+    the average wind direction and speed during the formation of NASA-U layer 
+    2 was also typical for the region (157&deg; at 6.9 m&middot;s<sup>-1</sup> 
+    for layer 2; no data for layer 1).</p>
+  <p align="left">The statistics that describe the three different reflection 
+    horizons are shown in Table 1, including their mean depths and standard deviations, 
+    as well as the total range in depth and&#8212;in cases where it was feasible&#8212;how 
+    the means compare against depths of the same layers as identified in both 
+    manual snow pit stratigraphy analysis (Figure 16) and a nearby AWS sonic surface-height 
+    instrument (Figure 15). The values used to compute these statistics are the 
+    digitized reflection horizons from each of the individual survey grid transects 
+    and not the kriged three-dimensional surfaces shown in Figure 14, so as to 
+    avoid any errors introduced by interpolation. To convert these depth values 
+    to measurements of snow water equivalent (SWE) in millimeters, the reader 
+    only need multiply the depth values by the average snow density at each of 
+    the sites (~0.3 g&middot;cm<sup>-3</sup>), divide by the density of water 
+    (1 g&middot;cm<sup>-3</sup>), and then multiply by 10 (to convert from cm 
+    to mm). Because the layers identified at NASA-U were determined from snow 
+    pit stratigraphy and the AWS surface height data not to correspond to annual 
+    accumulation surfaces, these GPR layers are not compared to the NASA-U AWS 
+    surface height data. Furthermore, NASA-U layer 1 occurs over a period when 
+    the AWS failed to record measurements.</p>
+  <table width="65%" border="0" align="center">
+    <tr> 
+      <td><div align="left"><img src="table1.jpg" width="863" height="193"></div></td>
+    </tr>
+    <tr> 
+      <td><font size="-7" face="Arial, Helvetica, sans-serif"><strong><br>
+        TABLE 1.</strong> Depth comparison of stratigraphic layers identified 
+        within the GPR data compared to their corresponding depths identified 
+        in a snow pit and by a nearby AWS sonic surface-height sensor, where possible. 
+        These values can be converted to SWE (mm) by multiplying by an average 
+        snow density of ~0.3 g&middot;cm<sup>-3</sup>, dividing by the density 
+        of water (1 g&middot;cm<sup>-3</sup>), and multipling by 10. <em>N</em> 
+        is the number of measurements in the GPR data included in the computations 
+        of mean depth and range.</font></td>
+    </tr>
+  </table>
+  <p align="left">The statistics in Table 1 show that the three layers have a 
+    standard deviation of between 7.42 cm and 12.21 cm with an average standard 
+    deviation of 10.58 cm. This implies that the average local-scale spatial variability 
+    at these sites in the upper five meters is about 10 cm on average. The total 
+    range of depth values over the course of the survey, however, extends more 
+    widely between 53.36 cm and 86.14 cm with an average range of about 70 cm. 
+    Together, these statistics imply that <strong>a given point measurement of 
+    depth at these sites would be expected to be off by &plusmn;10 cm on average 
+    but could be unrepresentative by as much as &plusmn;35 cm</strong>. With a 
+    mean depth of only 65.60 cm for the reflection horizon identified at Tunu-N, 
+    this means that any given point measurement taken within the survey site (e.g. 
+    ice core, snow pit, AWS sensor, manual probe, etc.) would be in error by 15% 
+    on average or as much as 53% compared to the survey mean. </p>
+  <p align="left">To get a sense of how accurately the layers were manually traced 
+    in ENVI, Table 2 also shows the statistics for a comparison of the depths 
+    of points that intersect within the survey grid (i.e. <strong>cross-points</strong>). 
+    Overall, the depths at these cross-over points stray on average by about 8 
+    cm, only somewhat less than the standard deviation of depth reported in Table 
+    1 (~10 cm on average). Unfortunately, this would suggest that the human error 
+    in identifying the layers within the GPR data is almost as great as the natural 
+    variability of the layers themselves. There are a few alternative explanations 
+    for the relatively poor agreement of these cross-over points, however, described 
+    below.</p>
+  <table width="60%" border="0" align="center">
+    <tr> 
+      <td><div align="left"><img src="table2.jpg" width="751" height="222"></div></td>
+    </tr>
+    <tr> 
+      <td> <font size="-7" face="Arial, Helvetica, sans-serif"><strong>TABLE 2.</strong> 
+        Validation of stratigraphic layers identified within the GPR data by comparison 
+        of depths of these layers at cross-over points within the GPR survey grid. 
+        <em>N</em> is the number of identifiable cross-over points included in 
+        the measurements. Mean layer depths vary slightly from Table 1 because 
+        of the smaller sample size.</font> </td>
+    </tr>
+  </table>
+  <p align="left">First of all, cross-over points were selected as points within 
+    the survey grid that could be identified as having identical latitude and 
+    longitude GPS coordinates; given that the GPS data are non-differential, their 
+    accuracy is only on the order of 1-2 m, which means that the cross-over points 
+    that are being compared may not always precisely intersect. Secondly, the 
+    effective footprint of the GPR transmitter is oriented in a particular direction 
+    and will therefore see a slightly different portion of the subsurface when 
+    the antenna is aligned differently (e.g. north-south transects vs. east-west 
+    transects). The high resolution of these GPR data also make certain sections 
+    of the layers difficult to identify due to noise. Lastly, the large number 
+    of echoes present in these data can lead to errors in the particular echo 
+    being traced in any given transect, although this effect has been minimized 
+    as greatly as possible through careful identification of layers during the 
+    digitization process.</p>
+  <p align="left"><a href="SnowPits.2003.NASAUandTUNU.jpg" onClick="window.open('','image','RESIZABLE=yes,WIDTH=585,HEIGHT=830,SCROLLBARS=yes').focus()" onKeyPress="window.open('','image','RESIZABLE=yes,WIDTH=585,HEIGHT=830,SCROLLBARS=yes').focus()" target="image">Figure 
+    16</a> illustrates the <strong>manual snow-pit stratigraphy</strong> analyses 
+    that were conducted at one corner of each of the Tunu-N and NASA-U survey 
+    grids for validation purposes. Table 1 has a snow pit column that can be used 
+    to compare the depth of isochronous layers between the GPR data and the manual 
+    snow pit estimate. One should note that the Tunu-N layer is incorrectly identified 
+    in the snow pit analysis (<a href="SnowPits.2003.NASAUandTUNU.jpg" onClick="window.open('','image','RESIZABLE=yes,WIDTH=585,HEIGHT=830,SCROLLBARS=yes').focus()" onKeyPress="window.open('','image','RESIZABLE=yes,WIDTH=585,HEIGHT=830,SCROLLBARS=yes').focus()" target="image">Figure 
+    16</a>) as belonging to the summer accumulation surface of 2002, whereas the 
+    AWS surface-height time series (Figure 15) reveals that this layer actually 
+    belongs to the summer of 2001. Compared to the mean depth of the GPR surveys, 
+    the snow pit estimate at Tunu-N differs by -16 cm (-24%), whereas the wind 
+    crust layer at NASA-U only differs by +4 cm (+8%). Both of these snow pit 
+    estimates are within the reported range of the GPR data, which suggests that 
+    the same layers are indeed being compared, although the Tunu-N snow pit estimate 
+    differs by more than one standard deviation compared to the GPR mean depth. 
+    For the second NASA-U layer, no corresponding layer was identified in the 
+    NASA-U snow pit analysis for comparison, suggesting that the layer was discontinuous, 
+    which was also evident in the GPR data.</p>
+  <p align="left">In addition to the snow pit comparison, a <strong>sonic surface-height 
+    measurement </strong>has also been employed from the nearby AWS tower at the 
+    Tunu-N survey site for another independent point measurement to compare against 
+    the GPR survey (Figure 15). Since these measurements have been collected every 
+    10 minutes from 1996 to the present, the time series of surface height can 
+    also be used to derive the age of the GPR layer and the time period over which 
+    the layer was formed and then subsequently covered by new snow. The depth 
+    of the Tunu-N layer as derived from the AWS data agrees well with the mean 
+    GPR depth, which disagree by only -1.6 cm (-2.4%). </p>
+  <p align="left">The AWS data show that the Tunu-N layer is the summer surface 
+    for 2001 (Figure 15), last experiencing new snow on around 21 July after which 
+    it slowly compacted and was exposed to wind for a relatively lengthy period 
+    of ~42 days before new snow arrived and covered it on around 1 September. 
+    The shallow 2002 summer surface at a depth of ~26 cm was not identifiable 
+    in the GPR data and surely lost in the GPR&#8217;s near-field zone. Though 
+    we do not have AWS data to compare against NASA-U layer 1, we can see from 
+    the snow pit stratigraphy (<a href="SnowPits.2003.NASAUandTUNU.jpg" onClick="window.open('','image','RESIZABLE=yes,WIDTH=585,HEIGHT=830,SCROLLBARS=yes').focus()" onKeyPress="window.open('','image','RESIZABLE=yes,WIDTH=585,HEIGHT=830,SCROLLBARS=yes').focus()" target="image">Figure 
+    16</a>) that there were a series of closely spaced wind crusts occurring near 
+    the mean depth of this layer (~50 cm), suggesting that the layer identified 
+    in the GPR data was successively covered with new snow events. This can help 
+    explain why surface features have better expression and a much more obvious 
+    orientation in the kriged Tunu-N surface compared to those interpolated from 
+    NASA-U layer 1 (Figure 14). The absence of NASA-U layer 2 in the snow pit 
+    stratigraphy and its discontinuity in the GPR data, furthermore, suggest that 
+    this layer may be the result of percolation and refreezing from a previous 
+    melt event. Such a layer would not have been shaped by wind, therefore, and 
+    could also be expected to portray the relatively homogenous spatial patterns 
+    shown in Figure 14e.</p>
+  <hr>
+  <p><b><a name="discussion" id="discussion"></a><font face="Arial, Helvetica, sans-serif">4. 
+    DISCUSSION</font></b></p>
+  <p>The purpose of the present study was to determine <strong>snow accumulation 
+    variability</strong> at the local-scale at two sites in the accumulation zone 
+    of the Greenland ice sheet. An estimate of this variability was made possible 
+    by conducting 100-m by 100-m GPR surveys, which can detect the presence of 
+    stratigraphic layers through the electromagnetic contrast of differing snow-crystal 
+    grain sizes in the subsurface caused by a variety of factors previously described, 
+    most notably the presence of hoar frost that sometimes develops after the 
+    onset of warmer temperatures during the summer months. Current maps of accumulation 
+    on the Greenland ice sheet (Ohmura and Reeh, 1991; Bales<em> et al.</em>, 
+    2001) are compilations of points measurements (e.g. ice cores, manual probes, 
+    snow pits). Having an estimate for the spatial variability of snow accumulation 
+    can help determine how representative such point measurements are for their 
+    respective regions, thereby ultimately characterizing the magnitude of error 
+    bars or standard deviations that should be attached to the available accumulation 
+    maps.</p>
+  <p>The results of the current study can begin to address these concerns for 
+    at least two widely separated locations on Greenland: Tunu-N and NASA-U. The 
+    results suggest that spatial variability in the depth of stratigraphic layers 
+    at these two sites&#8212;and thereby the surface roughness of these layers&#8212;is 
+    on the order of <strong>&plusmn;10 cm (1 S.D.)</strong>, with a range extending 
+    to as much as <strong>&plusmn;35 cm</strong>. Given that Tunu-N has on average 
+    about 100-150 mm&middot;yr<sup>-1</sup> of snow water equivalent (SWE) (Bales 
+    <em>et al.</em>, 2001), or about 40 cm of snow in terms of depth, this means 
+    that a point estimate of accumulation at Tunu-N for a given year would have 
+    an expected error of &plusmn;25% but could be off by as much as &plusmn;88%. 
+    NASA-U, on the other hand, gets about 200-300 mm&middot;yr<sup>-1</sup> of 
+    SWE on average (Bales<em> et al.</em>, 2001), or about 75 cm of snow in terms 
+    of depth, which means a point estimate would have about half the expected 
+    error of Tunu-N (&plusmn;13%) and a lower range in error (&plusmn;47%). Interestingly, 
+    the magnitude of these errors agrees well with the estimated error of 20-25% 
+    reported for the available accumulation maps (Ohmura and Reeh, 1991; Bales 
+    <em>et al.</em>, 2001; Cogley, 2004). The current study only surveys two sites, 
+    however, and how well these data represent other regions on the Greenland 
+    ice sheet can only be investigated through additional GPR surveys in the future. 
+  </p>
+  <p>In comparing the Tunu-N and NASA-U results, it is apparent in the orthogonal 
+    visualizations of Figure 14 that the surface features in the Tunu-N layer 
+    have a clear orientation (Figure 14a) while those of the NASA-U layers have 
+    little-to-no organized spatial pattern (Figure 14c,e). As previously suggested, 
+    this could be the result of the relative amount of time that these layers 
+    were left uncovered by new snow and exposed to the winds, and the likelihood 
+    that NASA-U layer 2 is a discontinuous ice layer formed by percolation and 
+    refreezing of melt water. The Tunu-N layer was an exposed surface for ~42 
+    days, allowing the wind to carve features and form <strong>dunes</strong> 
+    into that surface that align perpendicular to the prevailing wind direction 
+    as do sand dunes. NASA-U layer 1, on the other hand, may not have been exposed 
+    long enough to significantly express these features before they were superimposed 
+    by new snow, which can help explain the lack of any obvious orientation or 
+    dominant spatial pattern. Because the wind speed was nearly equivalent at 
+    both sites at the time of layer formation (~5 m&middot;s<sup>-1</sup>), the 
+    strength of the wind cannot also be used as an argument as to why surface 
+    features are better expressed at one site compared to another.</p>
+  <p>Another possible partial explanation for the homogeneity of the NASA-U layers 
+    is the greater difficulty of identifying layers within the NASA-U GPR data 
+    compared to Tunu-N. NASA-U layer 1 was at a mean depth of 49.92 &plusmn; 7.42 
+    cm, placing it at the edge of the instrument&#8217;s near-field zone. Recall 
+    from the introduction that the near-field zone of a GPR instrument is a region 
+    of high distortion that occurs in the data from the surface down to a depth 
+    of ~1.5 times the transmitter frequency, when the radar signal is still in 
+    the process of coupling with the subsurface. Since these data were collected 
+    at a frequency of 1000 MHz, which corresponds to a wavelength of ~30 cm, this 
+    near-field zone extends to a depth of about 45 cm. In short, it was difficult 
+    to ascertain the depth of layer 1 along several sectors of the GPR survey 
+    grid. In addition, NASA-U layer 2 was deep enough (302.21 &plusmn; 11.32 cm) 
+    that the signal had become quite faint (recall that radar amplitude decreases 
+    exponentially with depth). Even after applying a depth-varying gain filter 
+    to the data, layer 2 was also intermittently difficult to digitize because 
+    of high levels of noise and discontinuity. For each of these reasons, there 
+    is less confidence in the digitized layers at NASA-U and this may partially 
+    explain the lack of obvious surface patterns.</p>
+  <p>The GPR surveys described in the current study were conducted as <strong>pilot 
+    studies</strong> to investigate the feasibility of assessing spatial variability 
+    in snow accumulation on the Greenland ice sheet. As previously described, 
+    software tools were developed to enable the processing and analysis of these 
+    and future GPR data. The results of this study show that it is indeed feasible 
+    to measure spatial variability in snow accumulation at the local scale and 
+    at relatively shallow depths using high-resolution GPR. However, the greatest 
+    strength of these GPR data (high-resolution) can also be interpreted as their 
+    greatest weakness (high levels of noise). Even after our best filtering attempts, 
+    the remaining presence of noise, prevalence of echoes (at times overlapping 
+    echoes from distinct reflection horizons), the near-field distortion zone, 
+    and exponential loss of signal with depth all challenge the accurate identification 
+    of and absolute depth measurement of stratigraphic layers within the subsurface. 
+    Future efforts could likely benefit from more advanced signal processing to 
+    help further alleviate some of these problems; use of a broadband, continuous-wave 
+    radar such as FMCW would also be worth investigating for comparison against 
+    the single-frequency, pulsed radar methodology employed in the present study. 
+    Complexity in the subsurface stratigraphy (e.g. discontinuous layers; significant 
+    layers from sources other than annual hoar frost such as melt percolation, 
+    ice lenses, and/or wind compaction) can also make interpretation of the GPR 
+    radargram difficult, and the acquisition of manual snow pit stratigraphy and/or 
+    other data such as AWS snow-height and wind data are practically a necessity. 
+  </p>
+  <p>Although similar studies have been conducted with GPR on glaciers in Svalbard 
+    and on the Antarctic ice sheet also for the purposes of assessing snow accumulation 
+    variability (as described in the introduction), this is the first such study 
+    collected on Greenland. Previous studies have also focused mostly on assessing 
+    variability over long transects (&gt; 1 km) rather than on acquiring a survey 
+    grid that could then be used to generate a three-dimensional surface for assessing 
+    local-scale spatial patterns. Most of these previous studies also employ lower 
+    antenna frequencies (e.g. 250-500 MHz), which aim at assessing cumulative 
+    features at greater depths rather than on identifying individual stratigraphic 
+    layers in the shallow subsurface, which requires greater resolution. The message 
+    of all of the previous studies as well as the current one, however, is that 
+    <strong>spatial variability can and often plays an important role in the snow 
+    accumulation of glaciers and ice sheets</strong>, even where there is apparently 
+    flat terrain. Whereas point measurements have been frequently and predominantly 
+    employed for assessing accumulation on glaciers and ice sheets and spaceborne 
+    methods such as scatterometry are also beginning to be developed for monitoring 
+    accumulation (Drinkwater <em>et al.</em>, 2001; Nghiem <em>et al.</em>, 2005), 
+    it is important that we assess how accurately these measurements are representative 
+    of wider regions. GPR is a useful tool for accomplishing this, as has been 
+    demonstrated by the current study.</p>
+  <p><em>~ end ~</em></p>
+</blockquote>
+<ul>
+  <li><a href="appendixa.html">Click here for Appendix A</a>.</li>
+  <li><a href="appendixb.html">Click here for Appendix B</a>.</li>
+</ul>
+<blockquote> 
+  <p><a href="#" onClick="window.scrollTo( 0, 0 ); this.blur(); return false;">top of page</a></p>
+  <p><strong>Acknowledgements:</strong> This research has been funded by <a href="http://www.nasa.gov" target="_blank">NASA</a> 
+    (NAG5-10857) as part of the Greenland Climate Network (<a href="http://cires.colorado.edu/steffen/gcnet/" target="_blank">GC-Net</a>) 
+    and the Program for Arctic Regional Climate Assessment (<a href="http://cires.colorado.edu/science/pro/parca/" target="_blank">PARCA</a>). 
+    The author would like to thank <a href="http://en.wikipedia.org/wiki/Konrad_Steffen" target="_blank">Konrad 
+    Steffen</a> and Russell Huff for collecting the GPR data used in this study. 
+    The author would also like to express his deepest gratitude to Konrad Steffen 
+    for his constant assistance and patience throughout the duration of this project 
+    and to Kasey E. Barton for her support and feedback. Thanks also to <a href="http://cires.colorado.edu/~knowlesk/" target="_blank">Ken 
+    Knowles</a> for his Software Construction Workshop at the National Snow and 
+    Ice Data Center (<a href="http://nsidc.org" target="_blank">NSIDC</a>) and 
+    for constructive criticism on the programs written for this project, and to 
+    <a href="http://nsidc.org/antarctica/megadunes/research_team.html" target="_blank">Ted 
+    Scambos</a> for relating his GPR experiences from Antarctica. </p>
+  <hr>
+  <p><b><a name="references"></a><font face="Arial, Helvetica, sans-serif">5. 
+    REFERENCES</font></b></p>
+</blockquote>
+<ul>
+  <li> Abdalati, W. and K. Steffen (2001), Greenland ice sheet melt extent: 1979-1999. 
+    <em>Journal of Geophysical Research</em>. 106(D24): 33983-33989.</li>
+  <li>Albert, M., G. Koh, and F. Perron (1999), Radar investigations of melt pathways 
+    in a natural snowpack. <em>Hydrological Processes</em>. 13(18): 2991-3000.</li>
+  <li>Arcone, S.A. (1996), High resolution of glacial ice stratigraphy: A ground-penetrating 
+    radar study of Pegasus Runway, McMurdo Station, Antarctica. <em>Geophysics</em>. 
+    61(6): 1653-1663.</li>
+  <li>Bales, R.C., J.R. McConnell, E. Mosley-Thompson, and B. Csatho (2001), Accumulation 
+    over the Greenland ice sheet from historical and recent records. <em>Journal 
+    of Geophysical Research</em>. 106(D24): 33,813-33,826.</li>
+  <li>Cogley, J.G. (2004), Greenland accumulation: An error model. <em>Journal 
+    of Geophysical Research</em>. 109, D18101, doi:10.1029/2003JD004449.</li>
+  <li>Conyers, L. B. and D. Goodman (1997), <em>Ground-Penetrating Radar: an Introduction 
+    for Archeologists</em>. Walnut Creek, CA: AltaMira Press. 232 pp.</li>
+  <li>Cuffey, K.M. and S.J. Marshall (2000), Substantial contribution to sea-level 
+    rise during the last interglacial from the Greenland ice sheet. <em>Nature</em>. 
+    404: 591-594.</li>
+  <li>Delaney, A.J., S.A. Arcone, and J.H. Rand (1999), Radar investigations of 
+    proposed utilidor sites at South Pole Station. <em>CRREL Special Report </em>99-10. 
+    7 pp.</li>
+  <li>Delaney, A.J. and S.A. Arcone (1995), Detection of crevasses near McMurdo 
+    Station, Antarctica with airborne short-pulse radar. <em>CRREL Special Report</em> 
+    95-7. 12 pp.</li>
+  <li>Drinkwater, M.R., D.G. Long, and A.W. Bingham (2001), Greenland snow accumulation 
+    estimates from satellite radar scatterometer data. <em>Journal of Geophysical 
+    Research</em>. 106(D24): 33,935-33,950.</li>
+  <li>Eisen, O., U. Nixdorf, L. Keck, and D. Wagenbach (2003a), Alpine ice cores 
+    and ground penetrating radar: combined investigations for glaciological and 
+    climatic interpretations of a cold Alpine ice body. <em>Tellus</em>. 55B(5): 
+    1,007-1,017.</li>
+  <li>Eisen, O., F. Wilhelms, U. Nixdorf, and H. Miller (2003b), Identifying isochrones 
+    in GPR profiles from DEP-based forward modeling. <em>Annals of Glaciology</em>. 
+    37: 344-350.</li>
+  <li>Engeset, R.V. and R.S. &Oslash;deg&aring;rd (1999), Comparison of annual 
+    changes in winter ERS-1 SAR images and glacier mass balance of Slakbreen, 
+    Svalbard. <em>International Journal of Remote Sensing</em>. 20(2): 259-271.</li>
+  <li>Frezzotti, M., M. Pourchet, O. Flora, S. Gandolfi, M. Gay, S. Urbini, C. 
+    Vincent, S. Becagli, R. Gragnani, M. Proposito, M. Severi, R. Traversi, R. 
+    Udisti, and M. Fily (2004), New estimations of precipitation and surface sublimation 
+    in East Antarctica from snow accumulation measurements. <em>Climate Dynamics</em>. 
+    23: 803-813.</li>
+  <li>Gruber, S. and F. Ludwig (1996), Application of ground penetrating radar 
+    in glaciology and permafrost prospecting. <a href="http://www.ulapland.fi/home/hkunta/jmoore/gpr_cryo.pdf" target="_blank">http://www.ulapland.fi/home/hkunta/jmoore/gpr_cryo.pdf</a>.</li>
+  <li>Hanna, E., P. Huybrechts, I. Janssens, J. Cappelen, K. Steffen, and A. Stephens 
+    (2005), Runoff and mass balance of the Greenland ice sheet: 1958-2003. <em>Journal 
+    of Geophysical Research</em>. 110, D13108, doi:10.1029/2004JD005641.</li>
+  <li>Judge, A.S., C.M. Tucker, J.A. Pilon and B.J. Moorman (1991), Remote sensing 
+    of permafrost by ground-penetrating radar at two airports in Arctic Canada. 
+    <em>Arctic</em>. 44, Supplement 1: 40-48.</li>
+  <li>Kanagaratnam, P., S. P. Gogineni, V. Ramasami, and D. Braaten (2004), A 
+    wideband radar for high-resolution mapping of near-surface internal layers 
+    in glacial ice. <em>IEEE Transactions on Geoscience and Remote Sensing</em>. 
+    42(3): 483-490.</li>
+  <li>King, J.C., P.S. Anderson, D.G. Vaughan, G.W. Mann, S.D. Mobbs, and S.B. 
+    Vosper (2004), Wind-borne redistribution of snow across an Antarctic ice rise.<em> 
+    Journal of Geophysical Research</em>. 109, D11104, doi:10.1029/2003JD004361.</li>
+  <li>Marchand, W.-D. and A. Killingtveit (2005), Statistical probability distribution 
+    of snow depth at the model sub-grid cell spatial scale. <em>Hydrological Processes</em>. 
+    19: 355-369.</li>
+  <li>Marchand, W.-D., O. Bruland, and A. Killingtveit (2001), Improved measurements 
+    and analysis of spatial snow cover by combining a ground based radar system 
+    with a differential global positioning system receiver. <em>Nordic Hydrology</em>. 
+    32(3): 181-194.</li>
+  <li>M&auml;tzler, C. (1996), Microwave permittivity of dry snow. <em>IEEE Transactions 
+    on Geoscience and Remote Sensing</em>. 34(2): 573-581.</li>
+  <li>Mosley-Thompson, E., J.R. McConnell, R.C. Bales, P.-N. Lin, K. Steffen, 
+    L.G. Thompson, R.Edwards, and D. Bathke (2001), Local to regional-scale variability 
+    of annual net accumulation on the Greenland ice sheet from PARCA cores. <em>Journal 
+    of Geophysical Research</em>. 106(D24): 33,839-33,851.</li>
+  <li>Nghiem, S.V., K. Steffen, G. Neumann, and R. Huff (2005), Mapping of ice 
+    layer extent and snow accumulation in the percolation zone of the Greenland 
+    ice sheet. <em>Journal of Geophysical Research</em>. 110, F02017, doi:10.1029/2004JF000234.</li>
+  <li>Nicholls, R.J. (2002), Rising sea levels: potential impacts and responses. 
+    <em>Issues in Environmental Science and Technology</em>. 17: 83-107.</li>
+  <li>Ohmura, A. and N. Reeh (1991), New precipitation and accumulation maps for 
+    Greenland. <em>Journal of Glaciology</em>. 37(125): 140-148.</li>
+  <li>&Oslash;strem, G. and M. Bruggman (1991), Glacier mass-balance measurements: 
+    a manual for field and office work. Environment Canada, National Hydrology 
+    Research Institute, and Norwegian Water Resources and Energy Admin. Science 
+    Rep. 4. 224 pp.</li>
+  <li>P&auml;lli, A., J.C. Moore, and C. Rolstad (2003), Firn-ice transition-zone 
+    features of four polythermal glaciers in Svalbard seen by ground-penetrating 
+    radar. <em>Annals of Glaciology</em>. 37: 298-304.</li>
+  <li>P&auml;lli, A., J.C. Kohler, E. Isaksson, J.C. Moore, J.F. Pinglot, V.A.Pohjola, 
+    and H. Samuelsson (2002), Spatial and temporal variability of snow accumulation 
+    using ground-penetrating radar and ice cores on a Svalbard glacier. <em>Journal 
+    of Glaciology</em>. 48(162): 417-424.</li>
+  <li>Pettersson, R. and P. Jansson (2004), Spatial variability in water content 
+    at the cold-temperate transition surface of the polythermal Storglaci&auml;ren, 
+    Sweden. <em>Journal of Geophysical Research</em>. 109, F02009, doi:10.1029/2003JF000110.</li>
+  <li>Pinglot, J.F., J.O. Hagen, K. Melvold, T. Eiken, and C. Vincent (2001), 
+    A mean net accumulation pattern derived from radioactive layers and radar 
+    soundings on Austfonna, Nordaustlandet, Svalbard. <em>Journal of Glaciology</em>. 
+    47(159): 555-566.</li>
+  <li>Plewes, L.A. and B. Hubbard (2001), A review of the use of radio-echo sounding 
+    in glaciology. <em>Progress in Physical Geography</em>. 25(2): 203-236.</li>
+  <li>Richardson, C. and P. Holmlund (1999), Spatial variability at shallow snow-layer 
+    depths in central Dronning Maud Land, East Antarctica. <em>Annals of Glaciology</em>. 
+    29: 10-16.</li>
+  <li>Richardson, C., E. Aarholt, S.-E. Hamran, P. Holmlund, and E. Isaksson (1997), 
+    Spatial distribution of snow in western Dronning Maud Land, East Antarctica, 
+    mapped by a ground-based snow radar. <em>Journal of Geophysical Research</em>. 
+    102(B9): 20,343-20,353.</li>
+  <li>Sand, K., J.-G. Winther, D. Mar&eacute;chal, O. Bruland, and K. Melvold 
+    (2003), Regional variations of snow accumulation on Spitsbergen, Svalbard, 
+    1997-99. <em>Nordic Hydrology</em>. 34(1/2): 17-32.</li>
+  <li>Schwartz, P. and D. Randall (2003), An abrupt climate change scenario and 
+    its implications for United States national security. Report prepared by Global 
+    Business Network (GBN) for the U.S. Department of Defense. <a href="http://www.gbn.org/ArticleDisplayServlet.srv?aid=26231" target="_blank">http://www.gbn.org/ArticleDisplayServlet.srv?aid=26231</a>.</li>
+  <li>Siegert, M.J. (1999), On the origin, nature and uses of Antarctic ice-sheet 
+    radio-echo layering. <em>Progress in Physical Geography</em>. 23(2): 159-179.</li>
+  <li>Small, C. and R.J. Nicholls (2003), A global analysis of human settlement 
+    in coastal zones. <em>Journal of Coastal Research</em>. 19(3): 584-599.</li>
+  <li>Steffen, K., J.E. Box, and W. Abdalati (1996), &#8220;Greenland Climate 
+    Network: GC-Net&#8221;, in Colbeck, S.C. Ed. <em>CRREL 96-27 Special Report 
+    on Glaciers, Ice Sheets and Volcanoes</em>, trib. to M. Meier: 98-103.</li>
+  <li>Steffen, K. and J.E. Box (2001), Surface climatology of the Greenland ice 
+    sheet: Greenland climate network 1995-1999. <em>Journal of Geophysical Research</em>. 
+    106(D24): 33,951-33,964.</li>
+  <li>Steffen, K. and R. Huff (2003), Greenland maximum melt extent. <a href="http://cires.colorado.edu/steffen/melt" target="_blank">http://cires.colorado.edu/steffen/melt</a>. 
+    Accessed on 13 February 2006.</li>
+  <li>Thompson, S.L. and D. Pollard (1997), Greenland and Antarctic mass balances 
+    for present and doubled atmospheric C02 from the GENESIS version-2 global 
+    climate model. <em>Journal of Climate</em>. 10: 871-900.</li>
+  <li>van der Veen, C.J., D.H. Bromwich, B.M. Csatho, and C. Kim (2001), Trend 
+    surface analysis of Greenland accumulation. <em>Journal of Geophysical Research</em>. 
+    106(D24): 33,909-33,918.</li>
+  <li>Vaughan, D.G., H.F.J. Corr, C.S.M. Doake, and E.D. Waddington (1999), Distortion 
+    of isochronous layers in ice revealed by ground-penetrating radar. <em>Nature</em>. 
+    398: 323-326.</li>
+  <li>Walford, M.E.R. (1964), Radio-echo sounding through an ice shelf. <em>Nature</em>. 
+    204: 317-319.</li>
+  <li>Welch, B.C., W.T. Pfeffer, J.T. Harper and N.F. Humphrey (1998), Mapping 
+    subglacial surfaces of temperate valley glaciers by two-pass migration of 
+    radio-echo sounding survey data. <em>Journal of Glaciology</em>. 44: 164-170.</li>
+  <li>Wild, M. and A. Ohmura (2000), Changes in mass balance of the polar ice 
+    sheets and sea level under greenhouse warming as projected in high resolution 
+    GCM simulations. <em>Annals of Glaciology</em>. 30: 197-203.</li>
+  <li>Winebrenner, D.P., B.E. Smith, G.A. Catania, H.B. Conway, and C.F. Raymond 
+    (2003), Radio-frequency attenuation between Siple Dome, West Antarctica, from 
+    wide-angle and profiling radar observations. <em>Annals of Glaciology</em>. 
+    37: 226-232.</li>
+  <li>Winther, J.-G., O. Bruland, K. Sand, &Aring;. Killingtveit, and D. Marechal 
+    (1998), Snow accumulation distribution on Spitsbergen, Svalbard, in 1997. 
+    <em>Polar Research</em>. 17(2): 155-164.</li>
+  <li>Wu T., S. Li, G. Cheng and Z. Nan (2005), Using ground-penetrating radar 
+    to detect permafrost degradation in the northern limit of permafrost on the 
+    Tibetan Plateau. <em>Cold Regions Science and Technology</em>. 41: 211-219.</li>
+  <li>Zwally, H.J. (1989), Growth of Greenland Ice Sheet: interpretation. <em>Science</em>. 
+    246: 1,589-1,591.</li>
+  <li>Zwally, H.J., W. Abdalati, T. Herring, K. Larson, J. Saba, and K. Steffen 
+    (2002), Surface melt-induced acceleration of Greenland ice-sheet flow. <em>Science</em>. 
+    297: 218-222.</li>
+</ul>
+<blockquote> 
+  <p><a href="#" onClick="window.scrollTo( 0, 0 ); this.blur(); return false;">top of page</a></p>
+  <hr>
+  <p><b><a name="appendixa" id="appendixa"></a><font face="Arial, Helvetica, sans-serif">Appendix 
+    A. DATA PROCESSING INSTRUCTIONS</font></b></p>
+  <p><a href="appendixa.html">Click here for Appendix A</a>.</p>
+  <hr>
+  <p><b><a name="appendixb" id="appendixb"></a><font face="Arial, Helvetica, sans-serif">Appendix 
+    B. PROGRAM DOCUMENTATION AND INSTALLATION INSTRUCTIONS</font></b></p>
+  <p><a href="appendixb.html">Click here for Appendix B</a>.</p>
+  <hr>
+  <p align="center"> <a href="#" onClick="window.scrollTo( 0, 0 ); this.blur(); return false;">Top of page</a> &bull; <a href="#intro">Introduction</a> 
+    &bull; <a href="#methods">Methods</a> &bull; <a href="#results">Results</a> &bull; <a href="#discussion">Discussion</a> 
+    &bull; <a href="#references">References<br>
+    </a>Appendix A. <a href="appendixa.html">Data Processing Instructions</a> 
+    &bull; Appendix B. <a href="appendixb.html">Program Documentation and Installation 
+    Instructions</a></p>
+  <p align="center">&copy; 2006, 
+    <!--#include virtual="../ssi/footer.ssi" -->
+  </p>
+</blockquote>
+<!--#include virtual="../ssi/google_analytics.ssi" -->
+</body>
+</html>

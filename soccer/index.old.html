@@ -1,0 +1,722 @@
+<html>
+
+<head>
+
+<title>World Soccer 411</title>
+
+<link rel="icon" type="img/ico" href="favicon.ico">
+
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Lobster|Roboto:900|Roboto:400&effect=outline">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+
+<style>
+body {
+  font-family: 'Roboto', sans-serif;
+  /*background-image: url( 'images/soccer_bg_dreamstime_s_31595734.jpg' );*/
+  background-color: #f1f9f7;
+}
+h2 {
+  font-family: 'Lobster', cursive;
+  font-weight: bolder;
+  text-shadow: 2px 2px 2px lightgray;
+  font-size: 48px;
+}
+h3 {
+  font-family: 'Lobster', cursive;
+  text-shadow: 1px 1px 1px lightgray;
+  font-size: 42px;
+  letter-spacing: 3px;
+}
+h4 {
+  font-family: 'Roboto', sans-serif;
+  font-size: 20px;
+  font-weight: 900;
+}
+p {
+  font-size: 14px;
+  margin: 2px;
+  padding: 2px;
+}
+.flag {
+  border: 1px solid lightgray;
+}
+.elements {
+  overflow-y: auto;
+  margin-top: 105px;
+  background-color: #f1f9f7;
+}
+.element {
+  border: 1px solid lightgray;
+  box-shadow: 5px 5px 10px lightgray;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  margin-bottom: 20px;
+  cursor: pointer;
+  background-color: white;
+}
+.element:hover {
+  border: 1px solid gray;
+  box-shadow: 5px 5px 10px gray;
+}
+.element h4 {
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+}
+.element table {
+  border-spacing: 14px;
+  border-collapse: separate;
+}
+.element td {
+  padding: 4px 14px 14px 14px;
+}
+.team_logo {
+  padding: 14px 14px 24px 14px;
+}
+.map_button a {
+  color: lightgray;
+}
+.map_button a:hover {
+  color: gray;
+}
+/*
+Recreate Google GeoChart tooltip style
+even though we have our own via isHTML:
+*/
+
+/*
+.google-visualization-tooltip {
+  border:solid 1px #000!important;
+  border-radius: 2px;
+  background-color: white;
+  position: absolute;
+  font-size: 12px;
+  padding: 0px;
+    margin:0!important;
+}
+.google-visualization-tooltip-item-list {
+  list-style-type: none;
+  margin: 0!important;
+  padding: 0!important;
+}
+
+.google-visualization-tooltip-item:first-child {
+  margin: 0!important;
+}
+.google-visualization-tooltip-item {
+  margin: 0!important;
+  padding: 0!important;
+}
+*/
+
+/*
+Create CSS3 paper curl effect:
+Source: http://www.sitepoint.com/pure-css3-paper-curls/
+*/
+
+.paper-curl {
+  position: relative;
+  /*width: 500px;*/
+  padding: 25px;
+  margin: 0 auto;
+  background-color: #fff;
+  -webkit-box-shadow: 0 0 4px rgba(0, 0, 0, 0.2), inset 0 0 50px rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 0 0 4px rgba(0, 0, 0, 0.2), inset 0 0 50px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2), inset 0 0 50px rgba(0, 0, 0, 0.1);
+}
+
+.paper-curl:before, .paper-curl:after {
+  position: absolute;
+  width: 40%;
+  height: 10px;
+  content: ' ';
+  left: 12px;
+  bottom: 12px;
+  background: transparent;
+  -webkit-transform: skew(-5deg) rotate(-5deg);
+  -moz-transform: skew(-5deg) rotate(-5deg);
+  -ms-transform: skew(-5deg) rotate(-5deg);
+  -o-transform: skew(-5deg) rotate(-5deg);
+  transform: skew(-5deg) rotate(-5deg);
+  -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+  z-index: -1;
+}
+
+.paper-curl:after {
+  left: auto;
+  right: 12px;
+  -webkit-transform: skew(5deg) rotate(5deg);
+  -moz-transform: skew(5deg) rotate(5deg);
+  -ms-transform: skew(5deg) rotate(5deg);
+  -o-transform: skew(5deg) rotate(5deg);
+  transform: skew(5deg) rotate(5deg);
+}
+
+</style>
+
+<script type="text/javascript">
+
+google.load("visualization", "1", {packages:["geochart"]});
+google.setOnLoadCallback(drawMap);
+
+var countries;
+
+var data;
+var options;
+var geochart;
+var displayed_teams_div;
+
+// Unique colors for each country soccer league on homepage:
+
+var country_colors = [ '#a6cee3', '#fdbf6f', '#b2df8a', '#1f78b4', '#fb9a99', '#e31a1c', '#ff7f00', '#33a02c', '#cab2d6'];
+
+// Make sure GeoChart markers are always on top of buttons:
+
+function drawMap() {
+
+  scrollToPageTop( 'elements' );
+
+  data = google.visualization.arrayToDataTable([
+    ['Country', 'Ranking', {'role': 'tooltip', 'p': {'html': true}}],
+    ['Argentina', 0, '<table><tr style="white-space: nowrap;"><td><p><font size="+1"><b>Primera Divisi&oacute;n</b></font></p><p>Argentina</p><p>Founded: 1891</p><p>Season: Feb - Dec</p><p>2015 champ: <i>Boca Juniors</i></p></td><td><img src="http://vignette4.wikia.nocookie.net/the-football-database/images/e/e1/Argentine_Primera_Division.png/revision/latest/scale-to-width-down/100?cb=20140605112657" /></td></tr></table>'],
+    ['Brazil', 1, '<table><tr style="white-space: nowrap;"><td><p><font size="+1"><b>Brasileir&atilde;o</b></font></p><p>Brazil</p><p>Founded: 1959</p><p>Season: May - Dec</p><p>2015 champ: <i>Corinthians</i></p></td><td><img src="https://upload.wikimedia.org/wikipedia/en/4/40/Brasileir%C3%A3o_logo.png" width="125" /></td></tr></table>'],
+    ['United Kingdom', 2, '<table><tr style="white-space: nowrap;"><td><p><font size="+1"><b>English Premier League</b></font></p><p>England (and Wales)</p><p>Founded: 1992</p><p>Season: Aug - May</p><p>2014-2015 champ: <i>Chelsea FC</i></p></td><td><img src="https://upload.wikimedia.org/wikipedia/en/thumb/5/5a/Premier_League.svg/60px-Premier_League.svg.png" /></td></tr></table>'],
+    ['Germany', 3, '<table><tr style="white-space: nowrap;"><td><p><font size="+1"><b>Bundesliga</b></font></p><p>Germany</p><p>Founded: 1963</p><p>Season: Aug - May</p><p>2014-2015 champ: <i>Bayern Munich</i></p></td><td><img src="https://upload.wikimedia.org/wikipedia/en/thumb/1/15/Bundesliga_logo.svg/80px-Bundesliga_logo.svg.png" /></td></tr></table>'],
+    ['Italy', 4, '<table><tr style="white-space: nowrap;"><td><p><font size="+1"><b>Serie A</b></font></p><p>Italy</p><p>Founded: 1898</p><p>Season: Aug - May</p><p>2014-2015 champ: <i>Juventus</i></p></td><td><img src="https://upload.wikimedia.org/wikipedia/en/thumb/f/f7/LegaSerieAlogoTIM.png/60px-LegaSerieAlogoTIM.png" /></td></tr></table>'],
+    ['Mexico', 5, '<table><tr style="white-space: nowrap;"><td><p><font size="+1"><b>Liga MX</b></font></p><p>Mexico</p><p>Founded: 1943</p><p>Torneo Apertura: Jul - Nov</p><p>Torneo Clausura: Jan - May</p><p>2015 champ (Apertura): <i>Tigres UANL</i></p></td><td><img src="https://upload.wikimedia.org/wikipedia/en/thumb/8/8f/Liga_MX.svg/75px-Liga_MX.svg.png" /></td></tr></table>'],
+    ['Netherlands', 6, '<table><tr style="white-space: nowrap;"><td><p><font size="+1"><b>Eredivisie</b></font></p><p>Netherlands</p><p>Founded: 1956</p><p>Season: Aug - May</p><p>2014-2015 champ: <i>PSV Eindhoven</i></p></td><td><img src="https://upload.wikimedia.org/wikipedia/en/thumb/1/1e/Eredivisie_logo.svg/98px-Eredivisie_logo.svg.png" /></td></tr></table>'],
+    ['Spain', 7, '<table><tr style="white-space: nowrap;"><td><p><font size="+1"><b>La Liga</b></font></p><p>Spain</p><p>Founded: 1929</p><p>Season: Aug - May</p><p>2014-2015 champ: <i>FC Barcelona</i></p></td><td><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/Liga_BBVA.svg/125px-Liga_BBVA.svg.png" /></td></tr></table>'],
+    ['United States of America', 8, '<table><tr style="white-space: nowrap;"><td><p><font size="+1"><b>Major League Soccer</b></font></p><p>United States of America</p><p>Founded: 1993</p><p>Season: Mar - Dec</p><p>2015 champ: <i>Portland Timbers</i></p></td><td><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/86/MLS_logo.svg/60px-MLS_logo.svg.png" /></td></tr></table>']
+  ]);
+
+  options = {
+    legend: 'none',
+    dataMode: 'regions' ,
+    //width: '556px',
+    //height: '347px' 
+    height: '100%',
+    width: '100%',
+    colorAxis: {
+      colors: country_colors
+      //colors: [ 'red', 'orange', 'yellow', 'green', 'blue', 'purple' ] 
+    },
+    tooltip: {
+      isHtml: true,
+      showTitle: false
+      //trigger: 'selection'
+    }
+    //backgroundColor: '#f0ffff',
+    //datalessRegionColor: '#ffffff'
+  };
+  //options['dataMode'] = 'regions';
+
+  var container = document.getElementById('map');
+  geochart = new google.visualization.GeoChart(container);
+
+  geochart.draw(data, options);
+
+  google.visualization.events.addListener(
+    geochart,
+    'select',
+    function () {
+      var selectedItem = geochart.getSelection()[ 0 ];
+      if ( selectedItem ) {
+        var country = data.getValue( selectedItem.row, 0 );
+        var league = data.getValue( selectedItem.row, 2 );
+        // FOR NOW:
+        league = 'Major League Soccer';
+        drawCountry( country, league );
+      }
+    }
+  );
+
+  defineLeagues();
+
+}; // drawMap()
+
+function defineLeagues () {
+
+  countries = {
+    'Argentina': {
+      'code': 'AR',
+      'color': '#a6cee3'
+    },
+    'Brazil': {
+      'code': 'BR',
+      'color': '#1f78b4'
+    },
+    'England': {
+      'code': 'GB',
+      'color': '#b2df8a'
+    },
+    'Germany': {
+      'code': 'DE',
+      'color': '#33a02c'
+    },
+    'Italy': {
+      'code': 'IT',
+      'color': '#fb9a99'
+    },
+    'Mexico': {
+      'code': 'MX',
+      'color': '#e31a1c'
+    },
+    'Netherlands': {
+      'code': 'NL',
+      'color': '#fdbf6f' 
+    },
+    'Spain': {
+      'code': 'ES',
+      'color': '#ff7f00'
+    },
+    'United Kingdom': {
+      'code': 'GB',
+      'color': '#b2df8a'
+    },
+    'United States of America': {
+      'code': 'US',
+      'ranking_year': '2015',
+      /*
+      Rankings: 2015 Supporters' Shield Standings:
+      http://www.mlssoccer.com/standings/supporters-shield
+      Modified for 2015 Champions (1-4). 
+      Sort by alphabetical team name; must match 'teams' order...
+      */
+      'data_TEMP': google.visualization.arrayToDataTable([
+        ['Latitude', 'Longitude', 'Ranking', {'role': 'tooltip', 'p': {'html': true}} ],
+        [41.836944, -87.684722, 1, '<table><tr style="white-space: nowrap;"><td><p><font size="+1"><b>Chicago Fire</b></font></p><p>Chicago, Illinois</p><p>Founded: 1997</p><p>2015 ranking: #20</p></td><td><img src="https://upload.wikimedia.org/wikipedia/en/thumb/8/84/Chicago_Fire_Soccer_Club.svg/75px-Chicago_Fire_Soccer_Club.svg.png" /></td></tr></table>'],
+        [39.76185, -104.881105, 3, '<table><tr style="white-space: nowrap;"><td><p><font size="+1"><b>Colorado Rapids</b></font></p><p>Denver, Colorado</p><p>Founded: 1995</p><p>2015 ranking: #18</p></td><td><img src="https://upload.wikimedia.org/wikipedia/en/thumb/2/2b/Colorado_Rapids_logo.svg/63px-Colorado_Rapids_logo.svg.png" /></td></tr></table>'],
+        [39.983333, -82.983333, 19, '<table><tr style="white-space: nowrap;"><td><p><font size="+1"><b>Columbus Crew SC</b></font></p><p>Columbus, Ohio</p><p>Founded: 1994</p><p>2015 ranking: #2</p></td><td><img src="https://upload.wikimedia.org/wikipedia/en/thumb/5/54/Columbus_Crew_SC_Logo.svg/75px-Columbus_Crew_SC_Logo.svg.png" /></td></tr></table>'],
+        [38.904722, -77.016389, 11, '<table><tr style="white-space: nowrap;"><td><p><font size="+1"><b>D.C. United</b></font></p><p>Washington, D.C.</p><p>Founded: 1995</p><p>2015 ranking: #10</p></td><td><img src="https://upload.wikimedia.org/wikipedia/en/thumb/d/d1/D.C._United_logo_2016.png/75px-D.C._United_logo_2016.png" /></td></tr></table>'], 
+        [32.775833, -96.796667, 17, '<table><tr style="white-space: nowrap;"><td><p><font size="+1"><b>FC Dallas</b></font></p><p>Dallas, Texas</p><p>Founded: 1995</p><p>2015 ranking: #4</p></td><td><img src="https://upload.wikimedia.org/wikipedia/en/thumb/c/c9/FC_Dallas_logo.svg/75px-FC_Dallas_logo.svg.png" /></td></tr></table>'],
+        [29.762778, -95.383056, 6, '<table><tr style="white-space: nowrap;"><td><p><font size="+1"><b>Houston Dynamo</b></font></p><p>Houston, Texas</p><p>Founded: 2005</p><p>2015 ranking: #15</p></td><td><img src="https://upload.wikimedia.org/wikipedia/en/thumb/0/0c/Houston_Dynamo_logo.svg/90px-Houston_Dynamo_logo.svg.png" /></td></tr></table>'],
+        [34.05, -118.25, 15, '<table><tr style="white-space: nowrap;"><td><p><font size="+1"><b>LA Galaxy</b></font></p><p>Los Angeles, California</p><p>Founded: 1995</p><p>2015 ranking: #6</p></td><td><img src="https://upload.wikimedia.org/wikipedia/en/thumb/7/70/Los_Angeles_Galaxy_logo.svg/70px-Los_Angeles_Galaxy_logo.svg.png" /></td></tr></table>'],
+        [45.5, -73.566667, 13, '<table><tr style="white-space: nowrap;"><td><p><font size="+1"><b>Montreal Impact</b></font></p><p>Montreal, Quebec, Canada</p><p>Founded: 2010</p><p>2015 ranking: #8</p></td><td><img src="https://upload.wikimedia.org/wikipedia/en/thumb/9/94/Montreal_Impact_%28MLS%29_logo.svg/75px-Montreal_Impact_%28MLS%29_logo.svg.png" /></td></tr></table>'],
+        [42.358056, -71.063611, 10, '<table><tr style="white-space: nowrap;"><td><p><font size="+1"><b>New England Revolution</b></font></p><p>Boston, Massachusetts</p><p>Founded: 1995</p><p>2015 ranking: #11</p></td><td><img src="https://upload.wikimedia.org/wikipedia/en/thumb/d/d6/New_England_Revolution_logo.svg/90px-New_England_Revolution_logo.svg.png" /></td></tr></table>'],
+        [40.7127, -74.0059, 4, '<table><tr style="white-space: nowrap;"><td><p><font size="+1"><b>New York City FC</b></font></p><p>New York, New York</p><p>Founded: 2013</p><p>2015 ranking: #17</p></td><td><img src="https://upload.wikimedia.org/wikipedia/en/thumb/f/f9/New_York_City_FC.svg/75px-New_York_City_FC.svg.png" /></td></tr></table>'],
+        [40.742957, -74.152912, 18, '<table><tr style="white-space: nowrap;"><td><p><font size="+1"><b>New York Red Bulls</b></font></p><p>Harrison, New Jersey</p><p>Founded: 1995</p><p>2015 ranking: #3</p></td><td><img src="https://upload.wikimedia.org/wikipedia/en/thumb/5/51/New_York_Red_Bulls_logo.svg/90px-New_York_Red_Bulls_logo.svg.png" /></td></tr></table>'],
+        [28.415833, -81.298889, 7, '<table><tr style="white-space: nowrap;"><td><p><font size="+1"><b>Orlando City SC</b></font></p><p>Orlando, Florida</p><p>Founded: 2013</p><p>2015 ranking: #14</p></td><td><img src="https://upload.wikimedia.org/wikipedia/en/thumb/6/6a/Orlando_City_2014.svg/75px-Orlando_City_2014.svg.png" /></td></tr></table>'],
+        [39.95, -75.166667, 2, '<table><tr style="white-space: nowrap;"><td><p><font size="+1"><b>Philadelphia Union</b></font></p><p>Philadelphia, Pennsylvania</p><p>Founded: 2008</p><p>2015 ranking: #19</p></td><td><img src="https://upload.wikimedia.org/wikipedia/en/thumb/3/3e/Philadelphia_Union_2010.svg/80px-Philadelphia_Union_2010.svg.png" /></td></tr></table>'],
+        [45.52, -122.681944, 20, '<table><tr style="white-space: nowrap;"><td><p><font size="+1"><b>Portland Timbers</b></font></p><p>Portland, Oregon</p><p>Founded: 2009</p><p>2015 ranking: #1</p></td><td><img src="https://upload.wikimedia.org/wikipedia/en/thumb/b/b2/Portland_Timbers_%28MLS%29_logo.svg/80px-Portland_Timbers_%28MLS%29_logo.svg.png" /></td></tr></table>'],
+        [40.75, -111.883333, 5, '<table><tr style="white-space: nowrap;"><td><p><font size="+1"><b>Real Salt Lake</b></font></p><p>Salt Lake City, Utah</p><p>Founded: 2004</p><p>2015 ranking: #16</p></td><td><img src="https://upload.wikimedia.org/wikipedia/en/thumb/5/54/Real_Salt_Lake_2010.svg/60px-Real_Salt_Lake_2010.svg.png" /></td></tr></table>'],
+        [37.333333, -121.9, 8, '<table><tr style="white-space: nowrap;"><td><p><font size="+1"><b>San Jose Earthquakes</b></font></p><p>San Jose, California</p><p>Founded: 1994</p><p>2015 ranking: #13</p></td><td><img src="https://upload.wikimedia.org/wikipedia/en/thumb/9/98/San_Jose_Earthquakes_2014.svg/75px-San_Jose_Earthquakes_2014.svg.png" /></td></tr></table>'],
+        [47.609722, -122.333056, 14, '<table><tr style="white-space: nowrap;"><td><p><font size="+1"><b>Seattle Sounders FC</b></font></p><p>Seattle, Washington</p><p>Founded: 2007</p><p>2015 ranking: #7</p></td><td><img src="https://upload.wikimedia.org/wikipedia/en/thumb/2/27/Seattle_Sounders_FC.svg/65px-Seattle_Sounders_FC.svg.png" /></td></tr></table>'],
+      [39.099722, -94.578333, 12, '<table><tr style="white-space: nowrap;"><td><p><font size="+1"><b>Sporting Kansas City</b></font></p><p>Kansas City, Missouri</p><p>Founded: 1995</p><p>2015 ranking: #9</p></td><td><img src="https://upload.wikimedia.org/wikipedia/en/thumb/1/18/Sporting_Kansas_City_2011.svg/75px-Sporting_Kansas_City_2011.svg.png" /></td></tr></table>'],
+        [43.7, -79.4, 9, '<table><tr style="white-space: nowrap;"><td><p><font size="+1"><b>Toronto FC</b></font></p><p>Toronto, Ontario, Canada</p><p>Founded: 2006</p><p>2015 ranking: #12</p></td><td><img src="https://upload.wikimedia.org/wikipedia/en/thumb/7/7c/Toronto_FC_Logo.svg/90px-Toronto_FC_Logo.svg.png" /></td></tr></table>'],
+        [49.25, -123.1, 16, '<table><tr style="white-space: nowrap;"><td><p><font size="+1"><b>Vancouver Whitecaps FC</b></font></p><p>Vancouver, British Columbia, Canada</p><p>Founded: 1974</p><p>2015 ranking: #5</p></td><td><img src="https://upload.wikimedia.org/wikipedia/en/thumb/5/5d/Vancouver_Whitecaps_FC_logo.svg/70px-Vancouver_Whitecaps_FC_logo.svg.png" /></td></tr></table>'],
+      ]),
+      'teams': {
+        'Chicago Fire': {
+          'logo': 'https://upload.wikimedia.org/wikipedia/en/thumb/8/84/Chicago_Fire_Soccer_Club.svg/150px-Chicago_Fire_Soccer_Club.svg.png'
+        },
+        'Colorado Rapids': {
+          'logo': 'https://upload.wikimedia.org/wikipedia/en/thumb/2/2b/Colorado_Rapids_logo.svg/125px-Colorado_Rapids_logo.svg.png'
+        },
+        'Columbus Crew SC': {
+          'logo': 'https://upload.wikimedia.org/wikipedia/en/thumb/5/54/Columbus_Crew_SC_Logo.svg/150px-Columbus_Crew_SC_Logo.svg.png'
+        },
+        'D.C. United': {
+          'logo': 'https://upload.wikimedia.org/wikipedia/en/thumb/d/d1/D.C._United_logo_2016.png/150px-D.C._United_logo_2016.png'
+        },
+        'FC Dallas': {
+          'logo': 'https://upload.wikimedia.org/wikipedia/en/thumb/c/c9/FC_Dallas_logo.svg/150px-FC_Dallas_logo.svg.png'
+        },
+        'Houston Dynamo': {
+          'logo': 'https://upload.wikimedia.org/wikipedia/en/thumb/0/0c/Houston_Dynamo_logo.svg/180px-Houston_Dynamo_logo.svg.png'
+        },
+        'LA Galaxy': {
+          'logo': 'https://upload.wikimedia.org/wikipedia/en/thumb/7/70/Los_Angeles_Galaxy_logo.svg/140px-Los_Angeles_Galaxy_logo.svg.png'
+        },
+        'Montreal Impact': {
+          'logo': 'https://upload.wikimedia.org/wikipedia/en/thumb/9/94/Montreal_Impact_%28MLS%29_logo.svg/150px-Montreal_Impact_%28MLS%29_logo.svg.png'
+        },
+        'New England Revolution': {
+          'logo': 'https://upload.wikimedia.org/wikipedia/en/thumb/d/d6/New_England_Revolution_logo.svg/180px-New_England_Revolution_logo.svg.png'
+        },
+        'New York City FC': {
+          'logo': 'https://upload.wikimedia.org/wikipedia/en/thumb/f/f9/New_York_City_FC.svg/150px-New_York_City_FC.svg.png'
+        },
+        'New York Red Bulls': {
+          'logo': 'https://upload.wikimedia.org/wikipedia/en/thumb/5/51/New_York_Red_Bulls_logo.svg/180px-New_York_Red_Bulls_logo.svg.png'
+        },
+        'Orlando City SC': {
+          'logo': 'https://upload.wikimedia.org/wikipedia/en/thumb/6/6a/Orlando_City_2014.svg/150px-Orlando_City_2014.svg.png'
+        },
+        'Philadelphia Union': {
+          'logo': 'https://upload.wikimedia.org/wikipedia/en/thumb/3/3e/Philadelphia_Union_2010.svg/160px-Philadelphia_Union_2010.svg.png'
+        },
+        'Portland Timbers': {
+          'logo': 'https://upload.wikimedia.org/wikipedia/en/thumb/b/b2/Portland_Timbers_%28MLS%29_logo.svg/160px-Portland_Timbers_%28MLS%29_logo.svg.png'
+        },
+        'Real Salt Lake': {
+          'logo': 'https://upload.wikimedia.org/wikipedia/en/thumb/5/54/Real_Salt_Lake_2010.svg/120px-Real_Salt_Lake_2010.svg.png'
+        },
+        'San Jose Earthquakes': {
+          'logo': 'https://upload.wikimedia.org/wikipedia/en/thumb/9/98/San_Jose_Earthquakes_2014.svg/150px-San_Jose_Earthquakes_2014.svg.png'
+        },
+        'Seattle Sounders FC': {
+          'logo': 'https://upload.wikimedia.org/wikipedia/en/thumb/2/27/Seattle_Sounders_FC.svg/130px-Seattle_Sounders_FC.svg.png'
+        },
+        'Sporting Kansas City': {
+          'logo': 'https://upload.wikimedia.org/wikipedia/en/thumb/1/18/Sporting_Kansas_City_2011.svg/150px-Sporting_Kansas_City_2011.svg.png'
+        },
+        'Toronto FC': {
+          'logo': 'https://upload.wikimedia.org/wikipedia/en/thumb/7/7c/Toronto_FC_Logo.svg/180px-Toronto_FC_Logo.svg.png'
+        },
+        'Vancouver Whitecaps FC': {
+          'logo': 'https://upload.wikimedia.org/wikipedia/en/thumb/5/5d/Vancouver_Whitecaps_FC_logo.svg/140px-Vancouver_Whitecaps_FC_logo.svg.png'
+        }
+      } // %teams
+    }
+  };
+
+} // defineLeagues()
+
+function drawCountry ( country, league ) {
+
+  if ( country ) {
+    var country_code = countries[ country ][ 'code' ];
+    $.ajax(
+      {
+        async: true,
+        url: country_code + '.json?v=4',
+        dataType: 'json',
+        success: function ( teams ) {
+          drawTeams( country, league, teams );
+        }
+      }
+    );
+    return;
+    var country_color = countries[ country ][ 'color' ];
+    var country_data = countries[ country ][ 'data' ];
+    options.region = country_code; 
+    options.displayMode = 'markers';
+    //options.legend = null;
+    //options.tooltip.isHtml = false;
+    //options.tooltip.showTitle = false;
+    options.resolution = 'provinces';
+    //options.colorAxis = { colors: [ 'blue', 'green', 'yellow', 'orange', 'red' ] };
+    options.colorAxis.colors = [ 'red', 'red' ]; // double color prevents light-dark shading
+    geochart.clearChart();
+    geochart.draw( country_data, options );
+
+    // Map buttons:
+
+    document.getElementById( 'element_button_img' ).src = 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/86/MLS_logo.svg/100px-MLS_logo.svg.png';
+    document.getElementById( 'element_button' ).style.display = '';
+    document.getElementById( 'flag_button_img' ).src = 'https://upload.wikimedia.org/wikipedia/en/thumb/a/a4/Flag_of_the_United_States.svg/100px-Flag_of_the_United_States.svg.png';
+    document.getElementById( 'flag_button' ).style.display = '';
+    document.getElementById( 'home_button' ).style.display = '';
+  }
+  else {
+    options.region = 'world';
+    options.resolution = 'countries';
+    options.displayMode = 'regions';
+    options.legend = 'none';
+    //options.tooltip.isHtml = true;
+    //options.tooltip.showTitle = true;
+    options.colorAxis.colors = country_colors;
+    //options.datalessRegionColor = null;
+    geochart.clearChart();
+    geochart.draw( data, options );
+    document.getElementById( 'element_button' ).style.display = 'none';
+    document.getElementById( 'flag_button' ).style.display = 'none';
+    document.getElementById( 'home_button' ).style.display = 'none';
+  }
+
+  listTeams( country, league );
+
+} // drawCountry()
+
+function drawTeams ( country, league, teams ) {
+
+  var country_code = countries[ country ][ 'code' ];
+  var ranking_year = countries[ country ][ 'ranking_year' ]; 
+
+  var all_teams_data = [
+    [ 'Latitude', 'Longitude', 'Ranking', { 'role': 'tooltip', 'p': { 'html': true } } ]
+  ];
+
+  var num_teams = Object.keys(teams).length;
+
+  for ( var team in teams ) {
+
+    // Compile the data and display properties for this team:
+ 
+    var city = teams[ team ][ 'city' ];
+    var latitude = teams[ team ][ 'latitude' ];
+    var longitude = teams[ team ][ 'longitude' ];
+    var logo = teams[ team ][ 'logo' ];
+    var founded = teams[ team ][ 'founded' ];
+    var ranking = teams[ team ][ 'ranking' ];
+
+    // Inverse of rank will determine size of marker on map (e.g. rank #1 out
+    // 20 teams would get an inverse ranking of 20):
+  
+    var ranking_inverse = num_teams - ranking + 1;
+
+    // Need small logo when hovering over marker icons on map:
+
+    var small_logo = '';
+
+    if ( logo.match( /wikimedia/ ) ) {
+      logo.match( /(\d+)px/ );
+      var logo_width_px = RegExp.$1; 
+      var small_logo_width_px = parseInt( logo_width_px * 0.5 );
+      small_logo = logo.replace( logo_width_px + 'px', small_logo_width_px + 'px' );
+      
+      // Pre-load this image so there is no lag when hovering over map:
+
+      var image = new Image();
+      image.src = small_logo;  
+    }
+
+    var team_data = [
+      latitude,
+      longitude,
+      ranking_inverse,
+      '<table><tr style="white-space: nowrap;"><td><p><font size="+1"><b>' + team + '</b></font></p><p>' + city + '</p><p>Founded: ' + founded + '</p><p>' + ranking_year + ' ranking: #' + ranking + '</p></td><td><img src="' + small_logo + '" /></td></tr></table>'
+    ];
+
+    all_teams_data.push( team_data );
+  }
+
+  all_teams_data = google.visualization.arrayToDataTable( all_teams_data );
+
+  // Display the teams on the map:
+
+  options.region = country_code;
+  options.displayMode = 'markers';
+  //options.legend = null;
+  //options.tooltip.isHtml = false;
+  //options.tooltip.showTitle = false;
+  options.resolution = 'provinces';
+  //options.colorAxis = { colors: [ 'blue', 'green', 'yellow', 'orange', 'red' ] };
+  options.colorAxis.colors = [ 'red', 'red' ]; // double color prevents light-dark shading
+  geochart.clearChart();
+  geochart.draw( all_teams_data, options );
+
+  // Add icons and buttons to the map:
+
+  document.getElementById( 'element_button_img' ).src = 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/86/MLS_logo.svg/100px-MLS_logo.svg.png';
+  document.getElementById( 'element_button' ).style.display = '';
+  document.getElementById( 'flag_button_img' ).src = 'https://upload.wikimedia.org/wikipedia/en/thumb/a/a4/Flag_of_the_United_States.svg/100px-Flag_of_the_United_States.svg.png';
+  document.getElementById( 'flag_button' ).style.display = '';
+  document.getElementById( 'home_button' ).style.display = '';
+
+} // drawTeams()
+ 
+function listTeams ( country, league ) {
+
+  if ( country ) {
+
+    document.getElementById( 'subheader' ).innerHTML = league + ':';
+    document.getElementById( 'elements' ).style.display = 'none';
+    var teams_div = 'elements_' + countries[ country ][ 'code' ];
+    displayed_teams_div = teams_div;
+
+    scrollToPageTop( teams_div );
+
+    var teams_html = '';
+    var teams = countries[ country ][ 'teams' ];
+
+    var i = 0;
+
+    for ( var team in teams ) {
+
+      var logo = teams[ team ][ 'logo' ]; 
+
+      teams_html += '<div class="element" onClick="" onMouseOver="geochart.setSelection( [ { row: ' + i + ' } ] );" onMouseOut="geochart.setSelection();">';
+      teams_html += '<h4>' + team + ':</h4>';
+      teams_html += '<img class="team_logo" src="' + logo + '" />';
+      teams_html += '</div>';
+
+      i++;
+    }
+
+    document.getElementById( teams_div ).innerHTML = teams_html;    
+    document.getElementById( teams_div ).style.display = '';
+  }
+  else {
+    if ( displayed_teams_div
+      && document.getElementById( displayed_teams_div ) ) {
+      document.getElementById( displayed_teams_div ).style.display = 'none';
+    }
+    document.getElementById( 'subheader' ).innerHTML = 'Soccer Leagues:';
+    scrollToPageTop( 'elements' );
+  }
+   
+} // listTeams()
+
+function scrollToPageTop ( div_id ) {
+
+  if ( div_id
+    && document.getElementById( div_id ) ) {
+    document.getElementById( div_id ).style.display = 'none';
+  }
+
+  setTimeout( 
+    function () {
+      window.scrollTo( 0, 0 );
+      if ( div_id
+        && document.getElementById( div_id ) ) {
+        document.getElementById( div_id ).style.display = '';
+      }
+    },
+    5
+  );
+
+} // scrollToPageTop()
+
+</script>
+
+</head>
+
+<body>
+
+<div id="map" style="border: 1px solid lightgray; position: fixed; left: 35%; right: 20px; top: 20px; bottom: 20px; box-shadow: 5px 5px 10px lightgray;"></div>
+
+<div id="home_button" class="map_button" style="position: fixed; left: 35%; margin-left: 10px; top: 24px; display: none;"><a href="javascript:void(0)" onClick="drawCountry(); this.blur();" title="Return to world soccer map..."><i class="fa fa-home fa-3x"></i></a></div>
+<div id="flag_button" style="position: fixed; right: 38px; bottom: 35px; display: none;"><img id="flag_button_img" src="https://upload.wikimedia.org/wikipedia/en/thumb/a/a4/Flag_of_the_United_States.svg/100px-Flag_of_the_United_States.svg.png" title="United States of America" /><br/><img src="https://upload.wikimedia.org/wikipedia/en/thumb/c/cf/Flag_of_Canada.svg/100px-Flag_of_Canada.svg.png" title="Canada" style="margin-top: 12px;" /></div>
+<div id="element_button" style="position: fixed; left: 35%; margin-left: 15px; bottom: 30px; display: none;"><img id="element_button_img" src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/86/MLS_logo.svg/100px-MLS_logo.svg.png" title="Major League Soccer" /></div>
+
+<div id="content" style="position: absolute; right: 65%; left: 20px; top: 20px; bottom: 20px; margin-right: 20px; padding: 20px; background-color: #f1f9f7;">
+<center>
+
+  <!--background: rgba(255,255,255,.8);-->
+  <div style="margin: 0px; padding: 0px; position: fixed; width: 35%; left: 0px; top: 0px; height: 20px; background-color: #f1f9f7;">&nbsp;</div>
+  <h2 style="margin: 0px; padding: 0px; position: fixed; width: 35%; left: 0px; top: 20px; background-color: #f1f9f7; cursor: pointer;" onClick="drawCountry();"><i class="fa fa-globe" style="background-color: white; border-radius: 50%; height: 0.8em; width: 0.8em;"></i> World Soccer 411 <i class="fa fa-futbol-o" style="background-color: white; border-radius: 50%; height: 1m; width: 1em;"></i></h2>
+  <h3 id="subheader" class="font-effect-outline" style="margin: 0px; padding: 0px 0px 15px 0px; position: fixed; width: 35%; left: 0px; top: 75px; background-color: #f1f9f7;">Soccer Leagues:</h3>
+
+  <div id="elements" class="elements" style="display: none;">
+
+  <div class="element" onClick="drawCountry();">
+    <h4>International Federation:</h4>
+    <table style="width: 100%;">
+      <tr valign="center">
+        <td style="width: 50%;" align="right"><img class="flag" src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/26/World_Map_FIFA.svg/150px-World_Map_FIFA.svg.png" /></td>
+        <td style="width: 50%;" align="left"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/aa/FIFA_logo_without_slogan.svg/150px-FIFA_logo_without_slogan.svg.png" /></td>
+      </tr>
+    </table>
+  </div>
+
+  <!--
+  <div class="element" onClick="drawCountry( 'United States of America', 'Major League Soccer' );" onMouseOver="geochart.setSelection( [ { row: 8 } ] );" onMouseOut="geochart.setSelection();">
+    <h4>American League:</h4>
+    <table style="width: 100%;">
+      <tr valign="center">
+        <td style="width: 50%;" align="right"><img class="flag" src="https://upload.wikimedia.org/wikipedia/en/thumb/a/a4/Flag_of_the_United_States.svg/150px-Flag_of_the_United_States.svg.png" /></td>
+        <td style="width: 50%;" align="left"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/86/MLS_logo.svg/120px-MLS_logo.svg.png" /></td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="element" onClick="drawCountry( 'Argentina', 'Primera Divisi&oacute;n' );" onMouseOver="geochart.setSelection( [ { row: 0 } ] );" onMouseOut="geochart.setSelection();">
+    <h4>Argentine League:</h4>
+    <table style="width: 100%;">
+      <tr valign="center">
+        <td style="width: 50%;" align="right"><img class="flag" src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Flag_of_Argentina.svg/150px-Flag_of_Argentina.svg.png" /></td>
+        <td style="width: 50%;" align="left"><img src="http://vignette4.wikia.nocookie.net/the-football-database/images/e/e1/Argentine_Primera_Division.png/revision/latest/scale-to-width-down/180?cb=20140605112657" /></td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="element" onClick="drawCountry( 'Brazil', 'Brasileir&atilde;o' );" onMouseOver="geochart.setSelection( [ { row: 1 } ] );" onMouseOut="geochart.setSelection();">
+    <h4>Brazilian League:</h4>
+    <table style="width: 100%;">
+      <tr valign="center">
+        <td style="width: 50%;" align="right"><img class="flag" src="https://upload.wikimedia.org/wikipedia/en/thumb/0/05/Flag_of_Brazil.svg/150px-Flag_of_Brazil.svg.png" /></td>
+        <td style="width: 50%;" align="left"><img src="https://upload.wikimedia.org/wikipedia/en/4/40/Brasileir%C3%A3o_logo.png" width="170" /></td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="element" onClick="drawCountry( 'Netherlands', 'Eredivisie' );" onMouseOver="geochart.setSelection( [ { row: 6 } ] );" onMouseOut="geochart.setSelection();">
+    <h4>Dutch League:</h4>
+    <table style="width: 100%;">
+      <tr valign="center">
+        <td style="width: 50%;" align="right"><img class="flag" src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/Flag_of_the_Netherlands.svg/150px-Flag_of_the_Netherlands.svg.png" /></td>
+        <td style="width: 50%;" align="left"><img src="https://upload.wikimedia.org/wikipedia/en/thumb/1/1e/Eredivisie_logo.svg/189px-Eredivisie_logo.svg.png" /></td>
+      </tr>
+    </table>
+  </div>
+
+
+  <div class="element" onClick="drawCountry( 'United Kingdom', 'English Premier League' );" onMouseOver="geochart.setSelection( [ { row: 2 } ] );" onMouseOut="geochart.setSelection();">
+    <h4>English Premier League:</h4>
+    <table style="width: 100%;">
+      <tr valign="center">
+        <td style="width: 50%;" align="right"><img class="flag" src="https://upload.wikimedia.org/wikipedia/en/thumb/b/be/Flag_of_England.svg/150px-Flag_of_England.svg.png" /></td>
+        <td style="width: 50%;" align="left"><img src="https://upload.wikimedia.org/wikipedia/en/thumb/5/5a/Premier_League.svg/120px-Premier_League.svg.png" /></td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="element" onClick="drawCountry( 'Germany', 'Bundesliga' );" onMouseOver="geochart.setSelection( [ { row: 3 } ] );" onMouseOut="geochart.setSelection();">
+    <h4>German League:</h4>
+    <table style="width: 100%;">
+      <tr valign="center">
+        <td style="width: 50%;" align="right"><img class="flag" src="https://upload.wikimedia.org/wikipedia/en/thumb/b/ba/Flag_of_Germany.svg/150px-Flag_of_Germany.svg.png" /></td>
+        <td style="width: 50%;" align="left"><img src="https://upload.wikimedia.org/wikipedia/en/thumb/1/15/Bundesliga_logo.svg/190px-Bundesliga_logo.svg.png" /></td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="element" onClick="drawCountry( 'Italy', 'Serie A' );" onMouseOver="geochart.setSelection( [ { row: 4 } ] );" onMouseOut="geochart.setSelection();">
+    <h4>Italian League:</h4>
+    <table style="width: 100%;">
+      <tr valign="center">
+        <td style="width: 50%;" align="right"><img class="flag" src="https://upload.wikimedia.org/wikipedia/en/thumb/0/03/Flag_of_Italy.svg/150px-Flag_of_Italy.svg.png" /></td>
+        <td style="width: 50%;" align="left"><img src="https://upload.wikimedia.org/wikipedia/en/thumb/f/f7/LegaSerieAlogoTIM.png/120px-LegaSerieAlogoTIM.png" /></td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="element" onClick="drawCountry( 'Mexico', 'Liga MX' );" onMouseOver="geochart.setSelection( [ { row: 5 } ] );" onMouseOut="geochart.setSelection();">
+    <h4>Mexican League:</h4>
+    <table style="width: 100%;">
+      <tr valign="center">
+        <td style="width: 50%;" align="right"><img class="flag" src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fc/Flag_of_Mexico.svg/150px-Flag_of_Mexico.svg.png" /></td>
+        <td style="width: 50%;" align="left"><img src="https://upload.wikimedia.org/wikipedia/en/thumb/8/8f/Liga_MX.svg/150px-Liga_MX.svg.png" /></td>
+      </tr>
+    </table>
+  </div>
+ 
+  <div class="element" onClick="drawCountry( 'Spain', 'La Liga' );" onMouseOver="geochart.setSelection( [ { row: 7 } ] );" onMouseOut="geochart.setSelection();">
+    <h4>Spanish League:</h4>
+    <table style="width: 100%;">
+      <tr valign="center">
+        <td style="width: 50%;" align="right"><img class="flag" src="https://upload.wikimedia.org/wikipedia/en/thumb/9/9a/Flag_of_Spain.svg/150px-Flag_of_Spain.svg.png" /></td>
+        <td style="width: 50%;" align="left"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/Liga_BBVA.svg/180px-Liga_BBVA.svg.png" /></td>
+      </tr>
+    </table>
+  </div>
+  -->
+
+  <!--
+  <div class="element">
+    <h4>Ukrainian League:</h4>
+    <table style="width: 100%;">
+      <tr valign="center">
+        <td style="width: 50%;" align="right"><img class="flag" src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Flag_of_Ukraine.svg/150px-Flag_of_Ukraine.svg.png" /></td>
+        <td style="width: 50%;" align="left"><img src="https://upload.wikimedia.org/wikipedia/en/8/8c/Ukrainian_Premier_League.png" width="120" /></td>
+      </tr>
+    </table>
+  </div>
+  -->
+
+  </div> <!-- elements -->
+
+  <div id="elements_US" class="elements" style="display: none;"></div>
+
+  </div> <!-- elements_US -->
+
+</center>
+</div> <!-- content -->
+
+</body>
+
+</html>

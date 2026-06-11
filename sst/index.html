@@ -1,0 +1,434 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html>
+
+<head>
+<link rel="shortcut icon" href="../favicon.ico" />
+<title>Infrared and microwave remote sensing of sea surface temperature (SST)</title>
+
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+
+<link href="../css/subpages.css" rel="stylesheet" type="text/css">
+<style type="text/css">
+<!--
+-->
+</style></head>
+
+<body>
+
+<blockquote> 
+
+  <h1>Infrared and microwave remote sensing of sea surface temperature (SST)</h1>
+  <hr>
+  <table width="100%" border="0" cellspacing="0" cellpadding="0">
+    <tr>
+      <td><a href="http://podaac.jpl.nasa.gov/sst/" target="_blank"><img src="AVHRR_sst.gif" alt="" width="540" height="270" border="0" style="margin: 0px 15px 0px 0px;"></a><br>
+      <font size="-7">AVHRR Sea Surface Temperature, October 2001 (NASA/JPL PO.DAAC)</font></td>
+      <td valign="top"><p><font size="+1"><i><b>John Maurer</b></i></font></p>
+        <p>
+          <!--#include virtual="../ssi/address.ssi" -->
+        </p>
+        <p>This paper is an overview of a seminar given by <a href="http://www.esrl.noaa.gov/psd/people/gary.a.wick/" target="_self">Dr. 
+          Gary A. Wick</a>, of NOAA Earth System Research Laboratory (<a href="http://www.esrl.noaa.gov" target="_self">ESRL</a>), 
+          on October 9, 2002 for a graduate course at the University of Colorado at 
+          Boulder (&quot;Remote Sensing Seminar&quot;) led by <a href="http://ccar.colorado.edu/pages/emery.html">Prof. 
+            William J. Emery</a> in the Department of Aerospace Engineering Sciences. 
+          Many of the images in this presentation are pulled directly from Dr. Wick's 
+      PowerPoint presentation.</p>
+      <p>October, 2002</p></td>
+    </tr>
+  </table>
+  <hr>
+  <p align="center"><a href="#intro">Introduction</a> &nbsp;&bull; &nbsp;<a href="#thermal">Thermal infrared</a> &nbsp;&bull; &nbsp;<a href="#passive">Passive microwave</a> &nbsp;&bull; &nbsp;<a href="#derived">How SST is derived</a> &nbsp;&bull; &nbsp;<a href="#depths">Different depths of SST</a> &nbsp;&bull; &nbsp;<a href="#blending">Blending SSTs</a> &nbsp;&bull; &nbsp;<a href="#references">References</a></p>
+  <hr>
+  <p><b><a name="intro"></a><font face="Arial, Helvetica, sans-serif">1. INTRODUCTION</font></b></p>
+<p>Sea surface temperature (SST) is an important geophysical parameter, providing 
+
+    the boundary condition used in the estimation of heat flux at the air-sea 
+
+    interface. On the global scale this is important for climate modeling, study 
+
+    of the earth's heat balance, and insight into atmospheric and oceanic circulation 
+
+    patterns and anomalies (such as El Ni&ntilde;o). On a more local scale, SST 
+
+    can be used operationally to assess eddies, fronts and upwellings for marine 
+
+    navigation and to track biological productivity.</p>
+
+  <p>Satellite technology has improved upon our ability to measure SST by allowing 
+
+    frequent and global coverage. In the past, SST could only be measured by ships 
+
+    and buoys, whose ranges were limited. Below are two maps illustrating this 
+
+    point:</p>
+
+  <table width="93%" border="0">
+
+    <tr> 
+
+      <td width="27%"><img src="ship_routes.png" width="407" height="278"></td>
+
+      <td width="73%"><img src="buoy_points.png" width="412" height="292"></td>
+
+    </tr>
+
+  </table>
+
+  <p>Methods for determining SST from satellite remote sensing include <strong>thermal 
+    infrared</strong> and <strong>passive microwave</strong> radiometry. Both 
+    methods have their own strengths and weaknesses, which are outlined below. 
+    <a href="http://www.etl.noaa.gov/%7Egwick/" target="_blank">Gary Wick</a>'s 
+    current research investigates techniques for combining the strengths of both 
+    of these methods into a blended SST product which will hopefully improve upon 
+    existing SST measurements. Climatologists have stated the need for accuracy 
+    on the order of 0.3 Kelvin (World Climate Research Program, 1985) while the 
+    best accuracy possible today is only on the order of ~0.6 Kelvin.</p>
+
+  <hr>
+  <p><strong><b><font face="Arial, Helvetica, sans-serif"><a name="thermal"></a>2. THERMAL INFRARED SST MEASUREMENTS</font></b></strong></p>
+<p>Thermal infrared SST measurements have a long heritage (~20 years). They 
+    are derived from radiometric observations at wavelengths of ~3.7 &micro;m 
+    and/or near 10 &micro;m. Though the 3.7 &micro;m channel is more sensitive 
+    to SST, it is primarily used only for night-time measurements because of relatively 
+    strong reflection of solar irradiation in this wavelength region, which contaminates 
+    the retrieved radiation. Both bands are sensitive to the presence of clouds 
+    and scattering by aerosols and atmospheric water vapor. For this reason, thermal 
+    infrared measurements of SST first require atmospheric correction of the retrieved 
+    signal and can only be made for cloud-free pixels. Thus, maps of SST compiled 
+    from thermal infrared measurements are often weekly or monthly composites 
+    which allow enough time to capture cloud-free pixels over a region. Thermal 
+    infrared instruments that have been used for deriving SST include Advanced 
+    Very High Resolution Radiometer (<a href="http://nsidc.org/data/avhrr/more.html" target="_blank">AVHRR</a>) 
+    on NOAA Polar-orbiting Operational Environmental Satellites (<a href="http://www.oso.noaa.gov/poes/index.htm" target="_blank">POES</a>), 
+    Along-Track Scanning Radiometer (<a href="http://earth.esa.int/ers/eeo4.80" target="_blank">ATSR</a>) 
+    aboard the European Remote Sensing Satellite (<a href="http://earth.esa.int/ers/" target="_blank">ERS-2</a>), 
+    the Geostationary Operational Environmental Satellite (<a href="http://www.goes.noaa.gov/" target="_blank">GOES</a>) 
+    Imager, and Moderate Resolution Imaging Spectroradiometer (<a href="http://modis.gsfc.nasa.gov/" target="_blank">MODIS</a>) 
+    aboard NASA Earth Observing System (<a href="http://eos.nasa.gov/" target="_blank">EOS</a>) 
+    <a href="http://eos-am.gsfc.nasa.gov/" target="_blank">Terra</a> and <a href="http://eos-pm.gsfc.nasa.gov/" target="_blank">Aqua</a> 
+    satellites.</p>
+
+  <table width="48%" border="1" cellpadding="5">
+
+    <tr> 
+
+      <td width="16%"><img src="strengths.png" width="114" height="143"></td>
+
+      <td width="84%" valign="middle"> <blockquote> 
+
+          <p><strong><font color="#000066">Strengths:</font></strong> </p>
+
+          <ul>
+
+            <li>Good resolution and accuracy.</li>
+
+            <li>Long heritage (~ 20 years).</li>
+
+          </ul>
+
+        </blockquote></td>
+
+    </tr>
+
+    <tr> 
+
+      <td height="122"><img src="weaknesses.png" width="114" height="110"></td>
+
+      <td valign="middle"> <blockquote> 
+
+          <p><strong><font color="#000066">Weaknesses:</font></strong></p>
+
+          <ul>
+
+            <li>Obscured by clouds.</li>
+
+            <li>Atmospheric corrections required.</li>
+
+          </ul>
+
+        </blockquote></td>
+
+    </tr>
+
+  </table>
+
+  <hr>
+  <p><b><font face="Arial, Helvetica, sans-serif"><a name="passive"></a>3. PASSIVE MICROWAVE SST MEASUREMENTS</font></b></p>
+<p>Due to lower signal strength of the Earth's Planck radiation curve in the 
+
+    microwave region, accuracy and resolution is poorer for SST derived from passive 
+
+    microwave measurements compared to SST derived from thermal infrared measurements. 
+
+    A comparison of the accuracy of passive microwave versus thermal infrared 
+
+    SST measurements is shown in Dr. Wick's plots below, where the AVHRR instrument 
+
+    shows a root mean square (RMS) error of 0.76 while that of the TMI passive 
+
+    microwave instrument is 0.90:</p>
+
+  <table width="73%" border="0">
+
+    <tr> 
+
+      <td width="33%"><img src="avhrr_accuracy.png" width="341" height="321"></td>
+
+      <td width="67%"><img src="tmi_accuracy.png" width="342" height="326"></td>
+
+    </tr>
+
+  </table>
+
+  <p>However, the advantage gained with passive microwave is that radiation at 
+    these longer wavelengths is largely unaffected by clouds and generally easier 
+    to correct for atmospheric effects. This is well illustrated in the two SST 
+    images below (NASA JPL/PO.DAAC). Though the two images cover the same time 
+    period, the thermal infrared composite (AVHRR) has lots of white patches where 
+    cloud-free pixels could not be obtained over such a short period of time:</p>
+
+  <p><img src="spatial_coverage.png" width="648" height="468"> <br>
+    Phenomena which do effect passive microwave signal return, however, are wind-generated 
+    roughness at the ocean's surface and precipitation. These can usually be corrected 
+    for, however, using multiple frequencies. SST measurements are primarily made 
+    at a channel near 7 GHz with a water vapor correction enabled by observation 
+    at 21 GHz. Other frequencies used for correction of surface roughness (including 
+    foam), precipitation, and what little effect clouds do have on microwave radiation 
+    are 11, 18, and 37 GHz. Passive microwave instruments that have been used 
+    for deriving SST include the Scanning Multichannel Microwave Radiometer (<a href="http://nsidc.org/data/docs/daac/smmr_instrument.gd.html" target="_blank">SMMR</a>) 
+    carried on <a href="http://nsidc.org/data/docs/daac/nimbus-7_platform.gd.html" target="_blank">Nimbus-7</a> 
+    and <a href="http://www.jpl.nasa.gov/missions/past/seasat.html" target="_blank">Seasat</a> 
+    satellites, the Tropical Rainfall Measuring Mission (<a href="http://trmm.gsfc.nasa.gov/" target="_blank">TRMM</a>) 
+    Microwave Imager (<a href="http://trmm.gsfc.nasa.gov/overview_dir/tmi.html" target="_blank">TMI</a>) 
+    , and upcoming data from the Advanced Microwave Scanning Radiometer (<a href="http://nsidc.org/data/docs/daac/amsre_instrument.gd.html" target="_blank">AMSR</a>) 
+    instrument on the NASA EOS <a href="http://eos-pm.gsfc.nasa.gov/" target="_blank">Aqua</a> 
+    satellite and on the Japanese Advanced Earth Observing Satellite (<a href="http://sharaku.eorc.nasda.go.jp/ADEOS2/" target="_blank">ADEOS 
+    II</a>).</p>
+
+  <table width="48%" border="1" cellpadding="5">
+
+    <tr> 
+
+      <td width="16%"><img src="strengths.png" width="114" height="143"></td>
+
+      <td width="84%" valign="middle"> <blockquote> 
+
+          <p><strong><font color="#000099">Strengths:</font></strong> </p>
+
+          <ul>
+
+            <li>Clouds are mostly transparent.</li>
+
+            <li>Relatively insensitive to atmospheric effects.</li>
+
+          </ul>
+
+        </blockquote></td>
+
+    </tr>
+
+    <tr> 
+
+      <td height="122"><img src="weaknesses.png" width="114" height="110"></td>
+
+      <td valign="middle"> <blockquote> 
+
+          <p><strong><font color="#000066">Weaknesses:</font></strong></p>
+
+          <ul>
+
+            <li>Poorer accuracy and resolution.</li>
+
+            <li>Sensitive to surface roughness and precipitation.</li>
+
+          </ul>
+
+        </blockquote></td>
+
+    </tr>
+
+  </table>
+
+  <hr>
+  <p><b><font face="Arial, Helvetica, sans-serif"><a name="derived"></a>4. HOW SST IS DERIVED</font></b></p>
+<p>Radiation emitted by a surface is the Planck emission times the surface emissivity. 
+    Since the Planck function is dependent on temperature and is well known, sea 
+    surface temperature can be estimated if the surface emissivity can be sufficiently 
+    estimated using models or regression techniques that employ independent <em>in 
+    situ</em> measurements (Njoku and Brown, 1993). Subsequent to atmospheric 
+    corrections, then, coefficients are applied to the retrieved brightness temperature 
+    signals in the derivation of SST which factor in estimations of the surface 
+    emissivity. Simple linear algorithms provide reasonably accurate SST calculations 
+    under favorable atmospheric and surface conditions, but more sophisticated 
+    higher-order computations may be required otherwise.</p>
+
+  <hr>
+  <p><strong><b><font face="Arial, Helvetica, sans-serif"><a name="depths"></a>5. DIFFERENT DEPTHS OF SST: AN IMPORTANT CONSIDERATION</font></b></strong></p>
+<p>Because of temperature gradients below the ocean's surface, the depth at 
+
+    which measurements are made will significantly impact the SST. Measurements 
+
+    made at only a depth of one or two molecules below the ocean's surface are 
+
+    considered the &quot;<strong>interface SST</strong>&quot; and cannot be realistically 
+
+    measured. Just below this, however, at a depth of roughly 10 &micro;m is what 
+
+    is known as the &quot;<strong>skin SST</strong>&quot;. The attenuation length 
+
+    of thermal infrared radiation corresponds to this depth. The &quot;<strong>sub-skin 
+
+    SST</strong>&quot; is at a depth of ~1 mm and corresponds to the attenuation 
+
+    length of microwave radiation. Beyond this depth is what is commonly referred 
+
+    to as the &quot;<strong>bulk SST</strong>&quot;, &quot;<strong>near-surface 
+
+    SST</strong>&quot;, or &quot;<strong>SST<sub>depth</sub></strong>&quot;. Below 
+
+    is an illustration of these different depths of SST, showing two different 
+
+    temperature gradients:</p>
+
+  <p><img src="SST_depths.png" width="682" height="476"></p>
+
+  <p>As can be discerned from the illustration above, the bulk SST (or SST<sub>depth</sub>) 
+    may vary greatly from the skin and sub-skin SSTs depending on the temperature 
+    gradient. The skin temperature may also vary from the sub-skin temperature 
+    for the same reason. <strong>Diurnal heating</strong> will cause these differences 
+    to be greatest during the afternoon and least right before dawn. Since SST 
+    measurements made from buoys and ships are usually bulk temperature measurements, 
+    temperature gradients must be taken into consideration when comparing them 
+    to SST measurements made by either thermal infrared or passive microwave remote 
+    sensing observations. </p>
+
+  <p>Since thermal infrared instruments measure the skin temperature and passive 
+    microwave instruments measure the sub-skin temperature, furthermore, one must 
+    also consider differences due to <strong>evaporative cooling</strong> at the 
+    sea surface when comparing measurements derived from these methods. The difference 
+    can be as great as 1 Kelvin in combination with diurnal heating effects, and 
+    so both properties must be properly accounted for when comparing or blending 
+    thermal infrared and microwave products.</p>
+
+  <table width="61%" border="1" cellpadding="5">
+
+    <tr> 
+
+      <td width="20%" height="122"><img src="weaknesses.png" width="114" height="110"></td>
+
+      <td width="80%" valign="middle"> <p><strong><font color="#000066">Weakness:</font></strong></p>
+
+        <ul>
+
+          <li>Diurnal heating and evaporative cooling make comparison of SSTs 
+
+            at different depths difficult. Special care must be taken to correct 
+
+            for their effects.</li>
+
+        </ul></td>
+
+    </tr>
+
+  </table>
+
+  <hr>
+  <p><strong><b><font face="Arial, Helvetica, sans-serif"><a name="blending"></a>6. BLENDING THERMAL INFRARED AND PASSIVE MICROWAVE SST</font></b></strong></p>
+<p>Given the desire to combine the high accuracy and resolution of the thermal 
+    infrared SST measurements with the better temporal and spatial coverage of 
+    passive microwave SST measurements (due to cloud transparency), efforts are 
+    being made to create a blended product which combines these strengths. One 
+    such project is the international Global Ocean Data Assimilation Experiment 
+    (GODAE) High-Resolution SST Pilot Project (<a href="http://www.ghrsst-pp.org/" target="_blank">GHRSST-PP</a>). 
+    In the effort to combine these two kinds of SST products, careful consideration 
+    must be made to correct for differences due to diurnal heating and evaporative 
+    cooling as well as biases introduced by high wind speeds, water vapor and 
+    other atmospheric conditions. Models are being tested for each of these considerations. 
+    Algorithms which incorporate these models still use <em>in situ</em> measurements, 
+    as well, to quality assure and to adjust the final product. Here is an example 
+    of a blended SST algorithm being developed in Japan:</p>
+
+  <p><a href="http://www.ocean.caos.tohoku.ac.jp/%7Eadeos/sst/" target="_blank"><img src="next_generation.png" width="723" height="538" border="0"></a></p>
+
+  <p>As Dr. Wick had suggested, there is still debate as to whether blending thermal 
+
+    infrared and passive microwave SSTs is a scientifically sound thing to do 
+
+    in the first place. Given that thermal infrared retrievals are measuring the 
+
+    skin temperature while passive microwave retrievals measure the sub-skin temperature, 
+
+    is it really valid to combine these two kinds of measurements anyway? Can 
+
+    the differences be adequately modeled, or are we simply adding greater uncertainty 
+
+    into the mix? These are questions that still remain to be answered. On the 
+
+    other hand, there is the potential to create a new global, high quality, multi-sensor 
+
+    SST product at a fine spatial and temporal resolution that is global and regularly 
+
+    distributed. This would ultimately help climate modelers and help scientists 
+
+    better understand oceanic and atmospheric circulation patterns.</p>
+
+  <table width="48%" border="1" cellpadding="5">
+
+    <tr> 
+
+      <td width="16%"><img src="strengths.png" width="114" height="143"></td>
+
+      <td width="84%" valign="middle"> <blockquote> 
+
+          <p><strong><font color="#000099">Strength:</font></strong> </p>
+
+          <ul>
+
+            <li>Help scientists better model climate change with improved SST 
+
+              product. </li>
+
+          </ul>
+
+        </blockquote></td>
+
+    </tr>
+
+  </table>
+
+  <hr>
+  <p><b><font face="Arial, Helvetica, sans-serif"><a name="references"></a>REFERENCES</font></b></p>
+
+</blockquote>
+<ul>
+  <li>NASA JPL/PO.DAAC, &quot;<a href="http://podaac.jpl.nasa.gov/sst/">PO.DAAC 
+    AVHRR Oceans Pathfinder</a>&quot;. Accessed on 31 October 2002.</li>
+  <li>Njoku, E.G. and O.B. Brown. (1993), &quot;Sea Surface Temperature&quot;, 
+    in Gurney, Foster, and Parkinson (eds.), <em>Atlas of Satellite Observations 
+      Related to Global Change</em>.<em> </em>Cambridge University Press, pp. 
+    237-249.</li>
+  <li>Rees, Gareth. (1999), <em>The Remote Sensing Data Book</em>. Cambridge 
+    University Press.</li>
+  <li>Sabins, Floyd F. (1997), <em>Remote Sensing: Principles and Interpretation</em>, 
+    3rd ed. W.H. Freeman &amp; Co.</li>
+  <li>Wick, Gary A. (2002), &quot;Infrared and microwave remote sensing of sea 
+    surface temperature&quot;. Seminar at the University of Colorado at Boulder 
+    &quot;Remote Sensing Seminar&quot; graduate course, 9 October, 2002.</li>
+</ul>
+<blockquote>
+  
+  <hr>
+  
+  <p align="center"><a href="#" onClick="window.scrollTo( 0, 0 ); this.blur(); return false;">Top of page</a> &nbsp;&bull; &nbsp;<a href="#intro">Introduction</a> &nbsp;&bull; &nbsp;<a href="#thermal">Thermal infrared</a> &nbsp;&bull; &nbsp;<a href="#passive">Passive microwave</a> &nbsp;&bull; &nbsp;<a href="#derived">How SST is derived</a> &nbsp;&bull; &nbsp;<a href="#depths">Different depths of SST</a> &nbsp;&bull; &nbsp;<a href="#blending">Blending SSTs</a> &nbsp;&bull; &nbsp;<a href="#references">References</a></p>
+  <p align="center">&copy; 2002, 
+    <!--#include virtual="../ssi/footer.ssi" -->
+  </p>
+  
+</blockquote>
+<!--#include virtual="../ssi/google_analytics.ssi" -->
+</body>
+
+</html>
+

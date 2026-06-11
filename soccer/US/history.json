@@ -1,0 +1,87 @@
+{
+  cols: [{id: "A", label: "Year", type: "string"},
+         {id: "B", label: "MLS Cup", type: "string"},
+         {id: "C", label: "Supporters" Shield", type: "string"}
+  ],
+  rows: [{c:[{v: "1996"},
+             {v: "D.C. United"},
+             {v: "Tampa Bay Mutiny"}
+        ]},
+         {c:[{v: "1997"},
+             {v: "D.C. United"},
+             {v: "D.C. United"}
+        ]},
+         {c:[{v: "1998"},
+             {v: "Chicago Fire"},
+             {v: "LA Galaxy"}
+        ]},
+         {c:[{v: "1999"},
+             {v: "D.C. United"},
+             {v: "D.C. United"}
+        ]},
+         {c:[{v: "2000"},
+             {v: "Kansas City Wizards"},
+             {v: "Kansas City Wizards"}
+        ]},
+         {c:[{v: "2001"},
+             {v: "San Jose Earthquakes"},
+             {v: "Miami Fusion"}
+        ]},
+         {c:[{v: "2002"},
+             {v: "LA Galaxy"},
+             {v: "LA Galaxy"}
+        ]},
+         {c:[{v: "2003"},
+             {v: "San Jose Earthquakes"},
+             {v: "Chicago Fire"}
+        ]},
+         {c:[{v: "2004"},
+             {v: "D.C. United"},
+             {v: "Columbus Crew SC"}
+        ]},
+         {c:[{v: "2005"},
+             {v: "LA Galaxy"},
+             {v: "San Jose Earthquakes"}
+        ]},
+         {c:[{v: "2006"},
+             {v: "Houston Dynamo"},
+             {v: "D.C. United"}
+        ]},
+         {c:[{v: "2007"},
+             {v: "Houston Dynamo"},
+             {v: "D.C. United"}
+        ]},
+         {c:[{v: "2008"},
+             {v: "Columbus Crew SC"},
+             {v: "Columbus Crew SC"}
+        ]},
+         {c:[{v: "2009"},
+             {v: "Real Salt Lake"},
+             {v: "Columbus Crew SC"}
+        ]},
+         {c:[{v: "2010"},
+             {v: "Colorado Rapids"},
+             {v: "LA Galaxy"}
+        ]},
+         {c:[{v: "2011"},
+             {v: "LA Galaxy"},
+             {v: "LA Galaxy"}
+        ]},
+         {c:[{v: "2012"},
+             {v: "LA Galaxy"},
+             {v: "San Jose Earthquakes"}
+        ]},
+         {c:[{v: "2013"},
+             {v: "Sporting Kansas City"},
+             {v: "New York Red Bulls"}
+        ]},
+         {c:[{v: "2014"},
+             {v: "LA Galaxy"},
+             {v: "Seattle Sounders FC"}
+        ]},
+         {c:[{v: "2015"},
+             {v: "Portland Timbers"},
+             {v: "New York Red Bulls"}
+        ]}
+  ]
+}

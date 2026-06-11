@@ -1,0 +1,1403 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<link rel="shortcut icon" href="favicon.ico" />
+<title>My Picasa Tags</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<style type="text/css">
+
+a:link {
+        color: #FFCC00;
+        text-decoration: none;
+}
+
+a:active {
+        color: OLIVE;
+        text-decoration: none;
+}
+
+a:visited {
+        color: GOLD;
+        text-decoration: none;
+}
+
+a:hover {
+		color: OLIVE;
+        text-decoration: none;
+}
+
+</style>
+
+<script>
+
+/*
+
+Function: computeAge( month, day, year );
+Author: John Maurer
+Date: December 19, 2007
+
+This function computes how old a person is given the supplied birthday split up
+into three integers: month, day, and year. An integer is returned with the 
+number of years old the person is. If the person is less than 1 year old, the
+number of months old is returned instead with one decimal place.
+
+*/
+
+function computeAge( month, day, year ) {
+
+	var current_date  = new Date();
+	var current_year  = current_date.getFullYear(); // 4-digit year
+	var current_month = current_date.getMonth() + 1; // 0 = January from getMonth so add 1
+	var current_day   = current_date.getDate(); // returns day number
+	
+	var age = current_year - year;
+	
+	// If month is after current month, subtract 1 year from age:
+	
+	if ( month > current_month ) {
+		age--;
+	}
+	
+	// If month is the current month, subtract 1 year from age if day
+	// is after the current day:
+	
+	else if ( month == current_month ) {
+	  	if ( day > current_day ) {
+			age--;
+		}
+	}
+	
+	// If age is 0, report age in months instead:
+	
+	if ( age == 0 ) {
+		age = current_month - month;
+		age--;
+		var age_fraction = current_day / day;
+		age = age + age_fraction;
+		// Report number of months with only 1 decimal place:
+		var numDecimals = 1;
+		var ageString = String( age );
+		var decimalPointIndex = ageString.indexOf( '.' );
+		var ageSubstr = ageString.substr( 0, decimalPointIndex + 1 + numDecimals );
+		age = ageSubstr;
+	}
+	
+	return( age );
+}
+
+/*
+
+Function: computeSign( month, day );
+Author: John Maurer
+Date: December 19, 2007
+
+This function computes a person's astrological sign (in the Western Zodiac) given 
+the supplied birthday split up into two integers: month and day. An HTML string is 
+returned with the astrological sign and a link to more information. 
+
+*/
+
+function computeSign( month, day ) {
+
+	var sign;
+	
+	var aquarius = '<a href="http://en.wikipedia.org/wiki/Aquarius_(astrology)" target="_blank">aquarius</a>';
+	var aries = '<a href="http://en.wikipedia.org/wiki/Aries_(astrology)" target="_blank">aries</a>';
+	var cancer = '<a href="http://en.wikipedia.org/wiki/Cancer_(astrology)" target="_blank">cancer</a>';
+	var capricorn = '<a href="http://en.wikipedia.org/wiki/Capricorn_(astrology)" target="_blank">capricorn</a>';
+	var gemini = '<a href="http://en.wikipedia.org/wiki/Gemini_(astrology)" target="_blank">gemini</a>';
+	var leo = '<a href="http://en.wikipedia.org/wiki/Leo_(astrology)" target="_blank">leo</a>';
+	var libra = '<a href="http://en.wikipedia.org/wiki/Libra_(astrology)" target="_blank">libra</a>';
+	var pisces = '<a href="http://en.wikipedia.org/wiki/Pisces_(astrology)" target="_blank">pisces</a>';
+	var sagittarius = '<a href="http://en.wikipedia.org/wiki/Sagittarius_(astrology)" target="_blank">sagittarius</a>';
+	var scorpio = '<a href="http://en.wikipedia.org/wiki/Scorpio_(astrology)" target="_blank">scorpio</a>';
+	var taurus = '<a href="http://en.wikipedia.org/wiki/Taurus_(astrology)" target="_blank">taurus</a>';
+	var virgo = '<a href="http://en.wikipedia.org/wiki/Virgo_(astrology)" target="_blank">virgo</a>';
+	
+	// Aries (1/12): March 21 - April 19
+
+	if ( ( month == 3 && day >= 21 ) || ( month == 4 && day <= 19 ) ) {
+		sign = aries;
+	}
+	
+	// Taurus (2/12): April 20 - May 20
+	
+	else if ( ( month == 4 && day >= 20 ) || ( month == 5 && day <= 20 ) ) {
+		sign = taurus;
+	}
+	
+	// Gemini (3/12): May 21 - June 21
+	
+	else if ( ( month == 5 && day >= 21 ) || ( month == 6 && day <= 21 ) ) {
+		sign = gemini;
+	}
+	
+	// Cancer (4/12): June 22 - July 22
+	
+	else if ( ( month == 6 && day >= 22 ) || ( month == 7 && day <= 22 ) ) {
+		sign = cancer;
+	}
+	
+	// Leo (5/12): July 23 - August 22
+	
+	else if ( ( month == 7 && day >= 23 ) || ( month == 8 && day <= 22 ) ) {
+		sign = leo;
+	}
+	
+	// Virgo (6/12): August 23 - September 22
+	
+	else if ( ( month == 8 && day >= 23 ) || ( month == 9 && day <= 22 ) ) {
+		sign = virgo;
+	}
+	
+	// Libra (7/12): September 23 - October 23
+	
+	else if ( ( month == 9 && day >= 23 ) || ( month == 10 && day <= 23 ) ) {
+		sign = libra;
+	}
+	
+	// Scorpio (8/12): October 24 - November 22
+	
+	else if ( ( month == 10 && day >= 24 ) || ( month == 11 && day <= 22 ) ) {
+		sign = scorpio;
+	}
+	
+	// Sagittarius (9/12): November 23 - December 21
+	
+	else if ( ( month == 11 && day >= 23 ) || ( month == 12 && day <= 21 ) ) {
+		sign = sagittarius;
+	}
+	
+	// Capricorn (10/12): December 22 - January 19
+	
+	else if ( ( month == 12 && day >= 22 ) || ( month == 1 && day <= 19 ) ) {
+		sign = capricorn;
+	}
+	
+	// Aquarius (11/12): January 20 - February 18
+	
+	else if ( ( month == 1 && day >= 20 ) || ( month == 2 && day <= 18 ) ) {
+		sign = aquarius;
+	}
+	
+	// Pisces (12/12): February 19 - March 20
+	
+	else if ( ( month == 2 && day >= 19 ) || ( month == 3 && day <= 20 ) ) {
+		sign = pisces;
+	}
+	 
+	return( sign );
+}
+
+/*
+
+Function: computeAnimal( month, day, year );
+Author: John Maurer
+Date: December 19, 2007
+
+This function computes a person's astrological animal sign in the Chinese Zodiac 
+given the supplied birthday split up into three integers: month, day, and year. 
+An HTML string is returned with the animal and a link to more information. This
+has been derived from the following table:
+
+http://en.wikipedia.org/wiki/Sexagenary_cycle#1924_-_2043 
+
+*/
+
+function computeAnimal( month, day, year ) {
+
+	var animal;
+	
+	var dog = '<a href="http://en.wikipedia.org/wiki/Dog_(zodiac)" target="_blank">dog</a>';
+	var dragon = '<a href="http://en.wikipedia.org/wiki/Dragon_(zodiac)" target="_blank">dragon</a>';
+	var horse = '<a href="http://en.wikipedia.org/wiki/Horse_(zodiac)" target="_blank">horse</a>';
+	var monkey = '<a href="http://en.wikipedia.org/wiki/Monkey_(zodiac)" target="_blank">monkey</a>';
+	var ox = '<a href="http://en.wikipedia.org/wiki/Ox_(zodiac)" target="_blank">ox</a>';
+	var pig = '<a href="http://en.wikipedia.org/wiki/Pig_(zodiac)" target="_blank">pig</a>';
+	var rabbit = '<a href="http://en.wikipedia.org/wiki/Rabbit_(zodiac)" target="_blank">rabbit</a>';
+	var rat = '<a href="http://en.wikipedia.org/wiki/Rat_(zodiac)" target="_blank">rat</a>';
+	var rooster = '<a href="http://en.wikipedia.org/wiki/Rooster_(zodiac)" target="_blank">rooster</a>';
+	var sheep = '<a href="http://en.wikipedia.org/wiki/Sheep_(zodiac)" target="_blank">sheep</a>';
+	var snake = '<a href="http://en.wikipedia.org/wiki/Snake_(zodiac)" target="_blank">snake</a>';
+	var tiger = '<a href="http://en.wikipedia.org/wiki/Tiger_(zodiac)" target="_blank">tiger</a>';
+	
+	// 1924-2020:
+	
+	if ( ( year == 1924 && ( ( month == 2 && day >= 5 ) || month > 2 ) ) || ( year == 1925 && ( ( month == 1 && day <= 23 ) || month < 1 ) ) ) {
+		animal = rat;
+	}
+	else if ( ( year == 1925 && ( ( month == 1 && day >= 24 ) || month > 1 ) ) || ( year == 1926 && ( ( month == 2 && day <= 11 ) || month < 2 ) ) ) {
+		animal = ox;
+	}
+	else if ( ( year == 1926 && ( ( month == 2 && day >= 12 ) || month > 2 ) ) || ( year == 1927 && ( ( month == 2 && day <= 1 ) || month < 2 ) ) ) {
+		animal = tiger;
+	}
+	else if ( ( year == 1927 && ( ( month == 2 && day >= 2 ) || month > 2 ) ) || ( year == 1928 && ( ( month == 1 && day <= 21 ) || month < 1 ) ) ) {
+		animal = rabbit;
+	}
+	else if ( ( year == 1928 && ( ( month == 1 && day >= 22 ) || month > 1 ) ) || ( year == 1929 && ( ( month == 2 && day <= 8 ) || month < 2 ) ) ) {
+		animal = dragon;
+	}
+	else if ( ( year == 1929 && ( ( month == 2 && day >= 9 ) || month > 2 ) ) || ( year == 1930 && ( ( month == 1 && day <= 28 ) || month < 1 ) ) ) {
+		animal = snake;
+	}
+	else if ( ( year == 1930 && ( ( month == 1 && day >= 29 ) || month > 1 ) ) || ( year == 1931 && ( ( month == 2 && day <= 16 ) || month < 2 ) ) ) {
+		animal = horse;
+	}
+	else if ( ( year == 1931 && ( ( month == 2 && day >= 17 ) || month > 2 ) ) || ( year == 1932 && ( ( month == 2 && day <= 5 ) || month < 2 ) ) ) {
+		animal = sheep;
+	}
+	else if ( ( year == 1932 && ( ( month == 2 && day >= 6 ) || month > 2 ) ) || ( year == 1933 && ( ( month == 1 && day <= 24 ) || month < 1 ) ) ) {
+		animal = monkey;
+	}
+	else if ( ( year == 1933 && ( ( month == 1 && day >= 25 ) || month > 1 ) ) || ( year == 1934 && ( ( month == 2 && day <= 13 ) || month < 2 ) ) ) {
+		animal = rooster;
+	}
+	else if ( ( year == 1934 && ( ( month == 2 && day >= 14 ) || month > 2 ) ) || ( year == 1935 && ( ( month == 2 && day <= 2 ) || month < 2 ) ) ) {
+		animal = dog;
+	}
+	else if ( ( year == 1935 && ( ( month == 2 && day >= 3 ) || month > 2 ) ) || ( year == 1936 && ( ( month == 1 && day <= 23 ) || month < 1 ) ) ) {
+		animal = pig;
+	}
+	else if ( ( year == 1936 && ( ( month == 1 && day >= 24 ) || month > 1 ) ) || ( year == 1937 && ( ( month == 2 && day <= 10 ) || month < 2 ) ) ) {
+		animal = rat;
+	}
+	else if ( ( year == 1937 && ( ( month == 2 && day >= 11 ) || month > 2 ) ) || ( year == 1938 && ( ( month == 1 && day <= 30 ) || month < 1 ) ) ) {
+		animal = ox;
+	}
+	else if ( ( year == 1938 && ( ( month == 1 && day >= 31 ) || month > 1 ) ) || ( year == 1939 && ( ( month == 2 && day <= 18 ) || month < 2 ) ) ) {
+		animal = tiger;
+	}
+	else if ( ( year == 1939 && ( ( month == 2 && day >= 19 ) || month > 2 ) ) || ( year == 1940 && ( ( month == 2 && day <= 7 ) || month < 2 ) ) ) {
+		animal = rabbit;
+	}
+	else if ( ( year == 1940 && ( ( month == 2 && day >= 8 ) || month > 2 ) ) || ( year == 1941 && ( ( month == 1 && day <= 26 ) || month < 1 ) ) ) {
+		animal = dragon;
+	}
+	else if ( ( year == 1941 && ( ( month == 1 && day >= 27 ) || month > 1 ) ) || ( year == 1942 && ( ( month == 2 && day <= 14 ) || month < 2 ) ) ) {
+		animal = snake;
+	}
+	else if ( ( year == 1942 && ( ( month == 2 && day >= 15 ) || month > 2 ) ) || ( year == 1943 && ( ( month == 2 && day <= 3 ) || month < 2 ) ) ) {
+		animal = horse;
+	}
+	else if ( ( year == 1943 && ( ( month == 2 && day >= 4 ) || month > 2 ) ) || ( year == 1944 && ( ( month == 1 && day <= 24 ) || month < 1 ) ) ) {
+		animal = sheep;
+	}
+	else if ( ( year == 1944 && ( ( month == 1 && day >= 25 ) || month > 1 ) ) || ( year == 1945 && ( ( month == 2 && day <= 11 ) || month < 2 ) ) ) {
+		animal = monkey;
+	}
+	else if ( ( year == 1945 && ( ( month == 2 && day >= 12 ) || month > 2 ) ) || ( year == 1946 && ( ( month == 2 && day <= 1 ) || month < 2 ) ) ) {
+		animal = rooster;
+	}
+	else if ( ( year == 1946 && ( ( month == 2 && day >= 2 ) || month > 2 ) ) || ( year == 1947 && ( ( month == 1 && day <= 21 ) || month < 1 ) ) ) {
+		animal = dog;
+	}
+	else if ( ( year == 1947 && ( ( month == 1 && day >= 22 ) || month > 1 ) ) || ( year == 1948 && ( ( month == 2 && day <= 9 ) || month < 2 ) ) ) {
+		animal = pig;
+	}
+	else if ( ( year == 1948 && ( ( month == 2 && day >= 10 ) || month > 2 ) ) || ( year == 1949 && ( ( month == 1 && day <= 28 ) || month < 1 ) ) ) {
+		animal = rat;
+	}
+	else if ( ( year == 1949 && ( ( month == 1 && day >= 29 ) || month > 1 ) ) || ( year == 1950 && ( ( month == 2 && day <= 15 ) || month < 2 ) ) ) {
+		animal = ox;
+	}
+	else if ( ( year == 1950 && ( ( month == 2 && day >= 16 ) || month > 2 ) ) || ( year == 1951 && ( ( month == 2 && day <= 5 ) || month < 2 ) ) ) {
+		animal = tiger;
+	}
+	else if ( ( year == 1951 && ( ( month == 2 && day >= 6 ) || month > 2 ) ) || ( year == 1952 && ( ( month == 1 && day <= 25 ) || month < 1 ) ) ) {
+		animal = rabbit;
+	}
+	else if ( ( year == 1952 && ( ( month == 1 && day >= 26 ) || month > 1 ) ) || ( year == 1953 && ( ( month == 2 && day <= 13 ) || month < 2 ) ) ) {
+		animal = dragon;
+	}
+	else if ( ( year == 1953 && ( ( month == 2 && day >= 14 ) || month > 2 ) ) || ( year == 1954 && ( ( month == 2 && day <= 2 ) || month < 2 ) ) ) {
+		animal = snake;
+	}
+	else if ( ( year == 1954 && ( ( month == 2 && day >= 3 ) || month > 2 ) ) || ( year == 1955 && ( ( month == 1 && day <= 23 ) || month < 1 ) ) ) {
+		animal = horse;
+	}
+	else if ( ( year == 1955 && ( ( month == 1 && day >= 24 ) || month > 1 ) ) || ( year == 1956 && ( ( month == 2 && day <= 10 ) || month < 2 ) ) ) {
+		animal = sheep;
+	}
+	else if ( ( year == 1956 && ( ( month == 2 && day >= 11 ) || month > 2 ) ) || ( year == 1957 && ( ( month == 1 && day <= 29 ) || month < 1 ) ) ) {
+		animal = monkey;
+	}
+	else if ( ( year == 1957 && ( ( month == 1 && day >= 30 ) || month > 1 ) ) || ( year == 1958 && ( ( month == 2 && day <= 17 ) || month < 2 ) ) ) {
+		animal = rooster;
+	}
+	else if ( ( year == 1958 && ( ( month == 2 && day >= 18 ) || month > 2 ) ) || ( year == 1959 && ( ( month == 2 && day <= 6 ) || month < 2 ) ) ) {
+		animal = dog;
+	}
+	else if ( ( year == 1959 && ( ( month == 2 && day >= 7 ) || month > 2 ) ) || ( year == 1960 && ( ( month == 1 && day <= 27 ) || month < 1 ) ) ) {
+		animal = pig;
+	}
+	else if ( ( year == 1960 && ( ( month == 1 && day >= 28 ) || month > 1 ) ) || ( year == 1961 && ( ( month == 2 && day <= 14 ) || month < 2 ) ) ) {
+		animal = rat;
+	}
+	else if ( ( year == 1961 && ( ( month == 2 && day >= 15 ) || month > 2 ) ) || ( year == 1962 && ( ( month == 2 && day <= 4 ) || month < 2 ) ) ) {
+		animal = ox;
+	}
+	else if ( ( year == 1962 && ( ( month == 2 && day >= 5 ) || month > 2 ) ) || ( year == 1963 && ( ( month == 1 && day <= 24 ) || month < 1 ) ) ) {
+		animal = tiger;
+	}
+	else if ( ( year == 1963 && ( ( month == 1 && day >= 25 ) || month > 1 ) ) || ( year == 1964 && ( ( month == 2 && day <= 12 ) || month < 2 ) ) ) {
+		animal = rabbit;
+	}
+	else if ( ( year == 1964 && ( ( month == 2 && day >= 13 ) || month > 2 ) ) || ( year == 1965 && ( ( month == 1 && day <= 31 ) || month < 1 ) ) ) {
+		animal = dragon;
+	}
+	else if ( ( year == 1965 && ( ( month == 2 && day >= 1 ) || month > 2 ) ) || ( year == 1966 && ( ( month == 1 && day <= 20 ) || month < 1 ) ) ) {
+		animal = snake;
+	}
+	else if ( ( year == 1966 && ( ( month == 1 && day >= 21 ) || month > 1 ) ) || ( year == 1967 && ( ( month == 2 && day <= 8 ) || month < 2 ) ) ) {
+		animal = horse;
+	}
+	else if ( ( year == 1967 && ( ( month == 2 && day >= 9 ) || month > 2 ) ) || ( year == 1968 && ( ( month == 1 && day <= 28 ) || month < 1 ) ) ) {
+		animal = sheep;
+	}
+	else if ( ( year == 1968 && ( ( month == 1 && day >= 29 ) || month > 1 ) ) || ( year == 1969 && ( ( month == 2 && day <= 15 ) || month < 2 ) ) ) {
+		animal = monkey;
+	}
+	else if ( ( year == 1969 && ( ( month == 2 && day >= 16 ) || month > 2 ) ) || ( year == 1970 && ( ( month == 2 && day <= 5 ) || month < 2 ) ) ) {
+		animal = rooster;
+	}
+	else if ( ( year == 1970 && ( ( month == 2 && day >= 6 ) || month > 2 ) ) || ( year == 1971 && ( ( month == 1 && day <= 25 ) || month < 1 ) ) ) {
+		animal = dog;
+	}
+	else if ( ( year == 1971 && ( ( month == 1 && day >= 26 ) || month > 1 ) ) || ( year == 1972 && ( ( month == 2 && day <= 14 ) || month < 2 ) ) ) {
+		animal = pig;
+	}
+	else if ( ( year == 1972 && ( ( month == 2 && day >= 15 ) || month > 2 ) ) || ( year == 1973 && ( ( month == 2 && day <= 2 ) || month < 2 ) ) ) {
+		animal = rat;
+	}
+	else if ( ( year == 1973 && ( ( month == 2 && day >= 3 ) || month > 2 ) ) || ( year == 1974 && ( ( month == 1 && day <= 23 ) || month < 1 ) ) ) {
+		animal = ox;
+	}
+	else if ( ( year == 1974 && ( ( month == 1 && day >= 24 ) || month > 1 ) ) || ( year == 1975 && ( ( month == 2 && day <= 10 ) || month < 2 ) ) ) {
+		animal = tiger;
+	}
+	else if ( ( year == 1975 && ( ( month == 2 && day >= 11 ) || month > 2 ) ) || ( year == 1976 && ( ( month == 1 && day <= 30 ) || month < 1 ) ) ) {
+		animal = rabbit;
+	}
+	else if ( ( year == 1976 && ( ( month == 1 && day >= 31 ) || month > 1 ) ) || ( year == 1977 && ( ( month == 2 && day <= 17 ) || month < 2 ) ) ) {
+		animal = dragon;
+	}
+	else if ( ( year == 1977 && ( ( month == 2 && day >= 18 ) || month > 2 ) ) || ( year == 1978 && ( ( month == 2 && day <= 6 ) || month < 2 ) ) ) {
+		animal = snake;
+	}
+	else if ( ( year == 1978 && ( ( month == 2 && day >= 7 ) || month > 2 ) ) || ( year == 1979 && ( ( month == 1 && day <= 27 ) || month < 1 ) ) ) {
+		animal = horse;
+	}
+	else if ( ( year == 1979 && ( ( month == 1 && day >= 28 ) || month > 1 ) ) || ( year == 1980 && ( ( month == 2 && day <= 15 ) || month < 2 ) ) ) {
+		animal = sheep;
+	}
+	else if ( ( year == 1980 && ( ( month == 2 && day >= 16 ) || month > 2 ) ) || ( year == 1981 && ( ( month == 2 && day <= 4 ) || month < 2 ) ) ) {
+		animal = monkey;
+	}
+	else if ( ( year == 1981 && ( ( month == 2 && day >= 5 ) || month > 2 ) ) || ( year == 1982 && ( ( month == 1 && day <= 24 ) || month < 1 ) ) ) {
+		animal = rooster;
+	}
+	else if ( ( year == 1982 && ( ( month == 1 && day >= 25 ) || month > 1 ) ) || ( year == 1983 && ( ( month == 2 && day <= 12 ) || month < 2 ) ) ) {
+		animal = dog;
+	}
+	else if ( ( year == 1983 && ( ( month == 2 && day >= 13 ) || month > 2 ) ) || ( year == 1984 && ( ( month == 2 && day <= 1 ) || month < 2 ) ) ) {
+		animal = pig;
+	}
+	else if ( ( year == 1984 && ( ( month == 2 && day >= 2 ) || month > 2 ) ) || ( year == 1985 && ( ( month == 2 && day <= 19 ) || month < 2 ) ) ) {
+		animal = rat;
+	}
+	else if ( ( year == 1985 && ( ( month == 2 && day >= 20 ) || month > 2 ) ) || ( year == 1986 && ( ( month == 2 && day <= 8 ) || month < 2 ) ) ) {
+		animal = ox;
+	}
+	else if ( ( year == 1986 && ( ( month == 2 && day >= 9 ) || month > 2 ) ) || ( year == 1987 && ( ( month == 1 && day <= 28 ) || month < 1 ) ) ) {
+		animal = tiger;
+	}
+	else if ( ( year == 1987 && ( ( month == 1 && day >= 29 ) || month > 1 ) ) || ( year == 1988 && ( ( month == 2 && day <= 16 ) || month < 2 ) ) ) {
+		animal = rabbit;
+	}
+	else if ( ( year == 1988 && ( ( month == 2 && day >= 17 ) || month > 2 ) ) || ( year == 1989 && ( ( month == 2 && day <= 5 ) || month < 2 ) ) ) {
+		animal = dragon;
+	}
+	else if ( ( year == 1989 && ( ( month == 2 && day >= 6 ) || month > 2 ) ) || ( year == 1990 && ( ( month == 1 && day <= 25 ) || month < 1 ) ) ) {
+		animal = snake;
+	}
+	else if ( ( year == 1990 && ( ( month == 1 && day >= 26 ) || month > 1 ) ) || ( year == 1991 && ( ( month == 2 && day <= 13 ) || month < 2 ) ) ) {
+		animal = horse;
+	}
+	else if ( ( year == 1991 && ( ( month == 2 && day >= 14 ) || month > 2 ) ) || ( year == 1992 && ( ( month == 2 && day <= 2 ) || month < 2 ) ) ) {
+		animal = sheep;
+	}
+	else if ( ( year == 1992 && ( ( month == 2 && day >= 3 ) || month > 2 ) ) || ( year == 1993 && ( ( month == 1 && day <= 21 ) || month < 1 ) ) ) {
+		animal = monkey;
+	}
+	else if ( ( year == 1993 && ( ( month == 1 && day >= 22 ) || month > 1 ) ) || ( year == 1994 && ( ( month == 2 && day <= 9 ) || month < 2 ) ) ) {
+		animal = rooster;
+	}
+	else if ( ( year == 1994 && ( ( month == 2 && day >= 10 ) || month > 2 ) ) || ( year == 1995 && ( ( month == 1 && day <= 30 ) || month < 1 ) ) ) {
+		animal = dog;
+	}
+	else if ( ( year == 1995 && ( ( month == 1 && day >= 31 ) || month > 1 ) ) || ( year == 1996 && ( ( month == 2 && day <= 18 ) || month < 2 ) ) ) {
+		animal = pig;
+	}
+	else if ( ( year == 1996 && ( ( month == 2 && day >= 19 ) || month > 2 ) ) || ( year == 1997 && ( ( month == 2 && day <= 6 ) || month < 2 ) ) ) {
+		animal = rat;
+	}
+	else if ( ( year == 1997 && ( ( month == 2 && day >= 7 ) || month > 2 ) ) || ( year == 1998 && ( ( month == 1 && day <= 27 ) || month < 1 ) ) ) {
+		animal = ox;
+	}
+	else if ( ( year == 1998 && ( ( month == 1 && day >= 28 ) || month > 1 ) ) || ( year == 1999 && ( ( month == 2 && day <= 15 ) || month < 2 ) ) ) {
+		animal = tiger;
+	}
+	else if ( ( year == 1999 && ( ( month == 2 && day >= 16 ) || month > 2 ) ) || ( year == 2000 && ( ( month == 2 && day <= 4 ) || month < 2 ) ) ) {
+		animal = rabbit;
+	}
+	else if ( ( year == 2000 && ( ( month == 2 && day >= 5 ) || month > 2 ) ) || ( year == 2001 && ( ( month == 1 && day <= 23 ) || month < 1 ) ) ) {
+		animal = dragon;
+	}
+	else if ( ( year == 2001 && ( ( month == 1 && day >= 24 ) || month > 1 ) ) || ( year == 2002 && ( ( month == 2 && day <= 11 ) || month < 2 ) ) ) {
+		animal = snake;
+	}
+	else if ( ( year == 2002 && ( ( month == 2 && day >= 12 ) || month > 2 ) ) || ( year == 2003 && ( ( month == 1 && day <= 31 ) || month < 1 ) ) ) {
+		animal = horse;
+	}
+	else if ( ( year == 2003 && ( ( month == 2 && day >= 1 ) || month > 2 ) ) || ( year == 2004 && ( ( month == 1 && day <= 21 ) || month < 1 ) ) ) {
+		animal = sheep;
+	}
+	else if ( ( year == 2004 && ( ( month == 1 && day >= 22 ) || month > 1 ) ) || ( year == 2005 && ( ( month == 2 && day <= 8 ) || month < 2 ) ) ) {
+		animal = monkey;
+	}
+	else if ( ( year == 2005 && ( ( month == 2 && day >= 9 ) || month > 2 ) ) || ( year == 2006 && ( ( month == 1 && day <= 28 ) || month < 1 ) ) ) {
+		animal = rooster;
+	}
+	else if ( ( year == 2006 && ( ( month == 1 && day >= 29 ) || month > 1 ) ) || ( year == 2007 && ( ( month == 2 && day <= 17 ) || month < 2 ) ) ) {
+		animal = dog;
+	}
+	else if ( ( year == 2007 && ( ( month == 2 && day >= 18 ) || month > 2 ) ) || ( year == 2008 && ( ( month == 2 && day <= 6 ) || month < 2 ) ) ) {
+		animal = pig;
+	}
+	else if ( ( year == 2008 && ( ( month == 2 && day >= 7 ) || month > 2 ) ) || ( year == 2009 && ( ( month == 1 && day <= 25 ) || month < 1 ) ) ) {
+		animal = rat;
+	}
+	else if ( ( year == 2009 && ( ( month == 1 && day >= 26 ) || month > 1 ) ) || ( year == 2010 && ( ( month == 2 && day <= 13 ) || month < 2 ) ) ) {
+		animal = ox;
+	}
+	else if ( ( year == 2010 && ( ( month == 2 && day >= 14 ) || month > 2 ) ) || ( year == 2011 && ( ( month == 2 && day <= 2 ) || month < 2 ) ) ) {
+		animal = tiger;
+	}
+	else if ( ( year == 2011 && ( ( month == 2 && day >= 3 ) || month > 2 ) ) || ( year == 2012 && ( ( month == 1 && day <= 22 ) || month < 1 ) ) ) {
+		animal = rabbit;
+	}
+	else if ( ( year == 2012 && ( ( month == 1 && day >= 23 ) || month > 1 ) ) || ( year == 2013 && ( ( month == 2 && day <= 9 ) || month < 2 ) ) ) {
+		animal = dragon;
+	}
+	else if ( ( year == 2013 && ( ( month == 2 && day >= 10 ) || month > 2 ) ) || ( year == 2014 && ( ( month == 1 && day <= 30 ) || month < 1 ) ) ) {
+		animal = snake;
+	}
+	else if ( ( year == 2014 && ( ( month == 1 && day >= 31 ) || month > 1 ) ) || ( year == 2015 && ( ( month == 2 && day <= 18 ) || month < 2 ) ) ) {
+		animal = horse;
+	}
+	else if ( ( year == 2015 && ( ( month == 2 && day >= 19 ) || month > 2 ) ) || ( year == 2016 && ( ( month == 2 && day <= 7 ) || month < 2 ) ) ) {
+		animal = sheep;
+	}
+	else if ( ( year == 2016 && ( ( month == 2 && day >= 8 ) || month > 2 ) ) || ( year == 2017 && ( ( month == 1 && day <= 27 ) || month < 1 ) ) ) {
+		animal = monkey;
+	}
+	else if ( ( year == 2017 && ( ( month == 1 && day >= 28 ) || month > 1 ) ) || ( year == 2018 && ( ( month == 2 && day <= 18 ) || month < 2 ) ) ) {
+		animal = rooster;
+	}
+	else if ( ( year == 2018 && ( ( month == 2 && day >= 19 ) || month > 2 ) ) || ( year == 2019 && ( ( month == 2 && day <= 4 ) || month < 2 ) ) ) {
+		animal = dog;
+	}
+	else if ( ( year == 2019 && ( ( month == 2 && day >= 5 ) || month > 2 ) ) || ( year == 2020 && ( ( month == 1 && day <= 24 ) || month < 1 ) ) ) {
+		animal = pig;
+	}
+
+	return( animal );
+}
+
+</script>
+
+</head>
+
+<body bgcolor="#000000" text="#FFFFFF"><br>
+  <a name="top"></a>
+<blockquote> 
+  <h1> <font color="#66FF99" face="Arial, Helvetica, sans-serif">My Picasa Tags</font></h1>
+  <p><font size="-1" face="Arial, Helvetica, sans-serif">This page includes links to &quot;tags&quot; 
+    for my online photo albums on Picasa&#8482; to help people find the photos 
+    that they're looking for. &#8220;Tags&#8221; are simply words that you can 
+    assign to photos in Picasa.</font></p>
+  <h3><font face="Arial, Helvetica, sans-serif">Link to my Picasa&#8482; Web Albums 
+    Public Gallery: </font></h3>
+  <ul>
+    <li><font size="-1" face="Arial, Helvetica, sans-serif"><a href="http://picasaweb.google.com/john.maurer">http://picasaweb.google.com/john.maurer</a></font></li>
+  </ul>
+  <h3><font face="Arial, Helvetica, sans-serif">Table of Contents:</font></h3>
+  <ul>
+    <li><font size="-1" face="Arial, Helvetica, sans-serif"><a href="#people">people</a></font></li>
+    <li><font size="-1" face="Arial, Helvetica, sans-serif"><a href="#places">places</a></font></li>
+    <li><font size="-1" face="Arial, Helvetica, sans-serif"><a href="#occasions">occasions</a></font></li>
+    <li><font size="-1" face="Arial, Helvetica, sans-serif"><a href="#dezi_behaviors">Dezi 
+      behaviors &amp; qualities</a></font></li>
+    <li><font size="-1" face="Arial, Helvetica, sans-serif"><a href="#dezi_paraphernalia">Dezi 
+      paraphernalia</a></font></li>
+    <li><font size="-1" face="Arial, Helvetica, sans-serif"><a href="#other">other</a></font></li>
+  </ul>
+  <hr>
+  <h3><font face="Arial, Helvetica, sans-serif"><a name="people"></a>People:</font></h3>
+  <table border="0" cellpadding="5">
+    <tr bgcolor="#333333"> 
+      <td valign="top"><font color="#FFFFFF" face="Arial, Helvetica, sans-serif"><strong>Tag</strong></font></td>
+      <td valign="top"><font color="#FFFFFF" face="Arial, Helvetica, sans-serif"><strong>Full 
+        Name</strong></font></td>
+      <td valign="top"><strong><font color="#FFFFFF" face="Arial, Helvetica, sans-serif">Relationship</font></strong></td>
+      <td valign="top"><strong><font color="#FFFFFF" face="Arial, Helvetica, sans-serif">Birthday</font></strong></td>
+      <td valign="top"><strong><font color="#FFFFFF" face="Arial, Helvetica, sans-serif">Age</font></strong></td>
+      <td valign="top"><strong><font color="#FFFFFF" face="Arial, Helvetica, sans-serif">Sign</font></strong></td>
+      <td valign="top"><strong><font color="#FFFFFF" face="Arial, Helvetica, sans-serif">Animal</font></strong></td>
+    </tr>
+    <tr bgcolor="#333333"> 
+      <td colspan="7" valign="top"><font color="#FFFFFF" face="Arial, Helvetica, sans-serif"><strong>family: 
+        us </strong></font> </td>
+    </tr>
+    <tr> 
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif"><a href="http://picasaweb.google.com/lh/searchbrowse?q=Dezi&psc=F&filter=0&uname=john.maurer">Dezi</a></font></td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif">Desmond 
+        Barton Maurer</font></td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif">Myself</font></td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif">August 
+        30, 2007</font></td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif"> 
+        <script>var age = computeAge( 8, 30, 2007 ); document.write( age );</script>
+        months </font></td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif"> 
+        <script language="">
+var sign = computeSign( 8, 30 ); document.write( sign );
+</script>
+        </font></td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif"> 
+        <script>var animal = computeAnimal( 8, 30, 2007 ); document.write( animal );</script>
+        </font></td>
+    </tr>
+    <tr> 
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif"><a href="http://picasaweb.google.com/lh/searchbrowse?q=JSL&psc=F&filter=0&uname=john.maurer">JSL</a></font></td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif">John 
+        Anthony Maurer, IV (&quot;John from St. Louis&quot;)</font></td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif">Father</font></td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif">February 
+        26, 1977</font></td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif"> 
+        <script>var age = computeAge( 2, 26, 1977 ); document.write( age );</script>
+        </font></td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif"> 
+        <script language="">
+var sign = computeSign( 2, 26 ); document.write( sign );
+</script>
+        </font></td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif"> 
+        <script language="">
+var animal = computeAnimal( 2, 26, 1977 ); document.write( animal );
+</script>
+        </font></td>
+    </tr>
+    <tr> 
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif"><a href="http://picasaweb.google.com/lh/searchbrowse?q=Kasey&psc=F&filter=0&uname=john.maurer">Kasey</a></font></td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif">Kasey 
+        Elisabeth Barton</font></td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif">Mother</font></td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif">March 
+        9, 1977</font></td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif"> 
+        <script>var age = computeAge( 3, 9, 1977 ); document.write( age );</script>
+        </font></td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif"> 
+        <script language="">
+var sign = computeSign( 3, 9 ); document.write( sign );
+</script>
+        </font></td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif"> 
+        <script language="">
+var animal = computeAnimal( 3, 9, 1977 ); document.write( animal );
+</script>
+        </font></td>
+    </tr>
+    <tr> 
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif"><a href="http://picasaweb.google.com/lh/searchbrowse?q=us&psc=F&filter=0&uname=john.maurer">us</a></font></td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif"><em>all 
+        three of us</em></font></td>
+      <td valign="top">&nbsp;</td>
+      <td valign="top">&nbsp;</td>
+      <td valign="top">&nbsp;</td>
+      <td valign="top">&nbsp;</td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif">&nbsp;</font></td>
+    </tr>
+    <tr bgcolor="#333333"> 
+      <td colspan="7" valign="top"><font color="#FFFFFF" face="Arial, Helvetica, sans-serif"><strong>family: 
+        Barton-side</strong></font></td>
+    </tr>
+    <tr> 
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif"><a href="http://picasaweb.google.com/lh/searchbrowse?q=AB&psc=F&filter=0&uname=john.maurer">AB</a></font></td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif">Alan 
+        Frederick Barton (&quot;AB&quot;)</font></td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif">Grandfather</font></td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif">November 
+        19, 1945</font></td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif"> 
+        <script language="">
+var age = computeAge( 11, 19, 1945 ); document.write( age );
+</script>
+        </font></td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif"> 
+        <script language="">
+var sign = computeSign( 11, 19 ); document.write( sign );
+</script>
+        </font></td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif"> 
+        <script language="">
+var animal = computeAnimal( 11, 19, 1945 ); document.write( animal );
+</script>
+        </font></td>
+    </tr>
+    <tr> 
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif"><a href="http://picasaweb.google.com/lh/searchbrowse?q=Ainsley&psc=F&filter=0&uname=john.maurer">Ainsley</a></font></td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif">Ainsley 
+        Marie Barton</font></td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif">Cousin</font></td>
+      <td valign="top">&nbsp;</td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif">&nbsp; 
+        </font></td>
+      <td valign="top">&nbsp;</td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif">&nbsp;</font></td>
+    </tr>
+    <tr> 
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif"><a href="http://picasaweb.google.com/lh/searchbrowse?q=Bartons&psc=F&filter=0&uname=john.maurer">Bartons</a></font></td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif"><em>2 
+        or more Bartons</em></font></td>
+      <td valign="top">&nbsp;</td>
+      <td valign="top">&nbsp;</td>
+      <td valign="top">&nbsp;</td>
+      <td valign="top">&nbsp;</td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif">&nbsp;</font></td>
+    </tr>
+    <tr> 
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif"><a href="http://picasaweb.google.com/lh/searchbrowse?q=Chad&psc=F&filter=0&uname=john.maurer">Chad</a></font></td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif">Chad 
+        E. Walz</font></td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif">Aunt 
+        Khloe's boyfriend</font></td>
+      <td valign="top">&nbsp;</td>
+      <td valign="top">&nbsp;</td>
+      <td valign="top">&nbsp;</td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif">&nbsp;</font></td>
+    </tr>
+    <tr> 
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif"><a href="http://picasaweb.google.com/lh/searchbrowse?q=Gramps&psc=F&filter=0&uname=john.maurer">Gramps</a></font></td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif">Owen 
+        Andrew Knutzen</font></td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif">Great-Grandfather</font></td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif">August 
+        13, 1924</font></td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif"> 
+        <script language="">
+var age = computeAge( 8, 13, 1924 ); document.write( age );
+</script>
+        </font></td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif"> 
+        <script language="">
+var sign = computeSign( 8, 13 ); document.write( sign );
+</script>
+        </font></td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif"> 
+        <script language="">
+var animal = computeAnimal( 8, 13, 1924 ); document.write( animal );
+</script>
+        </font></td>
+    </tr>
+    <tr> 
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif"><a href="http://picasaweb.google.com/lh/searchbrowse?q=GreatGrandma&psc=F&filter=0&uname=john.maurer">GreatGrandma</a></font></td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif">Catherine 
+        Dorothy Barton</font></td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif">Great-Grandmother</font></td>
+      <td valign="top">&nbsp;</td>
+      <td valign="top">&nbsp;</td>
+      <td valign="top">&nbsp;</td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif">&nbsp;</font></td>
+    </tr>
+    <tr> 
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif"><a href="http://picasaweb.google.com/lh/searchbrowse?q=GreatNana&psc=F&filter=0&uname=john.maurer">GreatNana</a></font></td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif">LuAnn 
+        Williams Knutzen<br>
+        (<em>pronounced like &quot;ba<u>nana</u>&quot;</em>) </font></td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif">Great-Grandmother</font></td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif">March 
+        6, 1924</font></td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif"> 
+        <script language="">
+var age = computeAge( 3, 6, 1924 ); document.write( age );
+</script>
+        </font></td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif"> 
+        <script language="">
+var sign = computeSign( 3, 6 ); document.write( sign );
+</script>
+        </font></td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif"> 
+        <script language="">
+var animal = computeAnimal( 3, 6, 1924 ); document.write( animal );
+</script>
+        </font></td>
+    </tr>
+    <tr> 
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif"><a href="http://picasaweb.google.com/lh/searchbrowse?q=Kelby&psc=F&filter=0&uname=john.maurer">Kelby</a></font></td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif">Kelby 
+        Frederick Barton</font></td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif">Uncle</font></td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif">January 
+        24, 1974</font></td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif"> 
+        <script language="">
+var age = computeAge( 1, 24, 1974 ); document.write( age );
+</script>
+        </font></td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif"> 
+        <script language="">
+var sign = computeSign( 1, 24 ); document.write( sign );
+</script>
+        </font></td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif"> 
+        <script language="">
+var animal = computeAnimal( 1, 24, 1974 ); document.write( animal );
+</script>
+        </font></td>
+    </tr>
+    <tr> 
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif"><a href="http://picasaweb.google.com/lh/searchbrowse?q=Khloe&psc=F&filter=0&uname=john.maurer">Khloe</a></font></td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif">Khloe 
+        Marie Barton</font></td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif">Aunt</font></td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif">December 
+        4, 1980</font></td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif"> 
+        <script language="">
+var age = computeAge( 12, 4, 1980 ); document.write( age );
+</script>
+        </font></td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif"> 
+        <script language="">
+var sign = computeSign( 12, 4 ); document.write( sign );
+</script>
+        </font></td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif"> 
+        <script language="">
+var animal = computeAnimal( 12, 4, 1980 ); document.write( animal );
+</script>
+        </font></td>
+    </tr>
+    <tr> 
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif"><a href="http://picasaweb.google.com/lh/searchbrowse?q=KK&psc=F&filter=0&uname=john.maurer">KK</a></font></td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif">Katherine 
+        Kulich Barton (&quot;KK&quot;)</font></td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif">Aunt</font></td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif">August 
+        3, 1973</font></td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif"> 
+        <script language="">
+var age = computeAge( 8, 3, 1973 ); document.write( age );
+</script>
+        </font></td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif"> 
+        <script language="">
+var sign = computeSign( 8, 3 ); document.write( sign );
+</script>
+        </font></td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif"> 
+        <script language="">
+var animal = computeAnimal( 8, 3, 1973 ); document.write( animal );
+</script>
+        </font></td>
+    </tr>
+    <tr> 
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif"><a href="http://picasaweb.google.com/lh/searchbrowse?q=Maggie&psc=F&filter=0&uname=john.maurer">Maggie</a></font></td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif">Maggie 
+        Kulich Barton</font></td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif">Pet</font></td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif">&nbsp;</font></td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif">&nbsp;</font></td>
+      <td valign="top">&nbsp;</td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif">&nbsp;</font></td>
+    </tr>
+    <tr> 
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif"><a href="http://picasaweb.google.com/lh/searchbrowse?q=Nonni&psc=F&filter=0&uname=john.maurer">Nonni</a></font></td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif">Mary 
+        Knutzen Barton<br>
+        (<em>pronounced &quot;Noh-nee&quot;)</em> </font></td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif">Grandmother</font></td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif">July 
+        6, 1946</font></td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif"> 
+        <script language="">
+var age = computeAge( 7, 6, 1946 ); document.write( age );
+</script>
+        </font></td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif"> 
+        <script language="">
+var sign = computeSign( 7, 6 ); document.write( sign );
+</script>
+        </font></td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif"> 
+        <script language="">
+var animal = computeAnimal( 7, 6, 1946 ); document.write( animal );
+</script>
+        </font></td>
+    </tr>
+    <tr bgcolor="#333333"> 
+      <td colspan="7" valign="top"><strong><font color="#FFFFFF" face="Arial, Helvetica, sans-serif">family: 
+        Maurer-side</font></strong></td>
+    </tr>
+    <tr> 
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif"><a href="http://picasaweb.google.com/lh/searchbrowse?q=Blanco&psc=F&filter=0&uname=john.maurer">Blanco</a></font></td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif">Blanco 
+        Barton-Maurer (zebra finch)</font></td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif">Pet</font></td>
+      <td valign="top">&nbsp;</td>
+      <td valign="top">&nbsp;</td>
+      <td valign="top">&nbsp;</td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif">&nbsp;</font></td>
+    </tr>
+    <tr> 
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif"><a href="http://picasaweb.google.com/lh/searchbrowse?q=Erin&psc=F&filter=0&uname=john.maurer">Erin</a></font></td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif">Erin 
+        Nicole (Maurer) Quattromani</font></td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif">Aunt</font></td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif">October 
+        8, 1979</font></td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif"> 
+        <script language="">
+var age = computeAge( 10, 8, 1979 ); document.write( age );
+</script>
+        </font></td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif"> 
+        <script language="">
+var sign = computeSign( 10, 8 ); document.write( sign );
+</script>
+        </font></td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif"> 
+        <script language="">
+var animal = computeAnimal( 10, 8, 1979 ); document.write( animal );
+</script>
+        </font></td>
+    </tr>
+    <tr> 
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif"><a href="http://picasaweb.google.com/lh/searchbrowse?q=Maurers&psc=F&filter=0&uname=john.maurer">Maurers</a></font></td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif"><em>2 
+        or more Maurers</em></font></td>
+      <td valign="top">&nbsp;</td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif">&nbsp;</font></td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif">&nbsp;</font></td>
+      <td valign="top">&nbsp;</td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif">&nbsp;</font></td>
+    </tr>
+    <tr> 
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif"><a href="http://picasaweb.google.com/lh/searchbrowse?q=Mike&psc=F&filter=0&uname=john.maurer">Mike</a></font></td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif">Michael 
+        Warren Maurer</font></td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif">Uncle</font></td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif">August 
+        27, 1981</font></td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif"> 
+        <script language="">
+var age = computeAge( 8, 27, 1981 ); document.write( age );
+</script>
+        </font></td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif"> 
+        <script language="">
+var sign = computeSign( 8, 27 ); document.write( sign );
+</script>
+        </font></td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif"> 
+        <script language="">
+var animal = computeAnimal( 8, 27, 1981 ); document.write( animal );
+</script>
+        </font></td>
+    </tr>
+    <tr> 
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif"><a href="http://picasaweb.google.com/lh/searchbrowse?q=Nana&psc=F&filter=0&uname=john.maurer">Nana</a></font></td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif">Pamela 
+        Ann (Siems) Maurer <br>
+        (<em>pronounced &quot;Nah-nah&quot;</em>)</font></td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif">Grandmother</font></td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif">October 
+        1, 1953</font></td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif"> 
+        <script language="">
+var age = computeAge( 10, 1, 1953 ); document.write( age );
+</script>
+        </font></td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif"> 
+        <script language="">
+var sign = computeSign( 10, 1 ); document.write( sign );
+</script>
+        </font></td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif"> 
+        <script language="">
+var animal = computeAnimal( 10, 1, 1953 ); document.write( animal );
+</script>
+        </font></td>
+    </tr>
+    <tr> 
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif"><a href="http://picasaweb.google.com/lh/searchbrowse?q=Pal&psc=F&filter=0&uname=john.maurer">Pal</a></font></td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif">John 
+        Anthony Maurer, III (&quot;Pal&quot;)</font></td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif">Grandfather</font></td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif">March 
+        17, 1954</font></td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif"> 
+        <script language="">
+var age = computeAge( 3, 17, 1954 ); document.write( age );
+</script>
+        </font></td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif"> 
+        <script language="">
+var sign = computeSign( 3, 17 ); document.write( sign );
+</script>
+        </font></td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif"> 
+        <script language="">
+var animal = computeAnimal( 3, 17, 1954 ); document.write( animal );
+</script>
+        </font></td>
+    </tr>
+    <tr bgcolor="#333333"> 
+      <td colspan="7" valign="top"><strong><font color="#FFFFFF" face="Arial, Helvetica, sans-serif">other</font></strong></td>
+    </tr>
+    <tr> 
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif"><a href="http://picasaweb.google.com/lh/searchbrowse?q=Barry&psc=F&filter=0&uname=john.maurer">Barry</a></font></td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif">Barry 
+        Watson-Capps</font></td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif">Stanford 
+        Biology<br>
+        <em>Jana's husband</em> </font></td>
+      <td valign="top">&nbsp;</td>
+      <td valign="top">&nbsp;</td>
+      <td valign="top">&nbsp;</td>
+      <td valign="top">&nbsp;</td>
+    </tr>
+    <tr> 
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif"><a href="http://picasaweb.google.com/lh/searchbrowse?q=Bianca&psc=F&filter=0&uname=john.maurer">Bianca</a></font></td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif">Bianca 
+        Breland</font></td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif">CU 
+        Biology</font></td>
+      <td valign="top">&nbsp;</td>
+      <td valign="top">&nbsp;</td>
+      <td valign="top">&nbsp;</td>
+      <td valign="top">&nbsp;</td>
+    </tr>
+    <tr> 
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif"><a href="http://picasaweb.google.com/lh/searchbrowse?q=Cesar&psc=F&filter=0&uname=john.maurer">Cesar</a></font></td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif">C&eacute;sar 
+        Nufio</font></td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif">CU 
+        Biology/Museum</font></td>
+      <td valign="top">&nbsp;</td>
+      <td valign="top">&nbsp;</td>
+      <td valign="top">&nbsp;</td>
+      <td valign="top">&nbsp;</td>
+    </tr>
+    <tr> 
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif"><a href="http://picasaweb.google.com/lh/searchbrowse?q=Deane&psc=F&filter=0&uname=john.maurer">Deane</a></font></td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif">Deane 
+        Bowers</font></td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif">CU 
+        Biology<br>
+        <em>Kasey's Ph.D. advisor</em></font></td>
+      <td valign="top">&nbsp;</td>
+      <td valign="top">&nbsp;</td>
+      <td valign="top">&nbsp;</td>
+      <td valign="top">&nbsp;</td>
+    </tr>
+    <tr> 
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif"><a href="http://picasaweb.google.com/lh/searchbrowse?q=Dina&psc=F&filter=0&uname=john.maurer">Dina</a></font></td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif">Dina 
+        Nufio</font></td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif">CU 
+        Museum<br>
+        <em>C&eacute;sar's wife</em></font></td>
+      <td valign="top">&nbsp;</td>
+      <td valign="top">&nbsp;</td>
+      <td valign="top">&nbsp;</td>
+      <td valign="top">&nbsp;</td>
+    </tr>
+    <tr> 
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif"><a href="http://picasaweb.google.com/lh/searchbrowse?q=Jana&psc=F&filter=0&uname=john.maurer">Jana</a></font></td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif">Jana 
+        Watson-Capps</font></td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif">Stanford 
+        Biology</font></td>
+      <td valign="top">&nbsp;</td>
+      <td valign="top">&nbsp;</td>
+      <td valign="top">&nbsp;</td>
+      <td valign="top">&nbsp;</td>
+    </tr>
+    <tr> 
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif"><a href="http://picasaweb.google.com/lh/searchbrowse?q=Janice&psc=F&filter=0&uname=john.maurer">Janice</a></font></td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif">Janice 
+        Forbis</font></td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif">CU 
+        Biology</font></td>
+      <td valign="top">&nbsp;</td>
+      <td valign="top">&nbsp;</td>
+      <td valign="top">&nbsp;</td>
+      <td valign="top">&nbsp;</td>
+    </tr>
+    <tr> 
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif"><a href="http://picasaweb.google.com/lh/searchbrowse?q=Ken&psc=F&filter=0&uname=john.maurer">Ken</a></font></td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif">Ken 
+        Keefover-Ring</font></td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif">CU 
+        Biology</font></td>
+      <td valign="top">&nbsp;</td>
+      <td valign="top">&nbsp;</td>
+      <td valign="top">&nbsp;</td>
+      <td valign="top">&nbsp;</td>
+    </tr>
+    <tr> 
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif"><a href="http://picasaweb.google.com/lh/searchbrowse?q=Sarah&psc=F&filter=0&uname=john.maurer">Sarah</a></font></td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif">Sarah 
+        Hinners</font></td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif">CU 
+        Biology</font></td>
+      <td valign="top">&nbsp;</td>
+      <td valign="top">&nbsp;</td>
+      <td valign="top">&nbsp;</td>
+      <td valign="top">&nbsp;</td>
+    </tr>
+    <tr> 
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif"><a href="http://picasaweb.google.com/lh/searchbrowse?q=Sofia&psc=F&filter=0&uname=john.maurer">Sofia</a></font></td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif">Sofia 
+        Nufio</font></td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif">CU 
+        Biology/Museum<br>
+        <em>C&eacute;sar's daughter</em></font></td>
+      <td valign="top">&nbsp;</td>
+      <td valign="top">&nbsp;</td>
+      <td valign="top">&nbsp;</td>
+      <td valign="top">&nbsp;</td>
+    </tr>
+    <tr> 
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif"><a href="http://picasaweb.google.com/lh/searchbrowse?q=Wendy&psc=F&filter=0&uname=john.maurer">Wendy</a></font></td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif">Wendy 
+        Keefover-Ring</font></td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif">CU 
+        Biology<br>
+        <em>Ken's wife</em> </font></td>
+      <td valign="top">&nbsp;</td>
+      <td valign="top">&nbsp;</td>
+      <td valign="top">&nbsp;</td>
+      <td valign="top">&nbsp;</td>
+    </tr>
+    <tr> 
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif"><a href="http://picasaweb.google.com/lh/searchbrowse?q=Yan&psc=F&filter=0&uname=john.maurer">Yan</a></font></td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif">Yan 
+        Linhart</font></td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif">CU 
+        Biology</font></td>
+      <td valign="top">&nbsp;</td>
+      <td valign="top">&nbsp;</td>
+      <td valign="top">&nbsp;</td>
+      <td valign="top">&nbsp;</td>
+    </tr>
+    <tr> 
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif"><a href="http://picasaweb.google.com/lh/searchbrowse?q=Zevon&psc=F&filter=0&uname=john.maurer">Zevon</a></font></td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif">Zevon 
+        Bowers (poodle)</font></td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif">CU 
+        Biology<br>
+        <em>Deane's dog</em> </font></td>
+      <td valign="top">&nbsp;</td>
+      <td valign="top">&nbsp;</td>
+      <td valign="top">&nbsp;</td>
+      <td valign="top">&nbsp;</td>
+    </tr>
+  </table>
+  <br>
+  <hr>
+  <h3><font face="Arial, Helvetica, sans-serif"><a name="places"></a>Places:</font></h3>
+  <table border="0" cellpadding="5">
+    <tr bgcolor="#333333"> 
+      <td><font color="#FFFFFF" face="Arial, Helvetica, sans-serif"><strong>Tag</strong></font></td>
+      <td><font color="#FFFFFF" face="Arial, Helvetica, sans-serif"><strong>Full 
+        Name</strong></font></td>
+    </tr>
+    <tr> 
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif"><a href="http://picasaweb.google.com/lh/searchbrowse?q=airplane&psc=F&filter=0&uname=john.maurer">airplane</a></font></td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif">scenes 
+        in airplanes</font></td>
+    </tr>
+    <tr> 
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif"><a href="http://picasaweb.google.com/lh/searchbrowse?q=airport&psc=F&filter=0&uname=john.maurer">airport</a></font></td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif">scenes 
+        at airports</font></td>
+    </tr>
+    <tr> 
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif"><a href="http://picasaweb.google.com/lh/searchbrowse?q=bay&psc=F&filter=0&uname=john.maurer">bay</a></font></td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif">scenes 
+        with bays</font></td>
+    </tr>
+    <tr> 
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif"><a href="http://picasaweb.google.com/lh/searchbrowse?q=bridge&psc=F&filter=0&uname=john.maurer">bridge</a></font></td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif">scenes 
+        with bridges</font></td>
+    </tr>
+    <tr> 
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif"><a href="http://picasaweb.google.com/lh/searchbrowse?q=Broadmoor&psc=F&filter=0&uname=john.maurer">Broadmoor</a></font></td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif">Broadmoor 
+        Hotel<br>
+        Colorado Springs, CO</font></td>
+    </tr>
+    <tr> 
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif"><a href="http://picasaweb.google.com/lh/searchbrowse?q=Colorado-Springs&psc=F&filter=0&uname=john.maurer">Colorado-Springs</a></font></td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif">Colorado 
+        Springs, CO</font></td>
+    </tr>
+    <tr> 
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif"><a href="http://picasaweb.google.com/lh/searchbrowse?q=creek&psc=F&filter=0&uname=john.maurer">creek</a></font></td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif">scenes 
+        with creeks</font></td>
+    </tr>
+    <tr> 
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif"><a href="http://picasaweb.google.com/lh/searchbrowse?q=CU&psc=F&filter=0&uname=john.maurer">CU</a></font></td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif">University 
+        of Colorado<br>
+        Boulder, CO</font></td>
+    </tr>
+    <tr> 
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif"><a href="http://picasaweb.google.com/lh/searchbrowse?q=Denver&psc=F&filter=0&uname=john.maurer">Denver</a></font></td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif">Denver, 
+        CO</font></td>
+    </tr>
+    <tr> 
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif"><a href="http://picasaweb.google.com/lh/searchbrowse?q=duplex&psc=F&filter=0&uname=john.maurer">duplex</a></font></td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif"> <em>our 
+        duplex:</em><br>
+        801 19th St.<br>
+        Boulder, CO 80302</font></td>
+    </tr>
+    <tr> 
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif"><a href="http://picasaweb.google.com/lh/searchbrowse?q=Eldorado&psc=F&filter=0&uname=john.maurer">Eldorado</a></font></td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif">Eldorado 
+        Springs, CO</font></td>
+    </tr>
+    <tr> 
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif"><a href="http://picasaweb.google.com/lh/searchbrowse?q=Estes&psc=F&filter=0&uname=john.maurer">Estes</a></font></td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif">Estes 
+        Park, CO</font></td>
+    </tr>
+    <tr> 
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif"><a href="http://picasaweb.google.com/lh/searchbrowse?q=flatirons&psc=F&filter=0&uname=john.maurer">flatirons</a></font></td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif">scenes 
+        with flatirons<br>
+        Boulder, CO</font></td>
+    </tr>
+    <tr> 
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif"><a href="http://picasaweb.google.com/lh/searchbrowse?q=fountain&psc=F&filter=0&uname=john.maurer">fountain</a></font></td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif">scenes 
+        with fountains</font></td>
+    </tr>
+    <tr> 
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif"><a href="http://picasaweb.google.com/lh/searchbrowse?q=gardens&psc=F&filter=0&uname=john.maurer">gardens</a></font></td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif">botanic 
+        gardens</font></td>
+    </tr>
+    <tr> 
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif"><a href="http://picasaweb.google.com/lh/searchbrowse?q=hospital&psc=F&filter=0&uname=john.maurer">hospital</a></font></td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif">scenes 
+        in hospitals</font></td>
+    </tr>
+    <tr> 
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif"><a href="http://picasaweb.google.com/lh/searchbrowse?q=hotel&psc=F&filter=0&uname=john.maurer">hotel</a></font></td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif">scenes 
+        in hotels</font></td>
+    </tr>
+    <tr> 
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif"><a href="http://picasaweb.google.com/lh/searchbrowse?q=hot-springs&psc=F&filter=0&uname=john.maurer">hot-springs</a></font></td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif">scenes 
+        at hot springs</font></td>
+    </tr>
+    <tr> 
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif"><a href="http://picasaweb.google.com/lh/searchbrowse?q=lake&psc=F&filter=0&uname=john.maurer">lake</a></font></td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif">scenes 
+        with lakes</font></td>
+    </tr>
+    <tr> 
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif"><a href="http://picasaweb.google.com/lh/searchbrowse?q=Manitou&psc=F&filter=0&uname=john.maurer">Manitou</a></font></td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif">Manitou 
+        Springs, CO</font></td>
+    </tr>
+    <tr> 
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif"><a href="http://picasaweb.google.com/lh/searchbrowse?q=mountains&psc=F&filter=0&uname=john.maurer">mountains</a></font></td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif">scenes 
+        with mountains</font></td>
+    </tr>
+    <tr> 
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif"><a href="http://picasaweb.google.com/lh/searchbrowse?q=NSIDC&psc=F&filter=0&uname=john.maurer">NSIDC</a></font></td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif"><em>JSL's 
+        work:<br>
+        </em> National Snow and Ice Data Center<br>
+        Boulder, CO</font></td>
+    </tr>
+    <tr> 
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif"><a href="http://picasaweb.google.com/lh/searchbrowse?q=pond&psc=F&filter=0&uname=john.maurer">pond</a></font></td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif">scenes 
+        with ponds</font></td>
+    </tr>
+    <tr> 
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif"><a href="http://picasaweb.google.com/lh/searchbrowse?q=river&psc=F&filter=0&uname=john.maurer">river</a></font></td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif">scenes 
+        with rivers</font></td>
+    </tr>
+    <tr> 
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif"><a href="http://picasaweb.google.com/lh/searchbrowse?q=San-Francisco&psc=F&filter=0&uname=john.maurer">San-Francisco</a></font></td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif">San 
+        Francisco, CA</font></td>
+    </tr>
+    <tr> 
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif"><a href="http://picasaweb.google.com/lh/searchbrowse?q=Stanley&psc=F&filter=0&uname=john.maurer">Stanley</a></font></td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif">Stanley 
+        Hotel<br>
+        Estes Park, CO</font></td>
+    </tr>
+    <tr> 
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif"><a href="http://picasaweb.google.com/lh/searchbrowse?q=Summit&psc=F&filter=0&uname=john.maurer">Summit</a></font></td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif">Summit 
+        County, CO</font></td>
+    </tr>
+    <tr> 
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif"><a href="http://picasaweb.google.com/lh/searchbrowse?q=Wonderland&psc=F&filter=0&uname=john.maurer">Wonderland</a></font></td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif">Wonderland 
+        Lake<br>
+        Boulder, CO</font></td>
+    </tr>
+    <tr> 
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif"><a href="http://picasaweb.google.com/lh/searchbrowse?q=Wyoming&psc=F&filter=0&uname=john.maurer">Wyoming</a></font></td>
+      <td valign="top"><font size="-1" face="Arial, Helvetica, sans-serif">Wyoming</font></td>
+    </tr>
+  </table>
+  <br>
+  <hr>
+  <h3><font face="Arial, Helvetica, sans-serif"><a name="occasions"></a>Occasions:</font></h3>
+  <ul>
+    <li><font size="-1" face="Arial, Helvetica, sans-serif"><a href="http://picasaweb.google.com/lh/searchbrowse?q=anniversary&psc=F&filter=0&uname=john.maurer">anniversary</a></font></li>
+    <li><font size="-1" face="Arial, Helvetica, sans-serif"><a href="http://picasaweb.google.com/lh/searchbrowse?q=Autumn&psc=F&filter=0&uname=john.maurer">Autumn</a></font></li>
+    <li><font size="-1" face="Arial, Helvetica, sans-serif"><a href="http://picasaweb.google.com/lh/searchbrowse?q=Christmas&psc=F&filter=0&uname=john.maurer">Christmas</a></font></li>
+    <li><font size="-1" face="Arial, Helvetica, sans-serif"><a href="http://picasaweb.google.com/lh/searchbrowse?q=Halloween&psc=F&filter=0&uname=john.maurer">Halloween</a></font></li>
+    <li><font size="-1" face="Arial, Helvetica, sans-serif"><a href="http://picasaweb.google.com/lh/searchbrowse?q=shower&psc=F&filter=0&uname=john.maurer">shower</a></font></li>
+    <li><font size="-1" face="Arial, Helvetica, sans-serif"><a href="http://picasaweb.google.com/lh/searchbrowse?q=travel&psc=F&filter=0&uname=john.maurer">travel</a></font></li>
+    <li><font size="-1" face="Arial, Helvetica, sans-serif"><a href="http://picasaweb.google.com/lh/searchbrowse?q=Winter&psc=F&filter=0&uname=john.maurer">Winter</a></font></li>
+  </ul>
+  <hr>
+  <h3><font face="Arial, Helvetica, sans-serif"><a name="dezi_behaviors" id="dezi_behaviors"></a>Dezi 
+    behaviors &amp; qualities:</font></h3>
+  <ul>
+    <li><font size="-1" face="Arial, Helvetica, sans-serif"><a href="http://picasaweb.google.com/lh/searchbrowse?q=active&psc=F&filter=0&uname=john.maurer">active</a></font></li>
+    <li><font size="-1" face="Arial, Helvetica, sans-serif"><a href="http://picasaweb.google.com/lh/searchbrowse?q=alert&psc=F&filter=0&uname=john.maurer">alert</a></font></li>
+    <li><font size="-1" face="Arial, Helvetica, sans-serif"><a href="http://picasaweb.google.com/lh/searchbrowse?q=angelic&psc=F&filter=0&uname=john.maurer">angelic</a></font></li>
+    <li><font size="-1" face="Arial, Helvetica, sans-serif"><a href="http://picasaweb.google.com/lh/searchbrowse?q=Buddha&psc=F&filter=0&uname=john.maurer">Buddha</a></font></li>
+    <li><font size="-1" face="Arial, Helvetica, sans-serif"><a href="http://picasaweb.google.com/lh/searchbrowse?q=burping&psc=F&filter=0&uname=john.maurer">burping</a></font></li>
+    <li><font size="-1" face="Arial, Helvetica, sans-serif"><a href="http://picasaweb.google.com/lh/searchbrowse?q=crying&psc=F&filter=0&uname=john.maurer">crying</a></font></li>
+    <li><font size="-1" face="Arial, Helvetica, sans-serif"><a href="http://picasaweb.google.com/lh/searchbrowse?q=Desdemona&psc=F&filter=0&uname=john.maurer">Desdemona</a></font></li>
+    <li><font size="-1" face="Arial, Helvetica, sans-serif"><a href="http://picasaweb.google.com/lh/searchbrowse?q=face&psc=F&filter=0&uname=john.maurer">face</a></font></li>
+    <li><font size="-1" face="Arial, Helvetica, sans-serif"><a href="http://picasaweb.google.com/lh/searchbrowse?q=feeding&psc=F&filter=0&uname=john.maurer">feeding</a></font></li>
+    <li><font size="-1" face="Arial, Helvetica, sans-serif"><a href="http://picasaweb.google.com/lh/searchbrowse?q=feet&psc=F&filter=0&uname=john.maurer">feet</a></font></li>
+    <li><font size="-1" face="Arial, Helvetica, sans-serif"><a href="http://picasaweb.google.com/lh/searchbrowse?q=froggy&psc=F&filter=0&uname=john.maurer">froggy</a></font></li>
+    <li><font size="-1" face="Arial, Helvetica, sans-serif"><a href="http://picasaweb.google.com/lh/searchbrowse?q=hands&psc=F&filter=0&uname=john.maurer">hands</a></font></li>
+    <li><font size="-1" face="Arial, Helvetica, sans-serif"><a href="http://picasaweb.google.com/lh/searchbrowse?q=hat&psc=F&filter=0&uname=john.maurer">hat</a></font></li>
+    <li><font size="-1" face="Arial, Helvetica, sans-serif"><a href="http://picasaweb.google.com/lh/searchbrowse?q=hoodie&psc=F&filter=0&uname=john.maurer">hoodie</a></font></li>
+    <li><font size="-1" face="Arial, Helvetica, sans-serif"><a href="http://picasaweb.google.com/lh/searchbrowse?q=nude&psc=F&filter=0&uname=john.maurer">nude</a></font></li>
+    <li><font size="-1" face="Arial, Helvetica, sans-serif"><a href="http://picasaweb.google.com/lh/searchbrowse?q=oui-oui&psc=F&filter=0&uname=john.maurer">oui-oui</a></font></li>
+    <li><font size="-1" face="Arial, Helvetica, sans-serif"><a href="http://picasaweb.google.com/lh/searchbrowse?q=pose&psc=F&filter=0&uname=john.maurer">pose</a></font></li>
+    <li><font size="-1" face="Arial, Helvetica, sans-serif"><a href="http://picasaweb.google.com/lh/searchbrowse?q=pouting&psc=F&filter=0&uname=john.maurer">pouting</a></font></li>
+    <li><font size="-1" face="Arial, Helvetica, sans-serif"><a href="http://picasaweb.google.com/lh/searchbrowse?q=side-part&psc=F&filter=0&uname=john.maurer">side-part</a></font></li>
+    <li><font size="-1" face="Arial, Helvetica, sans-serif"><a href="http://picasaweb.google.com/lh/searchbrowse?q=sleeping&psc=F&filter=0&uname=john.maurer">sleeping</a></font></li>
+    <li><font size="-1" face="Arial, Helvetica, sans-serif"><a href="http://picasaweb.google.com/lh/searchbrowse?q=sleepy&psc=F&filter=0&uname=john.maurer">sleepy</a></font></li>
+    <li><font size="-1" face="Arial, Helvetica, sans-serif"><a href="http://picasaweb.google.com/lh/searchbrowse?q=smiling&psc=F&filter=0&uname=john.maurer">smiling</a></font></li>
+    <li><font size="-1" face="Arial, Helvetica, sans-serif"><a href="http://picasaweb.google.com/lh/searchbrowse?q=spike&psc=F&filter=0&uname=john.maurer">spike</a></font></li>
+    <li><font size="-1" face="Arial, Helvetica, sans-serif"><a href="http://picasaweb.google.com/lh/searchbrowse?q=sucking&psc=F&filter=0&uname=john.maurer">sucking</a></font></li>
+    <li><font size="-1" face="Arial, Helvetica, sans-serif"><a href="http://picasaweb.google.com/lh/searchbrowse?q=sweaty&psc=F&filter=0&uname=john.maurer">sweaty</a></font></li>
+    <li><font size="-1" face="Arial, Helvetica, sans-serif"><a href="http://picasaweb.google.com/lh/searchbrowse?q=tongue&psc=F&filter=0&uname=john.maurer">tongue</a></font></li>
+    <li><font size="-1" face="Arial, Helvetica, sans-serif"><a href="http://picasaweb.google.com/lh/searchbrowse?q=tummy&psc=F&filter=0&uname=john.maurer">tummy</a></font></li>
+    <li><font size="-1" face="Arial, Helvetica, sans-serif"><a href="http://picasaweb.google.com/lh/searchbrowse?q=yawning&psc=F&filter=0&uname=john.maurer">yawning</a></font></li>
+  </ul>
+  <hr>
+  <h3><font face="Arial, Helvetica, sans-serif"><a name="dezi_paraphernalia"></a>Dezi 
+    paraphernalia:</font></h3>
+  <ul>
+    <li><font size="-1" face="Arial, Helvetica, sans-serif"><a href="http://picasaweb.google.com/lh/searchbrowse?q=Baby-Bjorn&psc=F&filter=0&uname=john.maurer">Baby-Bjorn</a></font></li>
+    <li><font size="-1" face="Arial, Helvetica, sans-serif"><a href="http://picasaweb.google.com/lh/searchbrowse?q=bath&psc=F&filter=0&uname=john.maurer">bath</a></font></li>
+    <li><font size="-1" face="Arial, Helvetica, sans-serif"><a href="http://picasaweb.google.com/lh/searchbrowse?q=boppy&psc=F&filter=0&uname=john.maurer">boppy</a></font></li>
+    <li><font size="-1" face="Arial, Helvetica, sans-serif"><a href="http://picasaweb.google.com/lh/searchbrowse?q=bottle&psc=F&filter=0&uname=john.maurer">bottle</a></font></li>
+    <li><font size="-1" face="Arial, Helvetica, sans-serif"><a href="http://picasaweb.google.com/lh/searchbrowse?q=bouncer&psc=F&filter=0&uname=john.maurer">bouncer</a></font></li>
+    <li><font size="-1" face="Arial, Helvetica, sans-serif"><a href="http://picasaweb.google.com/lh/searchbrowse?q=carseat&psc=F&filter=0&uname=john.maurer">carseat</a></font></li>
+    <li><font size="-1" face="Arial, Helvetica, sans-serif"><a href="http://picasaweb.google.com/lh/searchbrowse?q=co-sleeper&psc=F&filter=0&uname=john.maurer">co-sleeper</a></font></li>
+    <li><font size="-1" face="Arial, Helvetica, sans-serif"><a href="http://picasaweb.google.com/lh/searchbrowse?q=crib&psc=F&filter=0&uname=john.maurer">crib</a></font></li>
+    <li><font size="-1" face="Arial, Helvetica, sans-serif"><a href="http://picasaweb.google.com/lh/searchbrowse?q=diaper&psc=F&filter=0&uname=john.maurer">diaper</a></font></li>
+    <li><font size="-1" face="Arial, Helvetica, sans-serif"><a href="http://picasaweb.google.com/lh/searchbrowse?q=exercise-ball&psc=F&filter=0&uname=john.maurer">exercise-ball</a></font></li>
+    <li><font size="-1" face="Arial, Helvetica, sans-serif"><a href="http://picasaweb.google.com/lh/searchbrowse?q=Hooter-Hider&psc=F&filter=0&uname=john.maurer">Hooter-Hider</a></font></li>
+    <li><font size="-1" face="Arial, Helvetica, sans-serif"><a href="http://picasaweb.google.com/lh/searchbrowse?q=medicine&psc=F&filter=0&uname=john.maurer">medicine</a></font></li>
+    <li><font size="-1" face="Arial, Helvetica, sans-serif"><a href="http://picasaweb.google.com/lh/searchbrowse?q=mirror&psc=F&filter=0&uname=john.maurer">mirror</a></font></li>
+    <li><font size="-1" face="Arial, Helvetica, sans-serif"><a href="http://picasaweb.google.com/lh/searchbrowse?q=nest&psc=F&filter=0&uname=john.maurer">nest</a></font></li>
+    <li><font size="-1" face="Arial, Helvetica, sans-serif">outfits: <a href="http://picasaweb.google.com/lh/searchbrowse?q=ants&psc=F&filter=0&uname=john.maurer">ants</a>, 
+      <a href="http://picasaweb.google.com/lh/searchbrowse?q=Cardinals&psc=F&filter=0&uname=john.maurer">Cardinals</a>, 
+      <a href="http://picasaweb.google.com/lh/searchbrowse?q=dragon&psc=F&filter=0&uname=john.maurer">dragon</a>, 
+      <a href="http://picasaweb.google.com/lh/searchbrowse?q=hoodie&psc=F&filter=0&uname=john.maurer">hoodie</a>, 
+      <a href="http://picasaweb.google.com/lh/searchbrowse?q=pajamas&psc=F&filter=0&uname=john.maurer">pajamas</a>, 
+      <a href="http://picasaweb.google.com/lh/searchbrowse?q=polar-bear&psc=F&filter=0&uname=john.maurer">polar-bear</a>, 
+      <a href="http://picasaweb.google.com/lh/searchbrowse?q=tie-dye&psc=F&filter=0&uname=john.maurer">tie-dye</a> 
+      </font></li>
+    <li><font size="-1" face="Arial, Helvetica, sans-serif"><a href="http://picasaweb.google.com/lh/searchbrowse?q=pacifier&psc=F&filter=0&uname=john.maurer">pacifier</a></font></li>
+    <li><font size="-1" face="Arial, Helvetica, sans-serif"><a href="http://picasaweb.google.com/lh/searchbrowse?q=pajamas&psc=F&filter=0&uname=john.maurer">pajamas</a></font></li>
+    <li><font size="-1" face="Arial, Helvetica, sans-serif"><a href="http://picasaweb.google.com/lh/searchbrowse?q=playpen&psc=F&filter=0&uname=john.maurer">playpen</a></font></li>
+    <li><font size="-1" face="Arial, Helvetica, sans-serif"><a href="http://picasaweb.google.com/lh/searchbrowse?q=sling&psc=F&filter=0&uname=john.maurer">sling</a></font></li>
+    <li><font size="-1" face="Arial, Helvetica, sans-serif"><a href="http://picasaweb.google.com/lh/searchbrowse?q=stroller&psc=F&filter=0&uname=john.maurer">stroller</a></font></li>
+    <li><font size="-1" face="Arial, Helvetica, sans-serif"><a href="http://picasaweb.google.com/lh/searchbrowse?q=swaddle&psc=F&filter=0&uname=john.maurer">swaddle</a></font></li>
+    <li><font size="-1" face="Arial, Helvetica, sans-serif"><a href="http://picasaweb.google.com/lh/searchbrowse?q=swing&psc=F&filter=0&uname=john.maurer">swing</a></font></li>
+    <li><font size="-1" face="Arial, Helvetica, sans-serif"><a href="http://picasaweb.google.com/lh/searchbrowse?q=tape&psc=F&filter=0&uname=john.maurer">tape</a></font></li>
+    <li><font size="-1" face="Arial, Helvetica, sans-serif"><a href="http://picasaweb.google.com/lh/searchbrowse?q=toys&psc=F&filter=0&uname=john.maurer">toys</a>: 
+      <a href="http://picasaweb.google.com/lh/searchbrowse?q=giraffe&psc=F&filter=0&uname=john.maurer">giraffe</a>, 
+      <a href="http://picasaweb.google.com/lh/searchbrowse?q=panda&psc=F&filter=0&uname=john.maurer">panda</a>, 
+      <a href="http://picasaweb.google.com/lh/searchbrowse?q=polar-bear&psc=F&filter=0&uname=john.maurer">polar-bear</a>, 
+      <a href="http://picasaweb.google.com/lh/searchbrowse?q=soccer&psc=F&filter=0&uname=john.maurer">soccer</a> 
+      </font> </li>
+  </ul>
+  <hr>
+  <h3><font face="Arial, Helvetica, sans-serif"><a name="other"></a>Other:</font></h3>
+  <ul>
+    <li><a href="http://picasaweb.google.com/lh/searchbrowse?q=art&psc=F&filter=0&uname=john.maurer"><font size="-1" face="Arial, Helvetica, sans-serif">art</font></a></li>
+    <li><font size="-1" face="Arial, Helvetica, sans-serif"><a href="http://picasaweb.google.com/lh/searchbrowse?q=doctor&psc=F&filter=0&uname=john.maurer">doctor</a></font></li>
+    <li><font size="-1" face="Arial, Helvetica, sans-serif">drinks:</font> <font size="-1" face="Arial, Helvetica, sans-serif"><a href="http://picasaweb.google.com/lh/searchbrowse?q=champagne&psc=F&filter=0&uname=john.maurer">champagne</a></font>, 
+      <font size="-1" face="Arial, Helvetica, sans-serif"><a href="http://picasaweb.google.com/lh/searchbrowse?q=cocktail&psc=F&filter=0&uname=john.maurer">cocktail</a></font>, 
+      <font size="-1" face="Arial, Helvetica, sans-serif"><a href="http://picasaweb.google.com/lh/searchbrowse?q=tea&psc=F&filter=0&uname=john.maurer">tea</a></font>, 
+      <font size="-1" face="Arial, Helvetica, sans-serif"><a href="http://picasaweb.google.com/lh/searchbrowse?q=wine&psc=F&filter=0&uname=john.maurer">wine</a></font> 
+    </li>
+    <li><font size="-1" face="Arial, Helvetica, sans-serif"><a href="http://picasaweb.google.com/lh/searchbrowse?q=fauna&psc=F&filter=0&uname=john.maurer">fauna</a></font></li>
+    <li><font size="-1" face="Arial, Helvetica, sans-serif"><a href="http://picasaweb.google.com/lh/searchbrowse?q=favorites&psc=F&filter=0&uname=john.maurer">favorites</a></font></li>
+    <li><font size="-1" face="Arial, Helvetica, sans-serif"><a href="http://picasaweb.google.com/lh/searchbrowse?q=flora&psc=F&filter=0&uname=john.maurer">flora</a></font></li>
+    <li><font size="-1" face="Arial, Helvetica, sans-serif"><a href="http://picasaweb.google.com/lh/searchbrowse?q=fishing&psc=F&filter=0&uname=john.maurer">fishing</a></font></li>
+    <li><font size="-1" face="Arial, Helvetica, sans-serif"><a href="http://picasaweb.google.com/lh/searchbrowse?q=funny&psc=F&filter=0&uname=john.maurer">funny</a></font></li>
+    <li><font size="-1" face="Arial, Helvetica, sans-serif"><a href="http://picasaweb.google.com/lh/searchbrowse?q=nurse&psc=F&filter=0&uname=john.maurer">nurse</a></font></li>
+    <li><font size="-1" face="Arial, Helvetica, sans-serif"><a href="http://picasaweb.google.com/lh/searchbrowse?q=pets&psc=F&filter=0&uname=john.maurer">pets</a></font></li>
+    <li><font size="-1" face="Arial, Helvetica, sans-serif"><a href="http://picasaweb.google.com/lh/searchbrowse?q=piano&psc=F&filter=0&uname=john.maurer">piano</a></font></li>
+    <li><font size="-1" face="Arial, Helvetica, sans-serif"><a href="http://picasaweb.google.com/lh/searchbrowse?q=pregnant&psc=F&filter=0&uname=john.maurer">pregnant</a></font></li>
+    <li><font size="-1" face="Arial, Helvetica, sans-serif"><a href="http://picasaweb.google.com/lh/searchbrowse?q=Ranger&psc=F&filter=0&uname=john.maurer">Ranger</a></font></li>
+    <li><font size="-1" face="Arial, Helvetica, sans-serif"><a href="http://picasaweb.google.com/lh/searchbrowse?q=Skype&psc=F&filter=0&uname=john.maurer">Skype</a></font></li>
+    <li><font size="-1" face="Arial, Helvetica, sans-serif"><a href="http://picasaweb.google.com/lh/searchbrowse?q=webcam&psc=F&filter=0&uname=john.maurer">webcam</a></font></li>
+  </ul>
+  <p><a href="#top"><img src="up.gif" width="8" height="5" border="0"></a> <a href="#top">Top</a></p>
+  <hr>
+  <p><font size="-1" face="Arial, Helvetica, sans-serif">Last Updated: 
+    <!-- #BeginDate format:Am1 -->December 19, 2007<!-- #EndDate -->
+    </font><br>
+  </p>
+</blockquote>
+</body>
+</html>
