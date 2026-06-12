@@ -1,3 +1,6 @@
+---
+---
+<!-- Above lines tell GitHub/Jekyll to find include statements -->
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 
 <html>
@@ -26,7 +29,7 @@
       <font size="-7">AVHRR Sea Surface Temperature, October 2001 (NASA/JPL PO.DAAC)</font></td>
       <td valign="top"><p><font size="+1"><i><b>John Maurer</b></i></font></p>
         <p>
-          <!--#include virtual="../ssi/address.ssi" -->
+          <!--#include virtual="../ssi/address.ssi" -->{% include address.ssi %}
         </p>
         <p>This paper is an overview of a seminar given by <a href="http://www.esrl.noaa.gov/psd/people/gary.a.wick/" target="_self">Dr. 
           Gary A. Wick</a>, of NOAA Earth System Research Laboratory (<a href="http://www.esrl.noaa.gov" target="_self">ESRL</a>), 
@@ -423,11 +426,11 @@
   
   <p align="center"><a href="#" onClick="window.scrollTo( 0, 0 ); this.blur(); return false;">Top of page</a> &nbsp;&bull; &nbsp;<a href="#intro">Introduction</a> &nbsp;&bull; &nbsp;<a href="#thermal">Thermal infrared</a> &nbsp;&bull; &nbsp;<a href="#passive">Passive microwave</a> &nbsp;&bull; &nbsp;<a href="#derived">How SST is derived</a> &nbsp;&bull; &nbsp;<a href="#depths">Different depths of SST</a> &nbsp;&bull; &nbsp;<a href="#blending">Blending SSTs</a> &nbsp;&bull; &nbsp;<a href="#references">References</a></p>
   <p align="center">&copy; 2002, 
-    <!--#include virtual="../ssi/footer.ssi" -->
+    <!--#include virtual="../ssi/footer.ssi" -->{% include footer.ssi %}
   </p>
   
 </blockquote>
-<!--#include virtual="../ssi/google_analytics.ssi" -->
+<!--#include virtual="../ssi/google_analytics.ssi" -->{% include google_analytics.ssi %}
 </body>
 
 </html>

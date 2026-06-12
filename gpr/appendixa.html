@@ -1,3 +1,6 @@
+---
+---
+<!-- Above lines tell GitHub/Jekyll to find include statements -->
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
@@ -22,7 +25,7 @@
       <td valign="top"> <div align="center"><a href="http://www.rsinc.com/envi/" target="_blank"><img src="ENVI_logo.jpg" width="123" height="41" border="0"></a></div></td>
     </tr>
   </table>
-  <p><em>by John Maurer &lt;<font size="-1"><!--#include virtual="../ssi/email.ssi" --></font>&gt;</em></p>
+  <p><em>by John Maurer &lt;<font size="-1"><!--#include virtual="../ssi/email.ssi" -->{% include email.ssi %}</font>&gt;</em></p>
   <p>A.1. <a href="#a1">Opening Files In ENVI</a><br>
     A.2. <a href="#a2">Subsetting</a><br>
     A.3. <a href="#a3">Filtering</a><br>
@@ -519,8 +522,8 @@
     &bull; <a href="index.html#references">References<br>
     </a>Appendix B. <a href="appendixb.html">Program Documentation and Installation 
     Instructions</a></p>
-  <p align="center">&copy; 2006, <!--#include virtual="../ssi/footer.ssi" --></p>
+  <p align="center">&copy; 2006, <!--#include virtual="../ssi/footer.ssi" -->{% include footer.ssi %}</p>
 </blockquote>
-<!--#include virtual="../ssi/google_analytics.ssi" -->
+<!--#include virtual="../ssi/google_analytics.ssi" -->{% include google_analytics.ssi %}
 </body>
 </html>

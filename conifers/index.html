@@ -1,3 +1,6 @@
+---
+---
+<!-- Above lines tell GitHub/Jekyll to find include statements -->
 <html>
 <head>
 <link rel="shortcut icon" href="favicon.ico" />
@@ -18,7 +21,7 @@
           Mountain, Sierra Nevadas, with vegetation mapping in green and orange</font></div></td>
       <td width="77%" valign="top"> <p><font size="+1"><i><b>John Maurer</b></i></font></p>
         <p>
-          <!--#include virtual="../ssi/address.ssi" -->
+          <!--#include virtual="../ssi/address.ssi" -->{% include address.ssi %}
         </p>
         <p>This paper was written as part of a graduate course (&quot;Remote Sensing 
           Image Analysis&quot;) taught by <a href="http://cires.colorado.edu/people/goetz/">Prof. 
@@ -389,8 +392,8 @@
     &bull; <a href="#imagery">Imagery and Study Site</a> &bull; <a href="#methods">Methods</a> 
     &bull; <a href="#results">Results</a> &bull; <a href="#summary">Summary and Conclusions</a> 
     &bull; <a href="#references">References</a></p>
-  <p align="center">&copy; 2002, <!--#include virtual="../ssi/footer.ssi" --></p>
+  <p align="center">&copy; 2002, <!--#include virtual="../ssi/footer.ssi" -->{% include footer.ssi %}</p>
   </blockquote>
-<!--#include virtual="../ssi/google_analytics.ssi" -->
+<!--#include virtual="../ssi/google_analytics.ssi" -->{% include google_analytics.ssi %}
 </body>
 </html>

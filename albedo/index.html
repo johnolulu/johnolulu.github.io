@@ -1,3 +1,6 @@
+---
+---
+<!-- Above lines tell GitHub/Jekyll to find include statements -->
 <html>
 <head>
 <link rel="shortcut icon" href="../favicon.ico" />
@@ -17,7 +20,7 @@
     Multi-angle Imaging SpectroRadiometer (MISR); image by NASA/GSFC/LaRC/JPL.</font></td>
       <td width="71%" valign="top"><p><font size="+1"><i><b>John Maurer</b></i></font></p>
         <p>
-          <!--#include virtual="../ssi/address.ssi" -->
+          <!--#include virtual="../ssi/address.ssi" -->{% include address.ssi %}
         </p>
         <p>This paper was written as part of a graduate course (&quot;Remote Sensing 
           Field Methods&quot;) co-taught by Profs. <a href="http://cires.colorado.edu/people/goetz/">Alexander 
@@ -712,8 +715,8 @@
     &bull; <a href="#remotesensing">Remote Sensing Methods</a> &bull; <a href="#field">Field 
     Methods</a> &bull; <a href="#future">Future Directions</a> &bull; <a href="#conclusions">Conclusions</a> 
     &bull; <a href="#references">References</a></p>
-  <p align="center">&copy; 2002, <!--#include virtual="../ssi/footer.ssi" --></p>
+  <p align="center">&copy; 2002, <!--#include virtual="../ssi/footer.ssi" -->{% include footer.ssi %}</p>
 </blockquote>
-<!--#include virtual="../ssi/google_analytics.ssi" -->
+<!--#include virtual="../ssi/google_analytics.ssi" -->{% include google_analytics.ssi %}
 </body>
 </html>

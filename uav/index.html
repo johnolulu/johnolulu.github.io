@@ -1,3 +1,6 @@
+---
+---
+<!-- Above lines tell GitHub/Jekyll to find include statements -->
 <html>
 <head>
 <link rel="shortcut icon" href="../../favicon.ico" />
@@ -16,7 +19,7 @@
     first unmanned aircraft to cross the North Atlantic.</font></td>
       <td valign="top"><p><font size="+1"><i><b>John Maurer</b></i></font></p>
         <p>
-          <!--#include virtual="../ssi/address.ssi" -->
+          <!--#include virtual="../ssi/address.ssi" -->{% include address.ssi %}
         </p>
         <p>Seminar by <a href="http://ccar.colorado.edu/ccar/people/maslanik.htm">Dr. 
           James Maslanik</a>, Colorado Center for Astrodynamics Research (<a href="http://ccar.colorado.edu/">CCAR</a>), 
@@ -183,9 +186,9 @@
   <hr>
   <p align="center"><a href="#" onClick="window.scrollTo( 0, 0 ); this.blur(); return false;">Top of page</a> &nbsp;&bull; &nbsp;<a href="#intro">Introduction</a> &nbsp;&bull; &nbsp;<a href="#specifications">Specifications</a> &nbsp;&bull; &nbsp;<a href="#advantages">Advantages</a> &nbsp;&bull; &nbsp;<a href="#disadvantages">Disadvantages</a> &nbsp;&bull; &nbsp;<a href="#applications">Applications</a></p>
   <p align="center">&copy; 2002, 
-    <!--#include virtual="../ssi/footer.ssi" -->
+    <!--#include virtual="../ssi/footer.ssi" -->{% include footer.ssi %}
   </p>
 </blockquote>
-<!--#include virtual="../ssi/google_analytics.ssi" -->
+<!--#include virtual="../ssi/google_analytics.ssi" -->{% include google_analytics.ssi %}
 </body>
 </html>

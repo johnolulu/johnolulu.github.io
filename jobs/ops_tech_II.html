@@ -1,3 +1,6 @@
+---
+---
+<!-- Above lines tell GitHub/Jekyll to find include statements -->
 <html>
 <head>
 <link rel="shortcut icon" href="favicon.ico" />
@@ -176,10 +179,10 @@ body {
   <hr>
   <blockquote>
     <p align="center">
-      <!--#include virtual="../ssi/footer.ssi" -->
+      <!--#include virtual="../ssi/footer.ssi" -->{% include footer.ssi %}
     </p>
   </blockquote>
 </blockquote>
-<!--#include virtual="../ssi/google_analytics.ssi" -->
+<!--#include virtual="../ssi/google_analytics.ssi" -->{% include google_analytics.ssi %}
 </body>
 </html>

@@ -1,3 +1,6 @@
+---
+---
+<!-- Above lines tell GitHub/Jekyll to find include statements -->
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
@@ -30,7 +33,7 @@
       <td width="81%" valign="top"> <p><font size="+1"><i><b>John Maurer and Thomas 
           N. Chase </b></i></font></p>
         <p>
-          <!--#include virtual="../ssi/address.ssi" -->
+          <!--#include virtual="../ssi/address.ssi" -->{% include address.ssi %}
         </p>
         <p>This paper was written as part of a graduate course (&quot;Climate 
           Systems Modeling&quot;) taught by Professor <a href="http://cires.colorado.edu/people/chase/">Thomas 
@@ -1059,7 +1062,7 @@
     the underlying physical properties of ice sheet mass balances.</p>
   <p><em>~ end ~</em></p>
   <p>
-    <!--#include virtual="../ssi/top.ssi" -->
+    <!--#include virtual="../ssi/top.ssi" -->{% include top.ssi %}
   </p>
   <p><strong>Acknowledgements:</strong> The first author would like to thank David 
     Kindig for his assistance with getting Planet Simulator installed and running. 
@@ -1209,14 +1212,14 @@
     297: 218-222.</li>
 </ul>
 <blockquote> 
-  <!--#include virtual="../ssi/top.ssi" -->
+  <!--#include virtual="../ssi/top.ssi" -->{% include top.ssi %}
   <hr>
   <p align="center"><a href="#" onClick="window.scrollTo( 0, 0 ); this.blur(); return false;">Top of Page</a> &bull; <a href="#intro">Introduction</a> 
     &bull; <a href="#model">Model Description </a> &bull; <a href="#design">Experimental 
     Design</a> &bull; <a href="#validation">Validation</a> &bull; <a href="#results">Results</a> 
     &bull; <a href="#discussion">Discussion</a> &bull; <a href="#references">References</a></p>
-  <p align="center">&copy; 2006, <!--#include virtual="../ssi/footer.ssi" --></p>
+  <p align="center">&copy; 2006, <!--#include virtual="../ssi/footer.ssi" -->{% include footer.ssi %}</p>
 </blockquote>
-<!--#include virtual="../ssi/google_analytics.ssi" -->
+<!--#include virtual="../ssi/google_analytics.ssi" -->{% include google_analytics.ssi %}
 </body>
 </html>

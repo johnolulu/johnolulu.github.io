@@ -1,3 +1,6 @@
+---
+---
+<!-- Above lines tell GitHub/Jekyll to find include statements -->
 <html>
 
 <head>
@@ -21,7 +24,7 @@
           <font size="-7">Computer rendition of Terra by NASA.</font></div></td>
       <td width="81%" valign="top"> <p><b><i><font size="+1">John Maurer</font></i></b></p>
         <p>
-          <!--#include virtual="../ssi/address.ssi" -->
+          <!--#include virtual="../ssi/address.ssi" -->{% include address.ssi %}
         </p>
       <p>November, 2001</p>
       <p><em>As an employee at the National Snow and Ice Data Center (<a href="http://nsidc.org">NSIDC</a>) from 2001-2009, 
@@ -334,9 +337,9 @@
   <hr>
   <p align="center"> <a href="#" onClick="window.scrollTo( 0, 0 ); this.blur(); return false;">Top of Page</a>&nbsp; &bull;<a href="#intro">&nbsp;&nbsp;Introduction</a> &nbsp;&bull;&nbsp; Instruments 
   onboard Terra: <a href="#ASTER">ASTER</a>, <a href="#CERES">CERES</a>, <a href="#MISR">MISR</a>, <a href="#MODIS">MODIS</a>, <a href="#MOPITT">MOPITT</a> &nbsp;&bull;&nbsp; <a href="#references">References</a></p>
-  <p align="center">&copy; 2001, <!--#include virtual="../ssi/footer.ssi" --></p>
+  <p align="center">&copy; 2001, <!--#include virtual="../ssi/footer.ssi" -->{% include footer.ssi %}</p>
 </blockquote>
-<!--#include virtual="../ssi/google_analytics.ssi" -->
+<!--#include virtual="../ssi/google_analytics.ssi" -->{% include google_analytics.ssi %}
 </body>
 
 </html>
