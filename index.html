@@ -83,13 +83,22 @@ function loadGoogleMap() {
     center: hawaiiLatLng,
     zoom: 6,
     mapTypeId: google.maps.MapTypeId.HYBRID,
-    panControl: false,
-    zoomControl: false,
+    /*
     mapTypeControlOptions: {
       style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
       position: google.maps.ControlPosition.RIGHT_BOTTOM
     },
-    streetViewControl: false
+    */
+    panControl: false,
+    streetViewControl: false,
+    zoomControl: true,    // removed by default in v=3.60
+    cameraControl: false, // added by default in v=3.60
+    scaleControl: true,
+    streetViewControl: false,
+    fullscreenControl: true,
+    rotateControl: false,
+    heading: 0,
+    tilt: 0
   };
 
   // Start a new Google Map and Geocoder:
