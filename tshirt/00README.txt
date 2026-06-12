@@ -7,7 +7,7 @@ Data System Administrator
 Pacific Islands Ocean Observing System (PacIOOS)
 University of Hawaii at Manoa
 http://pacioos.org
-http://www2.hawaii.edu/~jmaurer
+https://johnolulu.github.io
 
 These t-shirts can be purchased online from Zazzle.com at:
 http://www.zazzle.com/johnolulu

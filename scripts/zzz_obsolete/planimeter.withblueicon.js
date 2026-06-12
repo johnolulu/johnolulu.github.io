@@ -59,8 +59,8 @@ function Planimeter ( map, htmlElement, lineWidth, lineColor, closerColor, finis
   // the most recently clicked point:
   
   this.redIcon                  = new GIcon( G_DEFAULT_ICON );
-  this.redIcon.image            = 'http://www2.hawaii.edu/~jmaurer/icons/gmap_markers/red.png';
-  this.redIcon.shadow           = 'http://www2.hawaii.edu/~jmaurer/icons/gmap_markers/shadow.png';
+  this.redIcon.image            = '/icons/gmap_markers/red.png';
+  this.redIcon.shadow           = '/icons/gmap_markers/shadow.png';
   this.redIcon.iconSize         = new GSize( 20, 34 );
   this.redIcon.shadowSize       = new GSize( 37, 34 );
   this.redIcon.iconAnchor       = new GPoint( 9, 34 );
@@ -68,7 +68,7 @@ function Planimeter ( map, htmlElement, lineWidth, lineColor, closerColor, finis
   this.redIcon.infoShadowAnchor = new GPoint( 18, 25 );
   
   this.blueIcon                 = new GIcon( this.redIcon );
-  this.blueIcon.image           = 'http://www2.hawaii.edu/~jmaurer/icons/gmap_markers/blue.png';
+  this.blueIcon.image           = '/icons/gmap_markers/blue.png';
 
   // Various listeners that will be used to control map events:
 

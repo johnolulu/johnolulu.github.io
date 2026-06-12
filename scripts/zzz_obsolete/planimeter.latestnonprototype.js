@@ -32,8 +32,8 @@ function addPlanimeter () {
   var blueIcon;
 
   redIcon                  = new GIcon( G_DEFAULT_ICON );
-  redIcon.image            = 'http://www2.hawaii.edu/~jmaurer/icons/gmap_markers/red.png';
-  redIcon.shadow           = 'http://www2.hawaii.edu/~jmaurer/icons/gmap_markers/shadow.png';
+  redIcon.image            = '/icons/gmap_markers/red.png';
+  redIcon.shadow           = '/icons/gmap_markers/shadow.png';
   redIcon.iconSize         = new GSize( 20, 34 );
   redIcon.shadowSize       = new GSize( 37, 34 );
   redIcon.iconAnchor       = new GPoint( 9, 34 );
@@ -41,7 +41,7 @@ function addPlanimeter () {
   redIcon.infoShadowAnchor = new GPoint( 18, 25 );
 
   blueIcon                 = new GIcon( redIcon );
-  blueIcon.image           = 'http://www2.hawaii.edu/~jmaurer/icons/gmap_markers/blue.png';
+  blueIcon.image           = '/icons/gmap_markers/blue.png';
 
   // Add a listener to define area vertices by clicking on the map:
 
