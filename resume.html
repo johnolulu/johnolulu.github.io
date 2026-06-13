@@ -4,23 +4,41 @@
 <html>
 <head>
 <link rel="shortcut icon" href="favicon.ico" />
-<title>John Maurer: r&eacute;sum&eacute;</title>
+<title>John Maurer: resume</title>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="css/font-awesome/css/font-awesome.min.css">
 <link href="css/subpages.css" rel="stylesheet" type="text/css">
-<style type="text/css">
-<!--
-body {
-	margin-left: 5%;
-	margin-right: 5%;
+<script language="javascript">
+function playPronunciation( audioId, trigger ) {
+  var audio = document.getElementById( audioId );
+
+  if ( audio ) {
+    audio.currentTime = 0;
+    audio.play();
+  }
+
+  if ( trigger ) {
+    trigger.blur();
+  }
 }
--->
-</style>
+
+function printResume( trigger ) {
+  if ( trigger ) {
+    trigger.blur();
+  }
+
+  window.print();
+}
+</script>
 </head>
 
-<body bgcolor="#FFFFFF" text="#000000">
-<h2 align="center"><font face="Georgia, Times New Roman, Times, serif"><br>
-  JOHN MAURER</font></h2>
-<p align="center"><font face="Georgia, Times New Roman, Times, serif" size="-1">Pacific Islands Ocean Observing System <font face="Georgia, Times New Roman, Times, serif" size="-1">(<a href="http://pacioos.org">PacIOOS</a>)&nbsp;  &#149;</font><a href="http://manoa.hawaii.edu"> University of Hawai&#699;i at M&#257;noa</a><font face="Georgia, Times New Roman, Times, serif" size="-1"><br>
+<body bgcolor="#FFFFFF" text="#000000" class="researchPage resumePage">
+<blockquote>
+<h1 align="center"><font face="Georgia, Times New Roman, Times, serif">JOHN MAURER</font><button type="button" class="audioButton resumeAudioButton" title="Play pronunciation of John Maurer" aria-label="Play pronunciation of John Maurer" onClick="playPronunciation( 'audioJohnMaurer', this );"><i class="fa fa-volume-up" aria-hidden="true"></i></button></h1>
+<audio id="audioJohnMaurer" src="mp3/pronounce_john_maurer.mp3" preload="none"></audio>
+<audio id="audioPacioos" src="mp3/pronounce_pacioos.mp3" preload="none"></audio>
+<p align="center" class="resumeContact"><font face="Georgia, Times New Roman, Times, serif" size="-1">Pacific Islands Ocean Observing System <font face="Georgia, Times New Roman, Times, serif" size="-1">(<a href="http://pacioos.org">PacIOOS</a>) <button type="button" class="audioButton resumeContactAudioButton" title="Play pronunciation of PacIOOS" aria-label="Play pronunciation of PacIOOS" onClick="playPronunciation( 'audioPacioos', this );"><i class="fa fa-volume-up" aria-hidden="true"></i></button>&nbsp;  &#149;</font><a href="http://manoa.hawaii.edu"> University of Hawai&#699;i at M&#257;noa</a><font face="Georgia, Times New Roman, Times, serif" size="-1"><br>
   <!--+1 (808) 956-0227 &nbsp;&#149;&nbsp; -->
   <script language='javascript'>
 	take='<a href="mai'
@@ -31,12 +49,49 @@ body {
 	spam='.edu</a>'
 	document.write(take+a+'@'+bight+out+'@'+of+spam);</script>
 &nbsp;&#149;&nbsp; <a href="/">https://johnolulu.github.io<br>
-</a>1680 East-West Rd, POST-602, Honolulu, HI, USA (on the island of O&#699;ahu)</font></p>
+</a>1680 East-West Rd, POST-602, Honolulu, HI, USA (on the island of O&#699;ahu)</font></font></p>
+<blockquote> 
+  <hr>
+  <p><b><font face="Georgia, Times New Roman, Times, serif" color="#CC0000">PROFESSIONAL 
+    EXPERIENCE</font></b></p>
+</blockquote>
+<div class="experienceLogos" aria-label="Professional experience organization logos">
+  <a href="https://www.pacioos.hawaii.edu/" target="_blank"><img class="pacioosLogo" src="logos/pacioos_block_78px.png" alt="Pacific Islands Ocean Observing System logo"></a>
+  <a href="https://nsidc.org/" target="_blank"><img class="nsidcLogo" src="logos/nsidc_logo_footer.webp" alt="National Snow and Ice Data Center logo"></a>
+</div>
+<ul>
+  <!--<p><em>Click on a job title below for an overview of the position and career 
+    milestones:</em></p>-->
+  <li><font face="Georgia, Times New Roman, Times, serif" size="-1"><strong>Pacific Islands Ocean Observing System</strong> <font face="Georgia, Times New Roman, Times, serif" size="-1">(<a href="http://pacioos.org">PacIOOS</a>)</font>, <a href="http://manoa.hawaii.edu">University of Hawai&#699;i at M&#257;noa</a>, Honolulu, HI, USA. July 16, 2009 - present:
+    <ul>
+      <li><a href="jobs/pacioos_data_syseng.html">PacIOOS Data System Engineer</a></li>
+    </ul></font>
+  </li>
+  <li><strong>National Snow and Ice Data Center</strong> (<a href="http://nsidc.org">NSIDC</a>), 
+    <a href="http://www.colorado.edu">University of Colorado</a>, Boulder, CO, USA. March 1, 2001 - June 1, 2009:
+    <ul>
+      <li><a href="jobs/web_database_engineer.html">Web/Database Applications Engineer</a>, 
+        September 13, 2004 - June 1, 2009.</li>
+      <li><a href="jobs/user_services_rep.html">User Services Representative</a>, July 
+        1, 2003 - September 10, 2004.</li>
+      <li><a href="jobs/ops_tech_II.html">Operations 
+        Technician II</a>, May 1, 2002 - June 30, 2003.</li>
+      <li><a href="jobs/ops_tech_I.html">Operations Technician I</a>, March 1, 2001 
+        - April 30, 2002.</li>
+    </ul>
+  </li>
+</ul>
 <blockquote> 
   <hr>
   <p><b><font face="Georgia, Times New Roman, Times, serif" color="#CC0000">EDUCATION</font></b></p>
 </blockquote>
+<div class="educationLogos" aria-label="Education institution logos">
+  <a href="https://www.stanford.edu/" target="_blank"><img class="stanfordLogo" src="logos/stanford_block_s_tree_cropped.png" alt="Stanford University Block S with Tree"></a>
+  <a href="https://www.colorado.edu/" target="_blank"><img class="cuLogo" src="logos/cu_boulder_logomark_cropped.png" alt="University of Colorado Boulder logomark"></a>
+  <a href="https://manoa.hawaii.edu/" target="_blank"><img class="uhLogo" src="logos/uh_manoa_green_seal_cropped.png" alt="University of Hawai&#699;i at M&#257;noa seal"></a>
+</div>
 <ul>
+  <li><strong>University of Hawai&#699;i at M&#257;noa:</strong> Master's in Computer Science, <i>In progress: 2025 to present</i>. <a href="https://www.outreach.hawaii.edu/programs/pmcs/" target="_blank">Artificial Intelligence and Data Science Track</a>, Information and Computer Sciences (<a href="https://www.ics.hawaii.edu" target="_blank">ICS</a>).</li>
   <li><strong>University of Colorado at Boulder:</strong> M.A. 
     in <a href="http://www.colorado.edu/geography/">Geography</a>, May 2006. Advisor: 
     <a href="http://en.wikipedia.org/wiki/Konrad_Steffen">Dr. Konrad Steffen</a>. Thesis 
@@ -65,7 +120,9 @@ body {
   <p><b><font face="Georgia, Times New Roman, Times, serif" color="#CC0000">RELEVANT 
     COURSEWORK</font></b></p>
 </blockquote>
+<div class="resumeSectionIcon courseworkIcon" aria-hidden="true"><i class="fa fa-book"></i></div>
 <ul>
+  <li><strong>Artificial Intelligence:</strong> Applied Computing Industry Seminar, Applied AI</li>
   <li><strong>Remote Sensing:</strong> Remote Sensing of Environment, Remote Sensing Image 
     Analysis, Remote Sensing Field Methods, Remote Sensing Graduate Seminar, Remote 
     Sensing of the Atmosphere and Oceans.</li>
@@ -85,22 +142,25 @@ body {
   <hr>
   <p><b><font face="Georgia, Times New Roman, Times, serif" color="#CC0000">ONLINE CERTIFICATES</font></b></p>
 </blockquote>
+<div class="resumeSectionIcon certificateIcon" aria-hidden="true"><i class="fa fa-certificate"></i></div>
 <ul>
   <li><a href="https://classroom.oceanteacher.org/course/view.php?id=1086" target="_blank">Ocean Data Management 2025</a>. Ocean Teacher Global Academy (<a href="https://classroom.oceanteacher.org" target="_blank">OTGA</a>), UNESCO Intergovernmental Oceanographic Commission (IOC). April, 2025.</li>
+  <li><a href="https://www.coursera.org/account/accomplishments/verify/761YSXIBI9PB" target="_blank">Google AI Essentials</a>. Coursera. February, 2025.</li>
 </ul>
 <blockquote> 
   <hr>
   <p><b><font face="Georgia, Times New Roman, Times, serif" color="#CC0000">COMPUTER 
     SKILLS</font></b></p>
 </blockquote>
+<div class="resumeSectionIcon computerIcon" aria-hidden="true"><i class="fa fa-laptop"></i></div>
 <ul>
-  <li><font color="#000000"><strong>Geospatial:</strong></font> <font color="#000000">Python, GeoServer, Leaflet, GDAL/OGR, PostGIS, QGIS, Google Maps API, Google Earth,
-    KML, GeoJSON, OGC Services (WMS, WFS, WCS, CSW), THREDDS Data Server (TDS), NetCDF, OPeNDAP, ERDDAP, Dygraphs, Flot, metadata standards (ISO 19115, FGDC, NetCDF CF, GCMD Keywords), ENVI, IDL.</font></li>
-  <li><font color="#000000"><strong>Languages:</strong> Python, 
+  <li><strong>AI/ML:</strong> PyTorch, YOLO, Codex, Gemini Gem</li>
+  <li><strong>Geospatial:</strong></font> Python, GeoServer, Leaflet, GDAL/OGR, PostGIS, QGIS, Google Maps API, Google Earth,
+    KML, GeoJSON, OGC Services (WMS, WFS, WCS, CSW), THREDDS Data Server (TDS), NetCDF, OPeNDAP, ERDDAP, Dygraphs, Flot, metadata standards (ISO 19115, FGDC, NetCDF CF, GCMD Keywords), ENVI, IDL.</li>
+  <li><strong>Languages:</strong> Python, 
     Perl, IDL, SQL, HTML, CSS, JavaScript, JSON, XML, XML Schema, XSLT; once upon a time:
     SAS/STAT, C, C++, Lisp.</font></li>
-  <li><font color="#000000"><strong>Software:</strong></font> <font color="#000000">WordPress, 
-    Word, Excel, PowerPoint, Photoshop.</font> </li>
+  <li><strong>Software:</strong></font> WordPress, Word, Excel, PowerPoint, Photoshop.</li>
   <!--
   <li><font color="#000000"><strong>Other:</strong></font> <font color="#000000">Google Colab, TensorFlow.</li>
   -->
@@ -110,6 +170,7 @@ body {
   <p><b><font face="Georgia, Times New Roman, Times, serif" color="#CC0000">HONORS 
     AND AWARDS</font></b></p>
 </blockquote>
+<div class="resumeSectionIcon honorsIcon" aria-hidden="true"><i class="fa fa-trophy"></i></div>
 <ul>
   <li><a href="https://youtu.be/kuNfiWf8x4k?list=PL3vL8A1s7YNKdgNB6ag0m1hUntrc1wwYS">RCUH 2016 Outstanding Employee of the Year</a> nominee, Research Corporation of the University of Hawai&#699;i (RCUH), 2016. 1 of 25 final nominees out of ~2,800 RCUH employees statewide.</li>
   <li>Best Poster Paper Award, International Polar Year (IPY) GeoNorth 2007</a>: First International Circumpolar Conference on Geospatial 
@@ -142,35 +203,9 @@ body {
 </ul>
 <blockquote> 
   <hr>
-  <p><b><font face="Georgia, Times New Roman, Times, serif" color="#CC0000">PROFESSIONAL 
-    EXPERIENCE</font></b></p>
-</blockquote>
-<ul>
-  <p><em>Click on a job title below for an overview of the position and career 
-    milestones:</em></p>
-  <li><font face="Georgia, Times New Roman, Times, serif" size="-1"><strong>Pacific Islands Ocean Observing System</strong> <font face="Georgia, Times New Roman, Times, serif" size="-1">(<a href="http://pacioos.org">PacIOOS</a>)</font>, <a href="http://manoa.hawaii.edu">University of Hawai&#699;i at M&#257;noa</a>, Honolulu, HI, USA. July 16, 2009 - present:
-    <ul>
-      <li><a href="jobs/pacioos_data_syseng.html">PacIOOS Data System Engineer</a></li>
-    </ul>
-  </li>
-  <li><strong>National Snow and Ice Data Center</strong> (<a href="http://nsidc.org">NSIDC</a>), 
-    <a href="http://www.colorado.edu">University of Colorado</a>, Boulder, CO, USA. March 1, 2001 - June 1, 2009:
-    <ul>
-      <li><a href="jobs/web_database_engineer.html">Web/Database Applications Engineer</a>, 
-        September 13, 2004 - June 1, 2009.</li>
-      <li><a href="jobs/user_services_rep.html">User Services Representative</a>, July 
-        1, 2003 - September 10, 2004.</li>
-      <li><a href="jobs/ops_tech_II.html">Operations 
-        Technician II</a>, May 1, 2002 - June 30, 2003.</li>
-      <li><a href="jobs/ops_tech_I.html">Operations Technician I</a>, March 1, 2001 
-        - April 30, 2002.</li>
-    </ul>
-  </li>
-</ul>
-<blockquote> 
-  <hr>
   <p><b><font face="Georgia, Times New Roman, Times, serif" color="#CC0000">PUBLICATIONS</font></b></p>
 </blockquote>
+<div class="resumeSectionIcon publicationsIcon" aria-hidden="true"><i class="fa fa-file-text-o"></i></div>
 <ul>
   <li>Potemra, J., J. Maurer, and E.S. Burns (2016), Providing Oceanographic Data and Information to Pacific Island Communities. In P. Diviacco, A. Leadbetter, and H. Glaves (Eds.). <i><a href="http://www.igi-global.com/book/oceanographic-marine-cross-domain-data/148510">Oceanographic and Marine Cross-Domain Data Management for Sustainable Development</a></i>. 425 pp. Hershey, PA: IGI Global.</li>
   <li>Maurer, J. (2007), A Summer on Ice: Research on the Greenland Ice 
@@ -193,6 +228,7 @@ body {
   <p><b><font face="Georgia, Times New Roman, Times, serif" color="#CC0000">PRESENTATIONS</font></b></p>
   <p><em>Talks:</em></p>
 </blockquote>
+<div class="resumeSectionIcon talksIcon" aria-hidden="true"><i class="fa fa-microphone"></i></div>
 <ul>
   <li>Maurer, J., M. Walton, and K. Hintzen (2022), King Tides Project: Mobile GIS for Collecting and Mapping Photos. <i>Hawaii Geographic Information Coordinating Council (HIGICC) Honolulu Geospatial Expo 2022</i>. August 5, 2022, Honolulu, HI, USA. [<a href="posters/Maurer_HIGICC_GIS_Expo_2022.pdf">Click here to view</a> (24 MB).]</li>
   <li>Maurer, J. (2019), Open Source GIS and other Geospatial Data from the Pacific Islands Ocean Observing System (PacIOOS). <i>Discovering the World Through GIS: GIS Day Lightning Talks by UHM GIS Faculty and Professionals</i>.<!-- Maps / Aerials / GIS (MAGIS), Hamilton Library, University of Hawai&#699;i at M&#257;noa.--> November 13, 2019. Honolulu, HI, USA. [<a href="posters/Maurer_GISDay_MAGIS_2019.pdf">Click here to view</a> (6.6 MB).]</li>
@@ -216,6 +252,7 @@ ific Integrated Ocean Observing System</a>. <em>IMDIS-2010 Proceedings, IFREMER/
 <blockquote> 
   <p><em>Posters:</em></p>
 </blockquote>
+<div class="resumeSectionIcon postersIcon" aria-hidden="true"><i class="fa fa-file-powerpoint-o"></i></div>
 <ul>
   <li>Abecassis, M., E.A. Howell, and J. Maurer (2018), OceanWatch: A Multi-Pronged Approach to Disseminating Ocean Remote Sensing Data. Poster #IN53C-0624. American Geophysical Union (AGU) Fall Meeting. December 10-14, 2018, Washington, D.C., USA. [<a href="https://agu.confex.com/agu/fm18/meetingapp.cgi/Paper/449187">Click here to view abstract</a>; <a href="posters/Abecassis_OceanWatch_AGU_2018.pdf">click here to view poster</a> (3.2 MB).]</li>
   <li>Maurer, J., C. G. Meyer, and E. Burns (2014), Near Real-Time Tiger Shark Monitoring Around Maui. Abstract #13386, Poster #2088. Ocean Sciences Meeting. February 23-28, 2014, Honolulu, HI, USA. [<a href="posters/Maurer_sharks_OceanSciences_2014.pdf">Click here to view</a> (4.7 MB).]</li>
@@ -277,6 +314,7 @@ ific Integrated Ocean Observing System</a>. <em>IMDIS-2010 Proceedings, IFREMER/
     DEVELOPMENT</font></b></p>
 </blockquote>
 
+<div class="resumeSectionIcon softwareIcon" aria-hidden="true"><i class="fa fa-code"></i></div>
 <ul>
   <li><b>PacIOOS Website: Data Visualization</b>. Dynamic online data visualization of both raster maps and time series plots of PacIOOS forecast models and point-based observations; e.g., <a href="http://pacioos.org/waves/model-maui/">http://pacioos.org/waves/model-maui/</a> (wave forecast) and <a href="http://pacioos.org/waves/buoy-waimea/">http://pacioos.org/waves/buoy-waimea/</a> (wave buoy), etc.</li>
   <li><strong>PacIOOS Voyager</strong>. A Google Maps API for dynamically viewing and downloading maps and data related to Hawai&#699;i and other U.S.-affiliated Pacific Islands as part of the Pacific Islands Ocean Observing System (PacIOOS). <a href="http://pacioos.org/voyager/">http://pacioos.org/voyager/</a></li>
@@ -307,6 +345,7 @@ ific Integrated Ocean Observing System</a>. <em>IMDIS-2010 Proceedings, IFREMER/
   <hr>
   <p><b><font color="#CC0000" face="Georgia, Times New Roman, Times, serif">PROFESSIONAL SERVICE</font></b></p>
 </blockquote>
+<div class="resumeSectionIcon serviceIcon" aria-hidden="true"><i class="fa fa-handshake-o"></i></div>
 <ul>
   <li>Technical reviewer for:<br/>
     <ul>
@@ -315,7 +354,6 @@ ific Integrated Ocean Observing System</a>. <em>IMDIS-2010 Proceedings, IFREMER/
     </ul>
   </li>
 </ul>
-</blockquote>
 <!--
 <blockquote> 
   <hr>
@@ -353,7 +391,7 @@ ific Integrated Ocean Observing System</a>. <em>IMDIS-2010 Proceedings, IFREMER/
 <blockquote> 
   <hr>
   <div align="center">Last Updated: 
-    <!-- #BeginDate format:Am1 -->June 10, 2026<!-- #EndDate -->
+    <!-- #BeginDate format:Am1 -->June 12, 2026<!-- #EndDate -->
     <br>
     <a href="/">John Maurer</a> <<script language='javascript'>
 	take='<a href="mai'
@@ -366,7 +404,9 @@ ific Integrated Ocean Observing System</a>. <em>IMDIS-2010 Proceedings, IFREMER/
 
 </div>
 </blockquote>
+<p align="center" class="resumePrintAction"><button type="button" onClick="printResume( this );"><i class="fa fa-print" aria-hidden="true"></i>&nbsp; Print / Save PDF</button></p>
 
+</blockquote>
 <!--#include virtual="ssi/google_analytics.ssi" -->{% include google_analytics.ssi %}
 
 </body>

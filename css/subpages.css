@@ -1,30 +1,1037 @@
-<style type="text/css">
-
-/* Need two a:link entries to handle mailto in ssi's: */
-
-a:link {
-  color: #006699;
-  text-decoration: none;
+:root {
+  --ink: #082f44;
+  --navy: #06283d;
+  --deep-navy: #021521;
+  --pacific: #006d8f;
+  --teal: #00a9a5;
+  --sea-green: #2bb673;
+  --kelly: #35a936;
+  --mist: #f3fbf8;
+  --foam: #fbfff9;
+  --sand: #f7e8bf;
+  --coral: #ef6f5e;
+  --line: rgba(6, 40, 61, 0.18);
+  --shadow: 8px 10px 0 rgba(2, 21, 33, 0.16);
 }
 
-a:link {
-  color: #006699;
-  text-decoration: none;
+* {
+  box-sizing: border-box;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
+body.researchPage {
+  background:
+    linear-gradient(135deg, rgba(43, 182, 115, 0.22) 0 12%, transparent 12% 100%),
+    repeating-linear-gradient(-12deg, rgba(255, 255, 255, 0.14) 0 14px, rgba(255, 255, 255, 0.14) 14px, transparent 14px, transparent 42px),
+    linear-gradient(155deg, #08324a 0%, #006d8f 42%, #00a9a5 72%, #2bb673 100%);
+  color: var(--ink);
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 17px;
+  line-height: 1.68;
+  margin: 0;
+}
+
+body.researchPage > blockquote {
+  background: rgba(251, 255, 249, 0.97);
+  border: 4px solid var(--navy);
+  border-radius: 8px;
+  box-shadow: var(--shadow);
+  margin: 34px auto 46px;
+  max-width: 1120px;
+  padding: 34px;
+  position: relative;
+}
+
+body.researchPage > blockquote:before {
+  background: repeating-linear-gradient(90deg, var(--navy) 0 42px, var(--pacific) 42px 84px, var(--teal) 84px 126px, var(--sea-green) 126px 168px);
+  content: "";
+  height: 12px;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+a:link,
 a:visited {
-  color: #006699;
+  color: var(--pacific);
+  font-weight: 800;
   text-decoration: none;
 }
 
-a:hover {
-  color: #990033;
-  text-decoration: none;
-}
-
+a:hover,
 a:active {
-  color: #990033;
+  color: var(--kelly);
+  text-decoration: underline;
+  text-decoration-thickness: 3px;
+  text-underline-offset: 4px;
+}
+
+body.researchPage a {
+  overflow-wrap: anywhere;
+}
+
+body.researchPage font,
+body.researchPage strong {
+  overflow-wrap: anywhere;
+}
+
+h1 {
+  color: var(--navy);
+  font-size: 2.45rem;
+  line-height: 1.06;
+  margin: 12px 0 18px;
+  max-width: 970px;
+  text-shadow: 3px 3px 0 rgba(47, 181, 143, 0.34), 5px 5px 0 rgba(6, 40, 61, 0.12);
+}
+
+p {
+  margin: 0 0 1.05rem;
+}
+
+hr {
+  background: repeating-linear-gradient(90deg, var(--navy) 0 42px, var(--pacific) 42px 84px, var(--teal) 84px 126px, var(--sea-green) 126px 168px);
+  border: 0;
+  border-radius: 999px;
+  height: 7px;
+  margin: 22px 0;
+}
+
+img {
+  border-radius: 6px;
+  height: auto;
+  max-width: 100%;
+}
+
+table {
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+body.researchPage > blockquote > table:first-of-type:not([align="center"]) {
+  background: #f5efdc;
+  border: 3px solid var(--navy);
+  border-radius: 8px;
+  box-shadow: 6px 7px 0 rgba(0, 109, 143, 0.18);
+  margin-bottom: 24px;
+  width: 100%;
+}
+
+body.researchPage > blockquote > table:first-of-type:not([align="center"]) td {
+  padding: 18px;
+}
+
+body.researchPage > blockquote > table:first-of-type:not([align="center"]) td:first-child {
+  text-align: center;
+  vertical-align: top;
+}
+
+body.researchPage > blockquote > table:first-of-type:not([align="center"]) td:first-child div {
+  display: inline-block;
+  text-align: center;
+}
+
+body.researchPage > blockquote > table:first-of-type:not([align="center"]) img {
+  border: 4px solid var(--navy);
+  box-shadow: 5px 6px 0 rgba(47, 181, 143, 0.34);
+}
+
+body.researchPage > blockquote > table:first-of-type:not([align="center"]) td:first-child font[size="-7"],
+body.researchPage > blockquote > table:first-of-type:not([align="center"]) td:first-child font[size="-1"],
+body.researchPage > blockquote > table:first-of-type:not([align="center"]) td:first-child .SmallTextGray {
+  color: #31586a;
+  font-size: 0.78rem;
+  line-height: 1.35;
+  padding-top: 14px;
+  text-align: center;
+}
+
+body.researchPage > blockquote > table:first-of-type:not([align="center"]) td:first-child font[size="-7"],
+body.researchPage > blockquote > table:first-of-type:not([align="center"]) td:first-child .SmallTextGray {
+  display: block;
+}
+
+body.researchPage > blockquote > table:first-of-type:not([align="center"]) td:first-child br + strong {
+  display: inline;
+}
+
+body.researchPage > blockquote > table:first-of-type:not([align="center"]) td:first-child br + strong:before {
+  content: "";
+  display: block;
+  margin-top: 14px;
+}
+
+body.researchPage > blockquote > table:first-of-type:not([align="center"]) td:first-child br + strong font[size="-1"],
+body.researchPage > blockquote > table:first-of-type:not([align="center"]) td:first-child br + strong + font[size="-1"] {
+  padding-top: 0;
+}
+
+body.researchPage > blockquote > p[align="center"] {
+  background: #d9f5ee;
+  border: 3px solid var(--navy);
+  border-radius: 8px;
+  box-shadow: 5px 6px 0 rgba(0, 109, 143, 0.18);
+  font-weight: 800;
+  margin: 18px 0;
+  padding: 15px 18px;
+}
+
+body.researchPage > blockquote > div[align="center"] {
+  background: #d9f5ee;
+  border: 3px solid var(--navy);
+  border-radius: 8px;
+  box-shadow: 5px 6px 0 rgba(0, 109, 143, 0.18);
+  font-weight: 800;
+  margin: 18px 0;
+  padding: 15px 18px;
+}
+
+body.researchPage > blockquote > div[align="center"] p {
+  margin: 0 0 0.75rem;
+}
+
+body.researchPage > blockquote > div[align="center"] p:last-child {
+  margin-bottom: 0;
+}
+
+body.researchPage > blockquote > p[align="center"]:has(img) {
+  background: #ffffff;
+  box-shadow: 5px 6px 0 rgba(43, 182, 115, 0.25);
+  font-weight: normal;
+}
+
+body.researchPage > blockquote > p[align="center"]:has(a[href$=".pdf"]) {
+  background: #d9f5ee;
+  box-shadow: 5px 6px 0 rgba(0, 109, 143, 0.18);
+  font-weight: 800;
+}
+
+body.researchPage table[align="center"] font[size="-1"],
+body.researchPage > blockquote > p[align="center"]:has(img) font[size="-1"] {
+  color: #31586a;
+  font-size: 0.78rem;
+  font-weight: normal;
+  line-height: 1.35;
+}
+
+body.researchPage table[align="center"] strong font[size="-1"],
+body.researchPage > blockquote > p[align="center"]:has(img) strong font[size="-1"] {
+  font-weight: 800;
+}
+
+body.researchPage .pdfIcon {
+  color: var(--coral);
+  font-size: 2rem;
+  line-height: 1;
+  margin-right: 8px;
+  vertical-align: middle;
+}
+
+body.researchPage a:hover .pdfIcon {
+  color: var(--kelly);
+}
+
+body.researchPage > blockquote > p[align="center"] img {
+  vertical-align: middle;
+}
+
+body.researchPage > blockquote > p[align="center"]:has(img) > a:has(> img) {
+  display: inline-block;
+  margin-bottom: 14px;
+}
+
+body.researchPage > blockquote > p.instrumentPanel {
+  display: table;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 320px;
+  text-align: center;
+}
+
+body.researchPage > blockquote > p.tightFigurePanel {
+  display: table;
+  margin-left: 0;
+  margin-right: auto;
+  max-width: 340px;
+  text-align: center;
+}
+
+body.researchPage > blockquote > p.narrowFigurePanel {
+  max-width: 250px;
+}
+
+body.resumePage h1 {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+body.resumePage .audioButton {
+  background: transparent;
+  border: 0;
+  color: var(--teal);
+  cursor: pointer;
+  display: inline;
+  font-size: 1rem;
+  height: auto;
+  line-height: 1;
+  margin: 0 0 0 10px;
+  padding: 0;
+  text-shadow: 2px 2px 0 rgba(6, 40, 61, 0.16);
+  vertical-align: middle;
+  width: auto;
+}
+
+body.resumePage .audioButton:hover {
+  background: transparent;
+  color: #ff2f92;
+  text-shadow: 2px 2px 0 rgba(47, 181, 143, 0.3);
+}
+
+body.resumePage .audioButton:focus,
+body.resumePage .audioButton:active {
+  background: transparent;
+  color: var(--teal);
+  outline: none;
+  text-shadow: 2px 2px 0 rgba(6, 40, 61, 0.16);
+}
+
+body.resumePage .resumeContactAudioButton {
+  margin-left: 3px;
+  vertical-align: -0.08em;
+}
+
+body.resumePage > blockquote > p.resumeContact {
+  background: #f5efdc;
+  box-shadow: 5px 6px 0 rgba(0, 109, 143, 0.18);
+  color: var(--ink);
+  font-size: inherit;
+  font-weight: normal;
+  line-height: 1.5;
+}
+
+body.resumePage > blockquote > p.resumeContact font[size="-1"] {
+  font-size: inherit;
+}
+
+body.resumePage > blockquote > p.resumePrintAction {
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  margin: 24px 0 0;
+  padding: 0;
+}
+
+body.resumePage .resumePrintAction button {
+  align-items: center;
+  background: var(--teal);
+  border: 3px solid var(--navy);
+  border-radius: 999px;
+  box-shadow: 5px 6px 0 rgba(53, 169, 54, 0.38);
+  color: #ffffff;
+  cursor: pointer;
+  display: inline-flex;
+  font: 900 1rem Arial, Helvetica, sans-serif;
+  min-height: 46px;
+  padding: 11px 19px;
   text-decoration: none;
 }
 
-</style>
+body.resumePage .resumePrintAction button:hover {
+  background: var(--navy);
+  color: #d9f5ee;
+  transform: translate(2px, 2px);
+}
+
+body.resumePage .resumePrintAction button:focus,
+body.resumePage .resumePrintAction button:active {
+  outline: none;
+}
+
+body.bioPage > blockquote {
+  max-width: 980px;
+  padding: 38px;
+}
+
+body.bioPage .bioHero {
+  align-items: start;
+  display: grid;
+  gap: 30px;
+  grid-template-columns: minmax(220px, 280px) 1fr;
+}
+
+body.bioPage .bioPortraitWrap {
+  background: #f5efdc;
+  border: 3px solid var(--navy);
+  border-radius: 8px;
+  box-shadow: 6px 7px 0 rgba(0, 109, 143, 0.2);
+  padding: 14px;
+  transform: rotate(-1.5deg);
+}
+
+body.bioPage .bioPortrait {
+  border: 4px solid var(--navy);
+  border-radius: 8px;
+  box-shadow: 6px 7px 0 rgba(43, 182, 115, 0.34);
+  display: block;
+  width: 100%;
+}
+
+body.bioPage .bioCopy {
+  min-width: 0;
+}
+
+body.bioPage .bioEyebrow {
+  color: var(--pacific);
+  font-size: 0.78rem;
+  font-weight: 900;
+  letter-spacing: 0.13em;
+  margin: 0 0 4px;
+  text-transform: uppercase;
+}
+
+body.bioPage h1 {
+  font-size: 3rem;
+  margin: 0 0 16px;
+}
+
+body.bioPage .bioCredentials {
+  background: #f5efdc;
+  border: 3px solid var(--navy);
+  border-radius: 8px;
+  box-shadow: 5px 6px 0 rgba(0, 109, 143, 0.18);
+  line-height: 1.5;
+  margin: 0 0 1.35rem;
+  padding: 14px 16px;
+}
+
+body.bioPage .bioHotPink {
+  color: #ff2f92;
+  font-weight: 900;
+}
+
+body.bioPage .audioButton {
+  background: transparent;
+  border: 0;
+  color: var(--teal);
+  cursor: pointer;
+  display: inline;
+  font-size: 1rem;
+  height: auto;
+  line-height: 1;
+  margin: 0 0 0 9px;
+  padding: 0;
+  text-shadow: 2px 2px 0 rgba(6, 40, 61, 0.16);
+  vertical-align: middle;
+  width: auto;
+}
+
+body.bioPage .audioButton:hover {
+  background: transparent;
+  color: #ff2f92;
+  text-shadow: 2px 2px 0 rgba(47, 181, 143, 0.3);
+}
+
+body.bioPage .audioButton:focus,
+body.bioPage .audioButton:active {
+  background: transparent;
+  color: var(--teal);
+  outline: none;
+  text-shadow: 2px 2px 0 rgba(6, 40, 61, 0.16);
+}
+
+body.bioPage .bioNameAudioButton {
+  font-size: 1.08rem;
+}
+
+body.bioPage .bioInlineAudioButton {
+  margin-left: 4px;
+  vertical-align: -0.08em;
+}
+
+body.bioPage .bioActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 24px 0 0;
+}
+
+body.bioPage .bioActions a {
+  background: var(--teal);
+  border: 3px solid var(--navy);
+  border-radius: 999px;
+  box-shadow: 5px 6px 0 rgba(53, 169, 54, 0.38);
+  color: #ffffff;
+  display: inline-flex;
+  font-weight: 900;
+  line-height: 1;
+  padding: 12px 20px;
+  text-decoration: none;
+}
+
+body.bioPage .bioActions a:hover,
+body.bioPage .bioActions a:active {
+  background: var(--navy);
+  color: #d9f5ee;
+  text-decoration: none;
+  transform: translate(2px, 2px);
+}
+
+body.bioPage .bioFooter {
+  background: #d9f5ee;
+  border: 3px solid var(--navy);
+  border-radius: 8px;
+  box-shadow: 5px 6px 0 rgba(0, 109, 143, 0.18);
+  color: var(--ink);
+  font-size: 0.86rem;
+  line-height: 1.45;
+  margin-top: 30px;
+  padding: 14px 16px;
+  text-align: center;
+}
+
+body.resumePage blockquote blockquote {
+  margin: 0;
+}
+
+body.resumePage blockquote blockquote p {
+  margin-bottom: 0.6rem;
+}
+
+body.resumePage blockquote blockquote p b font,
+body.resumePage blockquote blockquote p > b {
+  color: var(--navy);
+  font-size: 1.18rem;
+  letter-spacing: 0.02em;
+}
+
+body.resumePage blockquote blockquote > div[align="center"] {
+  background: #d9f5ee;
+  border: 3px solid var(--navy);
+  border-radius: 8px;
+  box-shadow: 5px 6px 0 rgba(0, 109, 143, 0.18);
+  font-weight: 800;
+  margin: 18px 0;
+  padding: 15px 18px;
+}
+
+body.resumePage .educationLogos,
+body.resumePage .experienceLogos {
+  align-items: center;
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin: 0 0 22px;
+  padding: 0;
+}
+
+body.resumePage .educationLogos a,
+body.resumePage .experienceLogos a {
+  align-items: center;
+  display: inline-flex;
+}
+
+body.resumePage .educationLogos img,
+body.resumePage .experienceLogos img {
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  display: block;
+  max-width: min(280px, 72vw);
+}
+
+body.resumePage .educationLogos .stanfordLogo {
+  max-height: 74px;
+  max-width: 74px;
+}
+
+body.resumePage .educationLogos .cuLogo {
+  max-height: 74px;
+  max-width: min(90px, 30vw);
+}
+
+body.resumePage .educationLogos .uhLogo {
+  max-height: 82px;
+  max-width: 84px;
+}
+
+body.resumePage .experienceLogos .pacioosLogo {
+  max-height: 82px;
+  max-width: 82px;
+}
+
+body.resumePage .experienceLogos .nsidcLogo {
+  max-height: 84px;
+  max-width: 84px;
+}
+
+body.resumePage .resumeSectionIcon {
+  color: var(--pacific);
+  font-size: 64px;
+  line-height: 1;
+  margin: 0 0 22px;
+  text-shadow: 5px 6px 0 rgba(43, 182, 115, 0.25);
+}
+
+body.resumePage ul {
+  margin-top: 0;
+  padding-left: 1.4rem;
+}
+
+body.resumePage li {
+  margin-bottom: 0.52rem;
+}
+
+body.resumePage p,
+body.resumePage li,
+body.resumePage ul,
+body.resumePage em,
+body.resumePage font[color="#000000"] {
+  color: var(--ink);
+}
+
+body.resumePage ul font[size="-1"] {
+  font-size: inherit;
+}
+
+body.researchPage > blockquote > p.fractionEquation span {
+  display: block;
+  line-height: 1.12;
+}
+
+body.researchPage > blockquote > p.fractionEquation .fractionDivider {
+  padding-bottom: 1.0em;
+}
+
+body.researchPage > blockquote > p:not([align]):has(> img:first-child):not(:has(> img[src^="symbol_"])) {
+  background: #ffffff;
+  border: 3px solid var(--navy);
+  border-radius: 8px;
+  box-shadow: 5px 6px 0 rgba(43, 182, 115, 0.25);
+  display: table;
+  margin: 18px 0;
+  max-width: 100%;
+  padding: 10px;
+}
+
+body.researchPage > blockquote > p:not([align]):has(> img:first-child):not(:has(> img[src^="symbol_"])) img {
+  display: block;
+  margin: 0 auto;
+}
+
+body.researchPage > blockquote > p:not([align]):has(> img:first-child):not(:has(> img[src^="symbol_"])) br {
+  display: none;
+}
+
+body.researchPage > blockquote > p:not([align]):has(> img:first-child):not(:has(> img[src^="symbol_"])) font[size="-7"] {
+  line-height: 1.25;
+  padding-top: 3px;
+}
+
+body.researchPage table[align="right"] {
+  background: #ffffff;
+  border: 3px solid var(--navy);
+  border-radius: 8px;
+  box-shadow: 5px 6px 0 rgba(43, 182, 115, 0.25);
+  clear: right;
+  margin: 0 0 20px 28px;
+  max-width: 360px;
+  padding: 8px;
+  table-layout: fixed;
+  width: 360px !important;
+}
+
+body.researchPage table[align="right"] td {
+  display: block;
+  padding: 5px;
+}
+
+body.researchPage table[align="right"] img {
+  display: block;
+  margin: 0 auto;
+  max-width: 100%;
+}
+
+body.researchPage table:has(img[src^="equation"]) {
+  background: #ffffff;
+  border: 3px solid var(--navy);
+  border-radius: 8px;
+  box-shadow: 5px 6px 0 rgba(43, 182, 115, 0.25);
+  margin: 18px auto 22px;
+  max-width: 100%;
+  padding: 10px 14px;
+  table-layout: auto;
+}
+
+body.researchPage table:has(img[src^="equation"]) td {
+  padding: 6px;
+}
+
+body.researchPage table:has(img[src^="equation"]) td:last-child {
+  text-align: right;
+  white-space: nowrap;
+  width: 48px !important;
+}
+
+body.researchPage table:has(img[src^="equation"]) img {
+  display: inline-block;
+  max-width: 100%;
+}
+
+body.researchPage table[align="center"] {
+  background: #ffffff;
+  border: 3px solid var(--navy);
+  border-radius: 8px;
+  box-shadow: 5px 6px 0 rgba(43, 182, 115, 0.25);
+  margin: 22px auto;
+  max-width: 100%;
+  padding: 10px;
+  table-layout: auto;
+}
+
+body.researchPage table[align="center"] td {
+  padding: 6px;
+}
+
+body.researchPage table[align="center"] img {
+  display: inline-block;
+  max-width: 100%;
+}
+
+body.researchPage table.leftFigureTable {
+  margin-left: 0;
+  margin-right: auto;
+}
+
+body.researchPage table.leftFigureTable td {
+  text-align: center;
+}
+
+body.researchPage > blockquote > p[align="center"] + table[align="center"],
+body.researchPage > blockquote > table[align="center"] + table[align="center"] {
+  margin-top: 0;
+}
+
+body.researchPage table.figure3Sequence {
+  margin-top: 0;
+  margin-bottom: 22px;
+}
+
+body.researchPage > blockquote > p[align="center"] + table.figure3Sequence {
+  margin-top: 18px;
+}
+
+body.researchPage table[align="center"] td {
+  vertical-align: top;
+}
+
+body.researchPage table.modisPair td {
+  vertical-align: middle;
+}
+
+body.researchPage table[align="center"] td > .SmallTextGray:first-child {
+  display: block;
+  line-height: 1.25;
+  min-height: 1.25em;
+}
+
+body.researchPage table[align="center"] td > .SmallTextGray:first-child br,
+body.researchPage table[align="center"] td > .SmallTextGray:first-child + br {
+  display: none;
+}
+
+body.researchPage table[align="center"] td:has(> .SmallTextGray:first-child) > br {
+  display: none;
+}
+
+body.researchPage table[align="center"] td > img {
+  display: block;
+  margin: 0 auto;
+}
+
+body.researchPage table[align="center"] td > img[src^="symbol_"] {
+  display: inline;
+  margin: 0 2px 0 0;
+  vertical-align: middle;
+}
+
+body.researchPage img[src="fanbeam_design.png"],
+body.researchPage img[src="compare_scatterometers.gif"] {
+  display: block;
+  margin: 0 auto 14px;
+}
+
+body.scatterometryApps > blockquote > p[align="center"]:has(> img) > img:not([src^="symbol_"]),
+body.scatterometryApps table[align="center"] td > img:not([src^="symbol_"]),
+body.scatterometryApps table[align="center"] div[align="center"] > img:not([src^="symbol_"]) {
+  display: block;
+  margin: 0 auto 14px;
+}
+
+@media (min-width: 821px) {
+  body.researchPage img[src="Greenland_grid_cells.png"] {
+    margin: 4px auto 0 !important;
+  }
+
+  body.researchPage img[src="Greenland_ts_control.png"],
+  body.researchPage img[src="Greenland_accum_control.png"] {
+    margin: 119px auto 0 !important;
+  }
+
+  body.researchPage img[src="Antarctic_temp_Giovinetto_etal1990.png"],
+  body.researchPage img[src="Antarctic_accumulation_Giovinetto_etal1990.png"] {
+    margin: 9px auto 0 !important;
+  }
+
+  body.researchPage img[src="Greenland_evap_control.png"] {
+    margin: 107px auto 0 !important;
+  }
+
+  body.researchPage img[src="Greenland_maxmelt_control.png"] {
+    margin: 72px auto 0 !important;
+  }
+
+  body.researchPage img[src="Antarctic_smb_Vaughan1999.png"] {
+    margin: 23px auto 0 !important;
+  }
+
+  body.researchPage img[src="Greenland_sf_change_90sig.png"] {
+    margin: 11px auto 0 !important;
+  }
+
+  body.researchPage img[src="Greenland_accum_change_90sig.png"],
+  body.researchPage img[src="Greenland_smb_change.png"],
+  body.researchPage img[src="Antarctic_sf_change.png"],
+  body.researchPage img[src="Antarctic_sf_change_90sig.png"],
+  body.researchPage img[src="Antarctic_accum_change.png"],
+  body.researchPage img[src="Antarctic_accum_change_90sig.png"],
+  body.researchPage img[src="Antarctic_smb_change.png"] {
+    margin: 11px auto 0 !important;
+  }
+}
+
+font[size="-7"] {
+  color: #31586a;
+  display: block;
+  font-size: 0.78rem;
+  line-height: 1.35;
+  padding-top: 8px;
+}
+
+font[color="#CC0000"] {
+  color: var(--pacific);
+}
+
+font[face*="Times New Roman"] {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+font[face*="Courier"] {
+  display: inline-block;
+  max-width: 100%;
+  overflow-wrap: anywhere;
+  white-space: normal;
+  word-break: break-word;
+}
+
+body.researchPage blockquote blockquote {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+p b font,
+p > b {
+  color: var(--navy);
+  font-size: 1.15rem;
+}
+
+p b a[name],
+p b a[id] {
+  scroll-margin-top: 24px;
+}
+
+body.researchPage > blockquote > p:has(a[name]),
+body.researchPage > blockquote > p:has(a[id]) {
+  margin-top: 1.45rem;
+}
+
+@media (max-width: 820px) {
+  body.researchPage {
+    font-size: 16px;
+  }
+
+  body.researchPage > blockquote {
+    margin: 18px 12px 30px;
+    padding: 22px 16px;
+  }
+
+  h1 {
+    font-size: 2rem;
+  }
+
+  body.researchPage > blockquote > table:first-of-type:not([align="center"]),
+  body.researchPage > blockquote > table:first-of-type:not([align="center"]) tbody,
+  body.researchPage > blockquote > table:first-of-type:not([align="center"]) tr,
+  body.researchPage > blockquote > table:first-of-type:not([align="center"]) td {
+    display: block;
+    width: 100% !important;
+  }
+
+  body.researchPage table[align="right"] {
+    float: none;
+    margin: 20px auto;
+    max-width: 360px;
+    width: 100% !important;
+  }
+
+  body.researchPage table[align="center"],
+  body.researchPage table[align="center"] tbody,
+  body.researchPage table[align="center"] tr,
+  body.researchPage table[align="center"] td {
+    display: block;
+    max-width: 100%;
+    width: 100% !important;
+  }
+
+  body.researchPage table[align="center"] {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  body.bioPage > blockquote {
+    padding: 26px 18px;
+  }
+
+  body.bioPage .bioHero {
+    gap: 24px;
+    grid-template-columns: 1fr;
+  }
+
+  body.bioPage .bioPortraitWrap {
+    justify-self: center;
+    max-width: 260px;
+  }
+
+  body.bioPage h1 {
+    font-size: 2.35rem;
+  }
+}
+
+@media (max-width: 520px) {
+  body.researchPage > blockquote {
+    border-width: 3px;
+  }
+
+  h1 {
+    font-size: 1.7rem;
+  }
+
+  body.researchPage > blockquote > p[align="center"] {
+    padding: 12px;
+  }
+}
+
+@media print {
+  @page {
+    margin: 0.6in;
+  }
+
+  html,
+  body.researchPage {
+    background: #ffffff !important;
+    color: #000000 !important;
+    font-size: 10.5pt;
+    line-height: 1.35;
+  }
+
+  body.researchPage > blockquote {
+    background: #ffffff !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    margin: 0 !important;
+    max-width: none !important;
+    padding: 0 !important;
+  }
+
+  body.researchPage > blockquote:before,
+  body.resumePage .audioButton,
+  body.resumePage audio,
+  body.resumePage .resumePrintAction,
+  body.resumePage .experienceLogos,
+  body.resumePage .educationLogos,
+  body.resumePage .resumeSectionIcon {
+    display: none !important;
+  }
+
+  body.resumePage h1 {
+    color: #000000 !important;
+    font-size: 20pt !important;
+    margin: 0 0 8pt !important;
+    text-shadow: none !important;
+  }
+
+  body.resumePage > blockquote > p.resumeContact,
+  body.researchPage > blockquote > p[align="center"],
+  body.researchPage > blockquote > div[align="center"],
+  body.resumePage blockquote blockquote > div[align="center"] {
+    background: #ffffff !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    color: #000000 !important;
+    font-weight: normal !important;
+    margin: 0 0 10pt !important;
+    padding: 0 !important;
+  }
+
+  body.resumePage blockquote blockquote,
+  body.researchPage blockquote blockquote {
+    margin: 0 !important;
+  }
+
+  body.resumePage blockquote blockquote p {
+    margin: 10pt 0 4pt !important;
+  }
+
+  body.resumePage blockquote blockquote p b font,
+  body.resumePage blockquote blockquote p > b,
+  p b font,
+  p > b {
+    color: #000000 !important;
+    font-size: 11.5pt !important;
+    letter-spacing: 0 !important;
+  }
+
+  hr {
+    background: #000000 !important;
+    border: 0 !important;
+    height: 1px !important;
+    margin: 8pt 0 !important;
+  }
+
+  a:link,
+  a:visited,
+  body.researchPage a {
+    color: #000000 !important;
+    font-weight: inherit !important;
+    text-decoration: none !important;
+  }
+
+  body.resumePage ul {
+    margin: 0 0 8pt !important;
+    padding-left: 18pt !important;
+  }
+
+  body.resumePage li {
+    margin-bottom: 3pt !important;
+  }
+
+  body.resumePage font,
+  body.resumePage strong {
+    color: #000000 !important;
+  }
+}

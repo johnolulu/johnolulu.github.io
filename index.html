@@ -22,9 +22,10 @@ United States of America (USA)
 <title>John Maurer: PacIOOS Data System Engineer</title>
 
 <link rel="shortcut icon" href="favicon.ico" />
-<link href="css/main.css?v=2" rel="stylesheet" type="text/css">
+<link href="css/main.css?v=3" rel="stylesheet" type="text/css">
 
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="keyword" content="John Maurer, John A. Maurer IV, Professional Homepage, PacIOOS Data System Engineer, Pacific Islands Ocean Observing System (PacIOOS), Hawaii Ocean Observing System (HiOOS), School of Ocean and Earth Science and Technology (SOEST), University of Hawaii at Manoa, Honolulu, Scientific Programmer, WebGIS">
 <meta name="description" content ="This is the professional homepage for John Maurer, Data System Engineer at the Pacific Islands Ocean Observing System (PacIOOS), School of Ocean and Earth Science and Technology (SOEST), University of Hawaii at Manoa. E-mail: jmaurer@hawaii.edu."> 
 
@@ -66,6 +67,19 @@ var map;
 // For storing Google Map address geocoder:
 
 var geocoder;
+
+function playPronunciation( audioId, trigger ) {
+  var audio = document.getElementById( audioId );
+
+  if ( audio ) {
+    audio.currentTime = 0;
+    audio.play();
+  }
+
+  if ( trigger ) {
+    trigger.blur();
+  }
+}
 
 /*
 This JavaScript function controls the Google Map that is displayed.
@@ -537,45 +551,27 @@ When loading the page, load Google Map and put default text in address box:
 
 <form name="submitAddress">
 
-<br>
-
-<table align="center" cellpadding="10">
-  <tr valign="top"> 
-
-    <!-- Map column: -->
-
-    <td id="mapColumn">
-      <div align="left" style="position: relative;">
-        <p align="center" style="margin: 0; padding: 0px 0px 0px 10px;">
-          <!-- Add Google Map here: -->
-          <div id="map" style="width: 530px; height: 398px;"></div>
-          <!-- Add Hawaii postcard on top of map: pointer-events makes underlying map clickable: -->
-          <div id="postcard" style="width: 530px; height: 398px; position: absolute; top: 0px; pointer-events: none;"><img src="hawaii_frame.png" width="530" height="398" style="pointer-events: none;" /></div>
-          <!-- Area to display current cursor lat/lon location: -->
-          <div id="message" class="SmallTextGrayLight" style="margin: 5px 0px 0px 0px;" align="center">&nbsp;</div>
-        </p> 
+<main class="pageShell">
+  <section class="hero">
+    <div class="introPanel">
+      <p class="eyebrow">Aloha from 21&deg;17.81' N, 157&deg;9.05' W!</p>
+      <div class="nameLockup">
+        <div class="nameText">
+          <h1>John Maurer</h1>
+          <button type="button" class="audioButton audioButtonName" title="Play pronunciation of John Maurer" aria-label="Play pronunciation of John Maurer" onClick="playPronunciation( 'audioJohn', this );"><i class="fa fa-volume-up" aria-hidden="true"></i></button>
+        </div>
+        <img class="palmMark" src="images/palm_trees_beach_scene_chatgpt_360.png" alt="Palm tree beach illustration" width="360" height="199" />
       </div>
-      <div align="center">
-        <p style="margin: 0px; padding: 1px 0px 0px 0px;">
-          <!-- Put address input text box here: -->
-          <!--<div id="address_input"></div>-->
-          <!-- Put jump-to pull-down here: -->
-          <div id="jump_to" style="margin-top: -8px;"></div>
-          <!--<i>&#147;Without geography, you're nowhere.&#148;<br>&#151;</i><a href="http://en.wikipedia.org/wiki/Jimmy_Buffet">Jimmy Buffet</a>-->
-        </p>
-      </div>
-    </td>
-
-    <!-- Text column: -->
-
-    <td width="571" height="338" style="padding: 10px 0px 0px 15px;">
-      <h2 style="margin: 0; padding: 0;"><!--<font face="Georgia, Times New Roman, Times, serif">-->John Maurer</h2>
-      <p>
-        <a href="jobs/pacioos_data_syseng.html">PacIOOS Data System Engineer</a><br/>
-        Pacific Islands Ocean Observing System (<a href="http://pacioos.org">PacIOOS</a>)<br/>
-        School of Ocean and Earth Science and Technology (<a href="http://www.soest.hawaii.edu">SOEST</a>)<br/>
-        <a href="http://manoa.hawaii.edu">University of Hawai&#699;i at M&#257;noa</a> 
-        <br/>
+      <p class="role"><a href="jobs/pacioos_data_syseng.html">PacIOOS Data System Engineer</a></p>
+      <p class="affiliation">
+        Pacific Islands Ocean Observing System (<a href="http://pacioos.org">PacIOOS</a>) <button type="button" class="audioButton" title="Play pronunciation of PacIOOS" aria-label="Play pronunciation of PacIOOS" onClick="playPronunciation( 'audioPacioos', this );"><i class="fa fa-volume-up" aria-hidden="true"></i></button><br/>
+        School of Ocean and Earth Science and Technology (<a href="http://www.soest.hawaii.edu">SOEST</a>) <button type="button" class="audioButton" title="Play pronunciation of SOEST" aria-label="Play pronunciation of SOEST" onClick="playPronunciation( 'audioSoest', this );"><i class="fa fa-volume-up" aria-hidden="true"></i></button><br/>
+        <a href="http://manoa.hawaii.edu">University of Hawai&#699;i at M&#257;noa</a>
+      </p>
+      <audio id="audioJohn" src="mp3/pronounce_john_maurer.mp3" preload="none"></audio>
+      <audio id="audioPacioos" src="mp3/pronounce_pacioos.mp3" preload="none"></audio>
+      <audio id="audioSoest" src="mp3/pronounce_soest.mp3" preload="none"></audio>
+      <p class="contact">
         Email: <script language='javascript'>
 	take='<a href="mai'
 	a='lto:jmaurer'
@@ -585,60 +581,71 @@ When loading the page, load Google Map and put default text in address box:
 	spam='.edu</a>'
 	document.write(take+a+'@'+bight+out+'@'+of+spam);</script>
       </p>
-      <p>
-        <!--<hr align="left"/>-->
-        <h3><a href="resume.html">r&eacute;sum&eacute;</a> &nbsp;<strong>&#149;</strong>&nbsp; <a href="bio.html">bio</a></h3>
-        <h3>web mapping:</h3>
-        <ul>
-          <li><a href="http://pacioos.org/voyager/">Pacific Islands Ocean Observing System (PacIOOS) Voyager</a></li>
-          <ul>
-            <li><a href="http://pacioos.org/voyager/mobile/">PacIOOS Voyager Mobile</a></li>
-            <!--<li><a href="http://pacioos.org/voyager/oceanwatch.html">NOAA OceanWatch Voyager</a></li>-->
-          </ul>
-          <li><a href="http://pacioos.org/shoreline/slr-hawaii/">Hawai&#699;i sea level rise</a></li>
-          <li><a href="http://pacioos.org/shoreline/slr-amsam/">American Samoa sea level rise</a></li>
-          <li><a href="http://pacioos.org/shoreline/slr-eastpalau/">East Babeldaob, Palau sea level rise</a></li>
-          <li><a href="http://pacioos.org/shoreline/slr-honolulu/">Honolulu sea level rise</a></li>
-          <li><a href="http://pacioos.org/shoreline/slr-westmaui/">West Maui sea level rise</a></li>
-          <li><a href="http://pacioos.org/king-tides/map.html">King Tides photo database</a></li>
-          <li><a href="http://pacioos.org/coral-card/map.html">Hawai&#699;i coral health</a></li>
-          <li><a href="http://pacioos.org/projects/coral/">Hawai&#699;i coral cover</a></li>
-          <li><a href="http://pacioos.org/projects/otp/#data">Hawai&#699;i ocean tipping points</a></li>
-          <li><a href="http://pacioos.org/projects/sharks/">Hawai&#699;i tiger shark tracking</a></li>
-          <!--<li><a href="http://nsidc.org/data/atlas">Atlas of the Cryosphere</a></li>-->
-          <!--<li><a href="http://nsidc.org/agdc/acap/">A-CAP: The Antarctic Cryosphere Access Portal</a></li>-->
-        </ul>
-        <h3>prior research:</h3>
-        <ul>
-          <!-- 2026: No longer on the CIRES website...
-          <li><a href="http://cires.colorado.edu/science/groups/steffen/greenland/journal/">Greenland: a photo journal</a></li>
-          -->
-          <li><a href="gpr/">Greenland snow accumulation and ground-penetrating radar (GPR)</a></li>
-          <li><a href="gcm/">climate modeling of ice sheets</a></li>
-          <li><a href="scatterometry/">scatterometry of the cryosphere</a></li>
-          <li><a href="clouds/">cloud detection over snow and ice surfaces</a></li>
-          <li><a href="albedo/">retrieval of surface albedo from space</a></li>
-          <li><a href="conifers/">mapping ponderosa and Douglas-fir using AVIRIS</a></li>
-          <li><a href="terra/">overview of NASA's Terra satellite</a></li>
-          <li><a href="sst/">remote sensing of sea surface temperature (SST)</a></li>
-          <li><a href="uav/">polar applications of an unpiloted aerial vehicle (UAV)</a></li>
-        </ul>
-      </p>
-    </td>
+      <div class="profileActions">
+        <a href="resume.html">resume</a>
+        <a href="bio.html">bio</a>
+        <a href="https://www.linkedin.com/in/maurerj/" target="_blank" rel="noopener">linkedin</a>
+      </div>
+    </div>
 
-  </tr>
+    <div class="mapPanel" id="mapColumn">
+      <div class="mapFrame">
+        <!-- Add Google Map here: -->
+        <div id="map" style="width: 530px; height: 398px;"></div>
+        <!-- Add Hawaii postcard on top of map: pointer-events makes underlying map clickable: -->
+        <div id="postcard"><img src="hawaii_frame.png" width="530" height="398" alt="Hawaiian postcard frame" /></div>
+      </div>
+      <!-- Area to display current cursor lat/lon location: -->
+      <div id="message" class="SmallTextGrayLight">&nbsp;</div>
+      <!-- Put address input text box here: -->
+      <!--<div id="address_input"></div>-->
+      <!-- Put jump-to pull-down here: -->
+      <div id="jump_to"></div>
+      <!--<i>&#147;Without geography, you're nowhere.&#148;<br>&#151;</i><a href="http://en.wikipedia.org/wiki/Jimmy_Buffet">Jimmy Buffet</a>-->
+    </div>
+  </section>
 
-  <!-- Footer row: -->
-  <!--
-  <tr valign="top">
-    <td height="54" colspan="2" align="center">
-      <hr>
-      <p class="SmallTextGrayLight">1680 East-West Road, POST Building, Room 815C, Honolulu, HI, 96822 &#8226; (808) 956-0227</p>
-    </td>
-  </tr>
-  -->
+  <section class="linkSections">
+    <div class="linkGroup">
+      <h2>Web Mapping</h2>
+      <ul>
+        <li><a href="http://pacioos.org/voyager/">Pacific Islands Ocean Observing System (PacIOOS) Voyager</a></li>
+        <li><a href="http://pacioos.org/voyager/mobile/">PacIOOS Voyager Mobile</a></li>
+        <!--<li><a href="http://pacioos.org/voyager/oceanwatch.html">NOAA OceanWatch Voyager</a></li>-->
+        <li><a href="http://pacioos.org/shoreline/slr-hawaii/">Hawai&#699;i sea level rise</a></li>
+        <li><a href="http://pacioos.org/shoreline/slr-amsam/">American Samoa sea level rise</a></li>
+        <li><a href="http://pacioos.org/shoreline/slr-eastpalau/">East Babeldaob, Palau sea level rise</a></li>
+        <li><a href="http://pacioos.org/shoreline/slr-honolulu/">Honolulu sea level rise</a></li>
+        <li><a href="http://pacioos.org/shoreline/slr-westmaui/">West Maui sea level rise</a></li>
+        <li><a href="http://pacioos.org/king-tides/map.html">King Tides photo database</a></li>
+        <li><a href="http://pacioos.org/coral-card/map.html">Hawai&#699;i coral health</a></li>
+        <li><a href="http://pacioos.org/projects/coral/">Hawai&#699;i coral cover</a></li>
+        <li><a href="http://pacioos.org/projects/otp/#data">Hawai&#699;i ocean tipping points</a></li>
+        <li><a href="http://pacioos.org/projects/sharks/">Hawai&#699;i tiger shark tracking</a></li>
+        <!--<li><a href="http://nsidc.org/data/atlas">Atlas of the Cryosphere</a></li>-->
+        <!--<li><a href="http://nsidc.org/agdc/acap/">A-CAP: The Antarctic Cryosphere Access Portal</a></li>-->
+      </ul>
+    </div>
 
-</table>
+    <div class="linkGroup">
+      <h2>Prior Research</h2>
+      <ul>
+        <!-- 2026: No longer on the CIRES website...
+        <li><a href="http://cires.colorado.edu/science/groups/steffen/greenland/journal/">Greenland: a photo journal</a></li>
+        -->
+        <li><a href="gpr/">Greenland snow accumulation and ground-penetrating radar (GPR)</a></li>
+        <li><a href="gcm/">climate modeling of ice sheets</a></li>
+        <li><a href="scatterometry/">scatterometry of the cryosphere</a></li>
+        <li><a href="clouds/">cloud detection over snow and ice surfaces</a></li>
+        <li><a href="albedo/">retrieval of surface albedo from space</a></li>
+        <li><a href="conifers/">mapping ponderosa and Douglas-fir using AVIRIS</a></li>
+        <li><a href="terra/">overview of NASA's Terra satellite</a></li>
+        <li><a href="sst/">remote sensing of sea surface temperature (SST)</a></li>
+        <li><a href="uav/">polar applications of an unpiloted aerial vehicle (UAV)</a></li>
+      </ul>
+    </div>
+  </section>
+</main>
 
 </form>
 

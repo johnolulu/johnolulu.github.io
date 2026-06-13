@@ -7,23 +7,42 @@
 <title>John Maurer: bio</title>
 <link rel="shortcut icon" href="favicon.ico" />
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
-<link href="css/main.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="css/font-awesome/css/font-awesome.min.css">
+<link href="css/subpages.css" rel="stylesheet" type="text/css">
+<script language="javascript">
+function playPronunciation( audioId, trigger ) {
+  var audio = document.getElementById( audioId );
+
+  if ( audio ) {
+    audio.currentTime = 0;
+    audio.play();
+  }
+
+  if ( trigger ) {
+    trigger.blur();
+  }
+}
+</script>
 </head>
 
-<body>
-<blockquote><br>
-  <br>
-  <table width="800" align="center">
-<tr>
-      <td> <h2> <font face="Georgia, Times New Roman, Times, serif"><img src="/images/John_Maurer-500x500.jpg" width="150" height="150" align="left" style="margin: 0px 20px 8px 0px; box-shadow: 4px 3px 4px 1px rgba(200, 200, 200, 0.3);">John
-          Maurer</font></h2>
-  <p>M.A., University of Colorado at Boulder, 2006<br>
-    B.A., Stanford University, 1999
-    <br>
-    Email: <!--#include virtual="ssi/email.ssi" -->{% include email.ssi %}
-    </p>
-        <p><i>E komo mai! (Welcome!)</i> As a programmer and data system engineer at the Pacific Islands Ocean Observing System (<a href="http://pacioos.org">PacIOOS</a>), I create or configure Web interfaces and services that provide scientific oceanographic data from a variety of sources, including satellite remote sensing, forecast models, and <em>in  situ</em> observations (buoys, moorings, gliders, etc.) primarily for the region surrounding Hawai&#699;i, but also for other islands across the insular Pacific. Given my background as a geographer and my experience with geographic information systems (GIS) and computer programming, I also work on projects related to online mapping and dynamic data visualization.  I enjoy making complex scientific geospatial information easier to access, use, and understand, and strive to bridge the gap between science and the general public. <!--Over the years, I have also worked substantially  with various geospatial metadata standards, helping to write, validate,  translate, broker, and display metadata holdings to aid users and  applications in the search, discovery, and acquisition of disparate data set holdings.--></p>
+<body class="researchPage bioPage">
+<blockquote>
+  <section class="bioHero">
+    <div class="bioPortraitWrap">
+      <img class="bioPortrait" src="images/John_Maurer-500x500.jpg" width="260" height="260" alt="John Maurer">
+    </div>
+    <div class="bioCopy">
+      <p class="bioEyebrow">E komo mai</p>
+      <h1>John Maurer<button type="button" class="audioButton bioNameAudioButton" title="Play pronunciation of John Maurer" aria-label="Play pronunciation of John Maurer" onClick="playPronunciation( 'audioJohnMaurer', this );"><i class="fa fa-volume-up" aria-hidden="true"></i></button></h1>
+      <audio id="audioJohnMaurer" src="mp3/pronounce_john_maurer.mp3" preload="none"></audio>
+      <audio id="audioPacioos" src="mp3/pronounce_pacioos.mp3" preload="none"></audio>
+      <p class="bioCredentials">M.A., University of Colorado at Boulder<br>
+        B.A., Stanford University<br>
+        Email: <!--#include virtual="ssi/email.ssi" -->{% include email.ssi %}
+      </p>
+      <p><i>E komo mai! (Welcome!)</i> As a <!--programmer and data system engineer--> <span class="bioHotPink">data guru</span> and <span class="bioHotPink">mapster</span> at the Pacific Islands Ocean Observing System (<a href="http://pacioos.org">PacIOOS</a><button type="button" class="audioButton bioInlineAudioButton" title="Play pronunciation of PacIOOS" aria-label="Play pronunciation of PacIOOS" onClick="playPronunciation( 'audioPacioos', this );"><i class="fa fa-volume-up" aria-hidden="true"></i></button>), I create and configure websites and services that provide scientific oceanographic data from a wide variety of sources, including satellite remote sensing, forecast models, and <em>in  situ</em> observations (buoys, moorings, gliders, etc.) primarily for the region surrounding Hawai&#699;i, but also for other islands across the insular Pacific. Given my background in geography and my experience with geographic information systems (GIS) and programming, I also <!--work on projects related to--> build <span class="bioHotPink">online mapping</span> tools and do dynamic <span class="bioHotPink">data viz</span>.  I enjoy making complex scientific geospatial information easier to access, use, and understand, and strive to bridge the gap between science and the general public. <!--Over the years, I have also worked substantially  with various geospatial metadata standards, helping to write, validate,  translate, broker, and display metadata holdings to aid users and  applications in the search, discovery, and acquisition of disparate data set holdings.--></p>
         <!--
         <p>My <a href="gpr/">Masters 
           thesis</a> involved software development in ENVI and IDL for processing 
@@ -33,22 +52,24 @@
           expedition</a> headed by my advisor, glaciologist and climatologist 
           <a href="http://cires.colorado.edu/steffen/">Dr. Konrad Steffen</a>.</p>
         -->
-        <p>On a personal note, I'm originally from St. Louis (near historic <a href="http://en.wikipedia.org/wiki/U.S._Route_66">Route 
-          66</a>), <a href="http://ccrma.stanford.edu/%7Eblackrse/" title="View my music homepage at Stanford University.">studied 
-          music</a> at Stanford University, am an avid jazz and blues fan, love watching soccer ("football") and learning languages (yay, <a href="https://www.duolingo.com">Duolingo</a>!)<!--all things latin (food, music, espa&ntilde;ol, f&uacute;tbol)-->, and 
-           live in Honolulu on the island of O&#699;ahu with my wife <a href="http://www2.hawaii.edu/~kbarton">Kasey 
-          Barton</a> and our two kids. <!-- During <i>pau hana</i> (after work), I enjoy hitting the beach with my <i>&#699;ohana</i> (family) or playing <i>mele</i> (music) on the piano. --><i>Aloha!</i></p>
-  <hr>
-        <!--
-        Last Updated: 
-        February 7, 2012
-        <br>
-        -->
-        <!--#include virtual="ssi/footer.ssi" -->{% include footer.ssi %}
-        </td>
-  </tr>
-  </table>
-  </blockquote>
+      <p>Having once managed data measuring our planet's melting <span class="bioHotPink">cryosphere</span> at the National Snow and Ice Data Center (<a href="https://nsidc.org" target="_blank">NSIDC</a>), I'm now on the <i>receiving</i> end of all that melt water with data products and forecasts showing the rise in global sea levels that threaten tropical coastlines and low-lying islands. From a geospatial point-of-view, I escaped the quirks of polar map projections in remote Arctic and Antarctic regions only to make neighbors with the International Date Line, where  what <i>day</i> it is can get confusing and you need to avoid the ill effects of "wrap-around" at the artificial boundary known as the <span class="bioHotPink">Antimerdian</span>. Is it located at &plusmn;180&deg; or 0&deg;/360&deg;? Depends entirely on what you're trying (not) to do!</p>
+      <p>On a personal note, I'm originally from St. Louis (near historic <a href="http://en.wikipedia.org/wiki/U.S._Route_66">Route 
+        66</a>), <a href="http://ccrma.stanford.edu/%7Eblackrse/" title="View my music homepage at Stanford University.">studied 
+        music</a> at Stanford University, am an avid jazz and blues fan, love watching soccer (the OG "football") and tennis (vamos!) and learning languages (yay, <a href="https://www.duolingo.com">Duolingo</a>)<!--all things latin (food, music, espa&ntilde;ol, f&uacute;tbol)-->, and 
+        live in Honolulu on the island of O&#699;ahu with my wife <a href="http://www2.hawaii.edu/~kbarton">Kasey 
+        Barton</a> and our two kids, liberally coated in sunscreen and generally enjoying the views and <span class="bioHotPink">holoholo</span> time whenever can. <!-- During <i>pau hana</i> (after work), I enjoy hitting the beach with my <i>&#699;ohana</i> (family) or playing <i>mele</i> (music) on the piano. --><i>Aloha!</i></p>
+      <p class="bioActions"><a href="index.html">home</a><a href="resume.html">resume</a></p>
+    </div>
+  </section>
+  <div class="bioFooter">
+    <!--
+    Last Updated: 
+    February 7, 2012
+    <br>
+    -->
+    <!--#include virtual="ssi/footer.ssi" -->{% include footer.ssi %}
+  </div>
+</blockquote>
 <!--#include virtual="ssi/google_analytics.ssi" -->{% include google_analytics.ssi %}
 </body>
 </html>

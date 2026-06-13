@@ -6,10 +6,11 @@
 <link rel="shortcut icon" href="../favicon.ico" />
 <title>Retrieval of surface albedo from space</title>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="../css/subpages.css" rel="stylesheet" type="text/css">
 </head>
 
-<body bgcolor="#FFFFFF" text="#000000">
+<body bgcolor="#FFFFFF" text="#000000" class="researchPage">
 <blockquote> 
   <h1 align="left"><a name="top"></a>Retrieval of surface albedo from space</h1>
   <hr>
@@ -74,8 +75,8 @@
     a poor approximation depending on the viewing geometry:</p>
   <table width="61%" border="0" cellpadding="5" align="center">
     <tr> 
-      <td width="42%" height="244"> <div align="center"><img src="spectralon_BRDF.gif" width="342" height="331"></div></td>
-      <td width="58%" height="244"> <div align="center"><img src="grass_BRDF.gif" width="342" height="331"></div></td>
+      <td width="50%" height="244"> <div align="center"><img src="spectralon_BRDF.gif" width="342" height="331"></div></td>
+      <td width="50%" height="244"> <div align="center"><img src="grass_BRDF.gif" width="342" height="331"></div></td>
     </tr>
   </table>
   <p align="left">In this paper, I will investigate the methods used to retrieve 
@@ -176,26 +177,26 @@
     values. </p>
   <p>Below is a diagram of the various steps described above which are necessary 
     to convert a raw remote sensing signal into a measurement of surface albedo:</p>
-  <table width="75%" border="1" cellpadding="5" align="center">
+  <table width="82%" border="1" cellpadding="5" align="center">
     <tr> 
       <td colspan="2" bgcolor="#000000"> <div align="center"><font color="#FFFFFF"><b><font face="Arial, Helvetica, sans-serif">Method 
           for retrieving surface albedo from satellite remote sensing data.</font></b></font></div></td>
     </tr>
     <tr bgcolor="#CCCCCC"> 
-      <td width="47%"> <div align="center"><b><font face="Arial, Helvetica, sans-serif">Steps</font></b></div></td>
-      <td width="53%"> <div align="center"><b><font face="Arial, Helvetica, sans-serif">Output 
+      <td width="55%"> <div align="center"><b><font face="Arial, Helvetica, sans-serif">Steps</font></b></div></td>
+      <td width="45%"> <div align="center"><b><font face="Arial, Helvetica, sans-serif">Output 
           Values </font></b></div></td>
     </tr>
     <tr> 
-      <td width="47%"> <p><font face="Arial, Helvetica, sans-serif">&nbsp;&nbsp;&nbsp;1. 
+      <td width="55%"> <p><font face="Arial, Helvetica, sans-serif">&nbsp;&nbsp;&nbsp;1. 
           apply cloud-mask</font></p></td>
-      <td width="53%"><font face="Arial, Helvetica, sans-serif">&nbsp;&nbsp;&nbsp;cloud-free 
+      <td width="45%"><font face="Arial, Helvetica, sans-serif">&nbsp;&nbsp;&nbsp;cloud-free 
         pixels (DN) </font></td>
     </tr>
     <tr> 
-      <td width="47%"><font face="Arial, Helvetica, sans-serif">&nbsp;&nbsp;&nbsp;2. 
+      <td width="55%"><font face="Arial, Helvetica, sans-serif">&nbsp;&nbsp;&nbsp;2. 
         calibration</font></td>
-      <td width="53%"><font face="Arial, Helvetica, sans-serif">&nbsp;&nbsp;&nbsp;DN 
+      <td width="45%"><font face="Arial, Helvetica, sans-serif">&nbsp;&nbsp;&nbsp;DN 
         <object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=4,0,2,0" width="22" height="22" align="absmiddle">
           <param name=movie value="button1.swf">
           <param name=quality value=high>
@@ -205,9 +206,9 @@
         radiance (W&middot;m<sup>-2</sup>&middot;sr<sup>-1</sup>)</font></td>
     </tr>
     <tr> 
-      <td width="47%"><font face="Arial, Helvetica, sans-serif">&nbsp;&nbsp;&nbsp;3. 
+      <td width="55%"><font face="Arial, Helvetica, sans-serif">&nbsp;&nbsp;&nbsp;3. 
         atmospheric corrections </font></td>
-      <td width="53%"><font face="Arial, Helvetica, sans-serif">&nbsp;&nbsp;&nbsp;radiance 
+      <td width="45%"><font face="Arial, Helvetica, sans-serif">&nbsp;&nbsp;&nbsp;radiance 
         <object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=4,0,2,0" width="22" height="22" align="absmiddle">
           <param name=movie value="button1.swf">
           <param name=quality value=high>
@@ -217,9 +218,9 @@
         reflectance</font></td>
     </tr>
     <tr> 
-      <td width="47%"><font face="Arial, Helvetica, sans-serif">&nbsp;&nbsp;&nbsp;4. 
+      <td width="55%"><font face="Arial, Helvetica, sans-serif">&nbsp;&nbsp;&nbsp;4. 
         anisotropic correction</font></td>
-      <td width="53%"><font face="Arial, Helvetica, sans-serif">&nbsp;&nbsp;&nbsp;reflectance 
+      <td width="45%"><font face="Arial, Helvetica, sans-serif">&nbsp;&nbsp;&nbsp;reflectance 
         <object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=4,0,2,0" width="22" height="22" align="absmiddle">
           <param name=movie value="button1.swf">
           <param name=quality value=high>
@@ -229,9 +230,9 @@
         narrowband albedo</font></td>
     </tr>
     <tr> 
-      <td width="47%"><font face="Arial, Helvetica, sans-serif"> &nbsp;&nbsp;&nbsp;5. 
+      <td width="55%"><font face="Arial, Helvetica, sans-serif"> &nbsp;&nbsp;&nbsp;5. 
         narrowband-to-broadband (NTB) conversion</font></td>
-      <td width="53%"><font face="Arial, Helvetica, sans-serif">&nbsp;&nbsp;&nbsp;narrowband 
+      <td width="45%"><font face="Arial, Helvetica, sans-serif">&nbsp;&nbsp;&nbsp;narrowband 
         albedo 
         <object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=4,0,2,0" width="22" height="22" align="absmiddle">
           <param name=movie value="button1.swf">
@@ -399,7 +400,7 @@
     cost of this sensor compared to thermopile pyranometers makes it desirable 
     in many applications, however, despite this inaccuracy. The sensor weighs 
     only 28 grams and is 2.38 cm in diameter by 2.54 cm in height.</p>
-  <p align="center"><a href="http://env.licor.com/Products/Sensors/pyra.htm" target="_blank"><img src="licor.jpg" width="144" height="93" border="0"></a><br>
+  <p align="center"><a href="http://env.licor.com/Products/Sensors/pyra.htm" target="_blank"><img src="licor.jpg" width="144" height="93" border="0"></a>
     <font size="-7">LI-COR 200 SZ</font></p>
   <p align="left">One of the thermopile pyranometers often used for albedo studies 
     (Stroeve et al., 1997; Stroeve et al., 2001; Klein et al., 2002) is the <b>Eppley 
@@ -415,7 +416,7 @@
     surrounding surface and entering into the sensor. The instrument's body includes 
     a bubble level for ascertaining that it is situated parallel with the surface. 
     The PSP weighs 3.2 kg (7 lbs.) and is 14.6 cm in diameter by 9.5 cm in height.</p>
-  <p align="center"><a href="http://www.eppleylab.com/PrdPrecSpectralPyrmtr.htm" target="_blank"><img src="eppley.jpg" width="196" height="138" border="0"></a><br>
+  <p align="center"><a href="http://www.eppleylab.com/PrdPrecSpectralPyrmtr.htm" target="_blank"><img src="eppley.jpg" width="196" height="138" border="0"></a>
     <font size="-7">Eppley PSP (with shield)</font></p>
   <p align="left">Another model of thermopile pyranometer is also employed in 
     many albedo studies (Greuell et al., 2002; Liang et al., 2003): the <b>Kipp 
@@ -434,7 +435,7 @@
     pair of pyranometers whose responses are automatically divided to output albedo 
     directly. This was used in a few of the experiments that I reviewed (Knap 
     et al., 1999; Lucht et al., 2000; Greuell et al, 2002). </p>
-  <p align="center"><a href="http://www.kippzonen.com/product/cm21.html" target="_blank"><img src="kipp&zonen.jpg" width="207" height="135" border="0"></a><br>
+  <p align="center"><a href="http://www.kippzonen.com/product/cm21.html" target="_blank"><img src="kipp&zonen.jpg" width="207" height="135" border="0"></a>
     <font size="-7">Kipp &amp; Zonen CM21 </font></p>
   <p align="left">Spectral albedo measurements are now often measured for albedo 
     studies using the following equipment (Liang et al., 2003): (1) the <b>Analytical 
@@ -462,7 +463,7 @@
     employed similar <b>Geophysical Research Corporation (GER)</b> portable field 
     spectrometers (Haefliger et al., 1993; Stroeve et al., 1997) rather than the 
     ASD FR.</p>
-  <p align="center"><a href="http://www.asdi.com/asdi_t2_pr_sp_fsp.html" target="_blank"><img src="asd.jpg" width="212" height="149" border="0"></a><br>
+  <p align="center"><a href="http://www.asdi.com/asdi_t2_pr_sp_fsp.html" target="_blank"><img src="asd.jpg" width="212" height="149" border="0"></a>
     <font size="-7">ASD FieldSpec Pro FR </font></p>
   <p><b><a name="NTB"></a><font face="Arial, Helvetica, sans-serif">3.2. <font color="#CC0000">Deriving 
     NTB Conversion Coefficients</font></font></b></p>
@@ -477,11 +478,7 @@
     be measured by pointing the spectrometer at nadir over a nearly Lambertian 
     surface such as that of Spectralon. Here is the equation for deriving broadband 
     albedo from a reflectance spectrum, where <i>w </i>represents wavelength:</p>
-  <p align="center"><b>INTEGRAL (reflectance * irradiance) <font face="Arial, Helvetica, sans-serif">&middot;</font> 
-    dw<br>
-    _____________________________________</b></p>
-  <p align="center"><b> INTEGRAL (irradiance) <font face="Arial, Helvetica, sans-serif">&middot;</font> 
-    dw</b></p>
+  <p class="fractionEquation" align="center"><b><span>INTEGRAL (reflectance * irradiance) <font face="Arial, Helvetica, sans-serif">&middot;</font> dw</span><span class="fractionDivider">_____________________________________</span><span>INTEGRAL (irradiance) <font face="Arial, Helvetica, sans-serif">&middot;</font> dw</span></b></p>
   <p align="left">The goal, however, is not to calculate broadband albedo from 
     the reflectance spectra. The goal is to calculate narrowband, or &quot;spectral&quot;, 
     albedo at wavelength intervals that correspond to bands measured by the satellite 
@@ -613,8 +610,7 @@
     when compared to ground measurements. </p>
   <hr>
   <p><b><a name="references"></a><font face="Arial, Helvetica, sans-serif">REFERENCES</font></b></p>
-</blockquote>
-<ul>
+  <ul>
   <li>Analytical Spectral Devices, Inc. <a href="http://www.asdi.com" target="_blank">http://www.asdi.com</a>. 
     On December 12, 2002.</li>
   <li>Arendt, A. (1999), Approaches to modeling the surface albedo of a high Arctic 
@@ -708,8 +704,7 @@
   <li>Williams, Jr., R.S. and Hall, D.K. (1993), Glaciers. . In <i>Atlas of satellite 
     observations related to global change.</i> R.J. Gurney, J.L. Foster and C.L. 
     Parkinson, eds., Cambridge Univ. Press, London, 401-422.</li>
-</ul>
-<blockquote> 
+  </ul>
   <hr>
   <p align="center"> <a href="#" onClick="window.scrollTo( 0, 0 ); this.blur(); return false;">Top of Page</a> &bull; <a href="#intro">Introduction</a> 
     &bull; <a href="#remotesensing">Remote Sensing Methods</a> &bull; <a href="#field">Field 
