@@ -15,6 +15,7 @@ DEPRECATED METHOD Universal Analytics (UA)...
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-
-  gtag('config', 'G-061QPFSC0N');
+  gtag('config', 'G-061QPFSC0N', {
+    'cookie_domain': 'johnolulu.github.io'
+  });
 </script>
