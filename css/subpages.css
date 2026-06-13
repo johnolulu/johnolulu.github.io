@@ -318,9 +318,14 @@ body.resumePage > blockquote > p.resumeContact font[size="-1"] {
 }
 
 body.resumePage > blockquote > p.resumePrintAction {
+  align-items: center;
   background: transparent;
   border: 0;
   box-shadow: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 13px;
+  justify-content: center;
   margin: 24px 0 0;
   padding: 0;
 }

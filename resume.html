@@ -30,6 +30,14 @@ function printResume( trigger ) {
 
   window.print();
 }
+
+function scrollResumeTop( trigger ) {
+  if ( trigger ) {
+    trigger.blur();
+  }
+
+  window.scrollTo( { top: 0, behavior: 'smooth' } );
+}
 </script>
 </head>
 
@@ -404,7 +412,7 @@ ific Integrated Ocean Observing System</a>. <em>IMDIS-2010 Proceedings, IFREMER/
 
 </div>
 </blockquote>
-<p align="center" class="resumePrintAction"><button type="button" onClick="printResume( this );"><i class="fa fa-print" aria-hidden="true"></i>&nbsp; Print / Save PDF</button></p>
+<p align="center" class="resumePrintAction"><button type="button" onClick="printResume( this );"><i class="fa fa-print" aria-hidden="true"></i>&nbsp; Print / Save PDF</button><button type="button" onClick="scrollResumeTop( this );"><i class="fa fa-arrow-up" aria-hidden="true"></i>&nbsp;Top</button></p>
 
 </blockquote>
 <!--#include virtual="ssi/google_analytics.ssi" -->{% include google_analytics.ssi %}
