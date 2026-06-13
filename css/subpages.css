@@ -245,7 +245,7 @@ body.researchPage > blockquote > p[align="center"]:has(img) > a:has(> img) {
 
 body.researchPage > blockquote > p.instrumentPanel {
   display: table;
-  margin-left: auto;
+  margin-left: 0;
   margin-right: auto;
   max-width: 320px;
   text-align: center;
